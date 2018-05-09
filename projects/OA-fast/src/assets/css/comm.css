@@ -1,0 +1,140 @@
+
+/*# 重置 */
+body, select {
+  margin: 0;
+}
+
+p, input, td, textarea, ul,ol, dl, dt, dd, menu {
+  padding: 0;
+  margin: 0;
+}
+
+/*h1,h2,h3,h4,h5,h6{margin:0;font-size:inherit;font-weight:normal;}*/
+ol,ul {
+  list-style-type: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+/*input,textarea,select{outline:none;}*/
+
+body {
+  color: #333;
+  font: 14px/1.2 Consolas, Microsoft Yahei, arial, SimSun, tahoma, Srial, helvetica;
+  /*background-color: #f6f6f6;*/
+  background-color: #f3f3f4;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+/*# 公共 */
+
+.cf:after {
+  content: '';
+  display: block;
+  height: 0;
+  overflow: hidden;
+  clear: both;
+}
+
+/*ff_st,.ff_st a{font-family:SimSun,\5B8B\4F53;}*/
+/*.ff_wryh,.ff_wryh a{font-family:Microsoft Yahei,\5FAE\8F6F\96C5\9ED1;}*/
+
+html{
+  font-size: 100px;
+}
+
+input,select{
+  outline-color: #16B3ED;
+}
+
+/*
+@font-face {
+  font-family: 'iconfont';  !* project id 479227 *!
+  src: url('//at.alicdn.com/t/font_479227_ztcd84sjvtoqolxr.eot');
+  src: url('//at.alicdn.com/t/font_479227_ztcd84sjvtoqolxr.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_479227_ztcd84sjvtoqolxr.woff') format('woff'),
+  url('//at.alicdn.com/t/font_479227_ztcd84sjvtoqolxr.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_479227_ztcd84sjvtoqolxr.svg#iconfont') format('svg');
+}
+*/
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('../fonts/iconfont.ttf') format('truetype');
+}
+
+.iconfont{
+  font-family: 'iconfont';
+  font-style: normal;
+}
+
+.button {
+  border: 0;
+  color: #fff;
+  font-size: 16px;
+  background-color: #12b7f5;
+  padding: 2px 12px;
+  display: inline-block;
+  text-align: center;
+  border-radius:3px;
+  text-decoration: none;
+  outline: none;
+
+  &:active {
+    background-color: #16B3ED;
+    color: #0880D7;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  &.green{
+    background-color: #5cd9b8;
+    &:active{
+      color: #007b5b;
+    }
+  }
+  &.red{
+    background-color: #FF4351;
+    &:active{
+      background-color: #f64c59;
+      color: #ff1022;
+    }
+  }
+
+  &.b-big{
+    line-height: 1;
+    width: 100%;
+    border-radius: 4px;
+    text-align: center;
+
+    font-size: 18px;
+    padding: 12px 0;
+  }
+  &.gray{
+    background-color: #eee;
+    color: #666;
+
+    &:active{
+      background-color: #eee;
+      color: #d4d4d4;
+    }
+  }
+  &.disable{
+    background-color: rgba(18, 183, 245, 0.34);
+    color: rgba(255, 255, 255, 0.54);
+
+    &:active{
+      background-color: rgba(18, 183, 245, 0.34);
+      color: rgba(255, 255, 255, 0.54);
+      text-shadow: none;
+      box-shadow: none;
+    }
+  }
+}
+

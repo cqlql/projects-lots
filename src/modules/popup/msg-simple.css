@@ -1,0 +1,26 @@
+/* 简单消息 */
+.msg-simple {
+  position: fixed;
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 4px 10px;
+  font-size: 14px;
+  line-height: 1.2;
+
+  max-width: 86%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  pointer-events: none;
+  transition:opacity 0.3s ease;
+  z-index: 10;
+}
+
+.msg-simple.hide {
+  opacity: 0;
+}
+

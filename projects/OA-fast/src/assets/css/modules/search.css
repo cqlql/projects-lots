@@ -1,0 +1,38 @@
+/*
+  <div class="search">
+    <div class="s-inp">
+      <input class="inp" type="text" placeholder="搜索">
+    </div>
+  </div>
+*/
+.search{
+  padding: 15px 30px;
+  background-color: #fff;
+  .s-inp{
+    position: relative;
+    border-radius:100px ;
+
+    &:before{
+      content: '\e60b';
+      font-family: 'iconfont';
+      position: absolute;
+      top: 7px;
+      left: 14px;
+      font-size: 18px;
+      color: #c6c6c6;
+    }
+  }
+  .inp{
+    border: 0;
+    width: 100%;
+    background-color: #f6f6f6;
+    height: 32px;
+    font-size: 14px;
+    box-sizing: border-box;
+    /*padding: 6px 0 6px 34px;*/
+    padding-left: 36px ;
+    /*line-height: 1.4;*/
+    border-radius:100px ;
+
+  }
+}

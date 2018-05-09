@@ -1,0 +1,29 @@
+body{
+  margin:0;
+  overflow: hidden;
+}
+/*
+.chart-pie{
+  position: relative;
+  line-height:1;
+}
+.chart-pie svg{
+  width: 100%;
+}
+.chart-pie .lb{
+  position: absolute;
+  width:0;
+  transform: translateY(-50%);
+}
+.chart-pie .lb span{
+  white-space: nowrap;
+  font-size: 14px;
+}
+.chart-pie .tscore{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-weight:bold;
+}
+*/

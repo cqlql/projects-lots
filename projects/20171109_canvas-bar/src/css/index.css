@@ -1,0 +1,51 @@
+.chart-box {
+  border: 1px solid red;
+  position: relative;
+  font-size: 14px;
+  /*width: 600px;*/
+  color: #666;
+  canvas {
+    width: 100%
+  }
+  .chart-box-cvs{
+    position: relative;
+  }
+
+  .chart-box-legend{
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0 1em;
+    b{
+      display: inline-block;
+      width: 2em;
+      height: 1em;
+      vertical-align: middle;
+      margin-right: 0.2em;
+    }
+    span{
+      vertical-align: middle;
+    }
+    li{
+      float: left;
+      margin: 1em 0.2em 0;
+    }
+  }
+  .y-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-50%);
+    width: 80px;
+    text-align: right;
+    font-size: 1em;
+  }
+  .x-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1em;
+    transform: translateX(-50%);
+  }
+}
+

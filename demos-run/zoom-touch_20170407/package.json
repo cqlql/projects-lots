@@ -1,0 +1,8 @@
+{
+  "name": "zoom-touch",
+  "title": "触摸捏合放大",
+  "description": "移动端看图，也支持元素放大",
+  "scripts": {
+    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "title": "到底加载",
+  "description": "移动端到底加载",
+  "scripts": {
+    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
+  }
+}

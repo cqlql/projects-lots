@@ -1,0 +1,15 @@
+/* 底部大按钮 */
+/*
+  <div class="bottom-btn">
+    <a class="button b-big">确认添加</a>
+  </div>
+*/
+.bottom-btn{
+  position: fixed;
+  left: 0;
+  bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 15px;
+
+}

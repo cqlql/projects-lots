@@ -1,0 +1,69 @@
+/*
+  <div class="table-s1">
+    <table>
+      <thead>
+      <tr>
+        <td>排名</td>
+        <td>代理商</td>
+        <td>码洋(元)</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="st1">
+        <td><i class="i"></i></td>
+        <td>代理商A</td>
+        <td>50000</td>
+      </tr>
+      <tr class="nd2">
+        <td><i class="i"></i></td>
+        <td>代理商A</td>
+        <td>50000</td>
+      </tr>
+      <tr class="rd3">
+        <td><i class="i"></i></td>
+        <td>代理商A</td>
+        <td>50000</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+*/
+.table-s1 {
+  table {
+
+    .i:after {
+      content: '';
+      font-family: 'iconfont';
+      font-style: normal;
+      font-size: 22px;
+      display: inline-block;
+      height: 16px;
+    }
+    .st1, .nd2, .rd3 {
+      color: #12b7f5;
+      td {
+        padding: 8px 0;
+      }
+
+    }
+    .st1 {
+      .i:after {
+        content: '\e712';
+        color: #ffca00;
+      }
+
+    }
+    .nd2 {
+      .i:after {
+        content: '\e711';
+        color: #c5c5c5;
+      }
+    }
+    .rd3 {
+      .i:after {
+        content: '\e713';
+        color: #efb988;
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+/*
+  <div class="btn-bar-s2">
+    <div class="btn">深圳市<i></i></div>
+    <div class="btn unfold">龙华区<i></i></div>
+  </div>
+*/
+.btn-bar-s2{
+  background-color: #fff;
+  height: 42px;
+  padding: 0 4px;
+  overflow: hidden;
+  border-bottom: 1px solid #eee;
+  .btn{
+    height: 33px;
+    padding: 8px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    float: left;
+    border: 1px solid #e5e5e5;
+    margin: 4px 5px;
+
+  }
+  i:after{
+    content: '\E600';
+    font-family: 'iconfont';
+    font-style: normal;
+    display: inline-block;
+    padding: 0 4px;
+    color: #c6c6c6;
+    transform: rotate(180deg);
+    font-size: 12px;
+    vertical-align: 1px;
+  }
+  .btn.unfold i:after {
+    transform: rotate(0deg);
+  }
+}

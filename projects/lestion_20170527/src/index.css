@@ -1,0 +1,356 @@
+/* ios 用 */
+
+/*图标引用*/
+@font-face {
+  font-family: 'iconfont';
+  src: url('./iconfont.ttf') format('truetype');
+}
+/*@font-face {
+  font-family: 'iconfont';  !* project id 313202 *!
+  src: url('http://at.alicdn.com/t/font_313202_qt9qzsjnaxvwjyvi.eot');
+  src: url('http://at.alicdn.com/t/font_313202_qt9qzsjnaxvwjyvi.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_313202_qt9qzsjnaxvwjyvi.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_313202_qt9qzsjnaxvwjyvi.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_313202_qt9qzsjnaxvwjyvi.svg#iconfont') format('svg');
+}*/
+
+.classes-estimate-editor {
+  .cee-edit {
+    font-size: 16px;
+    padding: 8px;
+    box-sizing: border-box;
+    .close {
+      & {
+        padding: 3px 4px;
+        text-align: center;
+        border-radius: 50%;
+        line-height: 1;
+        width: 40px;
+        height: 40px;
+        box-sizing: border-box;
+        position: absolute;
+        right: 6px;
+        top: 6px;
+      }
+
+      &:before {
+        font-family: "iconfont";
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        content: '\e616';
+        color: #fff;
+        width: 32px;
+        height: 32px;
+        background-color: #ff8b8b;
+        border-radius: 50%;
+        display: block;
+        /*border: 2px solid #fff;*/
+        box-sizing: border-box;
+        padding: 7px 0;
+
+      }
+    }
+
+    .audio {
+
+      & {
+        color: #2dc990;
+        font-size: 20px;
+        margin: 6px 2px;
+        display: inline-block;
+        position: relative;
+      }
+      &:before {
+        font-family: "iconfont";
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        display: inline-block;
+        content: '\e611';
+        background-color: #f6f6f6;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        text-align: center;
+        padding: 4px 0;
+        box-sizing: border-box;
+        font-size: 26px;
+        color: #2dc990;
+        margin-right: 4px;
+        vertical-align: -2px;
+      }
+      &.play:before {
+        /*animation: audioPlay 2s infinite linear;*/
+        content: '\e61b';
+      }
+
+      .close {
+        right: -50px;
+        top: 0;
+      }
+    }
+    .video {
+
+      & {
+        color: #2dc990;
+        font-size: 20px;
+        margin: 6px 2px;
+        display: inline-block;
+        position: relative;
+        background-color: #000;
+        border-radius: 6px;
+        height: 70px;
+        width: 100px;
+      }
+      &:before {
+        font-family: "iconfont";
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        display: inline-block;
+        content: '\e602';
+
+        width: 44px;
+        height: 44px;
+        text-align: center;
+        padding: 4px 0;
+        box-sizing: border-box;
+        font-size: 30px;
+        color: #fff;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+      }
+      .tm{
+        position: absolute;
+        right: 4px;
+        bottom: 2px;
+        color: #ccc;
+        font-size: 16px;
+      }
+
+      .close {
+        right: -14px;
+        top: -14px;
+      }
+    }
+
+    .img {
+      display: inline-block;
+      position: relative;
+      margin-top: 3px;
+
+      .close {
+        right: -10px;
+        top: -14px;
+      }
+      & + :before {
+        display: block;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 150px;
+      display: block;
+    }
+
+    .merit, .suggest {
+
+      & {
+        /*text-indent: 46px;*/
+        position: relative;
+        padding: 8px 3px;
+        outline: none;
+        color: #2dc990;
+
+      }
+
+      /*div:first-child{
+          text-indent: 46px;
+      }*/
+
+      &:before {
+        content: '优点';
+        /*position: absolute;
+        left:0;*/
+        /*top:0;*/
+        background-color: #2dc990;
+        color: #fff;
+        text-indent: 0;
+        padding: 0 3px;
+        border-radius: 2px;
+        vertical-align: top;
+        margin-right: 3px;
+        margin-bottom: 3px;
+      }
+      .img {
+        margin-top: 0;
+      }
+    }
+    .suggest {
+      //color: #ff8b8b;
+      &:before {
+        content: '建议';
+        //background-color: #ff8b8b;
+      }
+
+      /*.audio {
+        color: #ff8b8b;
+        &:before {
+          color: #ff8b8b;
+        }
+      }*/
+    }
+    .general {
+
+      & {
+        border: 1px dashed #ccc;
+        border-radius: 3px;
+        outline: none;
+        /*padding:3px;*/
+        padding: 5px;
+        margin: 8px 0;
+        position: relative;
+      }
+
+      &.none:before {
+        content: '过程记录';
+        color: #ccc;
+
+      }
+      &.have,
+      &:focus {
+        &:before {
+          display: none;
+
+        }
+      }
+
+      .audio {
+        color: #666;
+        &:before {
+          color: #666;
+        }
+      }
+
+    }
+
+  }
+
+  .cee-bottom-tool-bar {
+    display: none;
+    --h: 52px;
+    & {
+      background-color: #def6ff;
+      height: var(--h);
+      width: 100%;
+
+      position: fixed;
+      bottom: 0;
+    }
+
+    .group {
+      float: right;
+      width: 70%;
+
+      .item {
+        width: 25%;
+      }
+    }
+    .group:first-child {
+      float: left;
+      width: 30%;
+      background-color: #effbff;
+      height: var(--h);
+      .item {
+        width: 100%;
+      }
+    }
+    .item {
+      float: left;
+
+      font-family: "iconfont";
+      font-size: 16px;
+      font-style: normal;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+
+
+
+      label {
+        display: block;
+        font-size: 12px;
+        text-align: center;
+        color: #999;
+      }
+    }
+
+    /*.merit-btn {
+
+      padding: 3px 5px;
+
+      &.active {
+
+        border-color: #50d89e;
+        background-color: #50d89e;
+        color: #fff;
+      }
+
+    }*/
+    i {
+      color: #999;
+      border: 1px solid #999;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: block;
+
+      font-size: 18px;
+      /*text-align: center;*/
+      box-sizing: border-box;
+      line-height: 1;
+      margin: 5px auto 1px;
+      font-style: normal;
+
+    }
+    .suggest-btn {
+      padding: 5px 5px;
+      &.active {
+
+        /*border-color: #ffa6a6;
+        background-color: #ffa6a6;*/
+        border-color: #50d89e;
+        background-color: #50d89e;
+        color: #fff;
+      }
+    }
+    .enamel-btn {
+      padding: 3px 5px;
+    }
+    .camera-btn {
+      padding: 5px;
+    }
+    .voice-btn {
+      padding: 5px;
+    }
+    .video-btn {
+      padding: 8px;
+      font-size: 14px;
+    }
+
+  }
+}
+
+/*@keyframes audioPlay{
+    0%{
+        transform: rotate3d(0,0,1,0deg)
+    }
+    100%{ transform: rotate3d(0,0,1,360deg) }
+}*/

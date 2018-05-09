@@ -1,0 +1,352 @@
+
+/*# 重置 */
+body, select {
+  margin: 0;
+}
+
+p, input, td, textarea, ul,ol, dl, dt, dd, menu {
+  padding: 0;
+  margin: 0;
+}
+
+/*h1,h2,h3,h4,h5,h6{margin:0;font-size:inherit;font-weight:normal;}*/
+ol,ul {
+  list-style-type: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+/*input,textarea,select{outline:none;}*/
+
+body {
+  color: #333;
+  font: 14px/1.2 sans-serif,MicrosoftYahei,tahoma, Srial, helvetica;
+}
+
+a{color:#333;text-decoration:none;}
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+/*# 公共 */
+
+.cf:after {
+  content: '';
+  display: block;
+  height: 0;
+  overflow: hidden;
+  clear: both;
+}
+
+/*ff_st,.ff_st a{font-family:SimSun,\5B8B\4F53;}*/
+/*.ff_wryh,.ff_wryh a{font-family:Microsoft Yahei,\5FAE\8F6F\96C5\9ED1;}*/
+
+html{
+  font-size: 100px;
+}
+
+input,select{
+  outline-color: #16B3ED;
+}
+
+/*@font-face {
+  font-family: 'iconfont';  !* project id 480441 *!
+  src: url('//at.alicdn.com/t/font_480441_zvbjttik6rwqxgvi.eot');
+  src: url('//at.alicdn.com/t/font_480441_zvbjttik6rwqxgvi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_480441_zvbjttik6rwqxgvi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_480441_zvbjttik6rwqxgvi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_480441_zvbjttik6rwqxgvi.svg#iconfont') format('svg');
+}*/
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('../fonts/iconfont.ttf') format('truetype');
+}
+
+.iconfont{
+  font-family: 'iconfont';
+  font-style: normal;
+}
+
+.button {
+  border: 0;
+  color: #fff;
+  font-size: 14px;
+  background-color: #09bddd;
+  padding: 8px 0;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  border-radius: 50px;
+  box-shadow: 0 1px 4px #929292;
+  width: 104px;
+  cursor: pointer;
+  &:active {
+    background-color: #09ccec;
+    color: #006e82;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  &.gray{
+    background-color: #b5b5b5;
+    color: #fff;
+
+    &:active{
+      background-color: #eee;
+      color: #d4d4d4;
+    }
+  }
+}
+.fade-enter-active, .fade-leave-active {
+  transition: .3s;
+  transition-property:opacity;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.scale-enter-active, .scale-leave-active {
+  transition: .2s;
+  transition-property:opacity,transform;
+}
+.scale-enter, .scale-leave-to {
+  opacity: 0;
+  transform: scale(.8, .8);
+}
+
+
+.play{
+
+  .ipt{
+    min-height:162px;
+    max-height:200px;
+    background-color: #fff;
+    word-wrap: break-word;
+    word-break: break-all;
+    border: 1px solid #d2d2d2;
+    color: #000;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 3px 6px;
+    font-size: 26px;
+    overflow: auto;
+    position: relative;
+    overflow-x:visible;
+
+    &>*{
+      float: left;
+    }
+
+    .tm{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      span{
+        border: 5px solid #09bddd;
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 60px;
+        transform: translate(-50%,-50%);
+        color: #09bddd;
+      }
+
+    }
+
+    .curr{
+      /*font-size: 18px;*/
+      color: #43bf00;
+      /*vertical-align: -1px;*/
+    }
+    .err{
+      color: red;
+    }
+    .cursor{
+      content: '';
+      display: inline-block;
+      width: 2px;
+      background-color: #999;
+      height: 26px;
+      opacity: 0;
+      /*vertical-align: -2px;*/
+      &.flicker{
+        opacity: 1;
+      }
+    }
+    &.no-color{
+      .curr{
+        /*font-size: 18px;*/
+        color: inherit;
+        /*vertical-align: -1px;*/
+      }
+      .err{
+        color: inherit;
+      }
+    }
+  }
+  .ipt-box{
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    input{
+      height: 0;
+      width: 0;
+      /*overflow: hidden;*/
+    }
+  }
+
+  .cont{
+
+    /*line-height: 1.5;*/
+    position: fixed;
+    left: 20px;
+    right: 20px;
+    top: 50%;
+    color: #6a6a6a;
+    transform: translateY(-50%);
+    z-index: 1;
+    .img-box{
+
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .cont-main{
+      background-color: #fff;
+      border-radius: 16px;
+      padding:0 18px 0;
+      box-shadow: 0 1px 4px #929292;
+      position: relative;
+      border: 1px solid #09bddd;
+      &:before{
+        content: '';
+        position: absolute;
+        left: 16px;
+        top: 10px;
+        width: 10px;
+        height: 10px;
+        border: 1px solid #0fbfde;
+        border-radius: 50%;
+      }
+      &:after{
+        content: '';
+        position: absolute;
+        right: 16px;
+        top: 10px;
+        width: 10px;
+        height: 10px;
+        border: 1px solid #0fbfde;
+        border-radius: 50%;
+      }
+
+    }
+    h2{
+      font-size: 14px;
+      color: #0d0c0c;
+      text-align: center;
+      margin: 0;
+      padding:14px 0 0;
+      line-height: 1;
+    }
+    .timing{
+      text-align: center;
+      font-size: 26px;
+      padding: 8px 0 6px;
+      color: #000;
+      font-weight: bold;
+      i{
+        font-family: 'iconfont';
+        color: #25bd09;
+        font-style: normal;
+        margin-right:3px;
+        margin-left: -26px;
+      }
+    }
+    .fr-num{
+      position: absolute;
+      right: 18px;
+      top: 50px;
+      .red{
+        color: red;
+      }
+    }
+
+    .btns{
+      padding: 10px 8px 22px;
+      .r{
+        float: right;
+      }
+      &.c{
+        text-align: center;
+      }
+    }
+
+
+  }
+
+  .l-img{
+    background: url('../imgs/5.png') no-repeat center 0;
+
+    width: 61px;
+    height: 66px;
+    background-size: 100% auto;
+    position: absolute;
+    left: 22px;
+    top: -64px;
+    z-index: 1;
+  }
+  .r-img{
+    background: url('../imgs/6.png') no-repeat center 0;
+
+    width: 72px;
+    height: 72px;
+    background-size: 100% auto;
+    position: absolute;
+    right: 13px;
+    top: -68px;
+    z-index: 1;
+  }
+  /*.b-img{
+    position: fixed;
+    left: 34px;
+    right: 34px;
+    bottom:0;
+    .img{
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+      img{
+        height: 540px;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+      }
+    }
+  }*/
+  .b-img{
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .img{
+      width: 375px;
+      height: 336px;
+      background: url('../imgs/bg.png') no-repeat center 0;
+      background-size: 100% auto;
+
+      margin: 0 auto;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "title": "换座位",
+  "description": "pc 用",
+  "scripts": {
+    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
+  }
+}

@@ -1,0 +1,33 @@
+
+.confirm-popup {
+
+    .des {
+        padding: 20px;
+        font-size: 16px
+    }
+
+    .btns {
+        text-align: center;
+        padding: 0 0 20px 0;
+
+        a {
+            margin: 0 4px;
+            padding: 4px 26px;
+            height:auto;
+            line-height:1.2;
+        }
+
+        .cancel-btn {
+            background-color: #FF4351;
+
+            /*&:hover{
+                background-color: #ff7680;
+            }*/
+            &:active {
+                background-color: #f64c59;
+                color: #c1000f;
+            }
+        }
+
+    }
+}

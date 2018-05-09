@@ -1,0 +1,43 @@
+/*
+<div class="table-s1">
+  <table>
+    <thead>
+    <tr>
+      <td>教辅名称</td>
+      <td>销量</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>6</td>
+      <td>50000</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>50000</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>50000</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+*/
+.table-s1{
+  background-color: #fff;
+  table {
+    width: 100%;
+    color: #666;
+    font-size: 15px;
+    thead {
+      color: #333;
+      font-size: 15px;
+    }
+    td {
+      border-bottom: 1px solid #eee;
+      text-align: center;
+      padding: 11px 0;
+    }
+  }
+}

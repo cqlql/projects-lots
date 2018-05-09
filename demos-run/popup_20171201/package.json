@@ -1,0 +1,8 @@
+{
+  "name": "popup",
+  "title": "弹窗",
+  "description": "部分弹窗演示",
+  "scripts": {
+    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
+  }
+}

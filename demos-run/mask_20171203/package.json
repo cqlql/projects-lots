@@ -1,0 +1,7 @@
+{
+  "title": "蒙版组件",
+  "description": "简单但常用",
+  "scripts": {
+    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
+  }
+}

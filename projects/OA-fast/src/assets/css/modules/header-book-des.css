@@ -1,0 +1,44 @@
+/*
+  <div class="header-book-des">
+    <div class="ava"><img src="http://placehold.it/194x251" alt=""></div>
+    <div class="des">
+      <div class="abt"><span class="lb">教辅名称：</span>课时分层</div>
+      <div class="abt"><span class="lb">学科：</span>数学</div>
+      <div class="abt"><span class="lb">适用年级：</span>七年级、八年级、九年级</div>
+      <div class="abt"><span class="lb">出版社：</span>XXX</div>
+      <div class="abt"><span class="lb">联系方式：</span>13754587856</div>
+      <div class="abt"><span class="lb">代理区域：</span>深圳市龙华新区，广东深圳</div>
+    </div>
+    <a class="h-edit-btn">设置定价</a>
+  </div>
+*/
+.header-book-des{
+  padding: 0 15px;
+  background-color: #fff;
+  overflow: hidden;
+  display: flex;
+  .ava{
+    flex: 0 97px;
+    min-height: 125px;
+    margin-right: 14px;
+    position: relative;
+    img{
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  .des{
+    padding: 10px 0;
+    flex: 1;
+    overflow: hidden;
+  }
+  .abt{
+    color: #999;
+    padding: 3px 0 ;
+  }
+  .lb{
+    color: #666;
+  }
+}

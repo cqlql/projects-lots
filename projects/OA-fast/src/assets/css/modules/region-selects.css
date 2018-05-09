@@ -1,0 +1,11 @@
+.region-selects{
+  display: flex;
+  select{
+    flex: 1;
+  }
+
+  .city{
+    margin: 0 4px;
+  }
+
+}

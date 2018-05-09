@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+  <title></title>
+
+</head>
+<body>
+<div class="report">
+  <canvas></canvas>
+</div>
+<script src="dist/circular.cjs.js"></script>
+<script>
+  circular({
+    canvas: document.querySelector('canvas'),
+    total: 40,
+    num: 36
+  })
+
+  setTimeout(function () {
+    circular({
+      canvas: document.querySelector('canvas'),
+      total: 100,
+      num: 80
+    })
+  }, 1000)
+</script>
+</body>
+</html>

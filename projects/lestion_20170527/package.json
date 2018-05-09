@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "build": "node ./w.prod.build.js",
+    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
+  }
+}

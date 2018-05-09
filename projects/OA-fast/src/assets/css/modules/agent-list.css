@@ -1,0 +1,11 @@
+.agent-list{
+  .mh{
+    line-height: 2.7;
+    font-size: 15px;
+    text-align: center;
+    b{
+      color: #ff6767;
+    }
+  }
+
+}

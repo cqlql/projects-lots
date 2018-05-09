@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>换座位 demo</title>
+  <style>
+    body{
+        background: #f0f0f0;
+    }
+    .platform {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div style="color: #999;border-bottom: 1px dotted #999;font-size: 16px;margin: 10px;padding: 6px">
+  <p>可进行拖拽换位，宽度自适应（宽度改变后需刷新）</p>
+  <p>使用了css3实现动画</p>
+</div>
+<div class="placetable placetable-plus">
+    <ul id="ctrCol" class="ctr-col">
+    </ul>
+    <ul id="ctrRow" class="ctr-row">
+    </ul>
+    <div id="listCont" class="list"></div>
+    <div class="platform">
+        讲 台
+    </div>
+</div>
+</body>
+</html>

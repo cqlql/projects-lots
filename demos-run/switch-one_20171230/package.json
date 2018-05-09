@@ -1,0 +1,8 @@
+{
+  "name": "switch-one",
+  "title": "左右切换",
+  "description": "不带触摸拖动的简单切换，只用2个元素容器项，针对数据项多的情况使用，优化性能",
+  "scripts": {
+    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
+  }
+}

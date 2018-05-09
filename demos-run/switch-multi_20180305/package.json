@@ -1,0 +1,8 @@
+{
+  "name": "switch-multi",
+  "title": "左右切换，纯展示性",
+  "description": "不带触摸拖动的简单切换，不带数据变更，纯展示性，列表项不多情况使用。不使用vue transition，避免页面重排",
+  "scripts": {
+    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
+  }
+}

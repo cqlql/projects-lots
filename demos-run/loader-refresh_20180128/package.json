@@ -1,0 +1,7 @@
+{
+  "title": "到底加载+下拉刷新",
+  "description": "同时组合两种效果，让调用方便",
+  "scripts": {
+    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
+  }
+}
