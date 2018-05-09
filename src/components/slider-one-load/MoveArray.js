@@ -4,11 +4,10 @@ export default class {
   }
   toLeft () {
     let {array} = this
-    array.unshift(array.pop())
+    array.push(array.shift())
   }
   toRight () {
     let {array} = this
-    array.push(array.shift())
-    console.log('movearray', array)
+    array.unshift(array.pop())
   }
 }

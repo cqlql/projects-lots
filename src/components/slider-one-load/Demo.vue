@@ -1,7 +1,7 @@
 <template>
   <div>
-    <SliderOneLoad @toLoad="toLoad">
-      <div v-for="(item, i) of items" class="item" :key="i" :slot="i">{{item.content}}</div>
+    <SliderOneLoad ref="vSliderOneLoad" @toLoad="toLoad">
+      <div v-for="(item, i) of items" class="item" :key="i" :slot="i" :total="5">{{item.content}}</div>
     </SliderOneLoad>
   </div>
 </template>
