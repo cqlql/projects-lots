@@ -1,48 +1,33 @@
 import Vue from 'vue'
 import SliderOneLoadDemoComponent from '@/components/slider-one-load/Demo.vue'
-describe('slider-one-load', function () {
+xdescribe('slider-one-load', function () {
   function getVm () {
     const el = document.createElement('div')
     document.body.appendChild(el)
     const SliderOneLoadDemo = Vue.extend(SliderOneLoadDemoComponent)
     const vSliderOneLoadDemo = new SliderOneLoadDemo().$mount(el)
-    // vm = vSliderOneLoadDemo.$refs.vSliderOneLoad
     return vSliderOneLoadDemo.$refs.vSliderOneLoad
   }
-  // let vm
-  // let transitionend = () => { }
-  // beforeEach(function () {
-  //   const el = document.createElement('div')
-  //   document.body.appendChild(el)
-  //   const SliderOneLoadDemo = Vue.extend(SliderOneLoadDemoComponent)
-  //   const vSliderOneLoadDemo = new SliderOneLoadDemo().$mount(el)
-  //   vm = vSliderOneLoadDemo.$refs.vSliderOneLoad
-  // })
 
-  beforeAll(function () {
-  })
-
-  fit('goPage 动画到最后一页', function (done) {
+  it('goPage 动画，去最后一页', function (done) {
     const vm = getVm()
-    console.log('total', vm.total)
-    // console.log('width', vm.width)
-    vm.goPage(vm.total, function () {
+    vm.goPage(vm.total, false, function () {
       expect(-vm.x === vm.width * 2).toBe(true)
       done()
     })
-    // console.log(new SliderOneLoad())
   })
 
-  it('goPageNoAnimate', function () {
+  it('goPage 没有动画，去最后一页', function () {
     const vm = getVm()
-    vm.goPageNoAnimate(1)
-  })
-
-  it('触发当前页面加载', function () {
-
+    vm.goPage(vm.total, false)
+    expect(-vm.x === vm.width * 2).toBe(true)
   })
 
   it('动画', function (done) {
     getVm().animate(-1 * vm.width, done)
+  })
+
+  xit('触发当前页面加载', function () {
+
   })
 })

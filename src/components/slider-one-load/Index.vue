@@ -8,8 +8,6 @@
         <slot :name="i" />
       </div>
     </div>
-    <p>移动{{x}}</p>
-    <div v-html="info"></div>
   </div>
 </template>
 
@@ -19,33 +17,27 @@ import autoprefix from '@/modules/corejs/dom-css/autoprefix/index.js'
 import swipex from '@/modules/corejs/dom-drag/swipex'
 import LengthTest from './LengthTest'
 import MoveArray from './MoveArray'
-// import MoveHandle from './MoveHandle'
 export default {
-  // mixins: [MoveHandle],
-  // props: {
-  //   startPage: {
-  //     default: 0,
-  //     type: Number
-  //   },
-  //   total: Number
-  // },
+  props: {
+    total: {
+      default: 1,
+      type: Number
+    }
+  },
   data () {
     return {
       itemsData: [{
         x: 0,
-        blank: false,
-        page: 0,
-        data: {}
+        blank: true,
+        page: 0
       }, {
         x: 1,
         blank: true,
-        page: 1,
-        data: {}
+        page: 1
       }, {
         x: 2,
         blank: true,
-        page: 2,
-        data: {}
+        page: 2
       }],
 
       // 显示位置。数组 0 显示为最左，1 中间，2最右，数组值为 itemsData 索引值
@@ -54,12 +46,11 @@ export default {
       itemsPosition: [0, 1, 2],
 
       transform: autoprefix('transform'),
-      info: '',
 
       x: 0,
       index: 0, // 当前显示项索引
-      page: 0, // 当前页索引
-      total: 4
+      page: 0 // 当前页索引
+      // total: 4
       // maxIndex: 2 // 最大项索引
     }
   },
@@ -69,6 +60,13 @@ export default {
     this.slideInit()
   },
   methods: {
+    move (xSegment) {
+      let x = this.x + xSegment
+      this.setX(x)
+    },
+    recovery () {
+      this.animate(-this.index * this.width)
+    },
     slideInit () {
       const vm = this
       const { $el } = this
@@ -90,21 +88,21 @@ export default {
         },
         onSwipeLeft () {
           vm.toLeft()
-          vm.info += '<p>左滑，显示右边'
+          // vm.info += '<p>左滑，显示右边'
         },
         onSwipeRight () {
           vm.toRight()
-          vm.info += '<p>右滑，显示左边'
+          // vm.info += '<p>右滑，显示左边'
         },
         onSwipeNot () {
           switch (lengthTest.getResult(moveLength)) {
             case 1: // 右滑动，显示左边
               vm.toRight()
-              vm.info += '<p>右滑，显示左边'
+              // vm.info += '<p>右滑，显示左边'
               break
             case 2: // 左滑动，显示右边
               vm.toLeft()
-              vm.info += '<p>左滑，显示右边'
+              // vm.info += '<p>左滑，显示右边'
               break
             default:
               vm.recovery()
@@ -113,20 +111,15 @@ export default {
       })
     },
     toLeft () {
-      /* eslint-disable */
-      let { page, total, index } = this
-      let maxPage = total - 1
-      page++
-      index++
-      if (page >= maxPage) {
-        page = maxPage
-        index = this.maxIndex
-      }
-      this.page = page
+      this.goPage(this.page + 1)
     },
-    goPage (p, cb = () => { }) {
-      let { page, total, index, maxIndex, maxPage } = this
-      if (p > page) {
+    toRight () {
+      this.goPage(this.page - 1)
+    },
+    goPage (p, noAnimate, cb = () => { }) {
+      let { page, index, maxPage, maxIndex } = this
+
+      if (p > page) { // 左滑
         let isStartFirst = page === 0 // 是否第一页起始
         let isLast = false // 是否为最后一页
         index++
@@ -135,63 +128,77 @@ export default {
         // 最后一个，或者大于最后一个情况
         if (page >= maxPage) {
           page = maxPage
-          index = this.maxIndex
+          index = maxIndex
           isLast = true
         }
 
         this.page = page
         this.index = index
-        this.animate(-index * this.width, () => {
+
+        if (noAnimate) { // 没有动画
           if (isStartFirst === false && isLast === false) {
             this.moveArray.toLeft()
+            this.getShowItem(maxIndex).blank = true // 最后一项数据变为空白
             index--
-            this.setMoveElemX(-index * this.width)
-            this.index = index
           }
+          this.setX(-index * this.width)
+          this.index = index
           cb()
-        })
-      } else {
+        } else { // 有动画
+          this.animate(-index * this.width, () => {
+            if (isStartFirst === false && isLast === false) {
+              this.moveArray.toLeft()
+              this.getShowItem(maxIndex).blank = true // 最后一项数据变为空白
+              index--
+              this.setX(-index * this.width)
+              this.index = index
+            }
+            cb()
+          })
+        }
+      } else { // 右滑
+        let isStartLast = page === maxPage // 是否最后一页起始
+        let isFirst = false // 是否最后一页起始
 
-      }
-      this.page = p
-    },
-    goPageNoAnimate () {
-      let { page, total, index, maxIndex, maxPage } = this
-      if (p > page) {
-        let isStartFirst = page === 0 // 是否第一页起始
-        let isLast = false // 是否为最后一页
-        index++
+        index--
         page = p
 
-        // 最后一个，或者大于最后一个情况
-        if (page >= maxPage) {
-          page = maxPage
-          index = this.maxIndex
-          isLast = true
+        // 第一个，或者小于第一个情况
+        if (page <= 0) {
+          page = 0
+          index = 0
+          isFirst = true
         }
 
         this.page = page
         this.index = index
 
-        if (isStartFirst === false && isLast === false) {
-          this.moveArray.toLeft()
-          index--
-          this.setMoveElemX(-index * this.width)
+        if (noAnimate) { // 没有动画
+          if (isStartLast === false && isFirst === false) {
+            this.moveArray.toRight()
+            this.getShowItem(0).blank = true // 第一项数据变为空白
+            index++
+          }
+          this.setX(-index * this.width)
           this.index = index
+          cb()
+        } else { // 有动画
+          this.animate(-index * this.width, () => {
+            if (isStartLast === false && isFirst === false) {
+              this.moveArray.toRight()
+              this.getShowItem(0).blank = true // 第一项数据变为空白
+              index++
+              this.setX(-index * this.width)
+              this.index = index
+            }
+            cb()
+          })
         }
-        // this.animate(-index * this.width, () => {
-        //   if (isStartFirst === false && isLast === false) {
-        //     this.moveArray.toLeft()
-        //     index--
-        //     this.setMoveElemX(-index * this.width)
-        //     this.index = index
-        //   }
-        //   cb()
-        // })
-      } else {
-
       }
-      this.page = p
+      this.page = page
+
+      // 处理当前显示项
+      this.showItem(page, index)
     },
     animate (x, cb = () => { }) {
       if (this.x === x) {
@@ -208,11 +215,23 @@ export default {
         classList.remove(animateActiveClassName)
         cb()
       })
-      this.setMoveElemX(x)
+      this.setX(x)
     },
-    setMoveElemX (x) {
+    setX (x) {
       this.x = x
       this.eMove.style[this.transform] = `translate3d(${x}px, 0, 0)`
+    },
+    getShowItem (i) {
+      const showIndex = this.itemsPosition[i]
+      const item = this.itemsData[showIndex]
+      item.showIndex = showIndex
+      return item
+    },
+    showItem (page, index) {
+      const showItem = this.getShowItem(index)
+      showItem.page = page
+      this.$emit('toLoad', showItem)
+      showItem.blank = false
     }
   },
   computed: {
@@ -248,7 +267,6 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-  /* transform: translate3d(-100%, 0, 0); */
 }
 .item {
   position: absolute;
@@ -256,14 +274,6 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  /* transform: translate3d(100%, 0, 0);
-
-  &:first-child {
-    transform: translate3d(0, 0, 0);
-  }
-  &:last-child {
-    transform: translate3d(200%, 0, 0);
-  } */
 }
 .animateActive {
   transition: transform 0.3s ease;
