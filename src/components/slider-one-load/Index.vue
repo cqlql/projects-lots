@@ -2,9 +2,6 @@
   <div :class="$style.sliderOneLoad">
     <div :class="$style.move">
       <div v-for="(item, i) of itemsData" :class="$style.item" :style="{[transform]:`translate3d(${item.x*100}%, 0, 0)`}" :key="i">
-        <div v-show="item.blank===false">{{item.page}}</div>
-        <div v-show="item.blank">空白</div>
-        <!-- <slot :itemData="item"/> -->
         <slot :name="i" />
       </div>
     </div>
@@ -29,14 +26,20 @@ export default {
       itemsData: [{
         x: 0,
         blank: true,
+        beforePage: null,
+        inited: false,
         page: 0
       }, {
         x: 1,
         blank: true,
+        beforePage: null,
+        inited: false,
         page: 1
       }, {
         x: 2,
         blank: true,
+        beforePage: null,
+        inited: false,
         page: 2
       }],
 
@@ -117,9 +120,10 @@ export default {
       this.goPage(this.page - 1)
     },
     goPage (p, noAnimate, cb = () => { }) {
-      let { page, index, maxPage, maxIndex } = this
+      let { page, index, maxPage } = this
 
-      if (p > page) { // 左滑
+      // 左滑
+      if (p > page) {
         let isStartFirst = page === 0 // 是否第一页起始
         let isLast = false // 是否为最后一页
         index++
@@ -128,7 +132,7 @@ export default {
         // 最后一个，或者大于最后一个情况
         if (page >= maxPage) {
           page = maxPage
-          index = maxIndex
+          index = this.maxIndex
           isLast = true
         }
 
@@ -138,25 +142,26 @@ export default {
         if (noAnimate) { // 没有动画
           if (isStartFirst === false && isLast === false) {
             this.moveArray.toLeft()
-            this.getShowItem(maxIndex).blank = true // 最后一项数据变为空白
             index--
           }
           this.setX(-index * this.width)
           this.index = index
+          this.setBlank()
           cb()
         } else { // 有动画
           this.animate(-index * this.width, () => {
             if (isStartFirst === false && isLast === false) {
               this.moveArray.toLeft()
-              this.getShowItem(maxIndex).blank = true // 最后一项数据变为空白
               index--
               this.setX(-index * this.width)
               this.index = index
             }
+            this.setBlank()
             cb()
           })
         }
-      } else { // 右滑
+        // 右滑
+      } else {
         let isStartLast = page === maxPage // 是否最后一页起始
         let isFirst = false // 是否最后一页起始
 
@@ -176,26 +181,26 @@ export default {
         if (noAnimate) { // 没有动画
           if (isStartLast === false && isFirst === false) {
             this.moveArray.toRight()
-            this.getShowItem(0).blank = true // 第一项数据变为空白
             index++
           }
           this.setX(-index * this.width)
           this.index = index
+          this.setBlank()
           cb()
         } else { // 有动画
           this.animate(-index * this.width, () => {
             if (isStartLast === false && isFirst === false) {
               this.moveArray.toRight()
-              this.getShowItem(0).blank = true // 第一项数据变为空白
+              // this.getShowItem(0).blank = true // 第一项数据变为空白
               index++
               this.setX(-index * this.width)
               this.index = index
             }
+            this.setBlank()
             cb()
           })
         }
       }
-      this.page = page
 
       // 处理当前显示项
       this.showItem(page, index)
@@ -229,9 +234,32 @@ export default {
     },
     showItem (page, index) {
       const showItem = this.getShowItem(index)
+      showItem.beforePage = showItem.page
       showItem.page = page
-      this.$emit('toLoad', showItem)
+      this.$emit('load', showItem)
+      showItem.inited = true
       showItem.blank = false
+    },
+    setBlank () {
+      const { index, page } = this
+      const prev = index - 1
+      const next = index + 1
+      if (prev >= 0) {
+        const prevItem = this.getShowItem(prev)
+        if (prevItem.page !== page - 1) {
+          prevItem.blank = true
+          this.$emit('setBlank', this.itemsPosition[prev], true)
+        }
+      }
+      if (next <= this.maxIndex) {
+        const nextItem = this.getShowItem(next)
+        if (nextItem.page !== page + 1) {
+          nextItem.blank = true
+          this.$emit('setBlank', this.itemsPosition[next], true)
+        }
+      }
+      this.getShowItem(index).blank = false
+      this.$emit('setBlank', this.itemsPosition[index], false)
     }
   },
   computed: {
