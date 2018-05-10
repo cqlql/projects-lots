@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import SliderOneLoad from '@/components/slider-one-load/Index.vue'
-describe('slider-one-load', function () {
+import Loading from '@/components/Loading/Index.vue'
+describe('loading', function () {
   function getVm () {
     // 此方式确保宽度不为 0
     const el = document.createElement('div')
@@ -8,36 +8,30 @@ describe('slider-one-load', function () {
 
     const vm = new Vue({
       el,
-      template: `<SliderOneLoad ref="vSliderOneLoad" @load="onLoad" @setBlank="onSetBlank" :total="5">
-        <div v-for="(item, i) of items" class="item" :key="i" :slot="i" v-show="item.blank===false">
-          <p>page：{{item.page}}</p>{{item.content}}
-        </div>
-      </SliderOneLoad>`,
+      template: `<Loading ref="vLoading"/>`,
       data () {
-        return {
-          items: [{
-            blank: true
-          }, {
-            blank: true
-          }, {
-            blank: true
-          }]
-        }
+        return { }
       },
       components: {
-        SliderOneLoad
-      },
-      methods: {
-        onLoad () {},
-        onSetBlank () {}
+        Loading
       }
     })
-    return vm.$refs.vSliderOneLoad
+    return vm.$refs.vLoading
   }
 
-  it('触发当前页面加载', function (done) {
+  it('显示：200ms 后显示', function () {
+    const vm = getVm()
+    vm.show()
+  })
+  it('显示：直接显示', function () {
+    const vm = getVm()
+    vm.show({
+      time: 0
+    })
   })
 
-  it('移动，动画复原', function (done) {
+  it('隐藏', function () {
+    const vm = getVm()
+    vm.hide()
   })
 })

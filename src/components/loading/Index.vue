@@ -1,14 +1,56 @@
 <template>
-  <div class="preloader-full">
-    <div class="preloader-modal">
-      <div class="preloader preloader-white"></div>
+  <div :class="$style.preloaderFull" v-show="show1">
+    <div :class="$style.preloaderModal" v-show="show2">
+      <LoadIco color="white" :class="$style.preloader" />
     </div>
   </div>
 </template>
 
+<script>
+import LoadIco from '@/components/LoadIco'
+export default {
+  data () {
+    return {
+      show1: false,
+      show2: false
+    }
+  },
+  components: {
+    LoadIco
+  },
+  created () {
+    // 不同步的状态
+    this.isShow = false // 避免重复触发
+    this.timeId = null
+  },
+  methods: {
+    show ({ time = 200 } = {}) {
+      if (this.isShow) return
+      this.isShow = true
+
+      this.show1 = true
+
+      let ex = () => {
+        this.show2 = true
+      }
+
+      if (time) {
+        this.timeId = setTimeout(ex, time)
+      } else {
+        ex()
+      }
+    },
+    hide () {
+      clearTimeout(this.timeId)
+      this.isShow = this.show1 = this.show1 = false
+    }
+  }
+}
+</script>
+
 <style module>
 /*满屏加载*/
-.preloader-full {
+.preloaderFull {
   position: fixed;
   top: 0;
   left: 0;
@@ -16,14 +58,11 @@
   width: 100%;
   z-index: 99;
 }
-/*阶段1*/
-.show1 {
-  display: block;
-}
-.mask {
+
+/* .mask {
   background-color: rgba(255, 255, 255, 0.5);
-}
-.preloader-modal {
+} */
+.preloaderModal {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -34,15 +73,20 @@
   background: rgba(0, 0, 0, 0.8);
   z-index: 99;
   border-radius: 5px;
-  display: none;
-}
-/*阶段2*/
-.show2 .preloader-modal {
-  display: block;
 }
 .preloader {
+  display: inline-block;
   width: 34px;
   height: 34px;
+  background-position: 50%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  animation: preloader-spin 1s steps(12, end) infinite;
+}
+@keyframes preloader-spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
 
