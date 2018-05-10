@@ -1,7 +1,6 @@
 {
   "env": {
-    "mocha": true,
-    "jest": true
+    "jasmine": true
   },
   "globals": {
   },
