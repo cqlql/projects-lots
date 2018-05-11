@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import SliderOneLoad from '@/components/SliderOneLoad/Index.vue'
+import SliderOneLoad from '@/components/slider-one-load'
 describe('slider-one-load', function () {
   function getVm () {
     // 此方式确保宽度不为 0

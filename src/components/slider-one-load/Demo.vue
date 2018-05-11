@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import SliderOneLoad from './Index'
+import SliderOneLoad from './index'
 export default {
   data () {
     return {

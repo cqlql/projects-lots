@@ -1,5 +1,5 @@
 {
-  "name": "preloader_full",
+  "name": "loading",
   "title": "加载器",
   "description": "加载器，满屏覆盖",
   "scripts": {

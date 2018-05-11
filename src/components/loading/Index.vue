@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import LoadIco from '@/components/LoadIco'
+import LoadIco from '@/components/load-ico'
 export default {
   data () {
     return {
@@ -75,18 +75,8 @@ export default {
   border-radius: 5px;
 }
 .preloader {
-  display: inline-block;
   width: 34px;
   height: 34px;
-  background-position: 50%;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  animation: preloader-spin 1s steps(12, end) infinite;
-}
-@keyframes preloader-spin {
-  100% {
-    transform: rotate(360deg);
-  }
 }
 </style>
 
