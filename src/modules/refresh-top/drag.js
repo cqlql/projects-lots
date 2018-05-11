@@ -1,8 +1,8 @@
-import darg from '../corejs/drag/drag'
-import autoPrefix from '../corejs/dom/css/autoprefix'
+import darg from '../corejs/dom-drag/drag'
+import autoPrefix from '../corejs/dom-css/autoprefix'
 import Queue from '../corejs/queue'
 import transitionendOnce from '../corejs/animation/transitionend-once'
-let transform = autoPrefix('transform')[1]
+let transform = autoPrefix('transform')
 export default class {
   constructor ({ elem, elemDrag, maxY, loadingY, onChange, onReload }) {
     let states = 0 // 0 未开始 1 已开始，但不满足 2 满足 3 加载中 4 加载完成

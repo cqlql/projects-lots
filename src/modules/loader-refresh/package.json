@@ -1,6 +1,6 @@
 {
   "name": "loader-refresh",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "LoaderRefresh.vue",
   "dependencies": {
   }
