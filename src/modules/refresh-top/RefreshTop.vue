@@ -1,7 +1,8 @@
 <template>
   <div class="refresh-top" :class="[color==='white'?'r-white':'']">
     <div class="refresh-top-bg" :class="[['static', 'start','ready','loading','complete'][states]]">
-      <span class="preloader" :class="[color==='white'?'preloader-white':'']"></span>
+      <!-- <span class="preloader" :class="[color==='white'?'preloader-white':'']"></span> -->
+      <LoadIco :color="color" class="preloader" />
       <span class="r-arrow"></span>
        <span class="txt">{{['', '下拉刷新','松开刷新','加载中','刷新完成'][states]}}</span>
     </div>
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-  import '../css-base/preloader.css'
+  import LoadIco from '@/components/load-ico'
   import Darg from './drag'
   export default {
     name: 'refresh-top',
@@ -51,6 +52,9 @@
     },
     destroyed () {
       this.drag.unbind()
+    },
+    components: {
+      LoadIco
     }
   }
 </script>
