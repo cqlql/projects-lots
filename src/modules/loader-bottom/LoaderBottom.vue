@@ -38,6 +38,7 @@
     methods: {
       load () {
         this.isLoad = true
+        console.log('load')
         this.$emit('loadData', isFinish => {
           if (isFinish) {
             this.finish()

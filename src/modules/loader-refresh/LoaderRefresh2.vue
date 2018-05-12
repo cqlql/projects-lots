@@ -27,8 +27,8 @@ export default {
   methods: {
     reload (complete) {
       let { vLoaderBottom } = this.$refs
-      this.$emit('loadData', {
-        type: 'refresh',
+      let option = {
+        // type: 'refresh',
         isRefresh: true,
         complete (isFinish) {
           complete()
@@ -38,11 +38,15 @@ export default {
           }
         },
         vLoaderBottom
-      })
+      }
+      this.$emit('load', option)
+      this.$emit('refreshLoad', option)
     },
     loadData (loaded) {
       let { vLoaderBottom } = this.$refs
-      this.$emit('loadData', { complete: loaded, vLoaderBottom })
+      let option = { complete: loaded, vLoaderBottom }
+      this.$emit('load', option)
+      this.$emit('bottomLoad', option)
     },
     // 手动顶部刷新
     // 刷新当前页

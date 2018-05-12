@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import Demo from '@/modules/loader-refresh/Demo.vue'
+  import Demo from '@/modules/loader-refresh/Demo2.vue'
   export default {
     components: {
       Demo
