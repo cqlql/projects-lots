@@ -20,10 +20,13 @@ function excu (callBack, time) {
 }
 
 // 解决部分安卓手机屏幕宽度值问题
-let wWidth = window.innerWidth
-let sWidth = window.screen.width
-if (wWidth > sWidth) {
-  wWidth = sWidth
+let getWidth = function () {
+  return window.innerWidth
+}
+if (window.innerWidth > window.screen.width) {
+  getWidth = function () {
+    return window.screen.width
+  }
 }
 
 // 自适应
@@ -31,7 +34,7 @@ if (wWidth > sWidth) {
 var style = document.documentElement.style
 function adaptive () {
   // 视口宽度
-  var w = wWidth
+  var w = getWidth()
   if (!w) return
   if (w > 750) w = 750
   else if (w < 320) w = 320

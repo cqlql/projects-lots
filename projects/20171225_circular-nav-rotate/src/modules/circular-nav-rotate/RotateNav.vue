@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import Rotate from './main'
+  import Rotate from './main.discard.js'
   import autoPrefix from '../corejs/dom/css/autoprefix'
   const transform = autoPrefix('transform')[1]
   export default {
@@ -25,7 +25,7 @@
       return {
         startIndex: 0,
         itemsPosition: [],
-        items: ['清理报废', '事物变更', '维修登记', '资产调拔', '打印标签'],
+        items: ['清理报废', '事物变更', '维修登记', '资产调拔', '打印标签', '打印标签'],
         itemsChild: ['清理报废', '事物变更', '维修登记']
       }
     },
@@ -39,6 +39,7 @@
         let eList = this.$refs.eList
         let eItems = eList.children
         rotate.init({
+          el: this.$el,
           each: (i, {x, y}) => {
             eItems[i].style[transform] = `translate(-${x}px,-${y}px)`
           },
