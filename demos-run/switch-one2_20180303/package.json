@@ -1,8 +1,0 @@
-{
-  "name": "switch-one2",
-  "title": "左右切换，性能进阶版",
-  "description": "不带触摸拖动的编程式切换，只用2个元素容器项，针对数据项过多情况。不使用vue transition，减少页面重排，进一步优化性能",
-  "scripts": {
-    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
-  }
-}

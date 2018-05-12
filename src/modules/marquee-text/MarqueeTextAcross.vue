@@ -1,10 +1,10 @@
 <template>
   <div :class="$style.marqueeTextDownBox">
     <div :class="$style.move">
-      <div :class="$style.cont" :style="{'padding-bottom': paddingBottom + 'px'}">
+      <div :class="$style.cont" :style="{'padding-right': paddingRight + 'px'}">
         {{text}}
       </div>
-      <div v-if="autoRoll" :class="$style.cont" :style="{'padding-bottom': paddingBottom + 'px'}">
+      <div v-if="autoRoll" :class="$style.cont" :style="{'padding-right': paddingRight + 'px'}">
         {{text}}
       </div>
     </div>
@@ -15,13 +15,13 @@
 export default {
   props: {
     text: String,
-    paddingBottom: {
+    paddingRight: {
       type: [String, Number],
       default: 30
     },
     moveLenght: {
       type: [String, Number],
-      default: 1
+      default: 2
     },
     delayTime: {
       type: [String, Number],
@@ -30,46 +30,48 @@ export default {
   },
   data () {
     return {
-      contHeight: 0,
+      contWidth: 0,
       // 是否开启自动滚动
       autoRoll: false
     }
   },
   mounted () {
-    this.updateHeight()
+    this.updateWidth()
   },
   destroyed () {
     this.stop()
   },
   methods: {
-    updateHeight () {
+    updateWidth () {
       const { $el } = this
       const eMove = $el.children[0]
-      const contHeight = this.contHeight = eMove.clientHeight
-      this.autoRoll = $el.clientHeight < contHeight
+      eMove.style.width = 'auto'
+      const contWidth = this.contWidth = eMove.clientWidth
+      const autoRoll = this.autoRoll = $el.clientWidth < contWidth
+      if (autoRoll) { eMove.style.width = contWidth * 3 + 'px' }
     },
     stop () {
       this.isRun = false
       clearInterval(this.stopId)
     },
     start () {
-      if (this.isRun) return
+      if (this.isRun || this.autoRoll === false) return
       this.isRun = true
       const { $el, moveLenght } = this
-      let y = this.y || 0
+      let x = this.x || 0
       this.stopId = setInterval(() => {
-        y += moveLenght
-        $el.scrollTop = y
-        let { contHeight } = this
-        if (y > contHeight) {
-          y = y - contHeight
+        x += moveLenght
+        $el.scrollLeft = x
+        let { contWidth } = this
+        if (x > contWidth) {
+          x = x - contWidth
         }
-        this.y = y
+        this.x = x
       }, this.delayTime)
     },
     change () {
       this.autoRoll = false
-      this.$nextTick(() => this.updateHeight())
+      this.$nextTick(() => this.updateWidth())
     },
     speedChange () {
       if (this.autoRoll) {
@@ -80,7 +82,7 @@ export default {
   },
   watch: {
     text: 'change',
-    paddingBottom: 'change',
+    paddingRight: 'change',
     moveLenght: 'speedChange',
     delayTime: 'speedChange',
     autoRoll (autoRoll) {
@@ -96,11 +98,13 @@ export default {
 
 <style module>
 .marqueeTextDownBox {
-  /* width: 300px; */
   overflow: hidden;
+  white-space: nowrap;
 }
 .move {
+  float: left;
 }
 .cont {
+  float: left;
 }
 </style>

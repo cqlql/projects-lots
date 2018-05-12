@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="box">
     <!-- <MarqueeTextAcross v-if="show" :html="acrossHtml"></MarqueeTextAcross> -->
     <MarqueeTextDown v-if="show" :html="downHtml"></MarqueeTextDown>
     <p>
@@ -34,3 +34,10 @@
     }
   }
 </script>
+
+<style>
+.box {
+  font-size: 16px;
+}
+</style>
+

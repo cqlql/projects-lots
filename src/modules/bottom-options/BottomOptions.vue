@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import VMask from '../mask/VMask.vue'
+  import VMask from '../v-base/BaseMask.vue'
   export default {
     props: ['show'],
     methods: {

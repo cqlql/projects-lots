@@ -1,8 +1,8 @@
-import drag from '../corejs/drag/drag'
-import autoPrefix from '../corejs/dom/css/autoprefix'
+import drag from '../corejs/dom-drag/drag'
+import autoPrefix from '../corejs/dom-css/autoprefix'
 import InertiaAnime from '../corejs/animation/inertia-anime'
 import Animation from '../corejs/animation/animation'
-let transform = autoPrefix('transform')[1]
+let transform = autoPrefix('transform')
 export default class {
   constructor ({eDrag, eMove, itemHeight, onChange}) {
     this.init(eDrag, eMove, itemHeight, onChange)

@@ -1,8 +1,0 @@
-{
-  "name": "marquee-text",
-  "title": "文本滚动",
-  "description": "文本跑马灯",
-  "scripts": {
-    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
-  }
-}

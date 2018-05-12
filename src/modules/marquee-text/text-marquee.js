@@ -16,6 +16,8 @@ if (imgs.length) {
 }
 */
 
+// acrossUpdate downUpdate 可重复调用。已做销毁处理
+
 // eBox = params.eBox,
 // eText = params.eText,
 // type = params.type ? 'h' : 'w',// 默认是宽度

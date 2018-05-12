@@ -1,8 +1,0 @@
-{
-  "name": "slider-one-load",
-  "title": "滑动切换加载",
-  "description": "只用3个列表项实现的滑动切换效果(最多只会加载3页数据)，实现页面过多情况性能较优的的数据滑动切换展示",
-  "scripts": {
-    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
-  }
-}

@@ -1,6 +1,6 @@
 
 <template>
-  <div>
+  <div class="box">
     <div class="item">
       <button @click="isShow=!isShow">fade 显示/隐藏</button>
       <VTransition>
@@ -9,8 +9,7 @@
       <pre>
       &lt;VTransition&gt;
         &lt;div class="cont" v-show="isShow"&gt;fade&lt;/div&gt;
-      &lt;/VTransition&gt;
-      </pre>
+      &lt;/VTransition&gt;</pre>
     </div>
 
     <div class="item">
@@ -21,8 +20,7 @@
       <pre>
       &lt;VTransition :name="isShowSlide?'slide-left':'slide-right'"&gt;
         &lt;div class="cont" v-show="isShowSlide"&gt;slide-left/slide-right&lt;/div&gt;
-      &lt;/VTransition&gt;
-      </pre>
+      &lt;/VTransition&gt;</pre>
     </div>
 
     <div class="item">
@@ -33,8 +31,7 @@
       <pre>
       &lt;VTransition :name="isShowZoom?'zoom-in':'zoom-out'"&gt;
         &lt;div class="cont" v-show="isShowZoom"&gt;zoom-in/zoom-out&lt;/div&gt;
-      &lt;/VTransition&gt;
-      </pre>
+      &lt;/VTransition&gt;</pre>
     </div>
 
     <div class="item">
@@ -45,8 +42,7 @@
       <pre>
       &lt;VTransition name="slide-bottom"&gt;
         &lt;div class="cont slide-bottom" v-show="isShow"&gt;slide-bottom&lt;/div&gt;
-      &lt;/VTransition&gt;
-      </pre>
+      &lt;/VTransition&gt;</pre>
     </div>
   </div>
 
@@ -70,6 +66,9 @@ export default {
 </script>
 
 <style scoped>
+.box {
+  margin: 8px;
+}
 button {
   float: left;
   height: 27px;

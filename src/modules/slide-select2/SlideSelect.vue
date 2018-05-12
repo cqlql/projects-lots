@@ -7,8 +7,8 @@
         <!-- <span @click="$set(selectedIndexs, '1',2)">测试更改已选项{{selectedIndexs}}</span> -->
         <!-- <span @click="$set(lists, '1',[1,2,3])">测试更改列表数据{{selectedIndexs}}</span> -->
         <!-- <span @click="test[1]=2">{{test}}</span> -->
-        <a class="cl-btn" v-click="close">取消</a>
-        <a class="cfm-btn" v-click="confirm">确认</a>
+        <a class="cl-btn" @click="close">取消</a>
+        <a class="cfm-btn" @click="confirm">确认</a>
         <!--<div class="s-info">2017/1/1~2018/1/1</div>-->
       </div>
       <div v-if="titles" class="s-tit">

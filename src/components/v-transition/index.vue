@@ -6,7 +6,6 @@
   </transition>
 </template>
 
-
 <script>
 export default {
   props: {
@@ -22,17 +21,14 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .transition-active{
   transition: 0.3s cubic-bezier(.55,0,.1,1);
   transition-property:opacity,transform;
 }
-
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
-
 .slide-left-enter, .slide-right-leave-to {
   opacity: 0;
   transform: translate3d(30px, 0, 0);
@@ -41,7 +37,6 @@ export default {
   opacity: 0;
   transform: translate3d(-30px, 0, 0);
 }
-
 .zoom-in-enter, .zoom-out-leave-to {
   opacity: 0;
   transform: scale(0.8);
@@ -50,7 +45,6 @@ export default {
   opacity: 0;
   transform: scale(1.2);
 }
-
 /* 100% 的写法 ios 有bug。需使用不能完全隐藏的值，改成99%即可 */
 .slide-bottom-enter, .slide-bottom-leave-to {
   transform: translate3d(0, 99%, 0);

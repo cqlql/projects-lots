@@ -1,8 +1,0 @@
-{
-  "name": "slide-select",
-  "title": "滑动列表选择",
-  "description": "移动端常用",
-  "scripts": {
-    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
-  }
-}
