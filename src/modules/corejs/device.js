@@ -1,11 +1,11 @@
 /**
  * Created by cql on 2017/3/14.
  */
-
-export let isIOS = navigator.appVersion.indexOf('Mac OS') > -1
-export let isMobileIOS = /iPad|iPhone/.test(navigator.userAgent)
-export let isAndroid = /Android/.test(navigator.userAgent)
-export let isWX = /micromessenger/i.test(navigator.userAgent)
+let {userAgent} = navigator
+export let isIOS = userAgent.indexOf('Mac OS') > -1
+export let isMobileIOS = /iPad|iPhone/.test(userAgent)
+export let isAndroid = /Android/.test(userAgent)
+export let isWX = /micromessenger/i.test(userAgent)
 
 /**
  * android 版本获取
@@ -15,7 +15,7 @@ export let isWX = /micromessenger/i.test(navigator.userAgent)
 let androidVersion
 export function getAndroidVersion () {
   if (androidVersion === undefined) {
-    let r = navigator.userAgent.match(/Android (\d.\d)/)
+    let r = userAgent.match(/Android (\d.\d)/)
     androidVersion = r && r[1]
     return androidVersion
   }
