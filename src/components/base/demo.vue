@@ -11,7 +11,7 @@ import VButton from '../buttons/VButton'
 export default {
   data () {
     return {
-      show: 1
+      show: 0
     }
   },
   components: {
