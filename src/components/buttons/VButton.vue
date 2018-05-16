@@ -22,7 +22,7 @@ export default {
   border-radius: 100px;
   line-height: 1;
   outline: none;
-  box-shadow: 0 1px 4px #929292;
+  /* box-shadow: 0 1px 4px #929292; */
 
   /* width: 130px;
     height: 45px; */

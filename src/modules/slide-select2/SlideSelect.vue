@@ -26,7 +26,7 @@
 
 <script>
   import ListBase from './ListBase.vue'
-  import VMask from '../v-base/BaseMask.vue'
+  import VMask from '@/components/base/VMask.vue'
   export default {
     name: 'slide-select',
     // props: ['show', 'titles', 'lists'],
