@@ -3,9 +3,9 @@ import './comm.css'
 import Vue from 'vue'
 import router from './router'
 import App from './app.vue'
-import Toast from '@/components/toast/plugin'
+import toast from '@/components/toast/plugin'
 
-// Vue.use(toast)
+Vue.use(toast)
 
 router.beforeEach((to, from, next) => {
   // preloaderFull.show()

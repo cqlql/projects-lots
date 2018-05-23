@@ -1,5 +1,5 @@
 // import Index from '@/hello2/Index.vue'
-import Demo from '@/components/Toast/demo.vue'
+import Demo from '@/components/toast/demo.vue'
 
 export default [
   {
