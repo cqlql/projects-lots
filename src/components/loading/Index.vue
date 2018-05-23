@@ -1,5 +1,6 @@
 <template>
   <div :class="$style.preloaderFull" v-show="show1">
+    <VMask v-show="mask && show2"/>
     <div :class="$style.preloaderModal" v-show="show2">
       <LoadIco color="white" :class="$style.preloader" />
     </div>
@@ -8,15 +9,18 @@
 
 <script>
 import LoadIco from '@/components/load-ico'
+import VMask from '@/components/base/VMask'
 export default {
   data () {
     return {
       show1: false,
-      show2: false
+      show2: false,
+      mask: false
     }
   },
   components: {
-    LoadIco
+    LoadIco,
+    VMask
   },
   created () {
     // 不同步的状态
@@ -24,12 +28,12 @@ export default {
     this.timeId = null
   },
   methods: {
-    show ({ time = 200 } = {}) {
+    show ({ mask = false, time = 200 } = {}) {
       if (this.isShow) return
       this.isShow = true
 
+      this.mask = mask
       this.show1 = true
-
       let ex = () => {
         this.show2 = true
       }
@@ -42,7 +46,7 @@ export default {
     },
     hide () {
       clearTimeout(this.timeId)
-      this.isShow = this.show1 = this.show1 = false
+      this.isShow = this.show2 = this.show1 = false
     }
   }
 }

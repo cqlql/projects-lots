@@ -17,12 +17,12 @@ if (process.env.NODE_ENV === 'production') {
   // 开发环境
 
   // 编译所有
-  // importAll(require.context('./', true, /^\.\/router\/.+?\.js$|^\.\/nav-dev.js$/))
+  importAll(require.context('./', true, /^\.\/router\/.+?\.js$|^\.\/nav-dev.js$/))
 
-  // 只编译一个demo
+  // 编译一个demo
   // importAll(require.context('./router', false, /(forms)\.js$/))
-  importAll(require.context('./router', false, /(confirm)\.js$/))
-  routes[0].path = '/'
+  // importAll(require.context('./router', false, /(confirm)\.js$/))
+  // routes[0].path = '/'
 }
 
 Vue.use(Router)
