@@ -1,19 +1,16 @@
 <template>
   <div>
-    <VMask v-show="isShow" @click="$onCancel"/>
-    <VTransition :name="isShow?'zoom-in':'zoom-out'">
-    <div class="confirm" v-show="isShow">
-      <div class="hd">
-        <strong class="tit">操作提示</strong>
+    <VMask v-show="isShow" @click="cancel" />
+    <VTransition name="zoom-out">
+      <div class="confirm" v-show="isShow">
+        <div class="des">
+          <p>{{des}}</p>
+        </div>
+        <div class="btns">
+          <a href="javascript:void(0)" class="btn btn-ca" @click="cancel">取消</a>
+          <a href="javascript:void(0)" class="btn btn-co" @click="confirm">确认</a>
+        </div>
       </div>
-      <div class="bd">
-        <p>{{description}}</p>
-      </div>
-      <div class="ft">
-        <a href="javascript:void(0)" class="btn cc" @click="cancel">取消</a>
-        <a href="javascript:void(0)" class="btn cur" @click="confirm">确定</a>
-      </div>
-    </div>
     </VTransition>
   </div>
 
@@ -26,7 +23,7 @@ export default {
   data () {
     return {
       isShow: false,
-      description: ''
+      des: ''
     }
   },
   methods: {
@@ -40,10 +37,9 @@ export default {
         this.isShow = false
       }
     },
-    show ({description = '确定咩？', onConfirm = function () {}, onCancel = function () {}} = {}) {
+    show ({ description = '确定咩？', onConfirm = function () { }, onCancel = function () { } } = {}) {
       this.isShow = true
-      this.description = description
-      this.description = description
+      this.des = description
       this.onConfirm = onConfirm
       this.onCancel = onCancel
     }
@@ -58,10 +54,13 @@ export default {
 
 <style scoped>
 .confirm {
+  width: 320px;
+  border-radius: 5px;
+  font-size: 18px;
+
   position: fixed;
   display: table;
   z-index: 99;
-  width: 300px;
   top: 0;
   right: 0;
   bottom: 0;
@@ -69,40 +68,22 @@ export default {
   margin: auto;
   background-color: #fff;
   text-align: center;
-  border-radius: 3px;
-  /* overflow: hidden; */
 }
-.hd {
-  padding: 20px 25px 8px;
-
+.des {
+  line-height: 30px;
+  padding: 38px 50px 32px;
 }
-.tit {
-  font-weight: 400;
-  font-size: 18px;
-}
-.bd {
-  padding: 0 24px 12px;
-    min-height: 40px;
-  font-size: 15px;
-  line-height: 1.3;
-  word-wrap: break-word;
-  word-break: break-all;
-  color: #999;
-}
-.ft {
-  position: relative;
-  line-height: 48px;
-  font-size: 18px;
+.btns {
+  border-top: 1px solid #ccc;
   display: flex;
-  border-top: 1px solid #d5d5d6;
+  width: 100%;
 }
 .btn {
-  display: block;
-  flex: 1;
   color: #3cc51f;
+  padding: 20px 0;
+  flex: 1;
+  text-align: center;
   text-decoration: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  position: relative;
 }
 .btn:hover {
   background-color: #f5f5f5;
@@ -110,9 +91,8 @@ export default {
 .btn:active {
   background-color: #eee;
 }
-.cc {
+.btn-ca {
   color: #353535;
-  border-right: 1px solid #d5d5d6;
+  border-right: 1px solid #ccc;
 }
-
 </style>
