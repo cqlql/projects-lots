@@ -4,7 +4,7 @@
     <VTransition name="zoom-out">
       <div class="confirm" v-show="isShow">
         <div class="des">
-          <p>{{des}}</p>
+          <p>{{description}}</p>
         </div>
         <div class="btns">
           <a href="javascript:void(0)" class="btn btn-ca" @click="cancel">取消</a>
@@ -23,7 +23,7 @@ export default {
   data () {
     return {
       isShow: false,
-      des: ''
+      description: ''
     }
   },
   methods: {
@@ -39,7 +39,7 @@ export default {
     },
     show ({ description = '确定咩？', onConfirm = function () { }, onCancel = function () { } } = {}) {
       this.isShow = true
-      this.des = description
+      this.description = description
       this.onConfirm = onConfirm
       this.onCancel = onCancel
     }
