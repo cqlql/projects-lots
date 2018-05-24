@@ -9,6 +9,9 @@
     <p>
       <button @click="maskShow">带蒙层</button>
     </p>
+    <p>
+      <button @click="pluginShow">plugin 调用</button>
+    </p>
     <div>记录点击数，延迟情况是否也避免点击：{{clickCount}}</div>
     <Loading ref="vLoading" />
   </div>
@@ -16,7 +19,7 @@
 
 <script>
 
-import Loading from './Index'
+import Loading from './index'
 export default {
   data () {
     return {
@@ -42,6 +45,12 @@ export default {
       this.$refs.vLoading.show({mask: true})
       setTimeout(() => {
         this.$refs.vLoading.hide()
+      }, 1000)
+    },
+    pluginShow () {
+      this.$loading.show()
+      setTimeout(() => {
+        this.$loading.hide()
       }, 1000)
     }
   },

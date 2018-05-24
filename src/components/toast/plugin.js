@@ -1,7 +1,7 @@
 import ToastComponent from './index.vue'
 
 export default {
-  install: function (Vue, options) {
+  install: function (Vue) {
     const Toast = Vue.extend(ToastComponent)
     const toast = new Toast().$mount()
     document.body.appendChild(toast.$el)

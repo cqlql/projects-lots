@@ -1,4 +1,4 @@
-import Demo from '@/components/loading/Demo.vue'
+import Demo from '@/components/loading/demo.vue'
 
 export default [
   {
