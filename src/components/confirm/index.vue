@@ -10,8 +10,8 @@
         <p>{{description}}</p>
       </div>
       <div class="ft">
-        <a href="javascript:void(0)" class="btn cc" @click="$onCancel">取消</a>
-        <a href="javascript:void(0)" class="btn cur" @click="$onConfirm">确定</a>
+        <a href="javascript:void(0)" class="btn cc" @click="cancel">取消</a>
+        <a href="javascript:void(0)" class="btn cur" @click="confirm">确定</a>
       </div>
     </div>
     </VTransition>
@@ -30,12 +30,12 @@ export default {
     }
   },
   methods: {
-    $onConfirm () {
+    confirm () {
       if (this.onConfirm() !== false) {
         this.isShow = false
       }
     },
-    $onCancel () {
+    cancel () {
       if (this.onCancel() !== false) {
         this.isShow = false
       }
