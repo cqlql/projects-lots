@@ -1,8 +1,6 @@
 
 <template>
-  <button class="b-btn" :class="s" @click="$emit('click')">
-    <slot/>
-  </button>
+  <button class="b-btn" :class="s" @click="$emit('click')"><slot/></button>
 </template>
 <script>
 export default {

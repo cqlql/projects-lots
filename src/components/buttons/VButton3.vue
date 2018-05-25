@@ -1,7 +1,5 @@
 <template>
-  <button class="b-btn">
-    <slot/>
-  </button>
+  <button class="b-btn"><slot/></button>
 </template>
 
 <style scoped>

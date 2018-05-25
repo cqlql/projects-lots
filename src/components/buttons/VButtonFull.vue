@@ -1,8 +1,6 @@
 
 <template>
-  <VButton class="b-btn-full" :s="s">
-    <slot/>
-  </VButton>
+  <VButton class="b-btn-full" :s="s"><slot/></VButton>
 </template>
 <script>
 import VButton from './VButton'
