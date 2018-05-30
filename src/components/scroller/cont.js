@@ -1,4 +1,3 @@
-// import Dragx from './dragx.js'
 import drag from '@/modules/corejs/dom-drag/drag'
 import autoprefix from '@/modules/corejs/dom-css/autoprefix'
 const transform = autoprefix('transform')
