@@ -1,30 +1,67 @@
 <template>
-  <div>
+  <div class="box">
+    <div class="move">
     <slot/>
+    </div>
+    <div class="bar-box"><b class="bar"></b></div>
   </div>
 </template>
 
 <script>
-import dragx from './dragx.js'
-import autoprefix from '@/modules/corejs/dom-css/autoprefix'
-const transform = autoprefix('transform')
+import Cont from './cont.js'
+import Bar from './bar.js'
 export default {
   mounted () {
-    // const vm = this
     const elem = this.$el
-    const eMove = elem.children[0]
+    const child = elem.children
+    const eMove = child[0]
+    const eBarBox = child[1]
+    const eBar = eBarBox.children[0]
 
-    function move (x) {
-      if (x > 0) x = 0
-      eMove.style[transform] = `translate3d(${x}px,0,0)`
-    }
-
-    dragx({
+    const cont = this.cont = new Cont({
       elem,
-      onMove: move
+      eMove,
+      onMove (x) {
+        bar.move(x)
+      }
+    })
+
+    const bar = this.bar = new Bar({
+      eBarBox,
+      eBar,
+      getRatio () {
+        return cont.ratio
+      }
     })
   },
   methods: {
+    update () {
+      this.cont.update()
+      this.bar.update()
+    }
   }
 }
 </script>
+<style scoped>
+.box {
+  position: relative;
+}
+/* .move {
+
+} */
+.bar-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 8px;
+  background-color: #ddd;
+
+}
+.bar {
+  display: block;
+  width: 60px;
+  height: 8px;
+  background-color: #aaa;
+}
+</style>

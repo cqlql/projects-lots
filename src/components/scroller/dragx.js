@@ -5,30 +5,25 @@ function getTarget (e) {
 }
 
 class DragPlus {
-  constructor ({ elem, onMove }) {
-    // this.x = 0
-    // this.elem = elem
-    let x = 0
+  constructor ({ elem, onMove, onDown }) {
+    this.x = 0
     let tx
     let sx
+    const that = this
     drag({
       elem,
-      onDown () {},
+      onDown,
       onStart (e) {
+        e.preventDefault()
         const target = getTarget(e)
-        tx = x
+        tx = that.x
         sx = target.pageX
       },
       onMove (e) {
         const target = getTarget(e)
-        x = target.pageX - sx + tx
-        onMove(x)
-      },
-      onEnd () {}
+        onMove(target.pageX - sx + tx)
+      }
     })
-  }
-  onMove () {
-
   }
 }
 
