@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <VBtn @click="add">增加</VBtn>
+    <VBtn @click="add">增加选项</VBtn>
     <div class="scroll-box">
       <Scroller class="list" @click.native="select" ref="vScroller">
         <div v-for="(name, i) in names" :key="i" class="item" :class="{selected:selectedIndex===i}" :data-index="i">{{name}}</div>
@@ -24,6 +24,7 @@ export default {
   },
   mounted () {
     this.unBindWindowResize = this.bindWindowResize()
+    this.$refs.vScroller.update()
   },
   methods: {
     add () {
@@ -45,10 +46,8 @@ export default {
     },
     bindWindowResize () {
       const windowResize = () => {
-        console.log(123)
         this.$refs.vScroller.update()
       }
-      console.log(123)
       window.addEventListener('resize', windowResize)
 
       return function () {
