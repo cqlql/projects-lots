@@ -20,9 +20,9 @@ const inputOptions = {
 const outputOptions = {
   // format: 'cjs',
   // moduleName: 'preloaderFull',
-  format: 'umd',
-  name: 'circular',
-  file: 'dist/circular.cjs.js'
+  format: 'iife',
+  name: 'imageParse',
+  file: 'dist/imageParse.js'
 }
 
 async function build () {

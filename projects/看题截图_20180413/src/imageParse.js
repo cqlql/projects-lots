@@ -1,15 +1,4 @@
-// export default function ({ x, y, w, h, url }) {
-//   // 图片原始高宽
-//   var aw = 595
-//   var ah = 842
-
-//   var imgOffsetX = -x / aw * 100
-//   var imgOffsetY = -y / ah * 100
-//   return `<div style="position: relative; overflow: hidden; padding-top: ${h / w * 100}%;"><div style="display: block; position: absolute; left: 0px; top: 0px; height: 100%; width: ${aw / w * 100}%;"><img src="${url}" style="position: absolute; width: 100%; transform: translate(${imgOffsetX}%, ${imgOffsetY}%);"/></div>
-//   </div>`
-// }
-
-export default function ({ point, links, success }) {
+function imageParse ({ point, links, success }) {
   function imgComplete (src, f, err) {
     let img = new Image()
     img.onload = function () {
@@ -39,7 +28,7 @@ export default function ({ point, links, success }) {
     let ah = img.height
 
     const { x, y, w, h } = getXYWH(point)
-    console.log({ aw, ah, x, y, w, h })
+    // c.log({ aw, ah, x, y, w, h })
 
     let imgOffsetX = -x / aw * 100
     let imgOffsetY = -y / ah * 100
@@ -49,7 +38,37 @@ export default function ({ point, links, success }) {
       imgs += `<img src="${src}" style="position: absolute; width: 100%; transform: translate(${imgOffsetX}%, ${imgOffsetY}%);"/>`
     })
 
-    success(`<div style="position: relative; overflow: hidden; padding-top: ${h / w * 100}%;"><div style="position: absolute; left: 0px; top: 0px; height: 100%; width: ${aw / w * 100}%;">${imgs}</div>
-  </div>`)
+    success(`<div style="position: relative; overflow: hidden; padding-top: ${h / w * 100}%;"><div style="position: absolute; left: 0px; top: 0px; height: 100%; width: ${aw / w * 100}%;">${imgs}</div></div>`)
   })
 }
+
+imageParse.fixedSizeParse = function ({ point, links, success }) {
+  // 图片原始高宽
+  let aw = 156
+  let ah = 217
+  // let imgScale = ah / aw
+
+  function getXYWH ({ start_x: startX, start_y: startY, end_x: endX, end_y: endY }) {
+    return {
+      x: startX % aw,
+      y: startY % ah,
+      w: endX - startX,
+      h: endY - startY
+    }
+  }
+
+  const { x, y, w, h } = getXYWH(point)
+  // console.log({ aw, ah, x, y, w, h })
+
+  let imgOffsetX = -x / aw * 100
+  let imgOffsetY = -y / ah * 100
+
+  let imgs = ''
+  links.forEach(src => {
+    imgs += `<img src="${src}" style="position:absolute;width:100%;transform:translate(${imgOffsetX}%,${imgOffsetY}%);"/>`
+  })
+
+  success(`<div style="position:relative;overflow:hidden;padding-top:${h / w * 100}%;"><div style="position:absolute;left:0px;top:0px;height:100%;width:${aw / w * 100}%;">${imgs}</div></div>`)
+}
+
+export default imageParse
