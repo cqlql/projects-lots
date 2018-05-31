@@ -5,7 +5,6 @@ import answer from '@/views/ques/com/answer'
 let Ajax = AjaxApp
 if (process.env.NODE_ENV !== 'production') {
   Ajax = window.AjaxWeb
-  // url = '/mock' + url
 }
 
 const ajax = new Ajax(function (data) {
