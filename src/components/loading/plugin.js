@@ -5,7 +5,6 @@ export default {
     const Loading = Vue.extend(LoadingComponent)
     const loading = new Loading().$mount()
     document.body.appendChild(loading.$el)
-
-    Vue.prototype.$loading = loading
+    Vue.loading = Vue.prototype.$loading = loading
   }
 }
