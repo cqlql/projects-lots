@@ -24,51 +24,50 @@ function imageParse ({ point, links, success }) {
   }
   imgComplete(links[0], function (img) {
     // 图片原始高宽
-    let aw = img.width
-    let ah = img.height
+    let imgW = img.width
+    let imgH = img.height
 
-    const { x, y, w, h } = getXYWH(point)
-    // c.log({ aw, ah, x, y, w, h })
-
-    let imgOffsetX = -x / aw * 100
-    let imgOffsetY = -y / ah * 100
-
-    let imgs = ''
-    links.forEach(src => {
-      imgs += `<img src="${src}" style="position: absolute; width: 100%; transform: translate(${imgOffsetX}%, ${imgOffsetY}%);"/>`
-    })
-
-    success(`<div style="position: relative; overflow: hidden; padding-top: ${h / w * 100}%;"><div style="position: absolute; left: 0px; top: 0px; height: 100%; width: ${aw / w * 100}%;">${imgs}</div></div>`)
+    const options = getXYWH(point)
+    options.urls = links
+    options.imgW = imgW
+    options.imgH = imgH
+    success(buildHtml(options))
   })
+}
+
+function buildHtml ({imgW, imgH, x, y, w, h, urls}) {
+  let imgOffsetX = -x / imgW * 100
+  let imgOffsetY = -y / imgH * 100
+
+  let imgs = ''
+  urls.forEach(src => {
+    imgs += `<img src="${src}" style="position:absolute;width:100%;height:100%;transform:translate(${imgOffsetX}%,${imgOffsetY}%);"/>`
+  })
+
+  return `<div style="position:relative;overflow:hidden;padding-top:${h / w * 100}%;"><div style="position:absolute;left:0px;top:0px;height:${imgH / h * 100}%;width:${imgW / w * 100}%;">${imgs}</div></div>`
 }
 
 imageParse.fixedSizeParse = function ({ point, links, success }) {
   // 图片原始高宽
-  let aw = 156
-  let ah = 217
-  // let imgScale = ah / aw
+  let imgW = 156
+  let imgH = 217
 
   function getXYWH ({ start_x: startX, start_y: startY, end_x: endX, end_y: endY }) {
     return {
-      x: startX % aw,
-      y: startY % ah,
+      x: startX % imgW,
+      y: startY % imgH,
       w: endX - startX,
       h: endY - startY
     }
   }
 
-  const { x, y, w, h } = getXYWH(point)
-  // console.log({ aw, ah, x, y, w, h })
+  const options = getXYWH(point)
 
-  let imgOffsetX = -x / aw * 100
-  let imgOffsetY = -y / ah * 100
+  options.urls = links
+  options.imgW = imgW
+  options.imgH = imgH
 
-  let imgs = ''
-  links.forEach(src => {
-    imgs += `<img src="${src}" style="position:absolute;width:100%;transform:translate(${imgOffsetX}%,${imgOffsetY}%);"/>`
-  })
-
-  success(`<div style="position:relative;overflow:hidden;padding-top:${h / w * 100}%;"><div style="position:absolute;left:0px;top:0px;height:100%;width:${aw / w * 100}%;">${imgs}</div></div>`)
+  success(buildHtml(options))
 }
 
 export default imageParse
