@@ -6,13 +6,15 @@ function getTarget (e) {
 }
 
 export default class {
-  constructor ({elem, eMove, onMoveBar, $style}) {
+  constructor ({elem, eMove, onMoveBar, onStartBar, onEndBar, $style}) {
     this.$style = $style
     this.x = 0
     this.minX = 0
     this.elem = elem
     this.eMove = eMove
     this.onMoveBar = onMoveBar
+    this.onStartBar = onStartBar
+    this.onEndBar = onEndBar
     this.boxWidth = 0
     this.contWidth = 0
     this.ratio = 0
@@ -31,6 +33,9 @@ export default class {
         const target = getTarget(e)
         tx = this.x
         sx = target.pageX
+        if (isBar) {
+          this.onStartBar()
+        }
       },
       onMove: e => {
         let target = getTarget(e)
@@ -39,6 +44,11 @@ export default class {
         let x = len + tx
         this.move(x)
         onMoveBar(this.x)
+      },
+      onEnd: () => {
+        if (isBar) {
+          this.onEndBar()
+        }
       }
     })
   }

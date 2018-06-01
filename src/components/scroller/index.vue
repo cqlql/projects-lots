@@ -18,6 +18,7 @@ export default {
     const eBarBox = child[1]
     const eBar = eBarBox.children[0]
     const {$style} = this
+    const styleHover = $style.hover
 
     const cont = this.cont = new Cont({
       elem,
@@ -25,6 +26,12 @@ export default {
       $style,
       onMoveBar (x) {
         bar.move(x)
+      },
+      onStartBar () {
+        eBar.classList.add(styleHover)
+      },
+      onEndBar () {
+        eBar.classList.remove(styleHover)
       }
     })
 
@@ -77,7 +84,8 @@ export default {
   height: 8px;
   background-color: #aaa;
 }
-.bar:hover {
+.bar:hover,
+.bar.hover {
   background-color: #666;
 }
 </style>
