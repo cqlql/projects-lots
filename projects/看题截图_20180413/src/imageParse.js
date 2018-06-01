@@ -62,6 +62,7 @@ imageParse.fixedSizeParse = function ({ point, links, success }) {
   }
 
   const options = getXYWH(point)
+  console.log(options)
 
   options.urls = links
   options.imgW = imgW
