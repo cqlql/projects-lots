@@ -36,6 +36,13 @@ export default {
       this.$emit('change', i)
     }
   },
+  watch: {
+    names () {
+      this.$nextTick(() => {
+        this.$refs.vScroller.update()
+      })
+    }
+  },
   components: {
     Scroller
   }

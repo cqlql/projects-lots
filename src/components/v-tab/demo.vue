@@ -1,15 +1,19 @@
 <template>
   <div class="box">
+    <VBtn @click="add">增加选项</VBtn>
+    <div class="tab-box">
     <VTab :names="names" @change="onChange">
       <div class="cont-item" v-for="(item, i) in list" :key="i" v-show="selectedIndex===i">
         {{item}}
       </div>
     </VTab>
+    </div>
   </div>
 </template>
 
 <script>
-import VTab from './VTab'
+import VBtn from '../buttons/VButton'
+import VTab from './index'
 export default {
   data () {
     return {
@@ -19,12 +23,16 @@ export default {
     }
   },
   methods: {
+    add () {
+      this.names.push(`第${this.names.length + 1}项`)
+    },
     onChange (i) {
       this.selectedIndex = i
     }
   },
   components: {
-    VTab
+    VTab,
+    VBtn
   }
 }
 </script>
@@ -32,6 +40,9 @@ export default {
 <style scoped>
 .box {
   padding:10px 100px 0;
+}
+.tab-box {
+  padding: 10px;
 }
 .cont-item {
   min-height: 300px;
