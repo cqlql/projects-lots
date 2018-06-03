@@ -27,10 +27,10 @@ export default {
     select ({ target }) {
       let index = target.dataset.index
       if (index) {
-        this.selecteIndex(target.dataset.index * 1)
+        this.selectIndex(target.dataset.index * 1)
       }
     },
-    selecteIndex (i) {
+    selectIndex (i) {
       if (this.selectedIndex === i) return
       this.selectedIndex = i
       this.$emit('change', i)
@@ -50,11 +50,11 @@ export default {
 </script>
 
 <style scoped>
-.tab {
-}
+/* .tab {
+} */
 .list {
 
-    font-size: 14px;
+  font-size: 14px;
   line-height: 2.4;
   color: #666;
   list-style: none;
@@ -94,15 +94,6 @@ export default {
   background-color: #f9f9f9;
   border-bottom-color: #f9f9f9;
 }
-/* .selected::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 100%;
-  height: 5px;
-  background-color: #f9f9f9;
-} */
 .cont {
   background-color: #f9f9f9;
   border: solid 1px #f0f0f0;
