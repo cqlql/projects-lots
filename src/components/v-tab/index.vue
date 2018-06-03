@@ -27,13 +27,15 @@ export default {
     select ({ target }) {
       let index = target.dataset.index
       if (index) {
-        this.selectIndex(target.dataset.index * 1)
+        // this.selectIndex(index)
+        index *= 1
+        if (this.selectedIndex === index) return
+        this.selectedIndex = index
+        this.$emit('change', index)
       }
     },
     selectIndex (i) {
-      if (this.selectedIndex === i) return
       this.selectedIndex = i
-      this.$emit('change', i)
     }
   },
   watch: {
