@@ -18,7 +18,7 @@ function importAll (r) {
 // importAll(require.context('@/', true, /^\.\/(components|modules)\/.+?\/demo\.vue$/))
 
 // 编译指定 demo
-importAll(require.context('@/', true, /^\.\/(components|modules)\/(scroller)\/demo\.vue$/))
+importAll(require.context('@/', true, /^\.\/(components|modules)\/(scroller|v-tab)\/demo\.vue$/))
 
 navDev(routes)
 
