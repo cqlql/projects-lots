@@ -12,6 +12,7 @@ import Confirm from '@/components/confirm/plugin'
 Vue.use(Loading)
 Vue.use(Toast)
 Vue.use(Confirm)
+const loading = Vue.loading
 
 router.beforeEach((to, from, next) => {
   loading.show()
