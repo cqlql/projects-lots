@@ -6,6 +6,9 @@
     <p>
       <button @click="pluginShow">插件方式调用</button>
     </p>
+    <p>
+      <button @click="showSuccess">成功提醒</button>
+    </p>
     <Toast ref="vToast"/>
   </div>
 </template>
@@ -23,6 +26,12 @@ export default {
     },
     pluginShow () {
       this.$toast('插件方式，消息来了' + count++)
+    },
+    showSuccess () {
+      this.$toast({
+        type: 'success',
+        text: '成功提醒'
+      })
     }
   }
 }
