@@ -6,7 +6,7 @@ export default {
     const toast = new Toast().$mount()
     document.body.appendChild(toast.$el)
 
-    let $toast = Vue.prototype.$toast = toast.text
+    let $toast = Vue.toast = Vue.prototype.$toast = toast.text
     $toast.error = toast.error
     $toast.success = toast.success
   }

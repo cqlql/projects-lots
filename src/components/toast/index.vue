@@ -39,7 +39,7 @@ export default {
       // 显示/自动关闭
       this.isShow = true
       clearTimeout(this.stopId)
-      this.stopId = setTimeout(() => { this.isShow = false }, 1200)
+      this.stopId = setTimeout(() => { this.isShow = false }, 1600)
     },
     text (text) {
       this.show({
@@ -103,11 +103,11 @@ export default {
 .center {
   bottom: auto;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%, -50%);
 }
 .success {
   max-width: 120px;
-  padding: 14px 10px;
+  padding: 14px;
 }
 .success .tickIcon {
   display: block;
@@ -116,7 +116,7 @@ export default {
 .error {
   color: #eb3941;
   border: 2px solid #eb3941;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255);
   font-size: 14px;
   text-align: left;
 }
