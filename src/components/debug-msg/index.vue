@@ -59,22 +59,17 @@ export default {
   content: '';
   width: 80%;
   height: 4px;
-  background: #fff;
-
   position: absolute;
-  display: table;
-  z-index: 99;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   margin: auto;
   background-color: #fff;
-  text-align: center;
-  transform: rotate(-45deg)
+  transform: rotate(45deg)
 }
 .close::before {
-  transform: rotate(45deg)
+  transform: rotate(-45deg)
 }
 </style>
 

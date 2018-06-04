@@ -9,6 +9,9 @@
     <p>
       <button @click="showSuccess">成功提醒</button>
     </p>
+    <p>
+      <button @click="onErrorMsg">错误消息</button>
+    </p>
     <Toast ref="vToast"/>
   </div>
 </template>
@@ -22,16 +25,16 @@ export default {
   },
   methods: {
     show () {
-      this.$refs.vToast.show('消息来了' + count++)
+      this.$refs.vToast.text('消息来了' + count++)
     },
     pluginShow () {
       this.$toast('插件方式，消息来了' + count++)
     },
     showSuccess () {
-      this.$toast({
-        type: 'success',
-        text: '成功提醒'
-      })
+      this.$toast.success('成功提醒')
+    },
+    onErrorMsg () {
+      this.$toast.error('操作失败操作失败操作失败操作失败操作失败操作失败')
     }
   }
 }
