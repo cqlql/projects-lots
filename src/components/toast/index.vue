@@ -101,7 +101,8 @@ export default {
 }
 
 .center {
-  bottom: 50%;
+  bottom: auto;
+  top: 50%;
   transform: translate(-50%, -50%);
 }
 .success {
@@ -115,7 +116,7 @@ export default {
 .error {
   color: #eb3941;
   border: 2px solid #eb3941;
-  background-color: rgba(255, 255, 255);
+  background-color: #fff;
   font-size: 14px;
   text-align: left;
 }
