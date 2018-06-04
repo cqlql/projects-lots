@@ -4,19 +4,22 @@ import Vue from 'vue'
 import router from './router'
 import App from './app.vue'
 import '@/modules/corejs/em-auto.js'
-import toast from '@/components/toast/plugin'
-import loading from '@/components/loading/plugin'
 
-Vue.use(toast)
-Vue.use(loading)
+import Loading from '@/components/loading/plugin'
+import Toast from '@/components/toast/plugin'
+import Confirm from '@/components/confirm/plugin'
+
+Vue.use(Loading)
+Vue.use(Toast)
+Vue.use(Confirm)
 
 router.beforeEach((to, from, next) => {
-  // preloaderFull.show()
+  loading.show()
   document.title = to.meta.title || ''
   next()
 })
 router.afterEach(() => {
-  // preloaderFull.close()
+  loading.hide()
 })
 
 /* eslint-disable no-new */
