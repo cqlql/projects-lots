@@ -91,6 +91,7 @@ export default {
   background-color: #f7f7f7;
   border-right: 1px solid #efefef;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .type-menu ul {
@@ -114,11 +115,6 @@ export default {
 .type-menu li.selected {
   background-color: #3998d6;
   color: #fff;
-}
-
-
-.type-menu {
-  overflow-x: hidden;
 }
 
 .menu {
