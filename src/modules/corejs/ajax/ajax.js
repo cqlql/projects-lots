@@ -1,5 +1,6 @@
 ﻿/**
  * Created by cql on 2017/3/8.
+ * 时间比较久远了，不稳定，慎用
  */
 
 function formData (obj) {

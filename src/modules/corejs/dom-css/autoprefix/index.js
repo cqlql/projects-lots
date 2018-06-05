@@ -6,9 +6,7 @@
  *
  * @param {string} cssPropertyName 不带前缀的，减号风格的 css 名称
  * @param {string} type 可选，'js'[默认]、 'css'
- * @return {Array} 数组中有两个值，第一个是 减号风格，第二个是驼峰。如果不支持此属性，返回 undefined
- *
- *
+ * @return {object|undefined} 如果不支持此属性，返回 undefined
  * */
 import minusHump from './minus-hump'
 

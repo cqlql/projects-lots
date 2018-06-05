@@ -5,7 +5,7 @@
  * 第一次会同步立马执行
  *
  * */
-export default function excuIntervalTryPlus (tryExcu, error = () => {}, timeOut = 10000, interval = 400) {
+export default function excuIntervalTryPlus (tryExcu, error = () => {}, timeOut = 6000, interval = 400) {
   let isTimeout = false
   setTimeout(function () {
     isTimeout = true

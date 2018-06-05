@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-expressions */
 import autoprefix from './index'
 import minusHump from './minus-hump'
-describe.only('autoPrefix', function () {
+describe('autoPrefix', function () {
   it('autoPrefix 一般使用', function () {
     expect(autoprefix('width')).to.be.equal('width')
     expect(autoprefix('appearance')).to.be.equal('webkitAppearance')

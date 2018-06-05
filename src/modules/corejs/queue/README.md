@@ -22,7 +22,9 @@ queue.excu(next => {
 
 ```js
 const queueWait = new QueueWait
-queueWait.add(function () {})
-queueWait.excu() // 执行所有 add 的函数
+queueWait.add(function (params) {
+  console.log(params === '可以传递参数') // true
+})
+queueWait.excu('可以传递参数') // 执行所有 add 的函数
 queueWait.clear()
 ```
