@@ -9,10 +9,17 @@
 import drag from '@/modules/corejs/dom-drag/drag-plus.js'
 export default {
   props: {
-    s: Object,
+    s: {
+      type: Object,
+      default () { return {} }
+    },
     initialWidth: {
       type: Number,
-      default: 600
+      default: 210
+    },
+    minWidth: {
+      type: Number,
+      default: 20
     },
     maxWidht: Number,
     classBar: String
@@ -38,14 +45,14 @@ export default {
       onMove: ({lx}) => {
         len += lx
         let width = tw + len
-        let {maxWidht} = this
-        if (width < 20) {
-          width = 20
+        let {maxWidht, minWidth} = this
+        if (width < minWidth) {
+          width = minWidth
         } else if (width > maxWidht) {
           width = maxWidht
         }
         this.width = width
-        this.$emit('move', width)
+        this.$emit('resize', width)
       }
     })
   }
