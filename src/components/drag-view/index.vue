@@ -21,7 +21,10 @@ export default {
       type: Number,
       default: 20
     },
-    maxWidht: Number,
+    maxWidth: {
+      type: Number,
+      default: 600
+    },
     classBar: String
   },
   data () {
@@ -45,11 +48,11 @@ export default {
       onMove: ({lx}) => {
         len += lx
         let width = tw + len
-        let {maxWidht, minWidth} = this
+        let {maxWidth, minWidth} = this
         if (width < minWidth) {
           width = minWidth
-        } else if (width > maxWidht) {
-          width = maxWidht
+        } else if (width > maxWidth) {
+          width = maxWidth
         }
         this.width = width
         this.$emit('resize', width)

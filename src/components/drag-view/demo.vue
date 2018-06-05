@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DragView :s="$style" :initialWidth="200" :maxWidht="600" @resize="onResize">
+    <DragView :s="$style" :initialWidth="200" :maxWidth="400" @resize="onResize">
       <div class="type-menu">
         <ul>
           <li data-index="0" class="selected">canvas 画图</li>
