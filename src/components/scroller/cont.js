@@ -38,7 +38,7 @@ export default class {
         }
       },
       onMove: e => {
-        let target = getTarget(e)
+        const target = getTarget(e)
         let len = target.pageX - sx
         if (isBar) len = -len / ratio
         let x = len + tx

@@ -6,33 +6,30 @@
  * 兼容性：ie9+
  */
 
-import dargBase from './drag'
-import Figure from './figure'
+import drag from './drag'
 
-let figure = new Figure()
+function getTarget (e) {
+  return e.targetTouches ? e.targetTouches[0] : e
+}
 
-export default function drag ({
-  elem,
-  onMove,
-  onDown = () => {},
-  onStart = () => {},
-  onEnd
-}) {
-  dargBase({
+export default function ({ elem, onMove, onDown, onStart = () => {}, onEnd }) {
+  let prevX
+  let prevY
+  drag({
     elem,
     onMove (e) {
-      let touche = e.targetTouches ? e.targetTouches[0] : e
-      figure.move(touche.pageX, touche.pageY, function (x, y) {
-        onMove({x, y, e})
-      })
+      const target = getTarget(e)
+      let {pageX, pageY} = target
+      onMove({lx: pageX - prevX, ly: pageY - prevY, e})
+      prevX = pageX
+      prevY = pageY
     },
-    onDown (e) {
-      if (onDown(e) === false) return false
-    },
+    onDown,
     onStart (e) {
       onStart(e)
-      let touche = e.targetTouches ? e.targetTouches[0] : e
-      figure.start(touche.pageX, touche.pageY)
+      const target = getTarget(e)
+      prevX = target.pageX
+      prevY = target.pageY
     },
     onEnd
   })
