@@ -1,7 +1,7 @@
 <template>
   <div>
-    <VDrag :s="$style" :initialWidth="200" :maxWidht="600">
-      <div class="type-menu" slot="left">
+    <VDrag :s="$style" :initialWidth="200" :maxWidht="600" @move="onMove">
+      <div class="type-menu">
         <ul>
           <li data-index="0" class="selected">canvas 画图</li>
           <li data-index="1">css</li>
@@ -35,10 +35,10 @@
           <li data-index="29">规范化</li>
         </ul>
       </div>
-      <div slot="right">
-        <section><h1 id="canvas.drawImage" data-index="0">canvas.drawImage</h1><p>提供直接绘制图片的功能</p><section><h2 id="语法" data-index="1">语法</h2><p>canvas.drawImage(image, dx, dy)</p></section><section><h2 id="兼容问题：" data-index="2">兼容问题：</h2><p><strong>浏览器：</strong> Android webkit 53.30 v4.0</p><p><strong>image 参数</strong></p><ul><li>是另一个canvas，则必须加到页面才能成功绘制。</li><li>是 img 元素，src 是 base 64，好像也无法绘制(待确定)</li></ul></section></section>
-      </div>
     </VDrag>
+    <div class="right-box" :style="{left:x+'px'}">
+      <section><h1 id="canvas.drawImage" data-index="0">canvas.drawImage</h1><p>提供直接绘制图片的功能</p><section><h2 id="语法" data-index="1">语法</h2><p>canvas.drawImage(image, dx, dy)</p></section><section><h2 id="兼容问题：" data-index="2">兼容问题：</h2><p><strong>浏览器：</strong> Android webkit 53.30 v4.0</p><p><strong>image 参数</strong></p><ul><li>是另一个canvas，则必须加到页面才能成功绘制。</li><li>是 img 元素，src 是 base 64，好像也无法绘制(待确定)</li></ul></section></section>
+    </div>
   </div>
 </template>
 
@@ -47,6 +47,16 @@ import VDrag from './index'
 export default {
   components: {
     VDrag
+  },
+  data () {
+    return {
+      x: 200
+    }
+  },
+  methods: {
+    onMove (leftWidth) {
+      this.x = leftWidth
+    }
   }
 }
 </script>
@@ -64,18 +74,18 @@ export default {
   left: 0;
   bottom: 0;
 }
-.rightBox {
+
+</style>
+
+<style scoped>
+.right-box {
   position: fixed;
   right: 0;
   left: 0;
   top: 0;
   bottom: 0;
   padding: 0 20px;
-  background-color: #ddd;
 }
-</style>
-
-<style scoped>
 .type-menu {
   height: 100%;
   background-color: #f7f7f7;

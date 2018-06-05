@@ -1,14 +1,8 @@
 <template>
-  <div>
-    <div :class="[$style.leftBox,s.leftBox]" :style="{width:width+'px'}">
-      <slot name="left"/>
-      <div :class="[$style.bar, s.bar]" ref="eBar"></div>
-    </div>
-    <div :class="s.rightBox" :style="{left:x+'px'}">
-      <slot name="right"/>
-    </div>
+  <div :class="[$style.leftBox,s.leftBox]" :style="{width:width+'px'}">
+    <slot/>
+    <div :class="[$style.bar, s.bar]" ref="eBar"></div>
   </div>
-
 </template>
 
 <script>
@@ -25,7 +19,6 @@ export default {
   },
   data () {
     return {
-      x: 0,
       width: 100
     }
   },
@@ -52,7 +45,7 @@ export default {
           width = maxWidht
         }
         this.width = width
-        this.x = width
+        this.$emit('move', width)
       }
     })
   }
@@ -72,7 +65,4 @@ export default {
   height: 100%;
   cursor: e-resize;
 }
-/* .rightBox {
-
-} */
 </style>
