@@ -50,6 +50,10 @@ export default {
   transform: translate3d(0, 99%, 0);
 }
 
+/* .slide-top-enter, .slide-top-leave-to {
+  transform: translate3d(0, -99%, 0);
+} */
+
 /* .slide2-right-leave-active,
 .slide2-left-enter-active {
   z-index: 2;

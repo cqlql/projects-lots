@@ -114,20 +114,24 @@ export default {
 }
 
 .error {
-  color: #eb3941;
+  /* color: #eb3941;
   border: 2px solid #eb3941;
-  background-color: rgba(255, 255, 255);
+  background-color: rgba(255, 255, 255); */
+  color: #fff;
+  /* border: 2px solid #eb3941; */
+  background-color: #eb3941;
   font-size: 14px;
   text-align: left;
 }
 .errorIcon {
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   position: relative;
-  background-color: #eb3941;
+  background-color: #fff;
+
   border-radius: 100%;
 
-  margin-top: 1px;
+  /* margin-top: 1px; */
   vertical-align: middle;
   /* vertical-align: bottom; */
 
@@ -148,7 +152,7 @@ export default {
   bottom: 0;
   left: 0;
   margin: auto;
-  background-color: #fff;
+  background-color: #eb3941;
   transform: rotate(45deg);
 }
 .errorIcon::after {
