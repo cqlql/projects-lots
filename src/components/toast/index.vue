@@ -103,7 +103,7 @@ export default {
 .center {
   bottom: auto;
   top: 50%;
-  transform: translateX(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 .success {
   max-width: 120px;

@@ -1,7 +1,8 @@
 <template>
 <div class="box">
   <p>
-    <a href="javascript:void(0)" @click="show">显示</a>
+    <a href="javascript:void(0)" @click="show">一般调用</a>
+    <a href="javascript:void(0)" @click="showPlugin">插件调用</a>
   </p>
   <VConfirm ref="vConfirm"/>
 </div>
@@ -24,6 +25,14 @@ export default {
         onConfirm () {
           return false // 可阻止关闭
         }
+      })
+    },
+    showPlugin () {
+      this.$confirm('确定删除？', function () {
+        console.log('确认')
+        return false // 可阻止关闭
+      }, function () {
+        console.log('取消')
       })
     }
   }

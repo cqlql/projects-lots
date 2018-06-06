@@ -42,6 +42,13 @@ export default {
       this.description = description
       this.onConfirm = onConfirm
       this.onCancel = onCancel
+    },
+    short (description, onConfirm, onCancel) {
+      this.show({
+        description,
+        onCancel,
+        onConfirm
+      })
     }
   },
   components: {
