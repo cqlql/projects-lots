@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import VBtn from '../buttons/VButton'
+import VBtn from '../buttons/VButtonSmall'
 import VTab from './index'
 export default {
   data () {
@@ -26,8 +26,13 @@ export default {
     add () {
       this.names.push(`第${this.names.length + 1}项`)
     },
-    onChange (i) {
-      this.selectedIndex = i
+    onChange (i, stop) {
+      if (i === 2) {
+        // 制止第三项触发
+        stop()
+      } else {
+        this.selectedIndex = i
+      }
     }
   },
   components: {
