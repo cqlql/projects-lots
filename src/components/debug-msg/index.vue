@@ -1,12 +1,17 @@
 <template>
   <div :class="$style.msg" v-if="isShow">
     <i :class="$style.close" @click="hide"></i>
-    <p v-for="(msg,i) of msgList" :key="i">{{msg}}</p>
+    <p v-for="(msg,i) of msgList" :key="i">
+      <TreeView :data="msg" :options="{rootObjectKey:'log', modifiable: false}"/>
+    </p>
+
   </div>
 </template>
 
 <script>
+import TreeView from './TreeView.vue'
 export default {
+  components: {TreeView},
   data () {
     return {
       isShow: false,
@@ -15,8 +20,11 @@ export default {
   },
   methods: {
     show () {
-      this.isShow = true
-      this.msgList.push([].join.call(arguments, ' '))
+      this.isShow = true;
+      [].forEach.call(arguments, d => {
+        this.msgList.push(d)
+      })
+      // this.msgList.push([].join.call(arguments, ' '))
       this.$nextTick(() => {
         this.$el.scrollTop = this.$el.scrollHeight
       })
@@ -36,14 +44,18 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  font-size: 16px;
-  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  background-color:#fff;
   z-index: 999;
   /* padding: 36px 6px 6px; */
   padding: 6px;
-  max-height: 50%;
+  max-height: 80%;
   overflow: auto;
-  pointer-events: none;
+  box-shadow: 0px 2px 10px 0px #bfbfbf;
+  /* pointer-events: none; */
+}
+.msg :global p{
+  margin: 0;
 }
 .close {
   width: 32px;
