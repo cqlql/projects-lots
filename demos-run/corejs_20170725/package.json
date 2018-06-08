@@ -1,8 +1,0 @@
-{
-  "name": "corejs",
-  "title": "corejs deoms",
-  "description": "部分基础的js功能演示",
-  "scripts": {
-    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
-  }
-}

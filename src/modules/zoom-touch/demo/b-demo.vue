@@ -17,16 +17,16 @@
 </template>
 
 <script>
-  import elemZoomPopup from '@/modules/zoom-touch/elem-zoom-popup'
-  export default {
-    mounted () {
-    },
-    methods: {
-      open () {
-        elemZoomPopup(this.$refs.elemz)
-      }
+import elemZoomPopup from '@/modules/zoom-touch/elem-zoom-popup'
+export default {
+  mounted () {
+  },
+  methods: {
+    open () {
+      elemZoomPopup(this.$refs.elemz)
     }
   }
+}
 </script>
 <style scoped>
 .box {
