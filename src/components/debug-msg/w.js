@@ -5,10 +5,10 @@ const Msg = Vue.extend(MsgComponent)
 const dMsg = new Msg().$mount()
 document.body.appendChild(dMsg.$el)
 
-window.dmsg = function () {
+window.dlog = function () {
   dMsg.show(...arguments)
 }
 
-window.dmsg.hide = function () {
+window.dlog.hide = function () {
   dMsg.hide()
 }
