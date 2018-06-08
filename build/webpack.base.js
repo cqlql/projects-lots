@@ -59,6 +59,8 @@ module.exports = function (dirname) {
           },
           'postcss-loader?sourceMap=true'
         ],
+
+        // 旧代码备份
         // use: ['vue-style-loader', {
         //   loader: 'css-loader',
         //   options: {
@@ -83,10 +85,10 @@ module.exports = function (dirname) {
     output: {
       path: resolve('./dist'),
 
-      filename: 'js/[name].[chunkhash:7].js',
-      chunkFilename: 'js/[name].bundle.[chunkhash:7].js',
-      // filename: 'js/[name].js?_=[chunkhash:7]',
-      // chunkFilename: 'js/[name].bundle.js?_=[chunkhash:7]',
+      // filename: 'js/[name].[chunkhash:7].js',
+      // chunkFilename: 'js/[name].bundle.[chunkhash:7].js',
+      filename: 'js/[name].js?_=[chunkhash:7]',
+      chunkFilename: 'js/[name].bundle.js?_=[chunkhash:7]',
     },
     module: {
       //加载器配置
@@ -101,8 +103,7 @@ module.exports = function (dirname) {
         },
         {
           test: /\.vue$/,
-          loader: 'vue-loader',
-          include: [_resolve('src'), resolve('src')],
+          loader: 'vue-loader'
         },
         {
           test: /\.js$/,
@@ -113,16 +114,18 @@ module.exports = function (dirname) {
         {
           test: /\.css$/,
           // test: /\.(css|scss)$/,
-          oneOf: getCssLoaders()
+
+          // 一起处理
+          // oneOf: getCssLoaders()
           // 分开处理 vue css
-          // oneOf: [{
-          //     test: /\.vue/,
-          //     oneOf: getCssLoaders()
-          //   },
-          //   {
-          //     oneOf: getCssLoaders()
-          //   }
-          // ],
+          oneOf: [{
+              test: /\.vue/,
+              oneOf: getCssLoaders()
+            },
+            {
+              oneOf: getCssLoaders()
+            }
+          ],
         },
         {
           test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

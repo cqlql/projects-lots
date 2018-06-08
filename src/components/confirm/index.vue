@@ -58,7 +58,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .confirm {
   width: 320px;

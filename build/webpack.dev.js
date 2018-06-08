@@ -11,17 +11,6 @@ module.exports = function (dirname) {
   let baseConf = getBaseConf(dirname)
 
   baseConf.output.filename = baseConf.output.filename.replace(/chunkhash/, 'hash')
-  // baseConf.module.rules.forEach(d => {
-  //   // 普通 css 处理
-  //   if (d.test.toString().indexOf('css') > -1) {
-  //     // 普通 css 抽离处理：只是了解决延迟 bug：https://github.com/webpack-contrib/style-loader/pull/219
-  //     // 发布版无需处理，等待官方解决
-  //     d.use = ExtractTextPlugin.extract({
-  //       fallback: 'style-loader',
-  //       use: ['css-loader?sourceMap=true', 'postcss-loader?sourceMap=inline']
-  //     })
-  //   }
-  // })
 
   let conf = {
     mode: 'development',

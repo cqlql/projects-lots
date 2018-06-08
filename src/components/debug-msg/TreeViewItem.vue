@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  /* eslint-disable */
+/* eslint-disable */
   import _ from 'lodash'
   import TreeViewItemValue from './TreeViewItemValue.vue'
 

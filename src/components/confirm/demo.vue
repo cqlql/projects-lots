@@ -39,7 +39,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .box {
   text-align: center;
@@ -49,5 +48,3 @@ p {
   padding: 10px 0;
 }
 </style>
-
-

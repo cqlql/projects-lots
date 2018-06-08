@@ -1,12 +1,4 @@
-node_modules
-.idea
 dist
-
-# 忽略所有 */*/ 这种目录，但 demo/0/ 除外
-#*/*/
-npm-debug.log
-web.config
-*--gnore
-.vscode
 yarn.lock
-yarn-error.log
+node_modules
+.vscode

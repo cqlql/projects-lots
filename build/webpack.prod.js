@@ -18,18 +18,20 @@ module.exports = function (dirname) {
   //     d.oneOf[1].use[0] = MiniCssExtractPlugin.loader
   //   }
   // })
-  // baseConf.module.rules.forEach(d => {
-  //   // css 处理
-  //   if (d.test.toString().indexOf('css') > -1) {
-  //     // 拆分一般 css
-  //     d.oneOf[1].oneOf[0].use[0] = MiniCssExtractPlugin.loader
-  //     d.oneOf[1].oneOf[1].use[0] = MiniCssExtractPlugin.loader
 
-  //     // 拆分 vue css
-  //     d.oneOf[0].oneOf[0].use[0] = MiniCssExtractPlugin.loader
-  //     d.oneOf[0].oneOf[1].use[0] = MiniCssExtractPlugin.loader
-  //   }
-  // })
+  // vue css 单独处理
+  baseConf.module.rules.forEach(d => {
+    // css 处理
+    if (d.test.toString().indexOf('css') > -1) {
+      // 拆分一般 css
+      d.oneOf[1].oneOf[0].use[0] = MiniCssExtractPlugin.loader
+      d.oneOf[1].oneOf[1].use[0] = MiniCssExtractPlugin.loader
+
+      // 拆分 vue css
+      // d.oneOf[0].oneOf[0].use[0] = MiniCssExtractPlugin.loader
+      // d.oneOf[0].oneOf[1].use[0] = MiniCssExtractPlugin.loader
+    }
+  })
 
   baseConf.plugins[0] = new HtmlWebpackPlugin({
     filename: './index.html',
@@ -54,21 +56,23 @@ module.exports = function (dirname) {
     // externals: {'vue': 'Vue'},
 
     // css 拆分到一个文件。将所有css，包括异步包中的css，全部打包到一个文件
-    // 问题：
-    // 无法处理 vue 单文件中的 style css
-    // 会多出一个空的 styles.bundle.js
-    // optimization: {
-    //   splitChunks: {
-    //     cacheGroups: {
-    //       styles: {
-    //         name: 'styles',
-    //         test: /\.css$/,
-    //         chunks: 'all',
-    //         enforce: true
-    //       }
-    //     }
-    //   }
-    // },
+    // 问题1：
+    // 无法处理 vue 单文件中的 style css。(注：会处理 vue 单文件中直接 `import 's.css'` 的 css)
+    // 解决：目前没有好的办法，可以 vue 单独处理不拆分
+    // 问题2：会多出一个空的 styles.bundle.js
+    // 解决：与入口 mian 同名
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'main',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
     plugins: [
       // css 拆分
       new MiniCssExtractPlugin({

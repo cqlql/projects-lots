@@ -41,6 +41,7 @@ const prodConfig = {
         // 编译前删除
         // filterRemove(outputPath, /\.(jpg|js|ttf)$/)
         filterRemove(outputPath, /^js$/)
+        filterRemove(outputPath, /\.(css|map)$/)
       },
       done () {
         // 编译后删除

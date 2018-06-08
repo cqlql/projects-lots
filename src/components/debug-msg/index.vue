@@ -37,7 +37,6 @@ export default {
 }
 </script>
 
-
 <style module>
 .msg {
   position: fixed;
@@ -84,4 +83,3 @@ export default {
   transform: rotate(-45deg)
 }
 </style>
-

@@ -21,7 +21,6 @@ module.exports = {
     "declaration-block-no-shorthand-property-overrides": true,
 
     // "block-no-empty": true, // 禁止空的选择器
-
     "selector-pseudo-class-no-unknown": [true, {
       ignorePseudoClasses: ["global"]
     }],

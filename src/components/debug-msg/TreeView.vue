@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  /* eslint-disable */
+/* eslint-disable */
   import _ from 'lodash'
   import TreeViewItem from './TreeViewItem.vue'
 
