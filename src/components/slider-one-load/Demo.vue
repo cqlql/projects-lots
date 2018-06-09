@@ -36,6 +36,10 @@ export default {
   components: {
     SliderOneLoad
   },
+  mounted () {
+    // 直接加载第一页
+    this.$refs.vSliderOneLoad.goPage(0, true)
+  },
   methods: {
     onLoad (itemData) {
       let {showIndex, page, beforePage, inited} = itemData
@@ -49,7 +53,7 @@ export default {
       let item = {
         page,
         blank: false,
-        content: ++this.count
+        content: ++this.count + '故事发生在偏僻贫瘠的山村之中。张保民（宋洋 饰）是一名矿工，一天，他被妻子翠霞（谭卓 饰）叫回了家，原来，他们的儿子失踪了。带着儿子的照片，不会说话的张保民踏上了寻子之路，途中，他遇见了大资本家昌万年（姜武 饰）的爪牙，两方人马起了冲突，昌万年骗张保民自己知道他儿子的下落，实际上，他隐藏了一个黑暗的秘密。'
       }
       this.$set(this.items, showIndex, item)
     },
@@ -64,3 +68,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.item {
+  /* outline: 2px solid red; */
+  /* box-shadow: 2px solid #ddd; */
+}
+</style>

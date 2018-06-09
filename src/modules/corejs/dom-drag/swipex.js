@@ -49,9 +49,10 @@ export default function swipex ({elem, onDown = () => {}, onStart = () => {}, on
       let ylen = currY - preY
 
       if (isStart === false) {
-        // 手势相对于x轴 小于 57 度情况滑动才开始。1位弧度值
-        // xlen为0，即除数为0，此时是90度，Math.atan是否支持，测试结果 Math.atan(1 / 0)*180/Math.PI => 90 。说明Math.atan支持
-        if (Math.abs(Math.atan(ylen / xlen)) < 1) {
+        // 手势相对于x轴 小于 45 度情况滑动才开始
+        // window.dlog(Math.atan(ylen / xlen), ylen / xlen, 'y:' + ylen, 'x:' + xlen)
+        // if (Math.abs(Math.atan(ylen / xlen)) < 1) {
+        if (Math.abs(ylen / xlen) < 1) {
           isStart = true
           onStart(e)
         } else {
