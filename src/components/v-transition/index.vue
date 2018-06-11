@@ -1,14 +1,38 @@
-<template>
+<!--<template>
   <transition :name="name"
         :enter-active-class="activeClass"
         :leave-active-class="activeClass">
     <slot></slot>
   </transition>
-</template>
+</template>-->
 
 <script>
 export default {
+  render (h, content) {
+    const {name, activeClass} = this
+    if (this.group) {
+      return (
+        <transition-group
+          name={name}
+          enter-active-class={activeClass}
+          leave-active-class={activeClass}>
+          {this.$slots.default}
+        </transition-group>
+      )
+    }
+    return (
+      <transition
+        name={name}
+        enter-active-class={activeClass}
+        leave-active-class={activeClass}>
+        {this.$slots.default}
+      </transition>
+    )
+  },
   props: {
+    group: {
+      type: Boolean
+    },
     name: {
       type: String,
       default: 'fade'

@@ -44,6 +44,17 @@
         &lt;div class="cont slide-bottom" v-show="isShow"&gt;slide-bottom&lt;/div&gt;
       &lt;/VTransition&gt;</pre>
     </div>
+
+    <div class="item">
+      <button @click="isShowGroup=!isShowGroup">group 显示/隐藏</button>
+      <VTransition group>
+        <div class="group-item" v-for="v of 3" :key="v" v-show="isShowGroup">{{v}}</div>
+      </VTransition>
+      <pre>
+      &lt;VTransition group&gt;
+        &lt;div class="group-item" v-for="v of 3" :key="v" v-show="isShowGroup"&gt;{\{v}}&lt;/div&gt;
+      &lt;/VTransition&gt;</pre>
+    </div>
   </div>
 
 </template>
@@ -56,7 +67,8 @@ export default {
       isShow: true,
       isShowSlide: true,
       isShowZoom: true,
-      isShowBottom: true
+      isShowBottom: true,
+      isShowGroup: true
     }
   },
   components: {
@@ -66,6 +78,13 @@ export default {
 </script>
 
 <style scoped>
+.transition-active{
+  transition: 0.3s cubic-bezier(.55,0,.1,1);
+  transition-property:opacity,transform;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 .box {
   margin: 8px;
 }
@@ -95,6 +114,10 @@ pre {
   height: 100px;
   position: fixed;
   bottom: 0;
+  background-color: #fff;
+}
+.group-item {
+  float: left;
+  border: 3px solid #ddd;
 }
 </style>
-

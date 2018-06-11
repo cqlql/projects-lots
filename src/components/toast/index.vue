@@ -28,13 +28,15 @@ export default {
   methods: {
     show (options) {
       // 参数处理
-      let position = 'bottom'
       let type = options.type
       this.msg = options.text
-      if (/success|error/.test(type)) position = 'center'// 位置处理。部分类型默认居中
+      // 消息类型，success error 等
+      this.type = this.$style[type]
+      // 位置处理
+      let position = 'bottom'
+      if (/success|error/.test(type)) position = 'center'// 部分类型默认居中
       position = options.position || position
       this.position = this.$style[position]
-      this.type = this.$style[type]
 
       // 显示/自动关闭
       this.isShow = true
@@ -114,11 +116,7 @@ export default {
 }
 
 .error {
-  /* color: #eb3941;
-  border: 2px solid #eb3941;
-  background-color: rgba(255, 255, 255); */
   color: #fff;
-  /* border: 2px solid #eb3941; */
   background-color: #eb3941;
   font-size: 14px;
   text-align: left;
@@ -128,15 +126,9 @@ export default {
   height: 16px;
   position: relative;
   background-color: #fff;
-
   border-radius: 100%;
-
-  /* margin-top: 1px; */
   vertical-align: middle;
-  /* vertical-align: bottom; */
-
   display: none;
-  /* display: inline-block; */
 }
 .error .errorIcon {
   display: inline-block;
