@@ -41,6 +41,9 @@ export default {
       type: String,
       default: 'transition-active'
     }
+  },
+  mounted () {
+    console.log(this)
   }
 }
 </script>
