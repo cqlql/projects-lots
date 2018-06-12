@@ -36,8 +36,8 @@
 
     <div class="item">
       <button @click="isShowBottom=!isShowBottom">slide-bottom 显示/隐藏</button>
-      <VTransition name="slide-bottom">
-        <div class="cont slide-bottom" v-show="isShowBottom">slide-bottom</div>
+      <VTransition name="slide-down">
+        <div class="cont slide-down" v-show="isShowBottom">slide-bottom</div>
       </VTransition>
       <pre>
       &lt;VTransition name="slide-bottom"&gt;
@@ -78,13 +78,6 @@ export default {
 </script>
 
 <style scoped>
-.transition-active{
-  transition: 0.3s cubic-bezier(.55,0,.1,1);
-  transition-property:opacity,transform;
-}
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-}
 .box {
   margin: 8px;
 }
@@ -110,7 +103,7 @@ pre {
 .item {
   clear: both;
 }
-.slide-bottom {
+.slide-down {
   height: 100px;
   position: fixed;
   bottom: 0;

@@ -9,22 +9,24 @@
 <script>
 export default {
   render (h, content) {
-    const {name, activeClass} = this
+    const {name, activeClass, $style} = this
     if (this.group) {
       return (
         <transition-group
-          name={name}
           enter-active-class={activeClass}
-          leave-active-class={activeClass}>
+          leave-active-class={activeClass}
+          enter-class={$style[name + '-enter']}
+          leave-to-class={$style[name + '-leave-to']}>
           {this.$slots.default}
         </transition-group>
       )
     }
     return (
       <transition
-        name={name}
         enter-active-class={activeClass}
-        leave-active-class={activeClass}>
+        leave-active-class={activeClass}
+        enter-class={$style[name + '-enter']}
+        leave-to-class={$style[name + '-leave-to']}>
         {this.$slots.default}
       </transition>
     )
@@ -39,16 +41,15 @@ export default {
     },
     activeClass: {
       type: String,
-      default: 'transition-active'
+      default () {
+        return this.$style['transition-active']
+      }
     }
-  },
-  mounted () {
-    console.log(this)
   }
 }
 </script>
 
-<style scoped>
+<style module>
 .transition-active{
   transition: 0.3s cubic-bezier(.55,0,.1,1);
   transition-property:opacity,transform;
@@ -73,7 +74,7 @@ export default {
   transform: scale(1.2);
 }
 /* 100% 的写法 ios 有bug。需使用不能完全隐藏的值，改成99%即可 */
-.slide-bottom-enter, .slide-bottom-leave-to {
+.slide-down-enter, .slide-down-leave-to {
   transform: translate3d(0, 99%, 0);
 }
 
