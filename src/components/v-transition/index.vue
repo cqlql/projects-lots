@@ -78,6 +78,10 @@ export default {
   transform: translate3d(0, 99%, 0);
 }
 
+.slide-up-enter, .slide-up-leave-to {
+  transform: translate3d(0, -99%, 0);
+}
+
 /* .slide-top-enter, .slide-top-leave-to {
   transform: translate3d(0, -99%, 0);
 } */

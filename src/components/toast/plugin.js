@@ -7,6 +7,7 @@ export default {
     document.body.appendChild(toast.$el)
 
     let $toast = Vue.toast = Vue.prototype.$toast = toast.text
+    $toast.show = toast.show
     $toast.error = toast.error
     $toast.success = toast.success
   }

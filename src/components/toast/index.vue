@@ -1,47 +1,28 @@
 <template>
-  <VTransition :activeClass="$style.transitionActive">
-    <div v-show="isShow" :class="[$style.msgSimple, position, type]">
-      <div :class="$style.tickIcon">
-        <svg viewBox="0 0 1024 1024">
-          <path d="M962 237.778l-585 630-315-405 115.313-98.438 199.688 208.125 495-424.688 90 90z" fill="currentColor"></path>
-        </svg>
-      </div>
-      <div>
-        <div :class="$style.errorIcon"></div>
-        <span :class="$style.txt">{{msg}}</span>
-      </div>
-    </div>
+  <VTransition group :activeClass="$style.transitionActive">
+    <Toast v-for="options of list" :options="options" :key="options.id"></Toast>
   </VTransition>
 </template>
 
 <script>
 import VTransition from '@/components/v-transition'
+import Toast from './toast'
+let id = 0
 export default {
   data () {
     return {
-      isShow: false,
-      type: '',
-      msg: '',
-      position: ''
+      list: []
     }
   },
   methods: {
     show (options) {
-      // 参数处理
-      let type = options.type
-      this.msg = options.text
-      // 消息类型，success error 等
-      this.type = this.$style[type]
-      // 位置处理
-      let position = 'bottom'
-      if (/success|error/.test(type)) position = 'center'// 部分类型默认居中
-      position = options.position || position
-      this.position = this.$style[position]
-
+      options.id = id++
+      // 位置处理  部分类型默认居中
+      if (/success|error/.test(options.type)) options.position = options.position || 'center'// 部分类型默认居中
       // 显示/自动关闭
-      this.isShow = true
-      clearTimeout(this.stopId)
-      this.stopId = setTimeout(() => { this.isShow = false }, 1600)
+      const {list} = this
+      list.push(options)
+      setTimeout(function () { list.shift() }, 1600)
     },
     text (text) {
       this.show({
@@ -62,7 +43,8 @@ export default {
     }
   },
   components: {
-    VTransition
+    VTransition,
+    Toast
   }
 }
 </script>
@@ -71,82 +53,5 @@ export default {
 .transitionActive {
   transition: 0.2s ease;
   transition-property: opacity;
-}
-.msgSimple {
-  position: fixed;
-  left: 50%;
-  bottom: 10%;
-  transform: translateX(-50%);
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 4px 10px 6px;
-  font-size: 16px;
-  line-height: 1.2;
-
-  max-width: 86%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
-
-  border-radius: 3px;
-  z-index: 100;
-  /* pointer-events: none; */
-}
-.txt {
-  vertical-align: middle;
-}
-.tickIcon {
-  width: 55px;
-  margin: 0 auto;
-  display: none;
-}
-
-.center {
-  bottom: auto;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-.success {
-  max-width: 120px;
-  padding: 14px;
-}
-.success .tickIcon {
-  display: block;
-}
-
-.error {
-  color: #fff;
-  background-color: #eb3941;
-  font-size: 14px;
-  text-align: left;
-}
-.errorIcon {
-  width: 16px;
-  height: 16px;
-  position: relative;
-  background-color: #fff;
-  border-radius: 100%;
-  vertical-align: middle;
-  display: none;
-}
-.error .errorIcon {
-  display: inline-block;
-}
-.errorIcon::before,
-.errorIcon::after {
-  content: "";
-  width: 70%;
-  height: 10%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  background-color: #eb3941;
-  transform: rotate(45deg);
-}
-.errorIcon::after {
-  transform: rotate(-45deg);
 }
 </style>
