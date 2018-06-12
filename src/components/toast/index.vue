@@ -6,7 +6,7 @@
 
 <script>
 import VTransition from '@/components/v-transition'
-import Toast from './toast'
+import Toast from './Toast'
 let id = 0
 export default {
   data () {
@@ -18,7 +18,7 @@ export default {
     show (options) {
       options.id = id++
       // 位置处理  部分类型默认居中
-      if (/success|error/.test(options.type)) options.position = options.position || 'center'// 部分类型默认居中
+      if (/success|error/.test(options.type)) options.position = options.position || 'center'
       // 显示/自动关闭
       const {list} = this
       list.push(options)

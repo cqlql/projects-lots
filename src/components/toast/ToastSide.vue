@@ -36,23 +36,19 @@ export default {
 <style module>
 .msgSimple {
   position: fixed;
-  left: 50%;
-  bottom: 10%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  top:0;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.6);
   padding: 4px 10px 6px;
   font-size: 16px;
   line-height: 1.2;
 
-  max-width: 86%;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
-
-  border-radius: 3px;
   z-index: 100;
-  /* pointer-events: none; */
 }
 .txt {
   vertical-align: middle;
@@ -62,11 +58,9 @@ export default {
   margin: 0 auto;
   display: none;
 }
-
-.center {
-  bottom: auto;
-  top: 50%;
-  transform: translate(-50%, -50%);
+.bottom-side {
+  top:auto;
+  bottom: 0;
 }
 .success {
   max-width: 120px;
@@ -80,7 +74,7 @@ export default {
   color: #fff;
   background-color: #eb3941;
   font-size: 14px;
-  text-align: left;
+  /* text-align: left; */
 }
 
 .msgSimple .errorIcon{

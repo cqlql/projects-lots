@@ -44,6 +44,16 @@
         &lt;div class="cont slide-bottom" v-show="isShow"&gt;slide-bottom&lt;/div&gt;
       &lt;/VTransition&gt;</pre>
     </div>
+    <div class="item">
+      <button @click="isShowUp=!isShowUp">slide-up 显示/隐藏</button>
+      <VTransition name="slide-up">
+        <div class="cont slide-up" v-show="isShowUp">slide-up</div>
+      </VTransition>
+      <pre>
+      &lt;VTransition name="slide-bottom"&gt;
+        &lt;div class="cont slide-bottom" v-show="isShow"&gt;slide-bottom&lt;/div&gt;
+      &lt;/VTransition&gt;</pre>
+    </div>
 
     <div class="item">
       <button @click="isShowGroup=!isShowGroup">group 显示/隐藏</button>
@@ -68,6 +78,7 @@ export default {
       isShowSlide: true,
       isShowZoom: true,
       isShowBottom: true,
+      isShowUp: false,
       isShowGroup: true
     }
   },
@@ -107,6 +118,12 @@ pre {
   height: 100px;
   position: fixed;
   bottom: 0;
+  background-color: #fff;
+}
+.slide-up {
+  height: 100px;
+  position: fixed;
+  top: 0;
   background-color: #fff;
 }
 .group-item {

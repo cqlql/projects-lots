@@ -12,16 +12,25 @@
     <p>
       <button @click="onErrorMsg">错误消息</button>
     </p>
+    <p>
+      <button @click="onErrorMsgTopSide">错误消息 top-side</button>
+    </p>
+    <p>
+      <button @click="onMsgBottomSide">消息 bottom-side</button>
+    </p>
     <Toast ref="vToast"/>
+    <ToastSide ref="vToastSide"/>
   </div>
 </template>
 
 <script>
 import Toast from './index'
+import ToastSide from './IndexSide'
 let count = 0
 export default {
   components: {
-    Toast
+    Toast,
+    ToastSide
   },
   methods: {
     show () {
@@ -35,6 +44,20 @@ export default {
     },
     onErrorMsg () {
       this.$toast.error('操作失败操作失败操作失败操作失败操作失败操作失败')
+    },
+    onErrorMsgTopSide () {
+      this.$refs.vToastSide.show({
+        type: 'error',
+        position: 'top-side',
+        text: '操作失败操作失败操作失败操作失败操作失败操作失败'
+      })
+    },
+    onMsgBottomSide () {
+      this.$refs.vToastSide.show({
+        // type: 'error',
+        position: 'bottom-side',
+        text: '操作失败操作失败操作失败操作失败操作失败操作失败'
+      })
     }
   }
 }
