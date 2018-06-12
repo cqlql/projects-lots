@@ -25,7 +25,7 @@ export default {
         return {
           type: '',
           text: '',
-          position: 'bottom'
+          position: ''
         }
       }
     }
