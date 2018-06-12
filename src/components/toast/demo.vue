@@ -19,18 +19,15 @@
       <button @click="onMsgBottomSide">消息 bottom-side</button>
     </p>
     <Toast ref="vToast"/>
-    <ToastSide ref="vToastSide"/>
   </div>
 </template>
 
 <script>
 import Toast from './index'
-import ToastSide from './IndexSide'
 let count = 0
 export default {
   components: {
-    Toast,
-    ToastSide
+    Toast
   },
   methods: {
     show () {
@@ -46,15 +43,14 @@ export default {
       this.$toast.error('操作失败操作失败操作失败操作失败操作失败操作失败')
     },
     onErrorMsgTopSide () {
-      this.$refs.vToastSide.show({
+      this.$toast.show({
         type: 'error',
         position: 'top-side',
         text: '操作失败操作失败操作失败操作失败操作失败操作失败'
       })
     },
     onMsgBottomSide () {
-      this.$refs.vToastSide.show({
-        // type: 'error',
+      this.$toast.show({
         position: 'bottom-side',
         text: '操作失败操作失败操作失败操作失败操作失败操作失败'
       })
