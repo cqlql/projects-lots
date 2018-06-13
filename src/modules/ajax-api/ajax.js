@@ -1,12 +1,6 @@
 import axios from 'axios'
 import Vue from 'vue'
 
-function urlHandle (url) {
-  if (process.env.NODE_ENV !== 'production') {
-    // url = '/mock' + url
-  }
-  return url
-}
 class AjaxWeb {
   constructor (dataHandle) {
     if (dataHandle) {
@@ -20,10 +14,17 @@ class AjaxWeb {
       }
     }
   }
-  post (url, data, config) {
+  ajax ({url, method, data, params}) {
     let { loading, toast } = Vue
     loading.show()
-    return axios.post(urlHandle(url), data, config).then(({ data }) => {
+    return axios({
+      method,
+      url,
+      // baseURL: '/mock',
+      // baseURL: '/api/historylesson',
+      data,
+      params
+    }).then(({ data }) => {
       const result = this.dataHandle(data)
       // 失败情况
       if (result instanceof Error) {
@@ -34,10 +35,27 @@ class AjaxWeb {
       return result
     }).catch(e => {
       loading.hide()
-      toast(e.message)
+      toast.error(e.message)
       return Promise.reject(e)
+    })
+  }
+  get (url, {params} = {}) {
+    return this.ajax({
+      method: 'get',
+      url,
+      params
+    })
+  }
+  post (url, data, {params} = {}) {
+    return this.ajax({
+      method: 'post',
+      url,
+      data,
+      params
     })
   }
 }
 
-window.AjaxWeb = AjaxWeb
+// window.AjaxWeb = AjaxWeb
+
+export default AjaxWeb
