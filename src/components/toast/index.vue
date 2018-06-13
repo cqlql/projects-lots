@@ -29,19 +29,35 @@ export default {
       // toastName: 'Toast',
       listFade: [],
       listSlideUp: [],
-      listSlideDown: []
+      listSlideDown: [],
+
+      // 默认位置
+      successPosition: 'center',
+      errorPosition: 'center',
+      position: 'bottom'
     }
   },
   methods: {
     show (options) {
       options.id = id++
-      // 位置处理  部分类型默认居中
-      if (/success|error/.test(options.type)) options.position = options.position || 'center'// 部分类型默认居中
+
+      // 位置处理
+      let {position} = options
+      if (!position) {
+        if (options.type === 'success') {
+          position = this.successPosition
+        } else if (options.type === 'error') {
+          position = this.errorPosition
+        } else {
+          position = this.position // 设置默认值
+        }
+        options.position = position
+      }
 
       let list
-      if (options.position === 'top-side') {
+      if (position === 'top-side') {
         list = this.listSlideUp
-      } else if (options.position === 'bottom-side') {
+      } else if (position === 'bottom-side') {
         list = this.listSlideDown
       } else {
         list = this.listFade
