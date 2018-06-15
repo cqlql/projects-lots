@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  render (h, content) {
+  render () {
     const {name, activeClass, $style} = this
     if (this.group) {
       return (
