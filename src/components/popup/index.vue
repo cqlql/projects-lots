@@ -1,8 +1,8 @@
 <template>
   <div>
-    <VMask v-show="mask&&isShow" @click="isShow=false" />
+    <VMask v-show="mask&&isShow" @click="()=>{onMaskClick()}" />
     <VTransition name="zoom-out">
-    <div :class="$style.popup" v-show="isShow">
+    <div :class="$style.popup" class="popup" v-show="isShow">
       <slot/>
     </div>
     </VTransition>
@@ -13,17 +13,22 @@
 import VMask from '../base/VMask'
 import VTransition from '../v-transition'
 export default {
+  props: {
+    initIsShow: Boolean
+  },
   data () {
     return {
       mask: true,
-      isShow: false
+      isShow: this.initIsShow
     }
   },
   methods: {
-    show ({mask = true} = {}) {
+    show ({mask = true, onMaskClick = () => { this.isShow = false }} = {}) {
       this.mask = mask
       this.isShow = true
-    }
+      this.onMaskClick = onMaskClick
+    },
+    onMaskClick () {}
   },
   components: {
     VMask,
