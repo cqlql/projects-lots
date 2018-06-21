@@ -29,11 +29,11 @@ export default {
   },
   data () {
     return {
-      width: 100
+      width: this.initialWidth
     }
   },
   created () {
-    this.x = this.width = this.initialWidth
+    this.x = this.width
   },
   mounted () {
     let len = 0
