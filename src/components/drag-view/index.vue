@@ -38,8 +38,12 @@ export default {
   mounted () {
     let len = 0
     let tw
+    let elem = this.$refs.eBar
+    elem.ondblclick = () => {
+      this.$emit('resize', (this.width = this.minWidth))
+    }
     drag({
-      elem: this.$refs.eBar,
+      elem,
       onStart: e => {
         len = 0
         tw = this.width
@@ -69,9 +73,9 @@ export default {
 }
 .bar {
   position: absolute;
-  right: -10px;
+  right: -2px;
   top: 0;
-  width: 20px;
+  width: 10px;
   height: 100%;
   cursor: e-resize;
 }
