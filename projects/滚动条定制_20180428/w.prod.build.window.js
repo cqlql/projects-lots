@@ -25,7 +25,7 @@ baseConf.entry = {}
 let conf = {
   mode: 'production',
   // devtool: 'source-map',
-  // watch: true,
+  watch: true,
   entry: {
     customScroll: ['./src/customScroll.window.js']
   },
