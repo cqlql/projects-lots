@@ -1,14 +1,5 @@
 <template>
   <div>
-    <demo></demo>
+    hello
   </div>
 </template>
-
-<script>
-  import demo from './modules/temp/demo'
-  export default {
-    components: {
-      demo
-    }
-  }
-</script>
