@@ -16,12 +16,12 @@ module.exports = {
     }),
     require('postcss-nested'),
   ].concat(process.env.NODE_ENV === 'production'? [
-    require('postcss-pxtorem')({
-      // replace: process.env.NODE_ENV === 'production', // 默认 true
-      rootValue: 100,
-      propList:['*'],
-      selectorBlackList:[/^html$/]
-    })
+    // require('postcss-pxtorem')({
+    //   // replace: process.env.NODE_ENV === 'production', // 默认 true
+    //   rootValue: 100,
+    //   propList:['*'],
+    //   selectorBlackList:[/^html$/]
+    // })
   ] : [])
 }
 

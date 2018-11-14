@@ -9,7 +9,7 @@ Vue.use(Router)
 function importAll (r) {
   r.keys().forEach(key => {
     routes.push({
-      path: key.match(/^\.\/[^/]+(\/[^/]+\/demo[/.-]?.*)\.vue/)[1],
+      path: key.match(/^\.\/[^/]+(\/[^/]+.*)[/.-]demo.vue/)[1],
       component: r(key).default
     })
   })
@@ -18,7 +18,7 @@ function importAll (r) {
 // importAll(require.context('@/', true, /^\.\/(components|modules)\/.*[/.-]demo\.vue$/))
 
 // 编译指定 demo
-importAll(require.context('@/', true, /^\.\/(components|modules|views)\/(drag-view)\/demo[/.-]?.*\.vue$/))
+importAll(require.context('@/', true, /^\.\/(components|modules)\/(toast|confirm|debug-msg|zoom-touch).*[/.-]demo\.vue$/))
 
 navDev(routes)
 

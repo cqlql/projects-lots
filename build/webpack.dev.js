@@ -8,7 +8,7 @@ const merge = require('webpack-merge')
 
 module.exports = function (dirname) {
 
-  let baseConf = getBaseConf(dirname)
+  let baseConf = getBaseConf({dirname})
 
   baseConf.output.filename = baseConf.output.filename.replace(/chunkhash/, 'hash')
 
