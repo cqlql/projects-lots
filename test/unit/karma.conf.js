@@ -2,7 +2,7 @@ let getWebpackConfig = require('../../build/webpack.base')
 
 module.exports = function(config) {
   // webpack 处理
-  let webpackConfig = getWebpackConfig(__dirname)
+  let webpackConfig = getWebpackConfig({dirname: __dirname})
   webpackConfig.plugins.shift()
   delete webpackConfig.entry
   delete webpackConfig.output

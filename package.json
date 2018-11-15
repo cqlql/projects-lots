@@ -13,6 +13,7 @@
     "data-mock": "node ./data-mock/server.run.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1"
   },

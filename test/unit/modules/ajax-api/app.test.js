@@ -13,7 +13,7 @@ Vue.toast = msg => {
   console.log('消息', msg.message || msg)
 }
 
-fdescribe('app-proxy', function () {
+describe('app-proxy', function () {
   it('post 成功。不定制数据', function (done) {
     // 模拟 app 数据返回
     window.NativeJsFunQues = {
