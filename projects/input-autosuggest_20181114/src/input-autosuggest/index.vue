@@ -15,26 +15,35 @@ export default {
     const { $style, testStr, keyWord } = this
     const eLis = []
     let has = false
+    let firstIndex = -1
     this.list.forEach((d, k) => {
       let testResult = testStr(keyWord, d.v)
       let className = ''
       if (testResult) {
         has = true
+        if (firstIndex === -1) {
+          firstIndex = k
+        }
       } else {
         className = $style.hide
       }
+      // 默认选匹配的第一个，但必须有输入值
+      if (keyWord) this.firstIndex = firstIndex
 
       eLis.push(<li key={k} class={className} domPropsInnerHTML={testResult} data-index={k}></li>)
     })
     return (
       <div class={$style.box}>
-        <input type="text" onKeyup={this.onkeyup} onFocus={this.onfocus} onBlur={this.onblur}/>
-        <ul class={$style.list} v-show={this.listShow && has} onMousedown={this.onmousedown}>{eLis}</ul>
+        <input ref="ipt" type="text" onKeyup={this.onkeyup} onFocus={this.onfocus} onBlur={this.onblur} onClick={() => { this.listShow = true }}/>
+        <ul class={$style.list} v-show={this.listShow && has} onMousedown={this.onmousedown} onClick={this.onselect}>{eLis}</ul>
       </div>
     )
   },
   data () {
     return {
+      selectedIndex: -1,
+      firstIndex: -1,
+      // selectedValue: '',
       keyWord: '',
       list: [
         {
@@ -55,23 +64,42 @@ export default {
   },
   methods: {
     onkeyup ({ target }) {
+      this.listShow = true
       this.keyWord = target.value
-      console.log(this.keyWord)
     },
     onfocus () {
       this.listShow = true
     },
     onblur () {
       this.listShow = false
+      let { selectedIndex, firstIndex } = this
+      let v
+      if (selectedIndex > -1) {
+        v = this.list[selectedIndex].v
+      } else if (firstIndex > -1) {
+        v = this.list[firstIndex].v
+      } else {
+        v = ''
+      }
+      this.keyWord = this.$refs.ipt.value = v
     },
     onmousedown (e) {
       e.preventDefault()
+    },
+    onselect ({ target }) {
+      if (target.tagName !== 'LI') return
+      let index = target.dataset.index
+      let v = this.list[index].v
+      // this.selectedValue = v
+      this.selectedIndex = index * 1
+      this.listShow = false
+      this.keyWord = this.$refs.ipt.value = v
     },
     testStr (k, str) {
       // 多个连续空格替换成 |
       k = k.replace(/\s+/g, '|')
 
-      const reg = new RegExp(`(${k})`, 'g')
+      const reg = new RegExp(`(${k})`, 'gi')
 
       // let pass = false
       // while (result = reg.exec(str)) {
