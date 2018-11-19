@@ -1,14 +1,14 @@
 <template>
   <div>
-    <InputAutosuggest/>
+    <demo/>
   </div>
 </template>
 
 <script>
-import InputAutosuggest from './input-autosuggest'
+import demo from './input-autosuggest/demo'
 export default {
   components: {
-    InputAutosuggest
+    demo
   }
 }
 </script>

@@ -12,12 +12,12 @@
 <script>
 export default {
   render () {
-    const { $style, testStr, keyWord } = this
+    const { $style, testStr, keyWord, valueKeyName } = this
     const eLis = []
     let has = false
     let firstIndex = -1
     this.list.forEach((d, k) => {
-      let testResult = testStr(keyWord, d.v)
+      let testResult = testStr(keyWord, d[valueKeyName])
       let className = ''
       if (testResult) {
         has = true
@@ -45,20 +45,8 @@ export default {
       firstIndex: -1,
       // selectedValue: '',
       keyWord: '',
-      list: [
-        {
-          v: 'a'
-        },
-        {
-          v: 'ab'
-        },
-        {
-          v: 'abc'
-        },
-        {
-          v: 'bcde'
-        }
-      ],
+      valueKeyName: 'value',
+      list: [],
       listShow: false
     }
   },
@@ -72,12 +60,12 @@ export default {
     },
     onblur () {
       this.listShow = false
-      let { selectedIndex, firstIndex } = this
+      let { selectedIndex, firstIndex, valueKeyName } = this
       let v
       if (selectedIndex > -1) {
-        v = this.list[selectedIndex].v
+        v = this.list[selectedIndex][valueKeyName]
       } else if (firstIndex > -1) {
-        v = this.list[firstIndex].v
+        v = this.list[firstIndex][valueKeyName]
       } else {
         v = ''
       }
@@ -108,7 +96,8 @@ export default {
 
       let result = str.replace(reg, '<b>$1</b>')
       return result === str ? false : result
-    }
+    },
+    getSelectedItem () {}
   },
   directives: {
     'blur-close': {
