@@ -57,17 +57,19 @@ if (isTest) {
 
 }
 
+delete webpackConfig.entry.main // 删掉默认入口
 const prodConfig = {
+  entry: { 'input-autosuggest': './src/input-autosuggest.window.js' }, // 更改 js 包文件名
   // 不打包的模块
   // 键为 import 调用名，值为全局名称
-  externals: {
-    'vue': 'Vue'
-    // 'vue-router': 'VueRouter'
-  },
+  // externals: {
+  //   'vue': 'Vue'
+  //   // 'vue-router': 'VueRouter'
+  // },
   output: {
     path: outputPath,
 
-    library: 'lib',
+    library: 'InputAutosuggest',
     libraryTarget: 'window',
     libraryExport: 'default',
   },
@@ -96,11 +98,11 @@ const prodConfig = {
     //   }
     // ]),
     // 添加指定的 cdn 包。或者指定路径的包也行
-    new ScriptPlugin([
-      'http://p2y63v1s4.bkt.clouddn.com/vue/2.5.13/vue.min.js',
-      // 配合 copy-webpack-plugin 使用
-      // 'js/vue-router.min.js',
-    ])
+    // new ScriptPlugin([
+    //   'http://p2y63v1s4.bkt.clouddn.com/vue/2.5.13/vue.min.js',
+    //   // 配合 copy-webpack-plugin 使用
+    //   // 'js/vue-router.min.js',
+    // ])
   ].concat(
     // 打包分析
     isTest ? [(new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)())] : []

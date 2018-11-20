@@ -6,6 +6,36 @@
   <title></title>
 </head>
 <body>
-<div id="app"></div>
+    <!-- <button onclick="setData">设置数据1</button> -->
+    <!-- <button onclick="setData2">设置数据2</button> -->
+    <!-- <button onclick="getSelectedItem">当前选择项</button> -->
+    <div id="app" class="xxx asd"></div>
+<script>
+  window.onload = function () {
+    var inputAutosuggest = new InputAutosuggest('#app')
+    inputAutosuggest.setData([
+      {
+        value: 'a2'
+      },
+      {
+        value: 'ab2'
+      },
+      {
+        value: 'abc2'
+      },
+      {
+        value: 'bcde2'
+      }
+    ])
+    inputAutosuggest.onDataChange(function (d) {
+      console.log(d)
+    })
+
+    window.getSelectedItem = function () {
+
+    }
+  }
+
+</script>
 </body>
 </html>

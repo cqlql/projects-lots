@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import demo from './input-autosuggest/demo'
+import demo from './demo'
 export default {
   components: {
     demo

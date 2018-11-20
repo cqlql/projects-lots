@@ -50,6 +50,11 @@ export default {
       listShow: false
     }
   },
+  computed: {
+    selectedItem () {
+      return this.list[this.selectedIndex]
+    }
+  },
   methods: {
     onkeyup ({ target }) {
       this.listShow = true
@@ -77,7 +82,7 @@ export default {
     onselect ({ target }) {
       if (target.tagName !== 'LI') return
       let index = target.dataset.index
-      let v = this.list[index].v
+      let v = this.list[index][this.valueKeyName]
       // this.selectedValue = v
       this.selectedIndex = index * 1
       this.listShow = false
@@ -96,14 +101,16 @@ export default {
 
       let result = str.replace(reg, '<b>$1</b>')
       return result === str ? false : result
-    },
-    getSelectedItem () {}
+    }
   },
-  directives: {
-    'blur-close': {
-      inserted: function (el) {
-        el.tabIndex = -1
-      }
+  watch: {
+    selectedIndex () {
+      this.$emit('dataChange', this.selectedItem)
+    },
+    // 重置
+    list () {
+      this.firstIndex = this.selectedIndex = -1
+      this.keyWord = this.$refs.ipt.value = ''
     }
   }
 }

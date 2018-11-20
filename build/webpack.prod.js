@@ -55,7 +55,7 @@ module.exports = function ({ dirname, splitCss = false, env = d => d, indexTempl
       // }),
 
       // 将抽离的 css、js 包含进 html 文件
-      new HtmlWebpackInlineSourcePlugin(),
+      // new HtmlWebpackInlineSourcePlugin(),
 
       // 环境变量
       env(
