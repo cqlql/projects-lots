@@ -10,9 +10,10 @@
 -->
 
 <script>
+import scopeElements from '@/modules/corejs/dom/scope-elements.js'
 export default {
   render () {
-    const { $style, testStr, keyWord, valueKeyName } = this
+    const { $style, testStr, keyWord, valueKeyName, selectedIndex } = this
     const eLis = []
     let has = false
     let firstIndex = -1
@@ -24,6 +25,9 @@ export default {
         if (firstIndex === -1) {
           firstIndex = k
         }
+        if (selectedIndex === k) {
+          className = $style.selected
+        }
       } else {
         className = $style.hide
       }
@@ -33,8 +37,8 @@ export default {
       eLis.push(<li key={k} class={className} domPropsInnerHTML={testResult} data-index={k}></li>)
     })
     return (
-      <div class={$style.box}>
-        <input ref="ipt" type="text" onKeyup={this.onkeyup} onFocus={this.onfocus} onBlur={this.onblur} onClick={() => { this.listShow = true }}/>
+      <div class={$style.box} v-show={this.isShow}>
+        <input placeholder={this.placeholder} ref="ipt" type="text" onKeyup={this.onkeyup} onFocus={this.onfocus} onBlur={this.onblur} onClick={() => { this.keyWord = ''; this.listShow = true }} />
         <ul class={$style.list} v-show={this.listShow && has} onMousedown={this.onmousedown} onClick={this.onselect}>{eLis}</ul>
       </div>
     )
@@ -47,7 +51,9 @@ export default {
       keyWord: '',
       valueKeyName: 'value',
       list: [],
-      listShow: false
+      listShow: false,
+      isShow: true,
+      placeholder: ''
     }
   },
   computed: {
@@ -80,13 +86,13 @@ export default {
       e.preventDefault()
     },
     onselect ({ target }) {
-      if (target.tagName !== 'LI') return
-      let index = target.dataset.index
-      let v = this.list[index][this.valueKeyName]
-      // this.selectedValue = v
-      this.selectedIndex = index * 1
-      this.listShow = false
-      this.keyWord = this.$refs.ipt.value = v
+      scopeElements(target, elem => {
+        if (elem.tagName === 'LI') {
+          this.select(elem.dataset.index)
+          this.listShow = false
+          return false
+        }
+      })
     },
     testStr (k, str) {
       // 多个连续空格替换成 |
@@ -101,16 +107,24 @@ export default {
 
       let result = str.replace(reg, '<b>$1</b>')
       return result === str ? false : result
+    },
+    select (index) {
+      let item = this.list[index]
+      if (item) {
+        let v = item[this.valueKeyName]
+        this.selectedIndex = index * 1
+        this.keyWord = this.$refs.ipt.value = v
+      }
+    },
+    // 重置
+    reset () {
+      this.firstIndex = this.selectedIndex = -1
+      this.keyWord = this.$refs.ipt.value = ''
     }
   },
   watch: {
-    selectedIndex () {
+    selectedIndex (i) {
       this.$emit('dataChange', this.selectedItem)
-    },
-    // 重置
-    list () {
-      this.firstIndex = this.selectedIndex = -1
-      this.keyWord = this.$refs.ipt.value = ''
     }
   }
 }
@@ -127,34 +141,77 @@ export default {
 
 .list {
   list-style-type: none;
-  margin: 10px 0 0 0;
+  /* margin: 10px 0 0 0; */
   padding: 0;
 
-      position: absolute;
-    /* width: 95%; */
-    width: 200px;
-    background-color: #fff;
+  position: absolute;
+  z-index: 1;
+  /* width: 95%; */
+  /* width: 200px; */
+  background-color: #fff;
+  border-radius: 5px;
+  color: #666;
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  box-shadow: 0 0 3px 3px #ccc;
+  border: 1px solid #67a2ee;
+  max-height: 250px;
+  overflow: auto;
+  width: 100%;
+  box-sizing: border-box;
+
+  /*** webkit ***/
+  /*滚动条整体*/
+  &::-webkit-scrollbar {
     border-radius: 5px;
-    color: #666;
-    /* left: 50%; */
-    /* transform: translateX(-50%); */
-    box-shadow: 0 0 3px 3px #ccc;
-    border: 1px solid #67a2ee;
-    max-height: 250px;
-    overflow: auto;
+    width: 14px; /*滚动条宽度*/
+  }
+  /*滚动条按钮*/
+  /* ::-webkit-scrollbar-button {
+
+} */
+  /* 滑道 */
+  &::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: #f3f3f3;
+  }
+  /* ::-webkit-scrollbar-track-piece{
+  background-color:#F3F3F3;
+} */
+
+  /*横竖滚动条交角*/
+  /* ::-webkit-scrollbar-corner {
+  background-color: #F3F3F3;
+} */
+  /*横竖滚动条交角图案*/
+  /* ::-webkit-resizer {
+  background-repeat: no-repeat;
+  background-position: bottom right;
+} */
+  /*滚动条*/
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #f3f3f3;
+    border: solid 1px #c0c0c0;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #f3f3e0;
+  }
 }
 .list li {
   font-size: 16px;
-    line-height: 22px;
-    padding: 6px 0 6px 5px;
-    box-sizing: border-box;
-    -webkit-appearance: none;
-    border-bottom: 1px solid #f0f0f0;
-    font-weight: 400;
-    color: #878787;
+  line-height: 22px;
+  padding: 6px 0 6px 5px;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  border-bottom: 1px solid #f0f0f0;
+  font-weight: 400;
+  color: #878787;
 }
-.list li:hover {
+.list li:hover,
+.list li.selected {
   background-color: #67a2ee;
   color: #fff;
+  border-bottom-color: #67a2ee;
 }
 </style>

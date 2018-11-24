@@ -28,37 +28,40 @@ const webpackConfig = getWebpackConfig({
   // 更改入口 index template
   indexTemplate () {
     // 去掉 index template
-    // function Empty () {}
-    // Empty.prototype.apply = function () {}
-    // return new Empty()
+    function Empty () {}
+    Empty.prototype.apply = function () {}
+    return new Empty()
 
-    return new HtmlWebpackPlugin({
-      filename: './index.html',
-      template: './src/index.html',
-      // chunks: ['main'],
-      // inlineSource: /main\.js/,
-      minify: {
-        // removeComments: true,
-        // collapseWhitespace: true,
-        // removeAttributeQuotes: true,
-        // 内嵌 css js 压缩, 结合 HtmlWebpackInlineSourcePlugin 可能会压缩2次，非必要还是不要设了
-        // minifyCSS: true,
-        // minifyJS: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      }
-    })
+    // return new HtmlWebpackPlugin({
+    //   filename: './index.html',
+    //   template: './src/index.html',
+    //   // chunks: ['main'],
+    //   // inlineSource: /main\.js/,
+    //   minify: {
+    //     // removeComments: true,
+    //     // collapseWhitespace: true,
+    //     // removeAttributeQuotes: true,
+    //     // 内嵌 css js 压缩, 结合 HtmlWebpackInlineSourcePlugin 可能会压缩2次，非必要还是不要设了
+    //     // minifyCSS: true,
+    //     // minifyJS: true
+    //     // more options:
+    //     // https://github.com/kangax/html-minifier#options-quick-reference
+    //   }
+    // })
   }
 })
 
 // 打包输出路径设置：
-let outputPath = path.resolve(__dirname, './dist')
+// let outputPath = path.resolve(__dirname, './dist')
+let outputPath = 'E:\\_work\\asp_net\\sd.plamclass.com.v2\\sd.plamclass.com\\SD.PalmClass.Web\\Content\\HomePageV2'
 if (isTest) {
 
 }
 
 delete webpackConfig.entry.main // 删掉默认入口
 const prodConfig = {
+  watch: true,
+  devtool: 'cheap-module-eval-source-map',
   entry: { 'input-autosuggest': './src/input-autosuggest.window.js' }, // 更改 js 包文件名
   // 不打包的模块
   // 键为 import 调用名，值为全局名称
@@ -68,7 +71,7 @@ const prodConfig = {
   // },
   output: {
     path: outputPath,
-
+    // filename: '[name].js?_=[chunkhash:7]',
     library: 'InputAutosuggest',
     libraryTarget: 'window',
     libraryExport: 'default',

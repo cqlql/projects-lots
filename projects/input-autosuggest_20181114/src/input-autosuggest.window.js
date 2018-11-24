@@ -9,6 +9,10 @@ export default class InputAutosuggest {
     this.$vm = null
     this.dataList = []
     this.dataChangeFn = []
+    this.selectedIndex = null
+    this.isShow = true
+    this.valueKeyName = 'value'
+    this.placeholder = ''
     this.init(el)
   }
   async init (el) {
@@ -21,6 +25,10 @@ export default class InputAutosuggest {
     if (this.$vm === null) {
       const vm = this.$vm = new CustomScroll().$mount(el)
       vm.list = this.dataList
+      vm.valueKeyName = this.valueKeyName
+      vm.placeholder = this.placeholder
+      vm.isShow = this.isShow
+      vm.select(this.selectedIndex)
       vm.$on('dataChange', result => {
         this.dataChangeFn.forEach(fn => { fn(result) })
       })
@@ -37,5 +45,27 @@ export default class InputAutosuggest {
   }
   onDataChange (fn) {
     this.dataChangeFn.push(fn)
+  }
+  select (index) {
+    const vm = this.$vm
+    if (vm) {
+      vm.select(index)
+    } else {
+      this.selectedIndex = index * 1
+    }
+  }
+  hide () {
+    this.show(false)
+  }
+  show (isShow = true) {
+    const vm = this.$vm
+    if (vm) {
+      vm.isShow = isShow
+    } else {
+      this.isShow = isShow
+    }
+  }
+  reset () {
+    if (this.$vm) this.$vm.reset()
   }
 }
