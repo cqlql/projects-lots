@@ -1,16 +1,101 @@
 <template>
   <div class="box">
-    <p>hello</p>
+    <p ref="eMove" :style="{left:x+'px'}">惯性实验</p>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import swipex from './swipex.js'
+import Animation from '@/modules/corejs/animation/animation.js'
+
+class Anima {
+  constructor ({move = () => {}, rate = 0.2, complete = () => {}}) {
+    this.rate = rate
+    this.move = move
+
+    // 开关。 是否进行中。true 进行中
+    this.sw = false
+
+    this.cur = 0
+
+    this.complete = complete
+  }
+
+  start (to, cur = this.cur) {
+    let {move} = this
+
+    this.to = to
+    this.cur = cur
+
+    if (this.sw) return
+    this.sw = true
+
+    let excu = () => {
+      if (this.sw) {
+        let {to, cur, rate} = this
+
+        this.cur = cur = cur + (rate*=0.5) * (to - cur)
+
+        // 最后一次
+        if (Math.abs(to - cur) < 1) {
+          this.cur = to
+          this.sw = false
+          this.complete()
+        }
+
+        move(cur)
+
+        this.stopId = window.requestAnimationFrame(excu)
+      }
+    }
+    excu()
+  }
+
+  stop () {
+    this.sw = false
+    window.cancelAnimationFrame(this.stopId)
+  }
+}
 export default {
+  data () {
+    return {
+      x: 0
+    }
+  },
   mounted () {
+    let animation = new Animation()
+    let anima = new Anima({move: (x) => {
+      this.x = x
+    }})
+    // animation.easing = (x, t, b, c, d) => { return c * Math.sin(t / d * (Math.PI / 2)) + b }
     swipex({
       elem: this.$el,
-      onMove () {}
+      onMove: (xLen) => {
+        this.x += xLen
+      },
+      onSwipeRight: (speed) => {
+        console.log('距离r', speed * 100)
+        console.log('时间', speed / 10)
+        // let x = this.x
+        // animation.start((p) => {
+        //   this.x = x + speed * 200 * p
+        //   // console.log(x + speed * 100 * p)
+        // }, speed * 600)
+        // this.$refs.eMove.style.transition = speed * 500 + 'ms cubic-bezier(0.215, 0.61, 0.355, 1)'
+        // setTimeout(() => { this.$refs.eMove.style.transition = '' }, speed * 500)
+        // setTimeout(() => {
+        //   this.x += speed * 300
+        // }, 1)
+
+        anima.start(this.x + speed * 200)
+
+      },
+      onSwipeLeft (speed) {
+        console.log('距离', speed * 100)
+        console.log('时间', speed / 10)
+      },
+      onSwipeNot () {}
     })
   }
 }
@@ -23,6 +108,9 @@ export default {
 .box>>>p {
   background-color: #ddd;
   margin: 0;
+  height: 100px;
+  width: 100px;
+  position: relative;
 }
 .box>>>p:nth-child(2n) {
   background-color: #eee;

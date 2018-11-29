@@ -21,7 +21,7 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
   drag({
     elem,
     onDown (e) {
-      // 保证滑动动作只激活此一个实例
+      // 保证滑动动作只激活当前一个实例
       e.stopPropagation()
       return onDown(e)
     },
@@ -34,7 +34,7 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
       preTime = Date.now()
     },
     onMove: function (e) {
-      // 保证滑动动作只激活此一个实例
+      // 保证滑动动作只激活当前一个实例
       e.stopPropagation()
 
       if (isCancel) return
@@ -58,8 +58,6 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
         } else {
           isCancel = true
         }
-        // 调试，微调弧度值，直到最精确
-        // debugMsg(Math.abs(Math.atan(ylen / xlen)) + ' ' + (Math.abs(Math.atan(ylen / xlen)) < 1.2) + '  ' + isStart);
       }
 
       if (isStart) {
@@ -67,10 +65,10 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
 
         let curTime = Date.now()
         let timeLen = curTime - preTime
-        console.log(xlen.toFixed(2) * 1, timeLen)
+        // console.log(xlen.toFixed(2) * 1, timeLen)
         // elem.innerHTML = `<p>move,${timeLen},${xlen.toFixed(2) * 1}</p>` + elem.innerHTML
 
-        xData.push([xlen.toFixed(2) * 1, timeLen])
+        xData.push([xlen, timeLen])
         onMove(xlen)
         preX = currX
         preY = currY
@@ -84,29 +82,33 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
 
         let x = 0
         let time = 0
-        for (let i = xData.length; i--;) {
+        for (let i = xData.length, j = 0; i--;) {
           let d = xData[i]
           let t = d[1]
-          if (t > 100) {
+          // 时间间隔低于 50ms，保证不能超过 5 个成员叠加
+          if (t > 50 || j++ > 5) {
             break
           }
           x += d[0]
           time += t
         }
-        elem.innerHTML = `<p>${time},${JSON.stringify(xData)}</p>` + elem.innerHTML
-        let speed = x / time
+        let speed = x / time || 0
         let min = 0.15
+        /* test */
+        // elem.innerHTML = `<p>${speed.toFixed(2)},${x},${time},${JSON.stringify(xData)}</p>` + elem.innerHTML
         if (speed > min) {
-          // onSwipeRight()
+          onSwipeRight(speed)
         } else if (speed < -min) {
-          // onSwipeLeft()
+          onSwipeLeft(speed)
         } else {
-          // onSwipeNot()
+          onSwipeNot()
         }
         xData = []
         onEnd()
         /* test */
-        // info.innerHTML = speed * 100
+        // console.log('距离', speed * 100)
+        // console.log('时间', speed / 10)
+        // elem.innerHTML = speed * 100
       }
       isCancel = isStart = false
     }
