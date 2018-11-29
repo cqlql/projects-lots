@@ -82,13 +82,13 @@ export default {
         //   this.x = x + speed * 200 * p
         //   // console.log(x + speed * 100 * p)
         // }, speed * 600)
-        // this.$refs.eMove.style.transition = speed * 500 + 'ms cubic-bezier(0.215, 0.61, 0.355, 1)'
-        // setTimeout(() => { this.$refs.eMove.style.transition = '' }, speed * 500)
-        // setTimeout(() => {
-        //   this.x += speed * 300
-        // }, 1)
+        this.$refs.eMove.style.transition = speed * 1600 + 'ms cubic-bezier(0.420, 0.775, 0.540, 0.970)'
+        setTimeout(() => { this.$refs.eMove.style.transition = '' }, speed * 1600)
+        setTimeout(() => {
+          this.x += speed * 600
+        }, 1)
 
-        anima.start(this.x + speed * 200)
+        // anima.start(this.x + speed * 200)
 
       },
       onSwipeLeft (speed) {
