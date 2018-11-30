@@ -82,10 +82,12 @@ export default {
         //   this.x = x + speed * 200 * p
         //   // console.log(x + speed * 100 * p)
         // }, speed * 600)
-        this.$refs.eMove.style.transition = speed * 1600 + 'ms cubic-bezier(0.420, 0.775, 0.540, 0.970)'
-        setTimeout(() => { this.$refs.eMove.style.transition = '' }, speed * 1600)
+        // this.$refs.eMove.style.transition = speed * 1600 + 'ms cubic-bezier(0.1, 0.57, 0.1, 1)'
+        let t = speed * 1000
+        this.$refs.eMove.style.transition = t + 'ms cubic-bezier(0.33, 0.66, 0.66, 1)'
+        setTimeout(() => { this.$refs.eMove.style.transition = '' }, t)
         setTimeout(() => {
-          this.x += speed * 600
+          this.x += speed * speed * 400
         }, 1)
 
         // anima.start(this.x + speed * 200)
