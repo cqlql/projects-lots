@@ -47,8 +47,8 @@ export default class {
       }
     }
   }
-  ajax ({url, method, config = {}, data}) {
-    const {params} = config
+  ajax ({ url, method, config = {}, data }) {
+    const { params } = config
     const { loading, toast } = Vue
     return new Promise((resolve, reject) => {
       // 完成回调
