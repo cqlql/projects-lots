@@ -62,7 +62,7 @@ export default class {
         loading.hide()
         delete window[name]
       }
-      // native 超时处理
+      // native 请求超时处理
       const nativeTimeOut = {
         start () {
           this.timeId = setTimeout(function () {
@@ -94,7 +94,7 @@ export default class {
           return false
         }
       }, () => {
-        // 失败
+        // 失败：native 全局变量赋值超时
         finish(new Error('请求超时'))
       })
     })
