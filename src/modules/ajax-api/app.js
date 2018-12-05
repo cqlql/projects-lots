@@ -95,7 +95,7 @@ export default class {
         }
       }, () => {
         // 失败：native 全局变量赋值超时
-        finish(new Error('请求超时'))
+        finish(new Error('请求超时，window.NativeJsFunQues 不存在'))
       })
     })
   }
