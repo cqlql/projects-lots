@@ -1,6 +1,6 @@
 <template>
   <div class="view-box">
-    <ControlItem v-for="(d, i) of dataCore.controls" :key="i" :d="d" />
+    <ControlItem v-for="(d, i) of dataCore.controls" :key="i" :d="d" :index="i" />
   </div>
 </template>
 
