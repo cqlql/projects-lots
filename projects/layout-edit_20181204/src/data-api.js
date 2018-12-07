@@ -1,7 +1,7 @@
 import Vue from 'vue'
 const vm = new Vue({
   data: {
-    activeIndex: 1,
+    activeIndex: 0,
     zIndexMax: 0,
     core: {
       edit: true,
@@ -17,12 +17,12 @@ const vm = new Vue({
         // 1 图片; 2 幻灯片; 3 文本； 4 滚动文本； 5 视频
         type: 1,
 
-        x: 100,
+        x: 200,
         y: 100,
-        w: 100,
+        w: 200,
         h: 100,
 
-        image: '',
+        image: 'http://e.hiphotos.baidu.com/image/pic/item/00e93901213fb80e670701903bd12f2eb83894a6.jpg',
         zIndex: 10
       },
       {
@@ -75,6 +75,14 @@ const vm = new Vue({
       ]
     }
   },
+  computed: {
+    controls () {
+      return this.core.controls
+    },
+    currActiveItem () {
+      return this.controls[this.activeIndex]
+    }
+  },
   created () {
     this.zIndexMaxInit()
   },
@@ -106,10 +114,15 @@ const vm = new Vue({
     // 根据 zIndex 初始最大的 zIndex
     zIndexMaxInit () {
       let max = 0
-      this.core.controls.forEach(d => {
+      this.controls.forEach(d => {
         if (d.zIndex > max) max = d.zIndex
       })
       this.zIndexMax = max
+    },
+    addVideoControl () {},
+    activeItem (index) {
+      this.activeIndex = index
+      this.controls[index].zIndex = ++this.zIndexMax
     }
   }
 })

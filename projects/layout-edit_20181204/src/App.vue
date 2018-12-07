@@ -36,7 +36,7 @@
       <dl>
         <dt>控件属性</dt>
         <dd>
-
+          <SetControlItem/>
         </dd>
       </dl>
     </div>
@@ -50,9 +50,11 @@
 <script>
 import dataApi from './data-api'
 import ViewBox from './ViewBox'
+import SetControlItem from './SetControlItem'
 export default {
   components: {
-    ViewBox
+    ViewBox,
+    SetControlItem
   },
   created () {
     this.dataBase = dataApi
@@ -73,7 +75,7 @@ export default {
           this.addRollTextControl()
           break
         case '5':
-          this.addVideoControl()
+          dataApi.addVideoControl()
           break
       }
     }
@@ -93,22 +95,29 @@ export default {
 .le-r-set {
   float: right;
   width: 220px;
-  height: 200px;
-  background-color: #ddd;
+  border: 1px solid #ddd;
   dl {
-    margin: 4px;
+    /* margin: 0; */
   }
   dt {
-    font-size: 16px;
+    margin: 6px 4px;
+    font-size: 18px;
+    font-weight: bold;
   }
   dd {
-    margin: 4px;
+    margin: 0;
     font-size: 14px;
   }
 }
 .le-edit-box {
-  background-color: #aaa;
-  height: 100px;
-  margin-right: 100px;
+  background-color: #eee;
+  /* height: 100px; */
+  /* margin-right: 100px; */
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  right: 240px;
+  /* overflow: auto; */
 }
 </style>

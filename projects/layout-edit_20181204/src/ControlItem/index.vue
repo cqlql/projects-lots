@@ -54,8 +54,7 @@ export default {
   },
   methods: {
     onActive () {
-      dataApi.activeIndex = this.index
-      this.d.zIndex = ++dataApi.zIndexMax
+      dataApi.activeItem(this.index)
     }
   }
 }
