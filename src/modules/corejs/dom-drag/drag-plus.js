@@ -1,9 +1,27 @@
 /**
- * 针对pc鼠标事件实现
- *
- * 此处使用了点点相加处理，如需更加灵活，请使用drag-base
+ * 此处使用了点点相加处理，如需更加灵活
  *
  * 兼容性：ie9+
+ *
+ * 一般使用示例：
+    let lenX = 0
+    let lenY = 0
+    drag({
+      elem: this.$el,
+      onMove: ({ lx, ly }) => {
+        lenX += lx
+        lenY += ly
+        this.d.x = lenX
+        this.d.y = lenY
+      },
+      onStart: () => {
+        lenX = this.d.x
+        lenY = this.d.y
+      },
+      onDown: e => {
+        e.preventDefault()
+      }
+    })
  */
 
 import drag from './drag'

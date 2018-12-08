@@ -7,7 +7,7 @@
  *
  * @param onDown 可通过 return false 阻止拖动发送
  */
-let isDarg = false // 避免没阻止默认事件，重复注册
+let isDarg = false // 避免没阻止浏览器默认动作，重复注册。比如拖蓝情况，不触发 mouseup
 export default function drag ({ elem, onMove, onDown = function () {}, onStart = function () {}, onEnd = function () {} }) {
   elem.addEventListener('mousedown', down)
 

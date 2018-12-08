@@ -10,7 +10,7 @@ import drag from './drag'
  * @param {function} onSwipeNot 有移动，但没有切换
  */
 
-export default function swipex ({elem, onDown = () => {}, onStart = () => {}, onEnd = () => {}, onMove, onSwipeLeft, onSwipeRight, onSwipeNot}) {
+export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, onEnd = () => {}, onMove, onSwipeLeft, onSwipeRight, onSwipeNot }) {
   let preX
   let preY
   let preTime
@@ -21,26 +21,26 @@ export default function swipex ({elem, onDown = () => {}, onStart = () => {}, on
   drag({
     elem,
     onDown (e) {
-      // 保证滑动动作只激活此一个实例
+      // 保证滑动动作只激活当前一个实例
       e.stopPropagation()
       return onDown(e)
     },
     onStart: function (e) {
       if (isCancel) return false
       let touche = e.targetTouches ? e.targetTouches[0] : e
-      let {pageX, pageY} = touche
+      let { pageX, pageY } = touche
       preX = pageX
       preY = pageY
       preTime = Date.now()
     },
     onMove: function (e) {
-      // 保证滑动动作只激活此一个实例
+      // 保证滑动动作只激活当前一个实例
       e.stopPropagation()
 
       if (isCancel) return
 
       let touche = e.targetTouches ? e.targetTouches[0] : e
-      let {pageX, pageY} = touche
+      let { pageX, pageY } = touche
 
       let currX = pageX
       let currY = pageY
@@ -58,8 +58,6 @@ export default function swipex ({elem, onDown = () => {}, onStart = () => {}, on
         } else {
           isCancel = true
         }
-        // 调试，微调弧度值，直到最精确
-        // debugMsg(Math.abs(Math.atan(ylen / xlen)) + ' ' + (Math.abs(Math.atan(ylen / xlen)) < 1.2) + '  ' + isStart);
       }
 
       if (isStart) {
@@ -67,6 +65,7 @@ export default function swipex ({elem, onDown = () => {}, onStart = () => {}, on
 
         let curTime = Date.now()
         let timeLen = curTime - preTime
+        // elem.innerHTML = `<p>move,${timeLen},${xlen.toFixed(2) * 1}</p>` + elem.innerHTML
 
         xData.push([xlen, timeLen])
         onMove(xlen)
@@ -77,21 +76,25 @@ export default function swipex ({elem, onDown = () => {}, onStart = () => {}, on
     },
     onEnd: function () {
       if (isStart) {
-        xData.push([0, Date.now() - preTime])
+        xData.push([0, Date.now() - preTime, 'end'])
+        // console.log(JSON.stringify(xData))
 
         let x = 0
         let time = 0
         for (let i = xData.length, j = 0; i--;) {
           let d = xData[i]
-          x += d[0]
-          time += d[1]
-          if (j >= 2) {
+          let t = d[1]
+          // 时间间隔低于 50ms，保证不能超过 5 个成员叠加
+          if (t > 50 || j++ > 5) {
             break
           }
-          j++
+          x += d[0]
+          time += t
         }
-        let speed = x / time
+        let speed = x / time || 0
         let min = 0.15
+        /* test */
+        // elem.innerHTML = `<p>${speed.toFixed(2)},${x},${time},${JSON.stringify(xData)}</p>` + elem.innerHTML
         if (speed > min) {
           onSwipeRight()
         } else if (speed < -min) {
@@ -102,7 +105,7 @@ export default function swipex ({elem, onDown = () => {}, onStart = () => {}, on
         xData = []
         onEnd()
         /* test */
-        // info.innerHTML = speed * 100
+        // elem.innerHTML = speed * 100
       }
       isCancel = isStart = false
     }

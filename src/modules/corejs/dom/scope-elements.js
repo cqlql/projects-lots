@@ -6,14 +6,14 @@
 /**
  *
  快速使用
-scopeElements(e.target, function (elem) {
-  if (elem===end) return false
-  if (elem.tagName==='H2') {
+scopeElements(e.target, elem => {
+  if (elem === end) return false
+  if (elem.tagName === 'H2') {
     // do something...
     return false
   }
   return otherHandle() // 其他处理，返回false 结束
- });
+ })
  */
 export default function scopeElements (startElem, listener) {
   startElem = startElem.nodeType === 1 ? startElem : startElem.parentElement
