@@ -2,11 +2,10 @@
   <div :class="$style.marqueeTextDownBox">
     <div :class="$style.move">
       <div :class="$style.cont" :style="{'padding-right': paddingRight + 'px'}">
-        {{text}}
+        <template v-if="text">{{text}}</template>
+        <slot v-else/>
       </div>
-      <div v-if="autoRoll" :class="$style.cont" :style="{'padding-right': paddingRight + 'px'}">
-        {{text}}
-      </div>
+      <div v-if="autoRoll" :class="$style.cont" :style="{'padding-right': paddingRight + 'px'}" v-html="$refs.vCont.innerHTML"></div>
     </div>
   </div>
 </template>
