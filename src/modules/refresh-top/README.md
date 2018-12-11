@@ -9,3 +9,9 @@
 
 
 
+## 优化记录
+
+### 20181211
+
+1. 向下拖动 y 为 0，states 更正为 0，之前只要拖动都为 1
+2. y 为 0 transform 设为 none，解决 fiexd 以 transform 为参照的一些问题

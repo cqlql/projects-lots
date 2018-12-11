@@ -11,21 +11,27 @@ export default class {
     let transitionActiveClassName = 'transition-active'
 
     let queue = new Queue()
+    let eStyle = elem.style
     function elemSetCssY (y) {
-      elem.style[transform] = 'translateY(' + y + 'px)'
+      eStyle[transform] = 'translateY(' + y + 'px)'
+    }
+    function clearTransform () {
+      eStyle[transform] = 'none'
     }
 
     // 状态识别
     function stateDiscern (y) {
       if (states > 2) return
-      if (y < maxY) {
+      if (y === 0) {
+        onChange(states = 0)
+      } else if (y < maxY) {
         onChange(states = 1)
       } else {
         onChange(states = 2)
       }
     }
 
-    function animate (y, complete = () => { }) {
+    function animate (y, complete = () => {}) {
       queue.excu(next => {
         isRun = true
         if (currY === y) {
@@ -41,6 +47,10 @@ export default class {
             isRun = false
             complete()
             next()
+            // 清掉 transform。解决 fiexd 一些问题
+            if (y === 0) {
+              clearTransform()
+            }
           })
           currY = y
         }
@@ -56,12 +66,14 @@ export default class {
       onMove (e) {
         if (isRun) return false // 考虑到归位动画，此时却在拖动状态
         let touche = e.targetTouches ? e.targetTouches[0] : e
-        let { pageY } = touche
+        let {pageY} = touche
         let ylen = pageY - prePageY
 
         currY += (ylen * 40 / (40 + currY))
+
         if (currY < 0) {
           currY = 0
+          return
         }
 
         if (window.pageYOffset === 0 && currY) { // 刷新拖动情况
@@ -70,7 +82,11 @@ export default class {
           currY = 0
         }
 
-        elemSetCssY(currY)
+        if (currY === 0) { // 清掉 transform。解决 fiexd 一些问题
+          clearTransform()
+        } else {
+          elemSetCssY(currY)
+        }
 
         stateDiscern(currY)
 
@@ -117,11 +133,14 @@ export default class {
           return
         }
         // 归位
-        setTimeout(function () {
-          animate(0, () => {
-            onChange(states = 0)
-          })
-        }, 400)
+        // setTimeout(function () {// 这个加定时器版本忘记意义何在，以后确认记录
+        //   animate(0, () => {
+        //     onChange(states = 0)
+        //   })
+        // }, 400)
+        animate(0, () => {
+          onChange(states = 0)
+        })
       })
     }
 

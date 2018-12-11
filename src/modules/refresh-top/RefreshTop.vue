@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import LoadIco from '@/components/load-ico'
+import LoadIco from '@/components/ico/load-ico'
 import Darg from './drag'
 export default {
   name: 'refresh-top',
