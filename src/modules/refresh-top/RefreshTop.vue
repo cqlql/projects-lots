@@ -13,50 +13,50 @@
 </template>
 
 <script>
-  import LoadIco from '@/components/load-ico'
-  import Darg from './drag'
-  export default {
-    name: 'refresh-top',
-    props: {
-      // 图标字体颜色。两种色系选择
-      // black、white
-      color: {
-        type: String,
-        default: 'black'
-      }
-    },
-    data () {
-      return {
-        states: 0 // 0 未开始 1 已开始，不满足 2 满足 3 加载中 4 加载完成
-      }
-    },
-    mounted () {
-      this.drag = new Darg({
-        elem: this.$refs.cont,
-        // elemDrag: document,
-        elemDrag: this.$el,
-        maxY: 60,
-        loadingY: 30,
-        onChange: state => {
-          this.states = state
-        },
-        onReload: complete => {
-          this.$emit('reload', complete)
-        }
-      })
-    },
-    methods: {
-      refresh () {
-        this.drag.refresh()
-      }
-    },
-    destroyed () {
-      this.drag.unbind()
-    },
-    components: {
-      LoadIco
+import LoadIco from '@/components/load-ico'
+import Darg from './drag'
+export default {
+  name: 'refresh-top',
+  props: {
+    // 图标字体颜色。两种色系选择
+    // black、white
+    color: {
+      type: String,
+      default: 'black'
     }
+  },
+  data () {
+    return {
+      states: 0 // 0 未开始 1 已开始，不满足 2 满足 3 加载中 4 加载完成
+    }
+  },
+  mounted () {
+    this.drag = new Darg({
+      elem: this.$refs.cont,
+      // elemDrag: document,
+      elemDrag: this.$el,
+      maxY: 60,
+      loadingY: 30,
+      onChange: state => {
+        this.states = state
+      },
+      onReload: complete => {
+        this.$emit('reload', complete)
+      }
+    })
+  },
+  methods: {
+    refresh () {
+      this.drag.refresh()
+    }
+  },
+  destroyed () {
+    this.drag.unbind()
+  },
+  components: {
+    LoadIco
   }
+}
 </script>
 
 <style scoped>
