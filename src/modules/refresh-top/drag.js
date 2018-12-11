@@ -66,7 +66,7 @@ export default class {
       onMove (e) {
         if (isRun) return false // 考虑到归位动画，此时却在拖动状态
         let touche = e.targetTouches ? e.targetTouches[0] : e
-        let {pageY} = touche
+        let { pageY } = touche
         let ylen = pageY - prePageY
 
         currY += (ylen * 40 / (40 + currY))
