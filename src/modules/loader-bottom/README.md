@@ -4,10 +4,6 @@
 ## loaded 回调
 - 必须在元素渲染就绪可获取高度后再回调 loaded
 
-elm: 用来更新高度的元素，默认为body，考虑特殊情况，可指定
-
-loaded(false, elm)
-
 ```js
 loadData (loaded) {
   this.i++
@@ -33,4 +29,22 @@ loadData (loaded) {
 
 ```js
 this.$refs.LoaderBottom.reStart()
-``` 
+```
+
+## 注意
+
+### 一条数据都没不能显示 finish 文本
+
+这种情况直接隐藏控件。再定制自己的没数据 ui
+
+```js
+// 隐藏控件
+this.$refs.LoaderBottom.hide()
+```
+
+## 一些问题解决
+
+### 页面切换动画，body 高度总是小于窗口高度，造成多次加载
+
+数据渲染后，如果 body 高度没有变化，300ms 后才进行加载(300ms动画结束)
+

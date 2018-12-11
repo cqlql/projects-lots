@@ -10,7 +10,6 @@ export default class {
     }
   }
   update () {
-    // this.bodyHeight = eCont ? eCont.clientHeight : document.body.clientHeight
     this.bodyHeight = document.body.clientHeight
     this.windowHeight = window.innerHeight
   }
