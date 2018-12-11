@@ -42,10 +42,21 @@ export default {
         if (isFinish) {
           this.finish()
         } else {
+          // 解决页面切换动画问题：数据渲染后，如果 body 高度没有变化，300ms 后才进行加载(300ms动画结束)
+          let { body } = document
+          let preHeight = body.clientHeight
           this.$nextTick(() => {
-            // 刷新body高度
-            this.loaderBottom.update()
-            this.loaded()
+            if (preHeight === body.clientHeight) {
+              setTimeout(() => {
+                // 刷新body高度 然后检测加载
+                this.loaderBottom.update()
+                this.loaded()
+              }, 300)
+            } else {
+              // 刷新body高度 然后检测加载
+              this.loaderBottom.update()
+              this.loaded()
+            }
           })
         }
       })
