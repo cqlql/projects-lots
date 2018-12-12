@@ -19,6 +19,11 @@ export default {
     color: {
       type: String,
       default: 'black'
+    },
+    // 渲染组件后是否自动加载
+    firstLoad: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -33,7 +38,7 @@ export default {
     this.scroll = () => {
       this.testLoad()
     }
-    this.reStart()
+    if (this.firstLoad) this.reStart()
   },
   methods: {
     load () {
@@ -123,27 +128,27 @@ export default {
 </script>
 
 <style scoped>
-  .loader-bottom {
-    height: 20px;
-    padding: 8px 0;
-    text-align: center;
-    .preloader{
-      vertical-align: middle;
-    }
+.loader-bottom {
+  height: 20px;
+  padding: 8px 0;
+  text-align: center;
+  .preloader {
+    vertical-align: middle;
+  }
 
-    .txt{
-      color: #666;
-      vertical-align: middle;
-    }
+  .txt {
+    color: #666;
+    vertical-align: middle;
+  }
 
-    &.l-white .txt {
-      color: #fff;
-    }
+  &.l-white .txt {
+    color: #fff;
   }
-  .hide{
-    opacity: 0;
-  }
-  .show{
-    opacity: 1;
-  }
+}
+.hide {
+  opacity: 0;
+}
+.show {
+  opacity: 1;
+}
 </style>
