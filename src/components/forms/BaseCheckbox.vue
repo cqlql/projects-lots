@@ -1,5 +1,5 @@
 <template>
-  <label><input class="cb" type="checkbox" @change="$emit('change',$event)" :checked.prop="checked"/><span class="lbt"><slot/></span></label>
+  <label><input class="cb" type="checkbox" @change="$emit('change',$event, $event.target.checked)" :checked.prop="checked"/><span class="lbt"><slot/></span></label>
 </template>
 
 <script>
