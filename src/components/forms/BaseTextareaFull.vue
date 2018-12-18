@@ -15,14 +15,13 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .tt {
   background-color: #ffffff;
   border: 1px solid #dcdcdc;
   /* border: 1px solid #0ace82; */
   /* border-radius: 1px; */
-  padding: 2px 12px;
+  padding: 10px 12px;
   border-radius: 5px;
   box-sizing: border-box;
   font-size: 14px;
