@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p><BaseCheckbox @change="onAllSelect">全选</BaseCheckbox></p>
-    <p v-for="(v, i) of d" :key="v">
-      <BaseCheckbox @change="(e, checked) => {change(checked, i)}">{{v}}</BaseCheckbox>
+    <p><BaseCheckbox @change="onAllSelect" :checked="allChecked">全选</BaseCheckbox></p>
+    <p v-for="(v, i) of d" :key="i">
+      <BaseCheckbox @change="(e, checked) => {change(checked)}">{{v}}</BaseCheckbox>
     </p>
 
   </div>
@@ -10,66 +10,25 @@
 
 <script>
 import BaseCheckbox from '@/components/forms/BaseCheckbox'
-class SelectAll {
-  constructor () {
-    this.total = 0 // 可选择总数
-    this.selectNum = 0 // 当前选择数
-  }
-  // 重置
-  setSelectTotal (total) {
-    this.total = total
-    this.selectNum = 0
-  }
-  select (checked) {
-    if (checked) {
-      this.selectNum++
-    } else {
-      this.selectNum--
-    }
-    return this.getStates()
-  }
-  selectAll (checked) {
-    this.selectNum = this.total
-    return 1
-  }
-  // 0 没有选择 1 全选 2 有选择
-  getStates () {
-    if (this.selectNum === 0) {
-      return 0
-    }
-    if (this.selectNum === this.total) {
-      return 1
-    }
-    return 2
-  }
-  // // 是否全选
-  // isAll () {
-  //   return this.selectNum === this.total
-  // }
-  // // 没有任何选择
-  // isNothing () {
-  //   return this.selectNum === 0
-  // }
-}
+import SelectAll from './select-all-base.js'
 export default {
   components: {
     BaseCheckbox
   },
   data () {
     return {
+      allChecked: false,
       d: [1, 2, 3, 4]
     }
   },
   created () {
     this.selectAll = new SelectAll()
-    this.selectAll.setSelectTotal(this.d.length) // 设置可选择总数
+    this.selectAll.reset(this.d.length) // 设置可选择总数
   },
   methods: {
     change (checked) {
-      this.selectAll.select(checked) // 根据参数决定 select notSelect 加减1
-      // if (checked) {
-      //   selectAll.delNotSelect() // 减 1
-      // }
+      this.selectAll.select(checked) // 根据参数决定加减1
+      this.allChecked = this.selectAll.isAll()
     },
     onAllSelect (e, checked) {
       this.selectAll.selectAll(checked)
