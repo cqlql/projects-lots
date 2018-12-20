@@ -14,17 +14,17 @@ class AjaxWeb {
       }
     }
   }
-  ajax ({ url, method, data, params, hasLoading = true }) {
+  ajax (config) {
     let { $loading: loading, $toast: toast } = Vue.prototype
+    let { hasLoading = true } = config
     if (hasLoading) loading.show()
-    return axios({
-      method,
-      url,
-      // baseURL: '/mock',
-      // baseURL: '/api/historylesson',
-      data,
-      params
-    }).then(({ data }) => {
+    if (process.env.NODE_ENV !== 'production') {
+      Object.assign(config, {
+        // baseURL: '/mock',
+        // baseURL: '/api/historylesson',
+      })
+    }
+    return axios(config).then(({ data }) => {
       const result = this.dataHandle(data)
       // 失败情况
       if (result instanceof Error) {
@@ -39,20 +39,18 @@ class AjaxWeb {
       return Promise.reject(e)
     })
   }
-  get (url, { params } = {}) {
-    return this.ajax({
+  get (url, config = {}) {
+    return this.ajax(Object.assign({
       method: 'get',
-      url,
-      params
-    })
+      url
+    }, config))
   }
-  post (url, data, { params } = {}) {
-    return this.ajax({
+  post (url, data, config = {}) {
+    return this.ajax(Object.assign({
       method: 'post',
       url,
-      data,
-      params
-    })
+      data
+    }, config))
   }
 }
 
