@@ -40,17 +40,15 @@ class AjaxWeb {
     })
   }
   get (url, config = {}) {
-    return this.ajax(Object.assign({
-      method: 'get',
-      url
-    }, config))
+    config.method = 'get'
+    config.url = url
+    return this.ajax(config)
   }
   post (url, data, config = {}) {
-    return this.ajax(Object.assign({
-      method: 'post',
-      url,
-      data
-    }, config))
+    config.method = 'post'
+    config.url = url
+    config.data = data
+    return this.ajax(config)
   }
 }
 
