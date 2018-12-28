@@ -15,10 +15,8 @@
 .ff_wryh,.ff_wryh a{font-family:Microsoft Yahei,\5FAE\8F6F\96C5\9ED1;}
  */
 
-p{
-  margin: 0;
-}
-table {border-collapse: collapse;}
+p{margin: 0;}
+/* table {border-collapse: collapse;} */
 ol,ul{list-style-type:none;}
 h1,h2,h3,h4,h5,h6{margin:0;font-size:inherit;font-weight:normal;}
 
