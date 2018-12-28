@@ -1,17 +1,10 @@
 ﻿/*# 重置 */
-/* body,p,td,ol,ul,dl,dt,dd, */
-/* input,textarea,select,menu{padding:0;margin:0;} */
-/* ol,ul{list-style-type:none;} */
-/* table {border-collapse: collapse;} */
-/* h1,h2,h3,h4,h5,h6{margin:0;font-size:inherit;font-weight:normal;} */
+/* td,ol,ul,dl,dt,dd,input,textarea,select,menu{padding:0;margin:0;} */
 /* a{color:#333;text-decoration:none;} */
 /* input,textarea,select{outline:none;} */
 
-/* body{color:#333;font:14px/1.2 MicrosoftYahei,sans-serif,arial,SimSun,tahoma,Srial,helvetica} */
-
-
-
-/* .ff_st,.ff_st a{font-family:SimSun,\5B8B\4F53;}
+/*
+.ff_st,.ff_st a{font-family:SimSun,\5B8B\4F53;}
 .ff_wryh,.ff_wryh a{font-family:Microsoft Yahei,\5FAE\8F6F\96C5\9ED1;}
  */
 
