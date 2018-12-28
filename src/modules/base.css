@@ -1,13 +1,7 @@
 ﻿/*# 重置 */
-/* td,ol,ul,dl,dt,dd,input,textarea,select,menu{padding:0;margin:0;} */
+/* td,dl,dt,dd,input,textarea,select,menu{padding:0;margin:0;} */
 /* a{color:#333;text-decoration:none;} */
 /* input,textarea,select{outline:none;} */
-
-/*
-.ff_st,.ff_st a{font-family:SimSun,\5B8B\4F53;}
-.ff_wryh,.ff_wryh a{font-family:Microsoft Yahei,\5FAE\8F6F\96C5\9ED1;}
- */
-
 p{margin: 0;}
 /* table {border-collapse: collapse;} */
 ol,ul{list-style-type:none;}
@@ -33,3 +27,8 @@ body{
   overflow: hidden;
   clear: both;
 } */
+
+/*
+.ff_st,.ff_st a{font-family:SimSun,\5B8B\4F53;}
+.ff_wryh,.ff_wryh a{font-family:Microsoft Yahei,\5FAE\8F6F\96C5\9ED1;}
+*/
