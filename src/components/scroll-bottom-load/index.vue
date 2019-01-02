@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import LoadIco from '@/components/ico/load-ico'
+import LoadIco from '@/components/ico/load'
 import LoaderBottom from './loader-bottom'
 export default {
   components: {
