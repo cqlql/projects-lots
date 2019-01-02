@@ -1,8 +1,0 @@
-{
-  "name": "demos-run",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "start": "node ../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
-  }
-}
