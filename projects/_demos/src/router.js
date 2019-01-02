@@ -7,7 +7,7 @@ let routes = [
   // {
   //   path: '/FilterBar',
   //   component: require('@/views/stat-new/FilterBar.demo.vue').default
-  // }
+  // },
   {
     path: '/load-refresh',
     component: require('@/components/load-refresh/demo.vue').default
