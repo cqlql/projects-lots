@@ -1,7 +1,9 @@
 ﻿/*# 重置 */
-/* td,dl,dt,dd,input,textarea,select,menu{padding:0;margin:0;} */
+/* td,input,textarea,select,menu{padding:0;margin:0;} */
 /* a{color:#333;text-decoration:none;} */
 /* input,textarea,select{outline:none;} */
+
+dl,dd,
 p{margin: 0;}
 /* table {border-collapse: collapse;} */
 ol,ul{list-style-type:none;}

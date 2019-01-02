@@ -1,14 +1,17 @@
 
 <template>
-  <div class="v-bg" :style="{'background-color':bgc}"></div>
+  <div class="v-bg" :style="{'background-color':color}" />
 </template>
 
 <script>
-  export default {
-    props: {
-      bgc: String
+export default {
+  props: {
+    color: {
+      type: String,
+      default: ''
     }
   }
+}
 </script>
 
 <style scoped>
@@ -20,4 +23,3 @@
   bottom: 0;
 }
 </style>
-
