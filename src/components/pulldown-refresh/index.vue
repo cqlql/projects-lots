@@ -50,13 +50,13 @@ export default {
       }
     })
   },
+  destroyed () {
+    this.drag.unbind()
+  },
   methods: {
     refresh () {
       this.drag.refresh()
     }
-  },
-  destroyed () {
-    this.drag.unbind()
   }
 }
 </script>
