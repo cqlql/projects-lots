@@ -1,8 +1,11 @@
 <template>
   <div class="bc">
-    <LoadRefresh ref="vLoadRefresh" @bottomLoad="onBottomLoad" @refreshLoad="onRefreshLoad" colorTop="white" colorBottom="white">
+    <LoadRefresh
+      ref="vLoadRefresh" color-top="white" color-bottom="white"
+      @bottomLoad="onBottomLoad" @refreshLoad="onRefreshLoad"
+    >
       <ul class="list">
-        <li class="item" v-for="(v,i) in list" :key="i">{{v}}</li>
+        <li v-for="(v,i) in list" :key="i" class="item">{{ v }}</li>
       </ul>
     </LoadRefresh>
     <div class="btn-box">
@@ -15,42 +18,16 @@
 <script>
 import LoadRefresh from '@/components/load-refresh'
 export default {
+  components: {
+    LoadRefresh
+  },
   data () {
     return {
       list: [],
       isFinish: 0
     }
   },
-  components: {
-    LoadRefresh
-  },
   methods: {
-    // onLoad ({ isRefresh, complete, vLoaderBottom }) {
-    //   this.$axios('/test').then(d => {
-    //     if (isRefresh) {
-    //       // 刷新情况
-
-    //       this.isFinish = 0
-
-    //       this.list = d
-
-    //       // [弃用]，现已自动检测
-    //       // 底部加载重置并检测
-    //       // vLoaderBottom.reset() // 重置激活
-    //       // vLoaderBottom.tryLoad() // 检测是否执行加载
-    //     } else {
-    //       // 下拉加载情况
-
-    //       this.list = this.list.concat(d)
-
-    //       // 底部加载控件隐藏
-    //       // vLoaderBottom.hide()
-    //     }
-    //     // 加载完成
-    //     // 将进行到底检测。或者传入 true 加载结束
-    //     complete((++this.isFinish > 2))
-    //   })
-    // },
     onBottomLoad ({ complete, vLoaderBottom }) {
       this.$axios('/test').then(d => {
         // 下拉加载情况

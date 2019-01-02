@@ -1,13 +1,16 @@
 <template>
   <div class="refresh-top" :class="[color==='white'?'r-white':'']">
-    <div class="refresh-top-bg" :class="[['static', 'start','ready','loading','complete'][states]]">
+    <div
+      class="refresh-top-bg"
+      :class="[['static', 'start','ready','loading','complete'][states]]"
+    >
       <!-- <span class="preloader" :class="[color==='white'?'preloader-white':'']"></span> -->
       <LoadIco :color="color" class="preloader" />
-      <span class="r-arrow"></span>
-       <span class="txt">{{['', '下拉刷新','松开刷新','加载中','刷新完成'][states]}}</span>
+      <span class="r-arrow" />
+      <span class="txt">{{ ['', '下拉刷新','松开刷新','加载中','刷新完成'][states] }}</span>
     </div>
     <div ref="cont" class="refresh-top-cont">
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>
@@ -16,6 +19,9 @@
 import LoadIco from '@/components/ico/load'
 import Darg from './drag'
 export default {
+  components: {
+    LoadIco
+  },
   props: {
     // 图标字体颜色。两种色系选择
     // black、white
@@ -51,9 +57,6 @@ export default {
   },
   destroyed () {
     this.drag.unbind()
-  },
-  components: {
-    LoadIco
   }
 }
 </script>

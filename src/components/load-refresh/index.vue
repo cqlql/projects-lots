@@ -1,13 +1,17 @@
 <template>
-  <PulldownRefresh ref="vPulldownRefresh" @reload="reload" :color="colorTop">
-    <slot/>
-    <ScrollBottomLoad ref="vScrollBottomLoad" @loadData="loadData" :color="colorBottom" />
+  <PulldownRefresh ref="vPulldownRefresh" :color="colorTop" @reload="reload">
+    <slot />
+    <ScrollBottomLoad ref="vScrollBottomLoad" :color="colorBottom" @loadData="loadData" />
   </PulldownRefresh>
 </template>
 <script>
 import ScrollBottomLoad from '../scroll-bottom-load'
 import PulldownRefresh from '../pulldown-refresh'
 export default {
+  components: {
+    PulldownRefresh,
+    ScrollBottomLoad
+  },
   props: {
     // 图标字体颜色。两种色系选择
     // black、white
@@ -19,10 +23,6 @@ export default {
       type: String,
       default: 'black'
     }
-  },
-  components: {
-    PulldownRefresh,
-    ScrollBottomLoad
   },
   methods: {
     reload (complete) {
