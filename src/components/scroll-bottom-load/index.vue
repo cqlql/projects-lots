@@ -2,17 +2,20 @@
   <div class="loader-bottom" :class="[color==='white'?'l-white':'', isShow?'':'hide']">
     <span v-if="isFinish" class="txt">我也有底线~</span>
     <div v-else class="hide" :class="{show:isLoad}">
-      <span class="preloader" :class="[color==='white'?'preloader-white':'']"></span>
+      <!-- <span class="preloader" :class="[color==='white'?'preloader-white':'']"></span> -->
+      <LoadIco :color="color" class="preloader" />
       <span class="txt">正在加载...</span>
     </div>
   </div>
 </template>
 
 <script>
-import '../css-base/preloader.css'
+import LoadIco from '@/components/ico/load-ico'
 import LoaderBottom from './loader-bottom'
 export default {
-  name: 'loader-bottom',
+  components: {
+    LoadIco
+  },
   props: {
     // 图标字体颜色。两种色系选择
     // black、white

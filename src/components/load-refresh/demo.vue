@@ -1,10 +1,10 @@
 <template>
   <div class="bc">
-    <LoaderRefresh ref="vLoaderRefresh" @bottomLoad="onBottomLoad" @refreshLoad="onRefreshLoad" colorTop="white" colorBottom="white">
+    <LoadRefresh ref="vLoadRefresh" @bottomLoad="onBottomLoad" @refreshLoad="onRefreshLoad" colorTop="white" colorBottom="white">
       <ul class="list">
         <li class="item" v-for="(v,i) in list" :key="i">{{v}}</li>
       </ul>
-    </LoaderRefresh>
+    </LoadRefresh>
     <div class="btn-box">
       <button class="btn" @click="refresh">手动顶部刷新</button>
       <button class="btn" @click="reStart">手动底部重新加载</button>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import LoaderRefresh from './LoaderRefresh2'
+import LoadRefresh from '@/components/load-refresh'
 export default {
   data () {
     return {
@@ -22,7 +22,7 @@ export default {
     }
   },
   components: {
-    LoaderRefresh
+    LoadRefresh
   },
   methods: {
     // onLoad ({ isRefresh, complete, vLoaderBottom }) {
@@ -51,7 +51,7 @@ export default {
     //     complete((++this.isFinish > 2))
     //   })
     // },
-    onBottomLoad ({ isRefresh, complete, vLoaderBottom }) {
+    onBottomLoad ({ complete, vLoaderBottom }) {
       this.$axios('/test').then(d => {
         // 下拉加载情况
 
@@ -66,7 +66,7 @@ export default {
       })
     },
     // 刷新情况
-    onRefreshLoad ({ isRefresh, complete, vLoaderBottom }) {
+    onRefreshLoad ({ complete, vLoaderBottom }) {
       this.$axios('/test').then(d => {
         this.isFinish = 0
 
@@ -78,13 +78,13 @@ export default {
       })
     },
     refresh () {
-      this.$refs.vLoaderRefresh.refresh()
+      this.$refs.vLoadRefresh.refresh()
     },
     reStart () {
       this.list = [1, 2, 3, 4, 5, 6, 7]
       this.isFinish = 0
 
-      this.$refs.vLoaderRefresh.reStart()
+      this.$refs.vLoadRefresh.reStart()
     },
     // 模拟ajax
     $axios (url) {

@@ -1,12 +1,12 @@
 <template>
-  <RefreshTop ref="vRefreshTop" @reload="reload" :color="colorTop">
+  <PulldownRefresh ref="vPulldownRefresh" @reload="reload" :color="colorTop">
     <slot/>
-    <LoaderBottom ref="vLoaderBottom" @loadData="loadData" :color="colorBottom" />
-  </RefreshTop>
+    <ScrollBottomLoad ref="vScrollBottomLoad" @loadData="loadData" :color="colorBottom" />
+  </PulldownRefresh>
 </template>
 <script>
-import LoaderBottom from '../loader-bottom'
-import RefreshTop from '../refresh-top'
+import ScrollBottomLoad from '../scroll-bottom-load'
+import PulldownRefresh from '../pulldown-refresh'
 export default {
   props: {
     // 图标字体颜色。两种色系选择
@@ -21,42 +21,42 @@ export default {
     }
   },
   components: {
-    RefreshTop,
-    LoaderBottom
+    PulldownRefresh,
+    ScrollBottomLoad
   },
   methods: {
     reload (complete) {
-      let { vLoaderBottom } = this.$refs
+      let { vScrollBottomLoad } = this.$refs
       let option = {
         // type: 'refresh',
         isRefresh: true,
         complete (isFinish) {
           complete()
           if (!isFinish) {
-            vLoaderBottom.reset() // 重置激活
-            vLoaderBottom.tryLoad() // 检测是否执行加载
+            vScrollBottomLoad.reset() // 重置激活
+            vScrollBottomLoad.tryLoad() // 检测是否执行加载
           }
         },
-        vLoaderBottom
+        vScrollBottomLoad
       }
       this.$emit('load', option)
       this.$emit('refreshLoad', option)
     },
     loadData (loaded) {
-      let { vLoaderBottom } = this.$refs
-      let option = { complete: loaded, vLoaderBottom }
+      let { vScrollBottomLoad } = this.$refs
+      let option = { complete: loaded, vScrollBottomLoad }
       this.$emit('load', option)
       this.$emit('bottomLoad', option)
     },
     // 手动顶部刷新
     // 刷新当前页
     refresh () {
-      this.$refs.vRefreshTop.refresh()
+      this.$refs.vPulldownRefresh.refresh()
     },
     // 手动底部全新加载
     // 清除所有数据后进行全新加载用，比如切换页面
     reStart () {
-      this.$refs.vLoaderBottom.reStart()
+      this.$refs.vScrollBottomLoad.reStart()
     }
   }
 }

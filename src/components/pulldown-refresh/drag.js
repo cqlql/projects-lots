@@ -1,7 +1,7 @@
-import darg from '../corejs/dom-drag/drag'
-import autoPrefix from '../corejs/dom-css/autoprefix'
-import Queue from '../corejs/queue'
-import transitionendOnce from '../corejs/animation/transitionend-once'
+import darg from '@/modules/corejs/dom-drag/drag'
+import autoPrefix from '@/modules/corejs/dom-css/autoprefix'
+import Queue from '@/modules/corejs/queue'
+import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
 let transform = autoPrefix('transform')
 export default class {
   constructor ({ elem, elemDrag, maxY, loadingY, onChange, onReload }) {

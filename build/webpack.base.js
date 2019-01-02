@@ -1,4 +1,5 @@
 const path = require('path')
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {
   VueLoaderPlugin
@@ -15,10 +16,6 @@ module.exports = function ({ dirname, cssLoaderHandle = p => p, indexTemplate = 
     return path.resolve(dirname, p)
   }
 
-  const cssAlias = {
-    "./@": _resolve('src')
-  }
-
   function getCssLoaders () {
     let options = [
       {
@@ -29,7 +26,6 @@ module.exports = function ({ dirname, cssLoaderHandle = p => p, indexTemplate = 
             loader: 'css-loader',
             options: {
               sourceMap: devMode,
-              alias: cssAlias,
               modules: true,
               localIdentName: '[local]_[hash:base64:5]'
             }
@@ -42,16 +38,19 @@ module.exports = function ({ dirname, cssLoaderHandle = p => p, indexTemplate = 
           {
             loader: 'css-loader',
             options: {
-              sourceMap: devMode,
-              alias: cssAlias
+              sourceMap: devMode
             }
-          },
+          }
         ]
       }
     ]
     options.forEach(op => {
       op.use.push('postcss-loader?sourceMap=true')
-      // op.use.push('sass-loader?sourceMap=true') // 增加 sass 支持，还需安装 sass-loader 、 node-sass
+      if (!op.resourceQuery) {
+        // op.use.push('less-loader?sourceMap=true') // 增加 less 支持，还需安装 less-loader
+        // op.use.push('sass-loader?sourceMap=true') // 增加 sass 支持，还需安装 sass-loader 、 node-sass
+      }
+
     })
 
     return options
@@ -71,60 +70,60 @@ module.exports = function ({ dirname, cssLoaderHandle = p => p, indexTemplate = 
     },
     module: {
       //加载器配置
-      rules: [{
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        include: [_resolve('src'), resolve('src')],
-        options: {
-          fix: true,
-          formatter: require('eslint-friendly-formatter')
-        }
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader'
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: [_resolve('src'), resolve('src')],
-        // exclude: ['node_modules'],
-      },
-      cssLoaderHandle({
-        test: /\.css$/,
-        // test: /\.(css|scss)$/,
-
-        // 一起处理
-        // oneOf: getCssLoaders()
-        // 分开处理 vue css
-        oneOf: [{
-          test: /\.vue/,
-          oneOf: getCssLoaders()
+      rules: [
+        // {
+        //   test: /\.(js|vue)$/,
+        //   loader: 'eslint-loader',
+        //   enforce: 'pre',
+        //   include: [_resolve('src'), resolve('src')],
+        //   options: {
+        //     formatter: require('eslint-friendly-formatter')
+        //   }
+        // },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader'
         },
         {
-          oneOf: getCssLoaders()
+          test: /\.js$/,
+          loader: 'babel-loader',
+          include: [_resolve('src'), resolve('src')],
+          // exclude: ['node_modules'],
+        },
+        cssLoaderHandle({
+          // test: /\.css$/,
+          test: /\.(css|less|scss)$/,
+
+          // 一起处理
+          // oneOf: getCssLoaders()
+          // 分开处理 vue css
+          oneOf: [{
+            test: /\.vue/,
+            oneOf: getCssLoaders()
+          },
+          {
+            oneOf: getCssLoaders()
+          }
+          ],
+        }),
+        {
+          test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+          loader: 'url-loader',
+          options: {
+            limit: 10000, //单位 字节，1千字节(kb)=1024字节(b)
+            // publicPath: '../',
+            name: 'imgs/[name].[hash:7].[ext]'
+          }
+        },
+        {
+          test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            // publicPath: '../',
+            name: 'fonts/[name].[hash:7].[ext]'
+          }
         }
-        ],
-      }),
-      {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000, //单位 字节，1千字节(kb)=1024字节(b)
-          // publicPath: '../',
-          name: 'imgs/[name].[hash:7].[ext]'
-        }
-      },
-      {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          // publicPath: '../',
-          name: 'fonts/[name].[hash:7].[ext]'
-        }
-      }
       ]
     },
     plugins: [
@@ -135,13 +134,13 @@ module.exports = function ({ dirname, cssLoaderHandle = p => p, indexTemplate = 
           // chunks: ['main'] // 默认所有入口
         })
       ),
-      new VueLoaderPlugin()
+      new VueLoaderPlugin(),
       // copy custom static assets
       // 在开启 devServer 情况，将 copy 到内存中
       // new CopyWebpackPlugin([
       //   {
-      //     from: path.resolve(dirname, 'static'),
-      //     to: path.resolve(dirname, 'dist/static'),
+      //     from: _resolve('static'),
+      //     to: _resolve('dist/static'),
       //     ignore: ['.*'] // 排除
       //   }
       // ])
@@ -154,6 +153,7 @@ module.exports = function ({ dirname, cssLoaderHandle = p => p, indexTemplate = 
       extensions: ['.js', '.vue'],
       alias: {
         // 'vue$': 'vue/dist/vue.esm.js',
+        './@': _resolve('src'), // css url 别名
         '@': _resolve('src'),
       }
     }
