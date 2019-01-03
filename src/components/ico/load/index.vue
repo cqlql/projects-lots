@@ -18,7 +18,7 @@ export default {
   background-position: 50%;
   background-size: 100%;
   background-repeat: no-repeat;
-  animation: preloader-spin 1s steps(12, end) infinite;
+  animation: preloader-spin 1s steps(12) infinite;
   background-image: url(./load.svg);
 }
 .loadWhite {
