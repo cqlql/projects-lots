@@ -13,28 +13,31 @@ export default {
     this.dateHandle = new DateHandle()
   },
   methods: {
-    show ({ yearRange, selectedValues, selectedValuesObj, onConfirm, onChange, validity }) {
+    show ({ selectedValues, selectedValuesObj, onConfirm, onChange }) {
+      let nowDate = this.getNowDate()
+      let { year: nowYear, date: nowBaseDate } = nowDate
+
       let { dateHandle } = this
       // 设置年范围。未来3年
-      dateHandle.setYearRange(yearRange[0], yearRange[1])
+      dateHandle.setYearRange(nowYear, nowYear + 3)
       // 年月列表数据
       let dateData
-      //
-      let selectedIndexs
+
       if (selectedValuesObj) {
         let d = selectedValuesObj
         dateData = this.getData(new Date(d[0].value, d[1].value + 1, d[2].value, d[3].value, d[4].value))
-      } else {
-        selectedIndexs = [0, 0, 0]
-        dateData = this.getData()
+      } else { // 用当前时间初始
+        selectedValues = this.getNowSelectedValues(nowDate)
+        dateData = this.getData(nowBaseDate)
       }
 
       this.$refs.vSlideSelect.show({
+        // titles: ['开始时间', '结束时间'],
         lists: dateData,
 
         // 指定选择，3选1
-        selectedIndexs, // 指定选择，最优先
-        selectedValuesObj, // 指定选择
+        selectedValuesObj, // 指定选择，最优先
+        // selectedIndexs: [0, 0, 0], // 指定选择，通过重新赋值控制子组件选择
         selectedValues, // 指定选择
 
         onChange (index, id, selectedIndexs) {
@@ -46,21 +49,34 @@ export default {
             this.setList(2, dateHandle.getDayData(year, month))
           }
           let selectedValues = this.getSelectedValues()
-
-          // 切换月份，天变少情况可能会为undefined，所以才有这行保护
           let { 0: d1 = {}, 1: d2 = {}, 2: d3 = {}, 3: d4 = {}, 4: d5 = {} } = selectedValues
-
-          let selectedDate = new Date(
-            d1.value,
-            d2.value - 1,
-            d3.value,
-            d4.value,
-            d5.value
-          )
-          this.msgError(validity(selectedDate))
+          let selectedDate = new Date(d1.value, d2.value - 1, d3.value, d4.value, d5.value)
+          if (selectedDate < nowBaseDate) {
+            this.msgError('不能低于今天')
+          } else {
+            this.msgError('')
+          }
         },
         onConfirm
       })
+    },
+    getNowDate () {
+      let nowDate
+      let date = new Date()
+      let month = date.getMonth() + 1
+      let day = date.getDate()
+      let hour = date.getHours()
+      let minute = date.getMinutes()
+
+      nowDate = this.nowDate = {
+        year: date.getFullYear(),
+        date,
+        month,
+        day,
+        hour,
+        minute
+      }
+      return nowDate
     },
     getHourMinute (h = 0, m = 0) {
       let hourMinute = this.hourMinute
@@ -94,6 +110,15 @@ export default {
         selected
       }
       return hourMinute
+    },
+    getNowSelectedValues (nowDate) {
+      let nowYear = nowDate.year
+      let nowMonth = nowDate.month
+      let nowDay = nowDate.day
+      let nowHour = nowDate.hour
+      let nowMinute = nowDate.minute
+      let hourMinuteData = this.getHourMinute(nowHour, nowMinute)
+      return [nowYear, nowMonth, nowDay].concat(hourMinuteData.selected)
     },
     getData (date) {
       return this.dateHandle.getData(date).concat(this.getHourMinute().d)

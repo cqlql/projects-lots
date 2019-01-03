@@ -17,10 +17,13 @@ export default class {
     this.years = years
     this.months = this.getMonthData()
   }
+  // 生成指定年月的数据，否则使用 第一年，第一月
+  getData (year, month) {
+    let { years, months } = this
+    year = year || years[0].value
+    month = month || months[0].value
+    console.log(year, month)
 
-  getData (date) {
-    let year = date.getFullYear()
-    let month = date.getMonth() + 1
     let data = [this.years, this.months, this.getDayData(year, month)]
     return data
   }

@@ -18,14 +18,20 @@ export default {
   },
   methods: {
     showDate () {
+      let nowDate = new Date()
+      let year = nowDate.getFullYear()
       this.$refs.vSlideSelectDate.show({
         // selectedValuesObj: this.selectedDate,
-        yearRange: [],
+        yearRange: [year, year + 3],
         onConfirm: (vm) => {
           console.log(vm.getSelectedValues())
           // this.selectedDate = vm.getSelectedValues()
         },
-        validity () {
+        validity (selectedDate) {
+          console.log(selectedDate, nowDate)
+          if (selectedDate < nowDate) {
+            return '不能低于今天'
+          }
         }
       })
     }

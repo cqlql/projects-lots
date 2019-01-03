@@ -95,7 +95,7 @@ export default {
       })
       return selectedIndexs
     },
-    getIndexsByValuesBoj (lists, selectedValuesObj) {
+    getIndexsByValuesObj (lists, selectedValuesObj) {
       let selectedIndexs = []
       selectedValuesObj.forEach((d, id) => {
         let list = lists[id]
@@ -128,13 +128,13 @@ export default {
     },
     setOptions (options) {
       if (!options) return
-      let { titles, lists, selectedObjIndexs, selectedValues, selectedValuesObj, onConfirm, onChange = () => { } } = options
+      let { titles, lists, selectedIndexs, selectedValues, selectedValuesObj, onConfirm, onChange = () => { } } = options
       if (titles) this.titles = titles
       if (lists) this.lists = lists
-      if (selectedObjIndexs) {
-        this.selectedIndexs = selectedObjIndexs
+      if (selectedIndexs) {
+        this.selectedIndexs = selectedIndexs
       } else if (selectedValuesObj) {
-        this.selectedIndexs = this.getIndexsByValuesBoj(lists, selectedValuesObj)
+        this.selectedIndexs = this.getIndexsByValuesObj(lists, selectedValuesObj)
       } else if (selectedValues) {
         this.selectedIndexs = this.getIndexsByValues(lists, selectedValues)
       }
