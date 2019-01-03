@@ -1,6 +1,8 @@
 <template>
   <div class="box">
-    <p ref="eMove" :style="{left:x+'px'}">惯性实验</p>
+    <div class="move" ref="eMove" :style="{left:x+'px'}">
+      <p v-for="(v,i) in 60" :key="i" :style="{transform:`translateX(${i*100}px)`}" />
+    </div>
   </div>
 </template>
 
@@ -84,8 +86,8 @@ export default {
         // }, speed * 600)
 
         let t = speed * 1000
-        // this.$refs.eMove.style.transition = t + 'ms cubic-bezier(0.33, 0.66, 0.66, 1)'
-        this.$refs.eMove.style.transition = t + 'ms cubic-bezier(0.1, 0.57, 0.1, 1)'
+        this.$refs.eMove.style.transition = t + 'ms cubic-bezier(0.33, 0.66, 0.66, 1)'
+        // this.$refs.eMove.style.transition = t + 'ms cubic-bezier(0.1, 0.57, 0.1, 1)'
         setTimeout(() => { this.$refs.eMove.style.transition = '' }, t)
         setTimeout(() => {
           this.x += speed * speed * 400
@@ -108,12 +110,17 @@ export default {
 .box {
   height: 600px;
 }
+.move {
+  position: relative;
+}
 .box>>>p {
   background-color: #ddd;
   margin: 0;
-  height: 100px;
+  height: 200px;
   width: 100px;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: -5000px;
 }
 .box>>>p:nth-child(2n) {
   background-color: #eee;

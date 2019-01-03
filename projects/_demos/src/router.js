@@ -3,14 +3,22 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
+// 此处加入测试 demo
 let routes = [
   // {
-  //   path: '/FilterBar',
-  //   component: require('@/views/stat-new/FilterBar.demo.vue').default
+  //   path: '/load-refresh',
+  //   meta: { title: '下拉刷新+到底加载' },
+  //   component: require('@/components/load-refresh/demo.vue').default
   // },
   {
-    path: '/load-refresh',
-    component: require('@/components/load-refresh/demo.vue').default
+    path: '/slide-select',
+    meta: { title: '滑动选择' },
+    component: require('@/components/slide-select/demo.vue').default
+  },
+  {
+    path: '/slide-select-date',
+    meta: { title: '滑动选择-日期时间' },
+    component: require('@/components/slide-select-date/demo.vue').default
   },
 ]
 
@@ -26,7 +34,7 @@ routes.push({
 
       const links = []
       routes.forEach(route => {
-        if (route.path !== '*') links.push(<p style={pStyle}><router-link to={route.path} style={aStyle}>{route.path}</router-link></p>)
+        if (route.path !== '*') links.push(<p style={pStyle}><router-link to={route.path} style={aStyle}>{(route.meta && route.meta.title) || route.path}</router-link></p>)
       })
 
       return (

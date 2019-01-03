@@ -1,5 +1,5 @@
 /* eslint-disable */
-// import '@/comm.css'
+import '@/comm.css'
 import '@/modules/corejs/common.js'
 import Vue from 'vue'
 import App from './App.vue'
