@@ -22,6 +22,7 @@ export default {
       let year = nowDate.getFullYear()
       this.$refs.vSlideSelectDate.show({
         // selectedValuesObj: this.selectedDate,
+        // 设置年范围。未来3年
         yearRange: [year, year + 3],
         onConfirm: (vm) => {
           console.log(vm.getSelectedValues())

@@ -22,7 +22,6 @@ export default class {
     let { years, months } = this
     year = year || years[0].value
     month = month || months[0].value
-    console.log(year, month)
 
     let data = [this.years, this.months, this.getDayData(year, month)]
     return data

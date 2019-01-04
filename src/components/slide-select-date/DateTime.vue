@@ -15,7 +15,7 @@ export default {
   methods: {
     show ({ yearRange, selectedValues, selectedValuesObj, onConfirm, onChange, validity }) {
       let { dateHandle } = this
-      // 设置年范围。未来3年
+      // 设置年范围
       dateHandle.setYearRange(yearRange[0], yearRange[1])
       // 年月列表数据
       let dateData
@@ -23,7 +23,9 @@ export default {
       let selectedIndexs
       if (selectedValuesObj) {
         let d = selectedValuesObj
-        dateData = this.getData(new Date(d[0].value, d[1].value + 1, d[2].value, d[3].value, d[4].value))
+        dateData = this.getData(d[0].value, d[1].value + 1)
+      } else if (selectedValues) {
+        dateData = this.getData(selectedValues[0], selectedValues[1])
       } else {
         selectedIndexs = [0, 0, 0]
         dateData = this.getData()
@@ -95,8 +97,8 @@ export default {
       }
       return hourMinute
     },
-    getData (date) {
-      return this.dateHandle.getData(date).concat(this.getHourMinute().d)
+    getData (year, month) {
+      return this.dateHandle.getData(year, month).concat(this.getHourMinute().d)
     }
   }
 }
