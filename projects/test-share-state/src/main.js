@@ -25,8 +25,5 @@ new Vue({
   data: {
     t: 123
   },
-  template: `<App/>`,
-  components: {
-    App
-  }
+  render: h => h(App)
 })
