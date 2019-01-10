@@ -15,7 +15,6 @@
       <a>改变显示个数</a>
       <input type="text" v-model="showNum">
     </p>
-
   </div>
 </template>
 

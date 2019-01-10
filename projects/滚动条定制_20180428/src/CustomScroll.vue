@@ -1,35 +1,35 @@
 <template>
-    <!-- <transition name="custom-scroll-zoom-out" enter-active-class="custom-scroll-transition-active" leave-active-class="custom-scroll-transition-active"> -->
-    <div v-show="has&&show" class="custom-scroll" :style="{width:scrollBoxW+arrowW*2+'px',left:boxX+'px',top:boxY+'px'}">
-      <a href="javascript:void(0)" class="custom-scroll-arrows custom-scroll-arrows-left" ref="eArrowLeft" :style="{width:arrowW+'px'}"></a>
-      <a href="javascript:void(0)" class="custom-scroll-arrows custom-scroll-arrows-right" ref="eArrowRight" :style="{width:arrowW+'px'}"></a>
-      <div class="custom-scroll-box" :style="{width:scrollBoxW+'px'}">
-        <ul class="custom-scroll-cell-box">
-          <li v-for="i in (totalNum*1)" :key="i" :style="{width:cellW+'px'}"></li>
-        </ul>
-        <div class="custom-scroll-bar" ref="eScrollBar" :style="{width:scrollBarW+'px',left:left+'px'}">
-          <!-- <div class="hint">
+  <!-- <transition name="custom-scroll-zoom-out" enter-active-class="custom-scroll-transition-active" leave-active-class="custom-scroll-transition-active"> -->
+  <div v-show="has&&show" class="custom-scroll" :style="{width:scrollBoxW+arrowW*2+'px',left:boxX+'px',top:boxY+'px'}">
+    <a ref="eArrowLeft" href="javascript:void(0)" class="custom-scroll-arrows custom-scroll-arrows-left" :style="{width:arrowW+'px'}" />
+    <a ref="eArrowRight" href="javascript:void(0)" class="custom-scroll-arrows custom-scroll-arrows-right" :style="{width:arrowW+'px'}" />
+    <div class="custom-scroll-box" :style="{width:scrollBoxW+'px'}">
+      <ul ref="eCellBox" class="custom-scroll-cell-box">
+        <li v-for="(i,index) in (totalNum*1)" :key="i" :data-index="index" :style="{width:cellW+'px'}" />
+      </ul>
+      <div ref="eScrollBar" class="custom-scroll-bar" :style="{width:scrollBarW+'px',left:left+'px'}">
+        <!-- <div class="hint">
             {{selectedWeek.join(unit+' ')}}{{unit}}
           </div> -->
-          <div class="hint">{{unit}}</div>
-        </div>
+        <div class="hint">{{ unit }}</div>
       </div>
     </div>
+  </div>
   <!-- </transition> -->
 </template>
 
 <script>
-import dragPlus from '../../../src/modules/corejs/dom-drag/drag-plus'
-import Animation from '../../../src/modules/corejs/animation/animation'
-import relativexy from '../../../src/modules/corejs/dom/relativexy'
+import dragPlus from '@/modules/corejs/dom-drag/drag-plus'
+import Animation from '@/modules/corejs/animation/animation'
+import relativexy from '@/modules/corejs/dom/relativexy'
 export default {
   data () {
     return {
       unit: '',
       totalNum: 0,
       tds: [],
-      arrowW: 50,
-      barH: 50,
+      arrowW: 30,
+      barH: 20,
       cellW: 0,
       scrollBoxW: 0,
       scrollBarW: 0,
@@ -44,6 +44,33 @@ export default {
       show: true,
       positionElemObj: undefined,
       positionElem: undefined
+    }
+  },
+  computed: {
+    has () {
+      return this.tds.length > 0 && this.showNum < this.totalNum
+    }
+  },
+  watch: {
+    totalNum (v, old) {
+      if (this.has) {
+        this.updateSize()
+        this.changeAndReset(0, v, old)
+      }
+    },
+    showNum () {
+      if (this.has) {
+        this.updateSize()
+        this.changeByShowNum()
+      }
+    },
+    positionElem (el) {
+      if (typeof el === 'string') {
+        this.positionElemObj = document.querySelector(el)
+      } else {
+        this.positionElemObj = el
+      }
+      this.update()
     }
   },
   mounted () {
@@ -63,6 +90,9 @@ export default {
     this.destroyOther = function () {
       timer.stop()
     }
+  },
+  destroyed () {
+    this.destroyOther()
   },
   methods: {
     onChange () { },
@@ -115,6 +145,7 @@ export default {
       function isChange (index, cb) {
         if (currIndex !== index) {
           change(index, cb)
+          return true
         }
       }
 
@@ -136,7 +167,7 @@ export default {
           isChangeId = currIndex
           e.preventDefault()
         },
-        onMove ({ x, y }) {
+        onMove ({ lx: x, ly: y }) {
           let { maxX, cellW, left } = vm
           left += x
 
@@ -173,7 +204,7 @@ export default {
         if (index < 0) {
           index = 0
         }
-        isChange(index, animationReset)
+        if (isChange(index, animationReset)) vm.onChange(getSelectedWeekValue())
       })
       this.$refs.eArrowRight.addEventListener('click', () => {
         let index = currIndex
@@ -181,7 +212,17 @@ export default {
         if (index > this.lastIndex) {
           index = this.lastIndex
         }
-        isChange(index, animationReset)
+        if (isChange(index, animationReset)) vm.onChange(getSelectedWeekValue())
+      })
+
+      this.$refs.eCellBox.addEventListener('click', ({ target }) => {
+        if (target.tagName === 'LI') {
+          let index = target.dataset.index * 1
+          if (index > currIndex) {
+            index -= this.showNum - 1
+          }
+          if (isChange(index, animationReset)) vm.onChange(getSelectedWeekValue())
+        }
       })
 
       // 总数改变重置
@@ -221,36 +262,6 @@ export default {
         this.timer.stop()
       }
     }
-  },
-  computed: {
-    has () {
-      return this.tds.length > 0
-    }
-  },
-  watch: {
-    totalNum (v, old) {
-      if (this.has) {
-        this.updateSize()
-        this.changeAndReset(0, v, old)
-      }
-    },
-    showNum () {
-      if (this.has) {
-        this.updateSize()
-        this.changeByShowNum()
-      }
-    },
-    positionElem (el) {
-      if (typeof el === 'string') {
-        this.positionElemObj = document.querySelector(el)
-      } else {
-        this.positionElemObj = el
-      }
-      this.update()
-    }
-  },
-  destroyed () {
-    this.destroyOther()
   }
 }
 </script>
@@ -262,14 +273,14 @@ export default {
 }
 .custom-scroll-box {
   width: 500px;
-  height: 50px;
+  height: 20px;
   /* border: 3px solid #ddd; */
   position: relative;
   float: left;
 }
 
 .custom-scroll-bar {
-  height: 50px;
+  height: 20px;
   width: 50px;
   background: #3eb2f9;
   position: absolute;
@@ -282,7 +293,7 @@ export default {
   list-style-type: none;
 }
 .custom-scroll-cell-box li {
-  height: 50px;
+  height: 20px;
   width: 50px;
   float: left;
   /* box-shadow: inset 0 0 0px 1px #000; */
@@ -295,39 +306,36 @@ export default {
 }
 .custom-scroll-arrows {
   width: 50px;
-  height: 50px;
+  height: 20px;
   /* background-color: #000; */
-  outline: 1px solid #e5e5e5;
+  /* outline: 1px solid #e5e5e5; */
 }
 .custom-scroll-arrows-left {
   float: left;
 }
 .custom-scroll-arrows-left::after {
-  content: "";
-  display: block;
-
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 15px 30px 15px 0;
-  border-color: transparent #3eb2f9 transparent transparent;
-  margin: 12px 0 0 9px;
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 20px 10px 0;
+    border-color: transparent #3eb2f9 transparent transparent;
+    margin: 0 5px;
 }
 
 .custom-scroll-arrows-right {
   float: right;
 }
 .custom-scroll-arrows-right::after {
-  content: "";
-  display: block;
-
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 15px 0 15px 30px;
-  border-color: transparent transparent transparent #3eb2f9;
-
-  margin: 12px 0 0 11px;
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 20px;
+    border-color: transparent transparent transparent #3eb2f9;
+    margin: 0 5px;
 }
 .hint {
   position: absolute;
