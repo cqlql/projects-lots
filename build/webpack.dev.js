@@ -6,9 +6,9 @@ const getIPAdress = require('./get-ip-adress')
 const getBaseConf = require('./webpack.base')
 const merge = require('webpack-merge')
 
-module.exports = function (dirname) {
-
-  let baseConf = getBaseConf({dirname})
+module.exports = function (options) {
+  let {dirname} = options
+  let baseConf = getBaseConf(options)
 
   baseConf.output.filename = baseConf.output.filename.replace(/chunkhash/, 'hash')
 

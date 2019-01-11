@@ -5,11 +5,12 @@
     <div :class="$style.vd">
       <div :class="$style.vdb">
         <div id="liveVideo" ref="vVideo" :class="$style.vdbc" />
+        <div v-if="isNone" :class="$style.none" />
       </div>
     </div>
-    <div :style="{minHeight:itemHeight+'px'}"><img src="./imgs/1.png"></div>
-    <div :style="{minHeight:itemHeight+'px'}"><img src="./imgs/2.png"></div>
-    <div v-for="(d,i) of list" :key="i" :style="{minHeight:itemHeight+'px'}"><img :src="d.isShow&&d.src"></div>
+    <div :style="{height:itemHeight+'px'}"><img src="./imgs/1.png"></div>
+    <div :style="{height:itemHeight+'px'}"><img src="./imgs/2.png"></div>
+    <div v-for="(d,i) of list" :key="i" :style="{height:itemHeight+'px'}"><img :src="d.isShow&&d.src"></div>
   </div>
 </template>
 
@@ -22,6 +23,7 @@ export default {
       // windowHeight: 0,
       itemHeight: 400,
       showNum: 0,
+      isNone: false,
       list: [
         // {
         //   isShow: true,
@@ -64,6 +66,7 @@ export default {
           src: 'imgs/10.png'
         }
       ]
+
     }
   },
   computed: {
@@ -137,14 +140,15 @@ export default {
           4: '现场直播，敬请期待'
         },
         // 事件监听
-        // listener: function (msg) {
-        //   // console.log('listener',msg);
-        //   if (msg.type === 'error') {
-        //     window.setTimeout(function () {
-        //       player.load() // 进行重连
-        //     }, 5000)
-        //   }
-        // }
+        listener: msg => {
+          // console.log('listener',msg);
+          if (msg.type === 'error') {
+            this.isNone = true
+            // window.setTimeout(function () {
+            //   player.load() // 进行重连
+            // }, 5000)
+          }
+        }
       }
       // var player = new TcPlayer(this.$refs.vVideo, options)
       // eslint-disable-next-line no-new,no-undef
@@ -158,6 +162,7 @@ export default {
 .box {
   img {
     width: 100%;
+    height: 100%;
     display: block;
   }
 }
@@ -170,12 +175,21 @@ export default {
 .vdb {
   padding-top: 55.4%;
   background-color: #000;
-  /* border-radius: 6px; */
+  border-radius: 6px;
   position: relative;
+  overflow: hidden;
 }
 .vdbc {
   width: 100%;
   height: 100%;
+  position: absolute;
+  top: 0;
+}
+.none {
+  width: 100%;
+  height: 100%;
+  background: #000 url(./imgs/none.png) no-repeat center center;
+  background-size: 60%;
   position: absolute;
   top: 0;
 }

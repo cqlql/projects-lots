@@ -48,6 +48,15 @@ const webpackConfig = getWebpackConfig({
         // https://github.com/kangax/html-minifier#options-quick-reference
       }
     })
+  },
+  cssLoaderHandle (cssLoader) {
+    cssLoader.oneOf[1].oneOf[0].use[1].options.url = function (url) {
+      url.excludes('none.png')
+    }
+    cssLoader.oneOf[1].oneOf[1].use[1].options.url = function (url) {
+      url.excludes('none.png')
+    }
+    return cssLoader
   }
 })
 
