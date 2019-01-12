@@ -15,6 +15,12 @@ module.exports = {
       remove: false
     }),
     require('postcss-nested'),
+    // css 优化，压缩css
+    require('cssnano')(
+      {
+        preset: 'default',
+      }
+    ),
   ].concat(process.env.NODE_ENV === 'production'? [
     // require('postcss-pxtorem')({
     //   // replace: process.env.NODE_ENV === 'production', // 默认 true
