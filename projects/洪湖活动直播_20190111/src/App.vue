@@ -4,7 +4,9 @@
     <!-- <video src="http://stream2.ahtv.cn/ahgj/fd/live.m3u8"></video> -->
     <div :class="$style.vd">
       <div :class="$style.vdb">
-        <div id="liveVideo" ref="vVideo" :class="$style.vdbc" />
+        <div id="liveVideo" :class="$style.vdbc">
+          <!-- <video ref="vVideo" controls /> -->
+        </div>
         <div v-if="isNone" :class="$style.none" />
       </div>
     </div>
@@ -128,6 +130,21 @@ export default {
     scrollOffUpdate () {},
     resizeOffUpdate () {},
     async loadVideo () {
+      if (new Date() <= new Date(2019, 0, 13)) {
+        this.isNone = true
+        return
+      }
+      // await scriptLoad('https://cdn.jsdelivr.net/npm/hls.js@latest')
+      // /* eslint-disable no-undef */
+      // if (Hls.isSupported()) {
+      //   let video = this.$refs.vVideo
+      //   var hls = new Hls()
+      //   hls.loadSource('http://live.shenduxuetang.com/listen/listen05.m3u8')
+      //   hls.attachMedia(video)
+      //   hls.on(Hls.Events.MANIFEST_PARSED, function () {
+      //     video.play()
+      //   })
+      // }
       await scriptLoad('http://style.shenduxuetang.com/TcPlayer-2.2.1.js')
       var options = {
         m3u8: 'http://live.shenduxuetang.com/listen/listen05.m3u8',
@@ -139,6 +156,9 @@ export default {
           2: '现场直播，敬请期待',
           4: '现场直播，敬请期待'
         },
+        // controls: 'system',
+        // x5_fullscreen: false,
+        // systemFullscreen: false,
         // 事件监听
         listener: msg => {
           // console.log('listener',msg);
@@ -178,14 +198,18 @@ export default {
   background-color: #000;
   border-radius: 8px;
   position: relative;
-  overflow: hidden;
-  transform: translate(0,0)
+  /* overflow: hidden; */
+  /* transform: translate(0,0) */
 }
 .vdbc {
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
+  video {
+    width: 100%;
+    height: 100%;
+  }
 }
 .none {
   width: 100%;
