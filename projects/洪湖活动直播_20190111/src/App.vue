@@ -173,11 +173,13 @@ export default {
   box-sizing: border-box;
 }
 .vdb {
-  padding-top: 55.4%;
+  /* padding-top: 55.4%; */
+  padding-top: 58%;
   background-color: #000;
-  border-radius: 6px;
+  border-radius: 8px;
   position: relative;
   overflow: hidden;
+  transform: translate(0,0)
 }
 .vdbc {
   width: 100%;
@@ -188,8 +190,9 @@ export default {
 .none {
   width: 100%;
   height: 100%;
-  background: #000 url(./imgs/none.png) no-repeat center center;
-  background-size: 60%;
+  background: #000 url(./imgs/none.png) no-repeat;
+  /* background-size: 60%; */
+  background-size: 100% 100%;
   position: absolute;
   top: 0;
 }

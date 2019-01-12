@@ -50,11 +50,8 @@ const webpackConfig = getWebpackConfig({
     })
   },
   cssLoaderHandle (cssLoader) {
-    cssLoader.oneOf[1].oneOf[0].use[1].options.url = function (url) {
-      url.excludes('none.png')
-    }
-    cssLoader.oneOf[1].oneOf[1].use[1].options.url = function (url) {
-      url.excludes('none.png')
+    cssLoader.oneOf[0].oneOf[0].use[1].options.url = (url) => {
+      return url.includes('none.png')
     }
     return cssLoader
   }

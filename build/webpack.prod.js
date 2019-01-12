@@ -10,13 +10,14 @@ module.exports = function ({
   dirname,
   splitCss = false,
   env = d => d,
-  indexTemplate
+  indexTemplate,
+  cssLoaderHandle
 }) {
   process.env.NODE_ENV = 'production'
 
   let baseConf = getBaseConf({
     dirname,
-    cssLoaderHandle(cssLoader) {
+    cssLoaderHandle: cssLoaderHandle || (cssLoader => {
       if (splitCss) {
         // 拆分一般 css
         cssLoader.oneOf[1].oneOf[0].use[0] = MiniCssExtractPlugin.loader
@@ -27,7 +28,7 @@ module.exports = function ({
         // d.oneOf[0].oneOf[1].use[0] = MiniCssExtractPlugin.loader
       }
       return cssLoader
-    },
+    }),
     indexTemplate: indexTemplate ? indexTemplate : () => {
       return new HtmlWebpackPlugin({
         filename: './index.html',

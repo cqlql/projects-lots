@@ -3,9 +3,13 @@ const path = require('path')
 const webpackConfig = require('../../build/webpack.dev')({
   dirname: __dirname,
   cssLoaderHandle (cssLoader) {
+    // cssLoader.oneOf[0].oneOf[0].use[1].options.url = false
     cssLoader.oneOf[0].oneOf[0].use[1].options.url = (url) => {
-      return url.includes('./imgs/none.png')
+      return url.includes('none.png')
     }
+    // cssLoader.oneOf[0].oneOf[1].use[1].options.url = (url) => {
+    //   return url.includes('none.png')
+    // }
     return cssLoader
   }
 
