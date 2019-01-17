@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import List from './List.vue'
+import List from './InputAutosuggest.vue'
 
 /* eslint-disable no-new */
 new Vue({
