@@ -1,2 +1,9 @@
-const webpackConfig = require('../../build/webpack.dev')(__dirname)
-module.exports = require('../../build/friendly-error')(webpackConfig)
+const getDevConf = require('../../build/webpack.dev')
+const merge = require('webpack-merge')
+
+module.exports = require('../../build/friendly-error')(merge(
+  getDevConf({
+    dirname: __dirname
+    // splitCss: true,
+  })
+))
