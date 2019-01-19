@@ -1,3 +1,4 @@
+/* eslint comma-dangle: "off" */
 module.exports = {
   plugins: [
     // require('./build/postcss-iconfont')({
@@ -15,13 +16,12 @@ module.exports = {
       remove: false
     }),
     require('postcss-nested'),
+    // require('postcss-import'), // 允许 css 中使用 @import 导入合并其他css
     // css 优化，压缩css
-    require('cssnano')(
-      {
-        preset: 'default',
-      }
-    ),
-  ].concat(process.env.NODE_ENV === 'production'? [
+    require('cssnano')({
+      preset: 'default',
+    }),
+  ].concat(process.env.NODE_ENV === 'production' ? [
     // require('postcss-pxtorem')({
     //   // replace: process.env.NODE_ENV === 'production', // 默认 true
     //   rootValue: 100,
@@ -51,7 +51,7 @@ module.exports = {
     }),
 
     // 允许 css 中使用 @import 导入合并其他css
-    require('postcss-smart-import')({
+    require('postcss-import')({
       // 查找目录
       path: ['E:/_work/mobile_webview/smallpitch.webview/src/modules/base-libs/css']
     }),
