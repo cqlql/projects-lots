@@ -120,11 +120,15 @@ export default {
     reset () {
       this.firstIndex = this.selectedIndex = -1
       this.keyWord = this.$refs.ipt.value = ''
-    }
+    },
+    onListShowChange (isShow) {}
   },
   watch: {
     selectedIndex (i) {
       this.$emit('dataChange', this.selectedItem)
+    },
+    listShow (isShow) {
+      this.onListShowChange(isShow)
     }
   }
 }

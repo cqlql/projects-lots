@@ -14,6 +14,7 @@ export default class InputAutosuggest {
     this.valueKeyName = 'value'
     this.placeholder = ''
     this.init(el)
+    this.readyQueue = []
   }
   async init (el) {
     el = typeof el === 'string' ? document.querySelector(el) : el
@@ -33,6 +34,9 @@ export default class InputAutosuggest {
         this.dataChangeFn.forEach(fn => { fn(result) })
       })
       vm.$el.querySelector('input').className = className
+
+      // 把加载期间生成的队列全部执行了
+      this.readyQueueExcu()
     }
   }
   setData (d) {
@@ -67,5 +71,20 @@ export default class InputAutosuggest {
   }
   reset () {
     if (this.$vm) this.$vm.reset()
+  }
+  setVm (excu) {
+    const vm = this.$vm
+    if (vm) {
+      excu(vm)
+    } else {
+      this.readyQueue.push(excu)
+    }
+  }
+  readyQueueExcu () {
+    let fn = this.readyQueue.shift()
+    if (fn) {
+      fn(this.$vm)
+      this.readyQueueExcu()
+    }
   }
 }

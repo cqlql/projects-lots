@@ -83,15 +83,15 @@ module.exports = function ({ dirname, indexTemplate, splitCss, sourceMap = true 
     module: {
       // 加载器配置
       rules: [
-        // {
-        //   test: /\.(js|vue)$/,
-        //   loader: 'eslint-loader',
-        //   enforce: 'pre',
-        //   include: [_resolve('src')].concat(resolve ? resolve('src') : []),
-        //   options: {
-        //     formatter: require('eslint-friendly-formatter')
-        //   }
-        // },
+        {
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          enforce: 'pre',
+          include: [_resolve('src')].concat(resolve ? resolve('src') : []),
+          options: {
+            formatter: require('eslint-friendly-formatter')
+          }
+        },
         {
           test: /\.vue$/,
           loader: 'vue-loader'
@@ -160,9 +160,8 @@ module.exports = function ({ dirname, indexTemplate, splitCss, sourceMap = true 
             // chunks: ['main'] // 默认所有入口
           })
         }
-        let temp = indexTemplate()
-        if (temp === false) return [] // 为 false 则不要模板
-        return temp
+        if (indexTemplate === null) return [] // 为 null 则不要模板
+        return indexTemplate()
       }()
     ),
     resolve: {

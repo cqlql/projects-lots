@@ -1,3 +1,4 @@
+/* eslint comma-dangle: "off" */
 const getDevConf = require('../../build/webpack.dev')
 const merge = require('webpack-merge')
 
@@ -8,7 +9,12 @@ module.exports = require('../../build/friendly-error')(merge(
   }),
   {
     entry: {
-      main: './src/demo.main.js'
+      main: './src/input-autosuggest.window.js'
+    },
+    output: {
+      library: 'InputAutosuggest',
+      libraryTarget: 'window',
+      libraryExport: 'default',
     }
   }
 ))
