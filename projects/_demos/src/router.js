@@ -25,10 +25,20 @@ let routes = [
   //   meta: { title: '滑动选择-未来日期时间' },
   //   component: require('@/components/slide-select-date/DateTimeFuture.demo.vue').default
   // },
+  // {
+  //   path: '/mobile-slide',
+  //   meta: { title: '移动端幻灯片' },
+  //   component: require('@/components/mobile-slide/demo.vue').default
+  // },
   {
-    path: '/mobile-slide',
-    meta: { title: '移动端幻灯片' },
-    component: require('@/components/mobile-slide/demo.vue').default
+    path: '/animation',
+    meta: { title: '动画测试' },
+    component: require('@/modules/corejs/animation/transition.demo.vue').default
+  },
+  {
+    path: '/animation2',
+    meta: { title: '动画测试2' },
+    component: require('@/modules/corejs/animation/transition-transform.demo.vue').default
   }
 ]
 

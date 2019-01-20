@@ -83,15 +83,15 @@ module.exports = function ({ dirname, indexTemplate, splitCss, sourceMap = true 
     module: {
       // 加载器配置
       rules: [
-        {
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          enforce: 'pre',
-          include: [_resolve('src')].concat(resolve ? resolve('src') : []),
-          options: {
-            formatter: require('eslint-friendly-formatter')
-          }
-        },
+        // {
+        //   test: /\.(js|vue)$/,
+        //   loader: 'eslint-loader',
+        //   enforce: 'pre',
+        //   include: [_resolve('src')].concat(resolve ? resolve('src') : []),
+        //   options: {
+        //     formatter: require('eslint-friendly-formatter')
+        //   }
+        // },
         {
           test: /\.vue$/,
           loader: 'vue-loader'

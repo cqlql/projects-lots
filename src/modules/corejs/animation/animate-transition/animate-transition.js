@@ -17,10 +17,10 @@ export default class {
   }
   start (el, css, complete) {
     setTimeout(() => {
-      let {style} = el
+      let { style } = el
       style[transition] = this.transition
       for (let name in css) {
-        style[autoprefix(name)[1]] = css[name]
+        style[autoprefix(name)] = css[name]
       }
       transitionendOnce(el, function () {
         style[transition] = 'none'

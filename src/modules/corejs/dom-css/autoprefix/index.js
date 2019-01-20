@@ -28,7 +28,7 @@ export default function (cssPropertyName, type = 'js') {
   let style = document.body.style
 
   if (humpName in style) { // 直接支持情况
-    propertyName = {
+    cache[cssPropertyName] = propertyName = {
       js: humpName,
       css: cssPropertyName
     }
@@ -39,7 +39,7 @@ export default function (cssPropertyName, type = 'js') {
       let prefix = cssPrefixes[i]
       let jsName = prefix + humpNameCapital
       if (jsName in style) {
-        propertyName = {
+        cache[cssPropertyName] = propertyName = {
           js: jsName,
           css: `-${prefix}-` + cssPropertyName
         }

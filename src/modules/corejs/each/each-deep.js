@@ -1,4 +1,4 @@
-import each from './each'
+import each from './each-obj'
 export default function eachDeep (obj, fn) {
   each(obj, function (value, key) {
     fn(value, key, obj)
