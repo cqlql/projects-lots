@@ -19,7 +19,16 @@ export default {
 
 <style module>
 .full {
-  display: block;
+  border-radius: 0;
+
+  position: fixed;
+  left: 0;
+  bottom: 0;
   width: 100%;
+  height: 54px;
+
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
 }
 </style>
