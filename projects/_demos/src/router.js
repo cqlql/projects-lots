@@ -5,6 +5,11 @@ Vue.use(Router)
 
 // 此处加入测试 demo
 let routes = [
+  {
+    path: '/buttons',
+    meta: { title: '基础组件-按钮' },
+    component: require('@/components/buttons/demo.vue').default
+  },
   // {
   //   path: '/load-refresh',
   //   meta: { title: '下拉刷新+到底加载' },
@@ -30,16 +35,16 @@ let routes = [
   //   meta: { title: '移动端幻灯片' },
   //   component: require('@/components/mobile-slide/demo.vue').default
   // },
-  {
-    path: '/animation',
-    meta: { title: '动画测试' },
-    component: require('@/modules/corejs/animation/transition.demo.vue').default
-  },
-  {
-    path: '/animation2',
-    meta: { title: '动画测试2' },
-    component: require('@/modules/corejs/animation/transition-transform.demo.vue').default
-  }
+  // {
+  //   path: '/animation',
+  //   meta: { title: '动画测试' },
+  //   component: require('@/modules/corejs/animation/transition.demo.vue').default
+  // },
+  // {
+  //   path: '/animation2',
+  //   meta: { title: '动画测试2' },
+  //   component: require('@/modules/corejs/animation/transition-transform.demo.vue').default
+  // }
 ]
 
 routes.push({
