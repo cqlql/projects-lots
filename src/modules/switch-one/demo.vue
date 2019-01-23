@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="box">
-      <SwitchOne :switchState="switchState" :switchType="switchType" @loadData="loadData">
+      <SwitchOne ref="vSwitchOne" @loadData="loadData">
         <template slot-scope="props">
           <span>hello from parent</span>
           <span>{{ props.data.name }}</span>
@@ -9,32 +9,43 @@
       </SwitchOne>
     </div>
 
-    <button @click="()=>switchState=!switchState">切换</button>
-    <button @click="()=>switchType=switchType==='left'?'right':'left'">切换类型{{switchType}}</button>
+    <button @click="switchLeft">左切换</button>
+    <button @click="switchRight">右切换</button>
   </div>
 </template>
 
 <script>
-  /* eslint-disable */
-  import SwitchOne from '@/modules/switch-one/SwitchOne2'
-  export default {
-    data () {
-      return {
-        switchState: false,
-        switchType: 'left'
-      }
-    },
-    components: {
-      SwitchOne
-    },
-    methods: {
-      loadData (succeed) {
+import SwitchOne from '@/modules/switch-one/SwitchOne.vue'
+export default {
+  components: {
+    SwitchOne
+  },
+  data () {
+    return {
+      switchIndex: 0,
+      switchType: 'right'
+    }
+  },
+  mounted () {
+    this.$refs.vSwitchOne.load()
+  },
+  methods: {
+    loadData (succeed) {
+      // 模拟 ajax
+      setTimeout(function () {
         succeed({
           name: Math.random()
         })
-      }
+      }, 300)
+    },
+    switchLeft () {
+      this.$refs.vSwitchOne.switchLeft()
+    },
+    switchRight () {
+      this.$refs.vSwitchOne.switchRight()
     }
   }
+}
 </script>
 
 <style scoped>

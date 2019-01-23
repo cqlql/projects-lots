@@ -1,6 +1,6 @@
 <template>
   <div class="switch-one">
-    <slot/>
+    <slot />
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import transitionendOnce from '@/modules/corejs/animation/transitionend-once.js'
 
 export default {
-  name: 'switch-one',
+  name: 'SwitchOne',
   props: {
     activeClass: {
       type: String,
@@ -53,7 +53,7 @@ export default {
       })
     },
     enter (elem, type, end) {
-      let {activeClass} = this
+      let { activeClass } = this
       let { classList } = elem
 
       elem.className = `s-item ${type}-enter`
@@ -68,7 +68,7 @@ export default {
       }, 1)
     },
     leaveTo (elem, type, end) {
-      let {activeClass} = this
+      let { activeClass } = this
       let { classList } = elem
 
       elem.className = `s-item ${activeClass} ${type}-leave-to`
@@ -99,7 +99,7 @@ export default {
       this.excu(this.rightClass, index)
     },
     switch (index) {
-      let {showIndex} = this
+      let { showIndex } = this
       if (index === showIndex) return
       if (index > showIndex) {
         this.excu(this.leftClass, index)
