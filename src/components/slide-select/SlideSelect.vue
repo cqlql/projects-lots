@@ -147,7 +147,7 @@ export default {
 
 <style scoped>
 .slide-select {
-  background-color: #eee;
+  background-color: #fff;
   position: fixed;
   left: 0;
   right: 0;

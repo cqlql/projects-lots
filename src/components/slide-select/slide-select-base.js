@@ -4,11 +4,11 @@ import InertiaAnime from '@/modules/corejs/animation/inertia-anime'
 import Animation from '@/modules/corejs/animation/animation'
 let transform = autoPrefix('transform')
 export default class {
-  constructor ({eDrag, eMove, itemHeight, onChange}) {
-    this.init(eDrag, eMove, itemHeight, onChange)
+  constructor ({ eDrag, eMove, itemHeight, onChange, onActive }) {
+    this.init(eDrag, eMove, itemHeight, onChange, onActive)
   }
 
-  init (eDrag, eMove, itemHeight, onChange) {
+  init (eDrag, eMove, itemHeight, onChange, onActive) {
     // let itemHeight = 0
     let minHeight = 0
     let itemTotal = 0
@@ -24,6 +24,7 @@ export default class {
     }
     // animation 调整动画开始
     function result (sp, t) {
+      // onActive(t)
       let y = currY
       // 限制
       if (y > 0) {
@@ -51,6 +52,12 @@ export default class {
       }
     }
 
+    let active = y => {
+      this.result(y, itemHeight, (sp, t) => {
+        onActive(t)
+      })
+    }
+
     let animation = new Animation()
 
     let inertiaAnime = new InertiaAnime({
@@ -60,6 +67,7 @@ export default class {
           inertiaAnime.rate = 0.5
         }
         move(v)
+        // active(currY)
         currY = v
       },
       complete: () => { // 惯性结束
@@ -78,6 +86,7 @@ export default class {
       onMove (toY) {
         currY += toY
         move(currY)
+        active(currY)
       },
       onEnd () {},
       swipeTop: inertiaAnimeStart,
@@ -106,7 +115,7 @@ export default class {
   /**
    * @param swipeNot 没有移动情况也会触发，即click情况
    * */
-  swipey ({elem, onDown, onStart, onMove, onEnd, swipeBottom, swipeTop, swipeNot}) {
+  swipey ({ elem, onDown, onStart, onMove, onEnd, swipeBottom, swipeTop, swipeNot }) {
     // let preX
     let preY
     let preTime
@@ -117,7 +126,7 @@ export default class {
         e.preventDefault()
 
         let touche = e.touches ? e.touches[0] : e
-        let {pageY} = touche
+        let { pageY } = touche
 
         // let currX = pageX
         let currY = pageY
@@ -140,7 +149,7 @@ export default class {
       },
       onStart: function (e) {
         let touche = e.touches ? e.touches[0] : e
-        let {pageY} = touche
+        let { pageY } = touche
         // preX = pageX
         preY = pageY
         preTime = Date.now()

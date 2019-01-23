@@ -15,11 +15,11 @@ let routes = [
   //   meta: { title: '下拉刷新+到底加载' },
   //   component: require('@/components/load-refresh/demo.vue').default
   // },
-  // {
-  //   path: '/slide-select',
-  //   meta: { title: '滑动选择' },
-  //   component: require('@/components/slide-select/demo.vue').default
-  // },
+  {
+    path: '/slide-select',
+    meta: { title: '滑动选择' },
+    component: require('@/components/slide-select/demo.vue').default
+  },
   // {
   //   path: '/slide-select-date',
   //   meta: { title: '滑动选择-日期时间' },
@@ -45,16 +45,16 @@ let routes = [
   //   meta: { title: '动画测试2' },
   //   component: require('@/modules/corejs/animation/transition-transform.demo.vue').default
   // },
-  {
-    path: '/switch-multi',
-    meta: { title: 'switch-multi' },
-    component: require('@/modules/switch-multi/demo.vue').default
-  },
-  {
-    path: '/switch-one',
-    meta: { title: 'switch-one' },
-    component: require('@/modules/switch-one/demo.vue').default
-  }
+  // {
+  //   path: '/switch-multi',
+  //   meta: { title: 'switch-multi' },
+  //   component: require('@/modules/switch-multi/demo.vue').default
+  // },
+  // {
+  //   path: '/switch-one',
+  //   meta: { title: 'switch-one' },
+  //   component: require('@/modules/switch-one/demo.vue').default
+  // }
 ]
 
 routes.push({
