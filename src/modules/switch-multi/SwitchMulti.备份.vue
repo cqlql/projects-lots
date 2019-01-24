@@ -6,9 +6,7 @@
 
 <script>
 import transitionendOnce from '@/modules/corejs/animation/transitionend-once.js'
-import transition from './transition.js'
-import autoprefix from '@/modules/corejs/dom-css/autoprefix'
-import each from '@/modules/corejs/each/each-obj'
+
 export default {
   name: 'SwitchOne',
   props: {
@@ -31,12 +29,10 @@ export default {
   },
   data () {
     return {
-      activeName: this.$style.transitionActive,
-      showIndex: 0
+      showIndex: 0,
+      data0: {},
+      data1: {}
     }
-  },
-  created () {
-    this.transformName = autoprefix('transform')
   },
   mounted () {
     let items = this.items = this.$el.children
@@ -47,44 +43,47 @@ export default {
     animate (i, switchType, animateEnd) {
       let { items } = this
       this.animateCount = 2
-      this.leftEnter(items[i])
-      this.leaveTo(items[this.showIndex])
-    },
-    setCss (el, css) {
-      let { style } = el
-      each(css, (v, n) => {
-        style[autoprefix(n)] = v
+      this.enter(items[i], switchType, () => {
+        if (--this.animateCount) return
+        animateEnd()
+      })
+      this.leaveTo(items[this.showIndex], switchType, () => {
+        if (--this.animateCount) return
+        animateEnd()
       })
     },
-    // 向左移动进入
-    async leftEnter (el, type, end) {
-      let { activeName, $style } = this
-      let { classList } = el
-      let { leftEnter, leftEnterTo } = $style
-      console.log(leftEnter, leftEnterTo)
-      classList.add(leftEnter)
-      await this.$nextTick()
-      transition({
-        el,
-        activeName,
-        css: leftEnterTo
-      })
-      classList.remove(leftEnter)
-    },
-    leaveTo (el, type, end) {
-      let { activeName } = this
+    enter (elem, type, end) {
+      let { activeClass } = this
+      let { classList } = elem
 
-      transition({
-        el,
-        activeName,
-        css: {
-          [this.transformName]: `translateX(-10%) scale(0.8)`,
-          opacity: 0
-        }
+      elem.className = `s-item ${type}-enter`
+      setTimeout(function () {
+        classList.add(activeClass)
+        classList.remove(type + '-enter')
+        transitionendOnce(elem, function () {
+          classList.remove(activeClass)
+          end()
+          console.log(123)
+        })
+      }, 1)
+    },
+    leaveTo (elem, type, end) {
+      let { activeClass } = this
+      let { classList } = elem
+
+      elem.className = `s-item ${activeClass} ${type}-leave-to`
+      transitionendOnce(elem, function () {
+        classList.remove(activeClass)
+        classList.remove(type + '-leave-to')
+        classList.add('hide')
+        end()
       })
     },
     excu (type, index) {
-      this.animate(index)
+      this.isRun = true
+      this.animate(index, type, () => {
+        this.isRun = false
+      })
       this.showIndex = index
     },
     switchLeft () {
@@ -111,21 +110,6 @@ export default {
   }
 }
 </script>
-
-<style module>
-.transitionActive {
-  transition: 0.3s ease;
-  transition-property:opacity,transform;
-}
-.leftEnter {
-  transform: translateX(100%) scale(0.8);
-  opacity: 0;
-}
-.leftEnterTo {
-  /* transform: translateX(0);
-  opacity: 1; */
-}
-</style>
 
 <style scoped>
 .switch-one {
