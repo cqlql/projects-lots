@@ -14,13 +14,9 @@ export default function ({ el, active, to, end = () => {} }) {
   // 目前以 active 判断是否进行动画
   // 非动画进行时才注册
   if (!classList.contains(active)) {
-    console.log(active)
     classList.add(active)
     transitionendOnce(el, function () {
       classList.remove(active)
-      if (to) {
-        classList.remove(to)
-      }
       end()
     })
   }
@@ -28,3 +24,7 @@ export default function ({ el, active, to, end = () => {} }) {
     classList.add(to)
   }
 }
+// function eventBind (el, type, fn) {
+//   el[type]('transitionend', fn)
+//   el[type]('webkitTransitionEnd', fn)
+// }

@@ -9,7 +9,7 @@
         hide-class="hide"
       >
         <div v-for="item of list" :key="item.name" class="so-item">
-          Fearless Security
+          {{ item.name }}Fearless Security
           Last year, Mozilla shipped Quantum CSS in Firefox, which was the culmination of 8 years of investment in Rust, a memory-safe systems programming language, and over a year of rewriting a major browser component in Rust. Until now, all major browser engines have been written in C++, mostly for performance reasons. However, with great performance comes great (memory) responsibility: C++ programmers have to manually manage memory, which opens a Pandora’s box of vulnerabilities. Rust not only prevents these kinds of errors, but the techniques it uses to do so also prevent data races, allowing programmers to reason more effectively about parallel code.
         </div>
       </SwitchMulti>

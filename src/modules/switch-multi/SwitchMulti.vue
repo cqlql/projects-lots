@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import transitionendOnce from '@/modules/corejs/animation/transitionend-once.js'
 import transition from './transition.js'
 import autoprefix from '@/modules/corejs/dom-css/autoprefix'
 import each from '@/modules/corejs/each/each-obj'
@@ -44,11 +43,11 @@ export default {
     items[this.showIndex].classList.remove('hide')
   },
   methods: {
-    animate (i, switchType, animateEnd) {
+    animate (index, switchType) {
       let { items } = this
-      this.animateCount = 2
-      this.leftEnter(items[i])
-      this.leftLeaveTo(items[this.showIndex])
+      this.enter(items[index], switchType)
+      this.leaveTo(items[this.showIndex], switchType)
+      this.showIndex = index
     },
     setCss (el, css) {
       let { style } = el
@@ -56,58 +55,60 @@ export default {
         style[autoprefix(n)] = v
       })
     },
-    // 向左移动进入
-    async leftEnter (el, type, end) {
-      let { active, $style } = this
+    clear (el) {
       let { classList } = el
-      let { leftEnter, leftEnterTo, hide } = $style
-      classList.remove(hide)
-      classList.add(leftEnter)
-      await this.$nextTick()
-      transition({
-        el,
-        active,
-        to: leftEnterTo
+      each(this.$style, n => {
+        classList.remove(n)
       })
-      classList.remove(leftEnter)
     },
-    async leftLeaveTo (el, type, end) {
+    // 向左移动进入
+    async enter (el, type, end) {
       let { active, $style } = this
       let { classList } = el
-      let { leftLeaveTo, hide } = $style
+      let enter = $style[type + 'Enter']
+      let enterTo = $style[type + 'EnterTo']
+      this.clear(el)
+      classList.add(enter)
       await this.$nextTick()
       transition({
         el,
         active,
-        to: leftLeaveTo,
+        to: enterTo,
         end: () => {
-          classList.add(hide)
+          if (enterTo) classList.add(enterTo)
         }
       })
+      classList.remove(enter)
     },
-    excu (type, index) {
-      this.animate(index)
-      this.showIndex = index
+    async leaveTo (el, type, end) {
+      let { active, $style } = this
+      let leaveTo = $style[type + 'LeaveTo']
+      await this.$nextTick()
+      transition({
+        el,
+        active,
+        to: leaveTo
+      })
     },
     switchLeft () {
       if (this.isRun) return
       let index = this.showIndex + 1
       if (index >= this.itemCount) index = 0
-      this.excu(this.leftClass, index)
+      this.animate(index, 'left')
     },
     switchRight () {
       if (this.isRun) return
       let index = this.showIndex - 1
       if (index < 0) index = this.itemCount - 1
-      this.excu(this.rightClass, index)
+      this.animate(index, 'right')
     },
     switch (index) {
       let { showIndex } = this
       if (index === showIndex) return
       if (index > showIndex) {
-        this.excu(this.leftClass, index)
+        this.animate(index, 'left')
       } else {
-        this.excu(this.rightClass, index)
+        this.animate(index, 'right')
       }
     }
   }
@@ -119,20 +120,13 @@ export default {
   transition: 0.3s ease;
   transition-property:opacity,transform;
 }
-.leftEnter {
+.leftEnter,.rightLeaveTo {
   transform: translateX(100%) scale(0.8);
   opacity: 0;
 }
-.leftEnterTo {
-  /* transform: translateX(0);
-  opacity: 1; */
-}
-.leftLeaveTo{
+.leftEnterTo {}
+.leftLeaveTo,.rightEnter{
   transform: translateX(-100%) scale(0.8);
-  opacity: 0;
-}
-.hide {
-  transform: translateX(-100%);
   opacity: 0;
 }
 </style>
