@@ -20,11 +20,11 @@ let routes = [
     meta: { title: '滑动选择' },
     component: require('@/components/slide-select/demo.vue').default
   },
-  // {
-  //   path: '/slide-select-date',
-  //   meta: { title: '滑动选择-日期时间' },
-  //   component: require('@/components/slide-select-date/demo.vue').default
-  // },
+  {
+    path: '/slide-select-date',
+    meta: { title: '滑动选择-日期时间' },
+    component: require('@/components/slide-select-date/demo.vue').default
+  },
   // {
   //   path: '/slide-select-date-future',
   //   meta: { title: '滑动选择-未来日期时间' },

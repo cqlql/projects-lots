@@ -41,7 +41,6 @@ export default {
       eMove: this.$refs.eMove,
       itemHeight: this.$refs.eSel.clientHeight,
       onChange: index => {
-        this.activeIndex = index
         this.$emit('change', index, this.id)
       },
       onActive: index => {

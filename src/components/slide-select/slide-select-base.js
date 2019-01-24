@@ -36,6 +36,7 @@ export default class {
       }
 
       function cb () {
+        onActive(t)
         if (t !== selectedIndex) {
           onChange(t)
           selectedIndex = t

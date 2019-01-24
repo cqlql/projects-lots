@@ -3,8 +3,8 @@
     <VMask v-if="isShow" @click="close" />
     <transition name="up">
       <div v-if="isShow" class="slide-select">
-        <BtnsBar @cancel="close" @confirm="confirm" />
         <SlideSelectBase ref="vSlideSelectBase" />
+        <BtnsBar @cancel="close" @confirm="confirm" />
       </div>
     </transition>
   </div>
@@ -52,8 +52,9 @@ export default {
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 0;
+  top: 0;
   z-index: 9;
+  opacity: 1;
 }
 .up-enter-active,
 .up-leave-active {
@@ -62,6 +63,10 @@ export default {
 }
 .up-enter,
 .up-leave-to {
-  transform: translate3d(0, 99%, 0);
+  transform: translate3d(0, -99%, 0);
+}
+.s-bar {
+  border-bottom: 0;
+  border-top: 1px solid #ddd;
 }
 </style>
