@@ -31,7 +31,7 @@ export default {
   },
   data () {
     return {
-      activeName: this.$style.transitionActive,
+      active: this.$style.transitionActive,
       showIndex: 0
     }
   },
@@ -48,7 +48,7 @@ export default {
       let { items } = this
       this.animateCount = 2
       this.leftEnter(items[i])
-      this.leaveTo(items[this.showIndex])
+      this.leftLeaveTo(items[this.showIndex])
     },
     setCss (el, css) {
       let { style } = el
@@ -58,28 +58,30 @@ export default {
     },
     // 向左移动进入
     async leftEnter (el, type, end) {
-      let { activeName, $style } = this
+      let { active, $style } = this
       let { classList } = el
-      let { leftEnter, leftEnterTo } = $style
-      console.log(leftEnter, leftEnterTo)
+      let { leftEnter, leftEnterTo, hide } = $style
+      classList.remove(hide)
       classList.add(leftEnter)
       await this.$nextTick()
       transition({
         el,
-        activeName,
-        css: leftEnterTo
+        active,
+        to: leftEnterTo
       })
       classList.remove(leftEnter)
     },
-    leaveTo (el, type, end) {
-      let { activeName } = this
-
+    async leftLeaveTo (el, type, end) {
+      let { active, $style } = this
+      let { classList } = el
+      let { leftLeaveTo, hide } = $style
+      await this.$nextTick()
       transition({
         el,
-        activeName,
-        css: {
-          [this.transformName]: `translateX(-10%) scale(0.8)`,
-          opacity: 0
+        active,
+        to: leftLeaveTo,
+        end: () => {
+          classList.add(hide)
         }
       })
     },
@@ -124,6 +126,14 @@ export default {
 .leftEnterTo {
   /* transform: translateX(0);
   opacity: 1; */
+}
+.leftLeaveTo{
+  transform: translateX(-100%) scale(0.8);
+  opacity: 0;
+}
+.hide {
+  transform: translateX(-100%);
+  opacity: 0;
 }
 </style>
 

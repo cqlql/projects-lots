@@ -29,8 +29,8 @@ export default {
     animeStart () {
       transition({
         el: this.$refs.eMove,
-        activeName: this.$style.transitionActive,
-        css: {
+        active: this.$style.transitionActive,
+        to: {
           [this.transformName]: `translateX(100%)`,
           height: '200px'
         },
@@ -42,8 +42,8 @@ export default {
     animeStart2 () {
       transition({
         el: this.$refs.eMove,
-        activeName: this.$style.transitionActive,
-        css: {
+        active: this.$style.transitionActive,
+        to: {
           [this.transformName]: `translateX(100%)`,
           height: '300px'
         },

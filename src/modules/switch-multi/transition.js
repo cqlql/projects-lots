@@ -1,29 +1,30 @@
-import autoprefix from '@/modules/corejs/dom-css/autoprefix'
-import each from '@/modules/corejs/each/each-obj'
 import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
 
 /**
  *
- * 注意！！！起始 css 如果跟目标 css 相同，将无法触发 transitionend
+ * 注意！！！如果目标css并未操作改变，将无法触发 transitionend。
+ * 可以设置过度前的 css 避免
  *
  * @param {Element} el
- * @param {String} activeName 动画进行时不能改变 activeName 多次执行函数。相同的可以
- * @param {Object} css
+ * @param {String} active 动画进行时不能改变 active 多次执行函数。相同的可以
+ * @param {Object} to
  */
-export default function ({ el, activeName, css, end = () => {} }) {
+export default function ({ el, active, to, end = () => {} }) {
   let { classList } = el
-
-  // 目前以 activeName 判断是否进行动画
+  // 目前以 active 判断是否进行动画
   // 非动画进行时才注册
-  if (!classList.contains(activeName)) {
-    classList.add(activeName)
+  if (!classList.contains(active)) {
+    console.log(active)
+    classList.add(active)
     transitionendOnce(el, function () {
-      classList.remove(activeName)
+      classList.remove(active)
+      if (to) {
+        classList.remove(to)
+      }
       end()
     })
   }
-  if (css) {
-    console.log(css)
-    classList.add(css)
+  if (to) {
+    classList.add(to)
   }
 }

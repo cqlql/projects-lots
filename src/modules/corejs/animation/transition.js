@@ -4,35 +4,27 @@ import transitionendOnce from './transitionend-once'
 
 /**
  *
- * 注意！！！必须设置初始 style，否则无法正确检测改变，导致无法触发 transitionend
+ * 注意！！！如果目标css并未操作改变，将无法触发 transitionend。
+ * 所以，设置动画前先判断好
  *
  * @param {Element} el
- * @param {String} activeName 动画进行时不能改变 activeName 多次执行函数。相同的可以
- * @param {Object} css
+ * @param {String} active 动画进行时不能改变 active 多次执行函数。相同的可以
+ * @param {Object} to
  */
-export default function ({ el, activeName, css, end = () => {} }) {
+export default function ({ el, active, to, end = () => {} }) {
   let { style, classList } = el
 
-  // 目前以 activeName 判断是否进行动画
+  // 目前以 active 判断是否进行动画
   // 非动画进行时才注册
-  if (!classList.contains(activeName)) {
-    classList.add(activeName)
+  if (!classList.contains(active)) {
+    classList.add(active)
     transitionendOnce(el, function () {
-      classList.remove(activeName)
+      classList.remove(active)
       end()
     })
   }
 
-  let cssSame = true // css 值与当前值是否一样
-  each(css, (v, n) => {
-    n = autoprefix(n)
-    if (style[n] === v) {
-      return
-    }
-    style[n] = v
-    cssSame = false
+  each(to, (v, n) => {
+    style[autoprefix(n)] = v
   })
-  if (cssSame) {
-    end()
-  }
 }
