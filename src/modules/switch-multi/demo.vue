@@ -3,14 +3,15 @@
     <div class="box">
       <SwitchMulti
         ref="vSwitchMulti"
-        active-class="t-active"
-        left-class="zoom-in"
-        right-class="zoom-out"
-        hide-class="hide"
+        :active="$style.transitionActive"
+        :left-enter="$style['rightHide'+type]"
+        :right-leave-to="$style['rightHide'+type]"
+        :right-enter="$style['leftHide'+type]"
+        :left-leave-to="$style['leftHide'+type]"
+        :no-clear="/so\-item/"
       >
         <div v-for="item of list" :key="item.name" class="so-item">
-          {{ item.name }}Fearless Security
-          Last year, Mozilla shipped Quantum CSS in Firefox, which was the culmination of 8 years of investment in Rust, a memory-safe systems programming language, and over a year of rewriting a major browser component in Rust. Until now, all major browser engines have been written in C++, mostly for performance reasons. However, with great performance comes great (memory) responsibility: C++ programmers have to manually manage memory, which opens a Pandora’s box of vulnerabilities. Rust not only prevents these kinds of errors, but the techniques it uses to do so also prevent data races, allowing programmers to reason more effectively about parallel code.
+          <img :src="item" alt>
         </div>
       </SwitchMulti>
     </div>
@@ -20,6 +21,12 @@
     <button @click="()=>switchTo(0)">1</button>
     <button @click="()=>switchTo(1)">2</button>
     <button @click="()=>switchTo(2)">3</button>
+    <select v-model="type">
+      <option value="0">移动</option>
+      <option value="1">缩放+移动</option>
+      <option value="2">缩放</option>
+      <option value="3">渐变</option>
+    </select>
   </div>
 </template>
 
@@ -36,15 +43,12 @@ export default {
   },
   data () {
     return {
-      showIndex: 0,
-      switchType: 'right',
-      list: [{
-        name: 1
-      }, {
-        name: 2
-      }, {
-        name: 3
-      }]
+      type: '0',
+      list: [
+        'https://m.360buyimg.com/babel/jfs/t1/19506/35/6071/100337/5c471f82E224430bc/89fd13918300c679.jpg',
+        'https://m.360buyimg.com/babel/jfs/t1/23665/18/4191/66665/5c2f3ebdE5e9c334a/fe52db56cc5e280c.jpg',
+        'https://img1.360buyimg.com/pop/jfs/t1/11211/7/6211/68507/5c3dafe5Ed32fd245/a825c583fdc01580.jpg'
+      ]
     }
   },
   created () {
@@ -53,26 +57,52 @@ export default {
   methods: {
     switchLeft () {
       this.$refs.vSwitchMulti.switchLeft()
-      // this.switchBase.switchLeft()
     },
     switchRight () {
       this.$refs.vSwitchMulti.switchRight()
-      // this.switchBase.switchRight()
     },
     switchTo (i) {
       this.$refs.vSwitchMulti.switch(i)
-      // this.switchBase.switch(i)
     }
   }
 }
 </script>
 
+<style module>
+/* .transitionActive {
+  transition: 0.3s ease;
+  transition-property: opacity, transform;
+} */
+.rightHide1 {
+  transform: translateX(100%) scale(0.8);
+  opacity: 0;
+}
+.leftHide1 {
+  transform: translateX(-100%) scale(0.8);
+  opacity: 0;
+}
+
+.rightHide2 {
+  transform: scale(0.5);
+  opacity: 0;
+}
+.leftHide2 {
+  transform: scale(1.5);
+  opacity: 0;
+}
+.rightHide3,
+.leftHide3 {
+  opacity: 0;
+}
+
+</style>
+
 <style scoped>
-.box{
+.box {
   border: 2px solid #000;
 
-  width: 200px;
-  height: 300px;
+  width: 590px;
+  height: 470px;
 
   /* &>>>.t-active{
     transition: 0.3s cubic-bezier(.55,0,.1,1);
@@ -92,5 +122,4 @@ export default {
   width: 100%;
   height: 100%;
 }
-
 </style>

@@ -11,36 +11,65 @@ import each from '@/modules/corejs/each/each-obj'
 export default {
   name: 'SwitchOne',
   props: {
-    activeClass: {
+    active: {
       type: String,
-      default: 'slide-active'
+      default: function () { return this.$style.transitionActive }
     },
-    leftClass: {
+    leftEnter: {
       type: String,
-      default: 'left'
+      default: function () { return this.$style.leftEnter }
     },
-    rightClass: {
+    rightEnter: {
       type: String,
-      default: 'right'
+      default: function () { return this.$style.rightEnter }
     },
-    hideClass: {
+    leftLeaveTo: {
       type: String,
-      default: 'hide'
+      default: function () { return this.$style.leftLeaveTo }
+    },
+    rightLeaveTo: {
+      type: String,
+      default: function () { return this.$style.rightLeaveTo }
+    },
+    leftEnterTo: {
+      type: String,
+      default: ''
+    },
+    rightEnterTo: {
+      type: String,
+      default: ''
+    },
+    noClear: {
+      type: RegExp,
+      default: /./
     }
   },
   data () {
     return {
-      active: this.$style.transitionActive,
+      // active: this.$style.transitionActive,
+      // leftEnter: this.$style.leftEnter,
+      // leftEnterTo: this.$style.leftEnterTo,
+      // rightEnter: this.$style.rightEnter,
+      // rightEnterTo: this.$style.rightEnterTo,
+      // leftLeaveTo: this.$style.leftLeaveTo,
+      // rightLeaveTo: this.$style.rightLeaveTo,
       showIndex: 0
     }
   },
-  created () {
-    this.transformName = autoprefix('transform')
-  },
   mounted () {
+    this.transformName = autoprefix('transform')
+
     let items = this.items = this.$el.children
-    this.itemCount = items.length
-    items[this.showIndex].classList.remove('hide')
+    let total = this.total = items.length
+
+    // 初始显示 showIndex 项
+    let { showIndex, leftLeaveTo, rightLeaveTo } = this
+    for (let i = total; i--;) {
+      if (i === showIndex) continue
+      let { classList } = items[i]
+      classList.add(leftLeaveTo)
+      classList.add(rightLeaveTo)
+    }
   },
   methods: {
     animate (index, switchType) {
@@ -56,50 +85,58 @@ export default {
       })
     },
     clear (el) {
+      let { noClear } = this
       let { classList } = el
-      each(this.$style, n => {
-        classList.remove(n)
-      })
+      for (let i = classList.length; i--;) {
+        let v = classList[i]
+        if (noClear.test(v)) return
+        classList.remove(v)
+      }
+      // classList.forEach(v => {
+      //   console.log(v)
+      //   if (noClear.test(v)) return
+      //   console.log('删除' + v)
+      //   classList.remove(v)
+      // })
     },
-    // 向左移动进入
-    async enter (el, type, end) {
-      let { active, $style } = this
+    enter (el, type, end) {
+      let { active } = this
       let { classList } = el
-      let enter = $style[type + 'Enter']
-      let enterTo = $style[type + 'EnterTo']
+      let enter = this[type + 'Enter']
+      let enterTo = this[type + 'EnterTo']
       this.clear(el)
       classList.add(enter)
-      await this.$nextTick()
-      transition({
-        el,
-        active,
-        to: enterTo,
-        end: () => {
-          if (enterTo) classList.add(enterTo)
-        }
-      })
-      classList.remove(enter)
+      setTimeout(() => {
+        transition({
+          el,
+          active,
+          to: enterTo
+          // end: () => {
+          //   if (enterTo) classList.remove(enterTo)
+          // }
+        })
+        classList.remove(enter)
+      }, 1)
     },
-    async leaveTo (el, type, end) {
-      let { active, $style } = this
-      let leaveTo = $style[type + 'LeaveTo']
-      await this.$nextTick()
-      transition({
-        el,
-        active,
-        to: leaveTo
-      })
+    leaveTo (el, type, end) {
+      let { active } = this
+      let leaveTo = this[type + 'LeaveTo']
+      setTimeout(() => {
+        transition({
+          el,
+          active,
+          to: leaveTo
+        })
+      }, 1)
     },
     switchLeft () {
-      if (this.isRun) return
       let index = this.showIndex + 1
-      if (index >= this.itemCount) index = 0
+      if (index >= this.total) index = 0
       this.animate(index, 'left')
     },
     switchRight () {
-      if (this.isRun) return
       let index = this.showIndex - 1
-      if (index < 0) index = this.itemCount - 1
+      if (index < 0) index = this.total - 1
       this.animate(index, 'right')
     },
     switch (index) {
@@ -121,13 +158,13 @@ export default {
   transition-property:opacity,transform;
 }
 .leftEnter,.rightLeaveTo {
-  transform: translateX(100%) scale(0.8);
-  opacity: 0;
+  transform: translateX(100%);
 }
-.leftEnterTo {}
-.leftLeaveTo,.rightEnter{
-  transform: translateX(-100%) scale(0.8);
-  opacity: 0;
+/* .leftEnterTo,.rightEnterTo {
+  z-index: 1;
+} */
+.rightEnter,.leftLeaveTo {
+  transform: translateX(-100%);
 }
 </style>
 
