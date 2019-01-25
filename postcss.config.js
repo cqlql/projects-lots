@@ -1,4 +1,5 @@
 /* eslint comma-dangle: "off" */
+const prodMode = process.env.NODE_ENV === 'production'
 module.exports = {
   plugins: [
     // require('./build/postcss-iconfont')({
@@ -21,14 +22,15 @@ module.exports = {
     require('cssnano')({
       preset: 'default',
     }),
-  ].concat(process.env.NODE_ENV === 'production' ? [
-    // require('postcss-pxtorem')({
-    //   // replace: process.env.NODE_ENV === 'production', // 默认 true
-    //   rootValue: 100,
-    //   propList:['*'],
-    //   selectorBlackList:[/^html$/]
-    // })
-  ] : [])
+
+    require('postcss-pxtorem')({
+      replace: prodMode, // 默认 true
+      rootValue: 100,
+      propList: ['*'],
+      selectorBlackList: [/^html$/],
+      minPixelValue: 2
+    })
+  ]
 }
 
 /* 说明

@@ -36,10 +36,11 @@ export default {
     }
   },
   mounted () {
+    let eSel = this.$refs.eSel
     let slideSelectBase = this.slideSelectBase = new SlideSelectBase({
       eDrag: this.$el,
       eMove: this.$refs.eMove,
-      itemHeight: this.$refs.eSel.clientHeight,
+      itemHeight: eSel.getBoundingClientRect().height - 2,
       onChange: index => {
         this.$emit('change', index, this.id)
       },
@@ -50,10 +51,32 @@ export default {
     let { list, index } = this
     slideSelectBase.update(list.length)
     slideSelectBase.select(index)
+
+    // 延时有效执行
+    let timeId
+    function excu (callBack, time) {
+      clearTimeout(timeId)
+      timeId = setTimeout(callBack, time)
+    }
+    this.onWindowResize(() => {
+      excu(() => {
+        slideSelectBase.updateItemHeight(eSel.getBoundingClientRect().height - 2)
+      }, 400)
+    })
+  },
+  destroyed () {
+    this.offWindowResize()
   },
   methods: {
     select (index) {
       this.slideSelectBase.select(index)
+    },
+    onWindowResize (fn) {
+      this.windowResizeFn = fn
+      window.addEventListener('resize', fn)
+    },
+    offWindowResize () {
+      window.removeEventListener('resize', this.windowResizeFn)
     }
   }
 
@@ -63,16 +86,16 @@ export default {
 <style scoped>
   .s-list{
     flex:1;
-    margin: 0 5PX;
+    margin: 0 5px;
     position: relative;
     overflow: hidden;
     color: #aaa;
   }
 
   .s-sel{
-    height: 30PX;
-    border-bottom: 1PX solid #eee;
-    border-top: 1PX solid #eee;
+    height: 30px;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
     position: absolute;
     top: 50%;
     width: 100%;
@@ -83,11 +106,11 @@ export default {
     padding: 0;
     margin: 0;
     text-align: center;
-    font-size: 16PX;
+    font-size: 16px;
     line-height: 1.8;
   }
   .s-item{
-    height: 30PX;
+    height: 30px;
     text-overflow:ellipsis;
     white-space: nowrap;
     /* transform: scale(1); */
@@ -101,7 +124,7 @@ export default {
 
   .s-mask{
     position: absolute;
-    height: 88PX;
+    height: 88px;
     left: 0;
     right: 0;
     /* background-color: rgba(238, 238, 238, 0.75); */
@@ -112,12 +135,12 @@ export default {
     top: 0;
     transform: translate3d(0,-100%,0);
     background: linear-gradient(to top,rgba(255, 255, 255, 0),#fff);
-    /* box-shadow: inset 0 20PX 20PX 0 #eee; */
+    /* box-shadow: inset 0 20px 20px 0 #eee; */
   }
   .s-b-mask{
     bottom: 0;
     transform: translate3d(0,100%,0);
     background: linear-gradient(to bottom,rgba(255, 255, 255, 0),#fff);
-    /* box-shadow: inset 0 -20PX 20PX 0 #eee; */
+    /* box-shadow: inset 0 -20px 20px 0 #eee; */
   }
 </style>

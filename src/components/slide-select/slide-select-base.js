@@ -97,11 +97,12 @@ export default class {
       }
     })
 
+    // 项改变更新
     this.update = function (total) {
       if (itemTotal === total) return
       itemTotal = total
-      let contHeight = total * itemHeight
-      minHeight = itemHeight - contHeight
+      // let contHeight = total * itemHeight
+      minHeight = itemHeight - itemTotal * itemHeight
       this.result(currY, itemHeight, result)
     }
 
@@ -109,6 +110,12 @@ export default class {
       if (index === selectedIndex) return
       selectedIndex = index
       currY = -index * itemHeight
+      move(currY)
+    }
+
+    this.updateItemHeight = function (itemH) {
+      currY = -selectedIndex * (itemHeight = itemH)
+      minHeight = itemHeight - itemTotal * itemHeight
       move(currY)
     }
   }
