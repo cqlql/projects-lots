@@ -111,6 +111,7 @@ export default class {
       selectedIndex = index
       currY = -index * itemHeight
       move(currY)
+      onActive(index)
     }
 
     this.updateItemHeight = function (itemH) {
