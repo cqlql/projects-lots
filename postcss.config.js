@@ -23,13 +23,13 @@ module.exports = {
       preset: 'default',
     }),
 
-    require('postcss-pxtorem')({
-      replace: prodMode, // 默认 true
-      rootValue: 100,
-      propList: ['*'],
-      selectorBlackList: [/^html$/],
-      minPixelValue: 2
-    })
+    // require('postcss-pxtorem')({
+    //   replace: prodMode, // 默认 true
+    //   rootValue: 100,
+    //   propList: ['*'],
+    //   selectorBlackList: [/^html$/],
+    //   minPixelValue: 2
+    // })
   ]
 }
 

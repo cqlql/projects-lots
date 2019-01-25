@@ -1,4 +1,4 @@
-import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
+import transitionendOnce from './transitionend-once'
 
 /**
  *
@@ -15,7 +15,7 @@ export default function ({ el, active, to, end = () => {} }) {
   // 非动画进行时才注册
   if (!classList.contains(active)) {
     classList.add(active)
-    transitionendOnce(el, function () {
+    el._removeTransitionEnd = transitionendOnce(el, function () {
       classList.remove(active)
       end()
     })

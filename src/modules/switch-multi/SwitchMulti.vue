@@ -63,7 +63,8 @@ export default {
     let total = this.total = items.length
 
     // 初始显示 showIndex 项
-    let { showIndex, hide } = this
+    let { showIndex } = this
+    let { hide } = this.$style
     for (let i = total; i--;) {
       if (i === showIndex) continue
       let { classList } = items[i]
@@ -88,9 +89,10 @@ export default {
       let { classList } = el
       for (let i = classList.length; i--;) {
         let v = classList[i]
-        if (noClear.test(v)) return
-        classList.remove(v)
+        noClear.test(v) || classList.remove(v)
       }
+      (el._removeTransitionEnd || function () {})()
+      delete el._removeTransitionEnd
       // classList.forEach(v => {
       //   console.log(v)
       //   if (noClear.test(v)) return
@@ -110,9 +112,6 @@ export default {
           el,
           active,
           to: enterTo
-          // end: () => {
-          //   if (enterTo) classList.remove(enterTo)
-          // }
         })
         classList.remove(enter)
       }, 1)
@@ -153,7 +152,7 @@ export default {
 
 <style module>
 .transitionActive {
-  transition: 0.3s ease;
+  transition: .3s ease;
   transition-property:opacity,transform;
 }
 .leftEnter,.rightLeaveTo {
@@ -166,7 +165,7 @@ export default {
   transform: translateX(-100%);
 }
 .hide {
-  transform: translateX(100%);
+  transform: translateX(-100%);
   opacity: 0;
 }
 </style>
