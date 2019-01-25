@@ -63,12 +63,11 @@ export default {
     let total = this.total = items.length
 
     // 初始显示 showIndex 项
-    let { showIndex, leftLeaveTo, rightLeaveTo } = this
+    let { showIndex, hide } = this
     for (let i = total; i--;) {
       if (i === showIndex) continue
       let { classList } = items[i]
-      classList.add(leftLeaveTo)
-      classList.add(rightLeaveTo)
+      classList.add(hide)
     }
   },
   methods: {
@@ -165,6 +164,10 @@ export default {
 } */
 .rightEnter,.leftLeaveTo {
   transform: translateX(-100%);
+}
+.hide {
+  transform: translateX(100%);
+  opacity: 0;
 }
 </style>
 

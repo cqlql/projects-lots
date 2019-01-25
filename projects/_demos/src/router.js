@@ -6,6 +6,11 @@ Vue.use(Router)
 // 此处加入测试 demo
 let routes = [
   {
+    path: '/test',
+    meta: { title: '实验室' },
+    component: require('./test.vue').default
+  },
+  {
     path: '/buttons',
     meta: { title: '基础组件-按钮' },
     component: require('@/components/buttons/demo.vue').default
