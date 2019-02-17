@@ -9,13 +9,17 @@
 window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) { return window.setTimeout(callback, 1000 / 60) }
 window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.clearTimeout
 
-/* eslint-disable no-extend-native */
-// 原型扩展
-if (!String.prototype.trim) {
-  String.prototype.trim = function () {
-    return this.replace(/(^[\s\uFEFF]*)|(\s*$)/g, '')
-  }
-}
+/**
+ * 原型扩展
+ * */
+// ie 9 以下不支持。目前不在考虑ie8，所以注释掉了
+// if (!String.prototype.trim) {
+//   /* eslint-disable no-extend-native */
+//   String.prototype.trim = function () {
+//     return this.replace(/(^[\s\uFEFF]*)|(\s*$)/g, '')
+//   }
+// }
+// 安卓4.4以下，所有ie都不支持
 if (!Element.prototype.remove) {
   Element.prototype.remove = function () {
     this.parentNode.removeChild(this)
@@ -24,5 +28,5 @@ if (!Element.prototype.remove) {
 
 // ios 移动端 解决 css active 不生效问题
 // if (isMobileIOS) {
-document.body.ontouchstart = function () { }
-// }
+  document.body.ontouchstart = function () { }
+  // }
