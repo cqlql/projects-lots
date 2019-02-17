@@ -1,8 +1,7 @@
-/* eslint-disable */
-import loadJs from '../dom/load-js'
+import loadJs from '../dom/script-load'
 import searchString from '../url/search-string'
 let count = 0
-export default function jsonp ({url, data}) {
+export default function jsonp ({ url, data }) {
   return new Promise(function (resolve, reject) {
     count++
     let now = Date.now()
@@ -11,7 +10,6 @@ export default function jsonp ({url, data}) {
     function clear () {
       delete window[idName]
       clearTimeout(timeId)
-      script.remove()
     }
 
     let timeId = setTimeout(function () {
@@ -24,12 +22,9 @@ export default function jsonp ({url, data}) {
       resolve(d)
     }
 
-    let script = loadJs({
-      src: url + '?' + searchString(data) + '&callback=' + idName + '&_=' + now,
-      onerror () {
-        clear()
-        reject(new Error(`JSONP request to ${url} failed`))
-      }
+    loadJs(url + '?' + searchString(data) + '&callback=' + idName + '&_=' + now).catch(() => {
+      clear()
+      reject(new Error(`JSONP request to ${url} failed`))
     })
   })
 }

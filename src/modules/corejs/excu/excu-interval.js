@@ -4,7 +4,7 @@
  *
  * @example
  * let excuInterval = new ExcuInterval()
- * excuInterval(()=>{},300)
+ * excuInterval.excu(()=>{},300)
  * */
 export default class ExcuInterval {
   excu (fn, time) {

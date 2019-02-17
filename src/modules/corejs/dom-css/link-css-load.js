@@ -11,6 +11,7 @@ export default function (href) {
   return new Promise(function (resolve, reject) {
     const link = document.createElement('link')
     link.rel = 'stylesheet'
+    link.type = 'text/css'
     link.href = href
     link.onload = function () {
       resolve(link)

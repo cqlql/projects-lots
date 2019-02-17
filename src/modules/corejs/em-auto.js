@@ -38,7 +38,7 @@ function adaptive () {
   if (!w) return
   if (w > 750) w = 750
   else if (w < 320) w = 320
-  // 公式：基础html字体宽度 / 基础屏幕宽度(编码时参照宽度) / 当前宽度
+  // 公式：基础html字体宽度 / 基础屏幕宽度(编码时使用的宽度) / 当前宽度
   style.fontSize = 100 / 375 * w + 'px'
 }
 addEventListener('resize', () => { excu(adaptive, 400) })

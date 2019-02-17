@@ -5,7 +5,7 @@
  * @param search 可以为null，此时也将返回null
  * @return 没有返回null
  * */
-export default function (name, search) {
+export default function (name, search = location.search) {
   let reg = new RegExp(name + '=([^&]+)')
   let match = reg.exec(search)
 

@@ -2,16 +2,21 @@
  * 定时器
  * */
 export default class Timer {
-  constructor ({callBack, time}) {
+  /**
+   * @param {Function} tryStart 只有满足条件才能开始，默认 true
+   */
+  constructor ({ callBack, time, tryStart = () => true }) {
     this.time = time
     this.callBack = callBack
+    this.tryStart = tryStart
   }
 
-  // 停止情况调用无效
+  // 开始/重新开始
   start () {
     this.stop()
+    if (!this.tryStart()) return
 
-    let {time, callBack} = this
+    let { time, callBack } = this
 
     let loop = () => {
       this.stopId = setTimeout(() => {

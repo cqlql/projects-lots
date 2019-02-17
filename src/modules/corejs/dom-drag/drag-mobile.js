@@ -53,7 +53,7 @@ export default function dragMobile ({elem, onMove, onDown = function () {}, onSt
   }
   function touchend (e) {
     if (isStart === false) return
-    let touches = e.targetTouches
+    let touches = e.touches
     if (touches.length === 0) {
       onEnd()
     } else {

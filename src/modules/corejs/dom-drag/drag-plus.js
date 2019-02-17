@@ -27,7 +27,7 @@
 import drag from './drag'
 
 function getTarget (e) {
-  return e.targetTouches ? e.targetTouches[0] : e
+  return e.touches ? e.touches[0] : e
 }
 
 export default function ({ elem, onMove, onDown, onStart = () => {}, onEnd }) {

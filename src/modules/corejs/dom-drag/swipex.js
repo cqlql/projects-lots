@@ -21,8 +21,8 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
   drag({
     elem,
     onDown (e) {
-      // 保证滑动动作只激活当前一个实例
-      e.stopPropagation()
+      // 保证滑动动作只激活当前一个实例--弃用，确保灵活性，尽量不在此处控制
+      // e.stopPropagation()
       return onDown(e)
     },
     onStart: function (e) {
@@ -68,7 +68,7 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
         // elem.innerHTML = `<p>move,${timeLen},${xlen.toFixed(2) * 1}</p>` + elem.innerHTML
 
         xData.push([xlen, timeLen])
-        onMove(xlen)
+        onMove(xlen, e)
         preX = currX
         preY = currY
         preTime = curTime
