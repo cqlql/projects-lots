@@ -1,13 +1,13 @@
 /**
  * 起始元素到目标上级元素坐标
- @@ relativeXY
- @example
- var xy = c.relativeXY(initial, target);
- @param initial [element]  起始元素
- @param target [element] 目标上级元素，必须为参照元素
- @return [obj] xy坐标
+ @param {Element} initial  起始元素
+ @param {Element} target 目标上级元素，必须为参照元素
+ @return {Object} xy坐标
  @raise
  target必须为参照元素
+
+ @example
+ var xy = relativeXY(initial, target);
  */
 
 export default function relativexy (initial, target) {
@@ -27,5 +27,5 @@ export default function relativexy (initial, target) {
     }
   }
 
-  return {x, y}
+  return { x, y }
 }
