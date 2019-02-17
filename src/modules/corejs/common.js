@@ -28,5 +28,8 @@ if (!Element.prototype.remove) {
 
 // ios 移动端 解决 css active 不生效问题
 // if (isMobileIOS) {
-  document.body.ontouchstart = function () { }
-  // }
+const body = document.body
+if (body.ontouchstart === null) {
+  body.ontouchstart = function () { }
+}
+// }

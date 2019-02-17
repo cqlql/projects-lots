@@ -31,7 +31,8 @@ module.exports = function (options) {
       // openPage: 'http://192.168.1.222',
       inline: true,
       hot: true,
-      hotOnly: false
+      hotOnly: false,
+      disableHostCheck: true,
     }
   }
 

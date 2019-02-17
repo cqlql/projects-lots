@@ -29,7 +29,7 @@
       inputAutosuggest.onDataChange(function (d) {
         console.log(d)
       })
-      inputAutosuggest.setVm(vm => {
+      inputAutosuggest.setVm(function (vm) {
         vm.onListShowChange = function (isShow) {
           vm.placeholder = isShow ? '输入学校名称搜索' : '请选择学校'
         }
