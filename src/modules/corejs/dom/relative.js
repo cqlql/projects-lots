@@ -7,25 +7,25 @@
  target必须为参照元素
 
  @example
- var xy = relativeXY(initial, target);
+ var xy = relative(initial, target);
  */
 
-export default function relativexy (initial, target) {
-  let x = 0
-  let y = 0
+export default function relative (initial, target) {
+  let left = 0
+  let top = 0
   let curr = initial
 
   while (curr !== target) {
-    x += curr.offsetLeft
-    y += curr.offsetTop
+    left += curr.offsetLeft
+    top += curr.offsetTop
 
     curr = curr.offsetParent
     // 加上边框宽
     if (curr !== target) {
-      x += curr.clientLeft
-      y += curr.clientTop
+      left += curr.clientLeft
+      top += curr.clientTop
     }
   }
 
-  return { x, y }
+  return { left, top }
 }
