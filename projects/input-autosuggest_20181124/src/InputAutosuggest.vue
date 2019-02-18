@@ -201,12 +201,12 @@ export default {
   /* width: 95%; */
   /* width: 200px; */
   background-color: #fff;
-  /* border-radius: 5px; */
+  border-radius: 3px;
   color: #666;
   /* left: 50%; */
   /* transform: translateX(-50%); */
   /* box-shadow: 0 0 3px 3px #ccc; */
-  border: 1px solid #67a2ee;
+  border: 1px solid #329efc;
   max-height: 250px;
   overflow: auto;
   width: 100%;
@@ -262,7 +262,7 @@ export default {
 
   word-wrap: break-word;
   word-break: break-all;
-
+  white-space: normal;
 }
 .list li.selected {
   background-color: #ddd;
@@ -270,9 +270,9 @@ export default {
   border-bottom-color: #67a2ee; */
 }
 .list li.highlighted {
-  background-color: #67a2ee;
+  background-color: #329efc;
   color: #fff;
-  border-bottom-color: #67a2ee;
+  border-bottom-color: #329efc;
 }
 .list li b {
   text-decoration: underline;
