@@ -16,8 +16,8 @@ export default {
   data () {
     return {
       selectedIndex: -1,
-      firstIndex: -1,
-      highlightedIndex: -1,
+      // firstIndex: -1,
+      highlightedIndex: 0,
       // selectedValue: '',
       keyWord: '',
       valueKeyName: 'value',
@@ -25,7 +25,8 @@ export default {
       listShow: false,
       isShow: true,
       showList: [],
-      placeholder: ''
+      placeholder: '',
+      noFound: true
     }
   },
   computed: {
@@ -46,7 +47,7 @@ export default {
     listShow (isShow) {
       this.onListShowChange(isShow)
       if (!isShow) {
-        this.highlightedIndex = -1
+        this.highlightedIndex = 0
       }
     },
     highlightedIndex (i) {
@@ -58,21 +59,23 @@ export default {
   },
   methods: {
     onkeydown (e) {
-      let { key } = e
-      if (key === 'ArrowUp') {
+      if (this.noFound) return
+      let { keyCode } = e
+      if (keyCode === 38) {
         this.highlightedIndex = this.highlight.highlightPrev()
         e.preventDefault()
-      } else if (key === 'ArrowDown') {
+      } else if (keyCode === 40) {
         this.highlightedIndex = this.highlight.highlightNext()
         e.preventDefault()
       }
     },
-    onkeyup ({ target, key }) {
-      if (key === 'ArrowUp' || key === 'ArrowDown') {
+    onkeyup ({ target, keyCode }) {
+      if (keyCode === 38 || keyCode === 40) {
         return
       }
-      if (key === 'Enter') {
-        this.select(this.$refs.eList.children[this.highlightedIndex].dataset.index)
+      if (keyCode === 13) {
+        if (this.noFound) return
+        this.select(this.$refs.eList.children[this.highlightedIndex].getAttribute('data-index'))
         this.listShow = false
         return
       }
@@ -85,12 +88,13 @@ export default {
     },
     onblur () {
       this.listShow = false
-      let { selectedIndex, firstIndex, valueKeyName } = this
+      // let { selectedIndex, firstIndex, valueKeyName } = this
+      let { selectedIndex, valueKeyName } = this
       let v
       if (selectedIndex > -1) {
         v = this.list[selectedIndex][valueKeyName]
-      } else if (firstIndex > -1) {
-        v = this.list[firstIndex][valueKeyName]
+      // } else if (firstIndex > -1) {
+      //   v = this.list[firstIndex][valueKeyName]
       } else {
         v = ''
       }
@@ -102,7 +106,7 @@ export default {
     onselect ({ target }) {
       scopeElements(target, elem => {
         if (elem.tagName === 'LI') {
-          this.select(elem.dataset.index)
+          this.select(elem.getAttribute('data-index'))
           this.listShow = false
           return false
         }
@@ -133,7 +137,8 @@ export default {
     },
     // 重置
     reset () {
-      this.firstIndex = this.selectedIndex = -1
+      // this.firstIndex = -1
+      this.selectedIndex = -1
       this.keyWord = this.$refs.ipt.value = ''
     },
     onListShowChange (isShow) { }
@@ -141,31 +146,29 @@ export default {
   render () {
     const { $style, testStr, keyWord, valueKeyName, selectedIndex, highlightedIndex } = this
     const eLis = []
-    let has = false
-    let firstIndex = -1
+    // let firstIndex = -1
     let i = 0
     this.list.forEach((d, k) => {
       let testResult = testStr(keyWord, d[valueKeyName])
       let className = ''
       if (testResult) {
-        has = true
-        if (firstIndex === -1) {
-          firstIndex = k
-        }
+        // if (firstIndex === -1) {
+        //   firstIndex = k
+        // }
         if (selectedIndex === k) {
           className = $style.selected
         }
         if (highlightedIndex === i) {
           className += ' ' + $style.highlighted
         }
-        // 默认选匹配的第一个，但必须有输入值
-        if (keyWord) this.firstIndex = firstIndex
+        // // 默认选匹配的第一个，但必须有输入值
+        // if (keyWord) this.firstIndex = firstIndex
         let hIndex = i
         eLis.push(
           <li
             key={k}
             class={className} domPropsInnerHTML={testResult} data-index={k}
-            onMouseenter={e => { this.highlightedIndex = this.highlight.highlight(hIndex) }}
+            onMouseenter={e => { this.highlightedIndex = hIndex }}
           />
         )
         i++
@@ -174,10 +177,14 @@ export default {
       //   className = $style.hide
       // }
     })
+    let noFound = this.noFound = !i
+    if (noFound) {
+      eLis.push(<li key={-1}><i>没有找到</i></li>)
+    }
     return (
       <div class={$style.box} v-show={this.isShow}>
         <input placeholder={this.placeholder} ref="ipt" type="text" onKeydown={this.onkeydown} onKeyup={this.onkeyup} onFocus={this.onfocus} onBlur={this.onblur} onClick={() => { this.keyWord = ''; this.listShow = true }} />
-        <ul ref="eList" class={$style.list} v-show={this.listShow && has} onMousedown={this.onmousedown} onClick={this.onselect}>{eLis}</ul>
+        <ul ref="eList" class={$style.list} v-show={this.listShow} onMousedown={this.onmousedown} onClick={this.onselect}>{eLis}</ul>
       </div>
     )
   }
@@ -275,5 +282,8 @@ export default {
   background-color: #67a2ee;
   color: #fff;
   border-bottom-color: #67a2ee;
+}
+.list li b {
+  text-decoration: underline;
 }
 </style>
