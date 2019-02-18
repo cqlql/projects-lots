@@ -11,62 +11,76 @@
 
 <script>
 import scopeElements from '@/modules/corejs/dom/scope-elements.js'
+import Highlight from './highlight.js'
 export default {
-  render () {
-    const { $style, testStr, keyWord, valueKeyName, selectedIndex } = this
-    const eLis = []
-    let has = false
-    let firstIndex = -1
-    this.list.forEach((d, k) => {
-      let testResult = testStr(keyWord, d[valueKeyName])
-      let className = ''
-      if (testResult) {
-        has = true
-        if (firstIndex === -1) {
-          firstIndex = k
-        }
-        if (selectedIndex === k) {
-          className = $style.selected
-        }
-      } else {
-        className = $style.hide
-      }
-      // 默认选匹配的第一个，但必须有输入值
-      if (keyWord) this.firstIndex = firstIndex
-
-      eLis.push(<li key={k} class={className} domPropsInnerHTML={testResult} data-index={k}></li>)
-    })
-    return (
-      <div class={$style.box} v-show={this.isShow}>
-        <input placeholder={this.placeholder} ref="ipt" type="text" onKeyup={this.onkeyup} onFocus={this.onfocus} onBlur={this.onblur} onClick={() => { this.keyWord = ''; this.listShow = true }} />
-        <ul class={$style.list} v-show={this.listShow && has} onMousedown={this.onmousedown} onClick={this.onselect}>{eLis}</ul>
-      </div>
-    )
-  },
   data () {
     return {
       selectedIndex: -1,
       firstIndex: -1,
+      highlightedIndex: -1,
       // selectedValue: '',
       keyWord: '',
       valueKeyName: 'value',
       list: [],
       listShow: false,
       isShow: true,
+      showList: [],
       placeholder: ''
     }
   },
   computed: {
     selectedItem () {
       return this.list[this.selectedIndex]
+    },
+    highlight () {
+      return new Highlight({
+        el: this.$refs.eList,
+        highlightedIndex: this.highlightedIndex
+      })
     }
   },
+  watch: {
+    selectedIndex (i) {
+      this.$emit('dataChange', this.selectedItem)
+    },
+    listShow (isShow) {
+      this.onListShowChange(isShow)
+      if (!isShow) {
+        this.highlightedIndex = -1
+      }
+    },
+    highlightedIndex (i) {
+      this.highlight.highlightedIndex = i
+    }
+  },
+  mounted () {
+
+  },
   methods: {
-    onkeyup ({ target }) {
+    onkeydown (e) {
+      let { key } = e
+      if (key === 'ArrowUp') {
+        this.highlightedIndex = this.highlight.highlightPrev()
+        e.preventDefault()
+      } else if (key === 'ArrowDown') {
+        this.highlightedIndex = this.highlight.highlightNext()
+        e.preventDefault()
+      }
+    },
+    onkeyup ({ target, key }) {
+      if (key === 'ArrowUp' || key === 'ArrowDown') {
+        return
+      }
+      if (key === 'Enter') {
+        this.select(this.$refs.eList.children[this.highlightedIndex].dataset.index)
+        this.listShow = false
+        return
+      }
       this.listShow = true
       this.keyWord = target.value
     },
     onfocus () {
+      this.keyWord = ''
       this.listShow = true
     },
     onblur () {
@@ -95,6 +109,7 @@ export default {
       })
     },
     testStr (k, str) {
+      if (k.trim() === '') return str
       // 多个连续空格替换成 |
       k = k.replace(/\s+/g, '|')
 
@@ -121,15 +136,50 @@ export default {
       this.firstIndex = this.selectedIndex = -1
       this.keyWord = this.$refs.ipt.value = ''
     },
-    onListShowChange (isShow) {}
+    onListShowChange (isShow) { }
   },
-  watch: {
-    selectedIndex (i) {
-      this.$emit('dataChange', this.selectedItem)
-    },
-    listShow (isShow) {
-      this.onListShowChange(isShow)
-    }
+  render () {
+    const { $style, testStr, keyWord, valueKeyName, selectedIndex, highlightedIndex } = this
+    const eLis = []
+    let has = false
+    let firstIndex = -1
+    let i = 0
+    this.list.forEach((d, k) => {
+      let testResult = testStr(keyWord, d[valueKeyName])
+      let className = ''
+      if (testResult) {
+        has = true
+        if (firstIndex === -1) {
+          firstIndex = k
+        }
+        if (selectedIndex === k) {
+          className = $style.selected
+        }
+        if (highlightedIndex === i) {
+          className += ' ' + $style.highlighted
+        }
+        // 默认选匹配的第一个，但必须有输入值
+        if (keyWord) this.firstIndex = firstIndex
+        let hIndex = i
+        eLis.push(
+          <li
+            key={k}
+            class={className} domPropsInnerHTML={testResult} data-index={k}
+            onMouseenter={e => { this.highlightedIndex = this.highlight.highlight(hIndex) }}
+          />
+        )
+        i++
+      }
+      // else {
+      //   className = $style.hide
+      // }
+    })
+    return (
+      <div class={$style.box} v-show={this.isShow}>
+        <input placeholder={this.placeholder} ref="ipt" type="text" onKeydown={this.onkeydown} onKeyup={this.onkeyup} onFocus={this.onfocus} onBlur={this.onblur} onClick={() => { this.keyWord = ''; this.listShow = true }} />
+        <ul ref="eList" class={$style.list} v-show={this.listShow && has} onMousedown={this.onmousedown} onClick={this.onselect}>{eLis}</ul>
+      </div>
+    )
   }
 }
 </script>
@@ -153,11 +203,11 @@ export default {
   /* width: 95%; */
   /* width: 200px; */
   background-color: #fff;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   color: #666;
   /* left: 50%; */
   /* transform: translateX(-50%); */
-  box-shadow: 0 0 3px 3px #ccc;
+  /* box-shadow: 0 0 3px 3px #ccc; */
   border: 1px solid #67a2ee;
   max-height: 250px;
   overflow: auto;
@@ -167,7 +217,7 @@ export default {
   /*** webkit ***/
   /*滚动条整体*/
   &::-webkit-scrollbar {
-    border-radius: 5px;
+    /* border-radius: 5px; */
     width: 14px; /*滚动条宽度*/
   }
   /*滚动条按钮*/
@@ -176,7 +226,7 @@ export default {
 } */
   /* 滑道 */
   &::-webkit-scrollbar-track {
-    border-radius: 5px;
+    /* border-radius: 5px; */
     background-color: #f3f3f3;
   }
   /* ::-webkit-scrollbar-track-piece{
@@ -194,7 +244,7 @@ export default {
 } */
   /*滚动条*/
   &::-webkit-scrollbar-thumb {
-    border-radius: 5px;
+    /* border-radius: 5px; */
     background-color: #f3f3f3;
     border: solid 1px #c0c0c0;
   }
@@ -211,9 +261,17 @@ export default {
   border-bottom: 1px solid #f0f0f0;
   font-weight: 400;
   color: #878787;
+
+  word-wrap: break-word;
+  word-break: break-all;
+
 }
-.list li:hover,
 .list li.selected {
+  background-color: #ddd;
+  /* color: #fff;
+  border-bottom-color: #67a2ee; */
+}
+.list li.highlighted {
   background-color: #67a2ee;
   color: #fff;
   border-bottom-color: #67a2ee;

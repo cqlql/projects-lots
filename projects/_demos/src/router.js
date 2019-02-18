@@ -30,6 +30,11 @@ let routes = [
     meta: { title: '滑动选择-日期时间' },
     component: require('@/components/slide-select-date/demo.vue').default
   },
+  {
+    path: '/list-select-part',
+    meta: { title: '列表选择下拉部分' },
+    component: require('@/components/list-select-part/demo.vue').default
+  },
   // {
   //   path: '/slide-select-date-future',
   //   meta: { title: '滑动选择-未来日期时间' },
