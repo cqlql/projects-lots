@@ -146,23 +146,17 @@ export default {
   render () {
     const { $style, testStr, keyWord, valueKeyName, selectedIndex, highlightedIndex } = this
     const eLis = []
-    // let firstIndex = -1
     let i = 0
     this.list.forEach((d, k) => {
       let testResult = testStr(keyWord, d[valueKeyName])
       let className = ''
       if (testResult) {
-        // if (firstIndex === -1) {
-        //   firstIndex = k
-        // }
         if (selectedIndex === k) {
           className = $style.selected
         }
         if (highlightedIndex === i) {
           className += ' ' + $style.highlighted
         }
-        // // 默认选匹配的第一个，但必须有输入值
-        // if (keyWord) this.firstIndex = firstIndex
         let hIndex = i
         eLis.push(
           <li
@@ -173,9 +167,6 @@ export default {
         )
         i++
       }
-      // else {
-      //   className = $style.hide
-      // }
     })
     let noFound = this.noFound = !i
     if (noFound) {
