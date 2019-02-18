@@ -5,7 +5,6 @@ export default class {
     this.highlightedIndex = highlightedIndex
   }
   highlight (index) {
-    console.log(index)
     let eBox = this.el
     let eItem = eBox.children[index]
     let scrollTop = eBox.scrollTop
