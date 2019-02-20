@@ -5,36 +5,36 @@ Vue.use(Router)
 
 // 此处加入测试 demo
 let routes = [
-  {
-    path: '/test',
-    meta: { title: '实验室' },
-    component: require('./test.vue').default
-  },
-  {
-    path: '/buttons',
-    meta: { title: '基础组件-按钮' },
-    component: require('@/components/buttons/demo.vue').default
-  },
   // {
-  //   path: '/load-refresh',
-  //   meta: { title: '下拉刷新+到底加载' },
-  //   component: require('@/components/load-refresh/demo.vue').default
+  //   path: '/test',
+  //   meta: { title: '实验室' },
+  //   component: require('./test.vue').default
+  // },
+  // {
+  //   path: '/buttons',
+  //   meta: { title: '基础组件-按钮' },
+  //   component: require('@/components/buttons/demo.vue').default
   // },
   {
-    path: '/slide-select',
-    meta: { title: '滑动选择' },
-    component: require('@/components/slide-select/demo.vue').default
+    path: '/load-refresh',
+    meta: { title: '下拉刷新+到底加载' },
+    component: require('@/components/load-refresh/demo.vue').default
   },
-  {
-    path: '/slide-select-date',
-    meta: { title: '滑动选择-日期时间' },
-    component: require('@/components/slide-select-date/demo.vue').default
-  },
-  {
-    path: '/list-select-part',
-    meta: { title: '列表选择下拉部分' },
-    component: require('@/components/list-select-part/demo.vue').default
-  },
+  // {
+  //   path: '/slide-select',
+  //   meta: { title: '滑动选择' },
+  //   component: require('@/components/slide-select/demo.vue').default
+  // },
+  // {
+  //   path: '/slide-select-date',
+  //   meta: { title: '滑动选择-日期时间' },
+  //   component: require('@/components/slide-select-date/demo.vue').default
+  // },
+  // {
+  //   path: '/list-select-part',
+  //   meta: { title: '列表选择下拉部分' },
+  //   component: require('@/components/list-select-part/demo.vue').default
+  // },
   // {
   //   path: '/slide-select-date-future',
   //   meta: { title: '滑动选择-未来日期时间' },
@@ -55,11 +55,11 @@ let routes = [
   //   meta: { title: '动画测试2' },
   //   component: require('@/modules/corejs/animation/transition-transform.demo.vue').default
   // },
-  {
-    path: '/switch-multi',
-    meta: { title: 'switch-multi' },
-    component: require('@/modules/switch-multi/demo.vue').default
-  },
+  // {
+  //   path: '/switch-multi',
+  //   meta: { title: 'switch-multi' },
+  //   component: require('@/modules/switch-multi/demo.vue').default
+  // },
   // {
   //   path: '/switch-one',
   //   meta: { title: 'switch-one' },
