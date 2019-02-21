@@ -73,7 +73,7 @@ export default class {
 
         if (currY < 0) {
           currY = 0
-          return
+          // return
         }
 
         if (window.pageYOffset === 0 && currY) { // 刷新拖动情况
