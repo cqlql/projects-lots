@@ -1,5 +1,5 @@
 <template>
-  <div class="loader-bottom" :class="[color==='white'?'l-white':'', isShow?'':'hide']">
+  <div class="loader-bottom" :class="[color==='white'?'l-white':'', (isShow&&noData===false)?'':'hide']">
     <span v-if="isFinish" class="txt">我也有底线~</span>
     <div v-else class="hide" :class="{show:isLoad}">
       <!-- <span class="preloader" :class="[color==='white'?'preloader-white':'']"></span> -->
@@ -27,6 +27,10 @@ export default {
     firstLoad: {
       type: Boolean,
       default: true
+    },
+    noData: {
+      type: Boolean,
+      default: false
     }
   },
   data () {

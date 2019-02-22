@@ -9,7 +9,8 @@
       <span class="r-arrow" />
       <span class="txt">{{ ['', '下拉刷新','松开刷新','加载中','刷新完成'][states] }}</span>
     </div>
-    <div ref="cont" class="refresh-top-cont">
+    <div ref="cont" class="refresh-top-cont" :style="{minHeight:minHeight+'px'}">
+      <div v-show="noData" class="no-data" />
       <slot />
     </div>
   </div>
@@ -28,14 +29,24 @@ export default {
     color: {
       type: String,
       default: 'black'
+    },
+    minHeight: {
+      type: Number,
+      default: 0
+    },
+    noData: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
       states: 0 // 0 未开始 1 已开始，不满足 2 满足 3 加载中 4 加载完成
+      // minHeight: 0
     }
   },
   mounted () {
+    // this.setMinHeight()
     this.drag = new Darg({
       elem: this.$refs.cont,
       // elemDrag: document,
@@ -57,6 +68,11 @@ export default {
     refresh () {
       this.drag.refresh()
     }
+    // setMinHeight () {
+    //   // 下拉刷新内容太少，高度不够解决方案
+    //   let h = this.minHeight = window.innerHeight - this.additionalHeight
+    //   this.$refs.noData.style.height = h + 'px'
+    // }
   }
 }
 </script>
@@ -120,6 +136,15 @@ export default {
     &.transition-active{
       transition: 0.3s ease;
     }
+  }
+
+  .no-data {
+    background: url(./no_date.png) no-repeat center 38%;
+    background-size: 50% auto;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
   }
 
 </style>

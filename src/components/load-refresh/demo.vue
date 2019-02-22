@@ -38,7 +38,7 @@ export default {
         // vLoaderBottom.hide()
 
         // 加载完成
-        // 将进行到底检测。或者传入 true 加载结束
+        // 将进行到底检测。或者传入 true 表示加载彻底结束
         complete((++this.isFinish > 2))
       })
     },
