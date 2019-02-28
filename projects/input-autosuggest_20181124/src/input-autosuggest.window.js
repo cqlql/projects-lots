@@ -21,7 +21,7 @@ export default class InputAutosuggest {
     el = typeof el === 'string' ? document.querySelector(el) : el
     const className = el.className
     if (!window.Vue) {
-      await scriptLoad('http://style.shenduxuetang.com/vue/2.5.22/vue.runtime.min.js')
+      await scriptLoad('/Content/Scripts/vue.runtime.min.js')
     }
     const CustomScroll = window.Vue.extend(InputAutosuggestComponent)
     if (this.$vm === null) {
