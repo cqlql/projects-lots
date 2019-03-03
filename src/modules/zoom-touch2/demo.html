@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  .zoom {
+    height: 1000px;
+  }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div>
+      <p>1</p>
+      <p>2</p>
+      <div class="zoom">
+        昨日晚上毕业生小曾发来短信，说她在学校获得了“态度端正工作认真”星级教师称号，想要我帮助写100字的个人教育格言上交学校，由学校做个海报明天贴出来，激励师生员工干事创业，开创学校教育教学的新局面。我想，恰好，明天上午有空，就答应试试、写一写。
+      </div>
+    </div>
+  </div>
+  <script>
+    document.onclick = function () {
+      console.log(document.getElementsByTagName('div')[2].getBoundingClientRect())
+      console.log(document.getElementsByTagName('div')[2].offsetTop)
+    }
+  </script>
+</body>
+
+</html>

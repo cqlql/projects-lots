@@ -15,21 +15,21 @@ let routes = [
   //   meta: { title: '基础组件-按钮' },
   //   component: require('@/components/buttons/demo.vue').default
   // },
-  {
-    path: '/load-refresh',
-    meta: { title: '下拉刷新+到底加载' },
-    component: require('@/components/load-refresh/demo.vue').default
-  },
-  {
-    path: '/load-refresh-nodata',
-    meta: { title: '下拉刷新+到底加载-无数据情况' },
-    component: require('@/components/load-refresh/Demo.NoData.vue').default
-  },
-  {
-    path: '/pulldown-refresh',
-    meta: { title: '下拉刷新-无数据情况' },
-    component: require('@/components/pulldown-refresh/Demo.NoData.vue').default
-  },
+  // {
+  //   path: '/load-refresh',
+  //   meta: { title: '下拉刷新+到底加载' },
+  //   component: require('@/components/load-refresh/demo.vue').default
+  // },
+  // {
+  //   path: '/load-refresh-nodata',
+  //   meta: { title: '下拉刷新+到底加载-无数据情况' },
+  //   component: require('@/components/load-refresh/Demo.NoData.vue').default
+  // },
+  // {
+  //   path: '/pulldown-refresh',
+  //   meta: { title: '下拉刷新-无数据情况' },
+  //   component: require('@/components/pulldown-refresh/Demo.NoData.vue').default
+  // },
   // {
   //   path: '/slide-select',
   //   meta: { title: '滑动选择' },
@@ -74,7 +74,12 @@ let routes = [
   //   path: '/switch-one',
   //   meta: { title: 'switch-one' },
   //   component: require('@/modules/switch-one/demo.vue').default
-  // }
+  // },
+  {
+    path: '/zoom-touch2',
+    // meta: { title: 'switch-one' },
+    component: require('@/modules/zoom-touch2/Demo.vue').default
+  },
 ]
 
 routes.push({
