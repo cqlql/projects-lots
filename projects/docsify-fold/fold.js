@@ -84,7 +84,10 @@ window.$docsify.plugins.push(function (hook, vm) {
         selectedIndexs = indexs
       }
     }
-    foldByElem(eSidebarNav.querySelector('.app-sub-sidebar').parentElement)
+    let selected = eSidebarNav.querySelector('.app-sub-sidebar,.active')
+    if (selected) {
+      foldByElem(selected.parentElement)
+    }
   })
 })
 
