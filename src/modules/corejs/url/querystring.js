@@ -14,6 +14,7 @@ export default function (obj) {
         if (val instanceof Array || val instanceof Object) {
           fn(val, newName)
         } else {
+          if (val === undefined || val === null) continue // 跳过 undefined 和 null
           data += '&' + newName + '=' + encodeURIComponent(val)
         }
       }

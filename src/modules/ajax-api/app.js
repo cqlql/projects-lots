@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import excuIntervalTry from '../corejs/excu/excu-interval-try'
-import querystring from '../corejs/url/search-string'
+import querystring from '../corejs/url/querystring'
 
 let hostLogin = 'http://api.shendupeiban.com'
 let host = 'http://testing.shendupeiban.com'
@@ -47,8 +47,7 @@ export default class {
       }
     }
   }
-  ajax ({ url, method, config = {}, data }) {
-    const { params } = config
+  request ({ url, method, params, data }) {
     const { loading, toast } = Vue
     return new Promise((resolve, reject) => {
       // 完成回调
@@ -99,19 +98,15 @@ export default class {
       })
     })
   }
-  get (url, config) {
-    return this.ajax({
-      url,
-      method: 'GET',
-      config
-    })
+  get (url, config = {}) {
+    config.method = 'GET'
+    config.url = url
+    return this.request(config)
   }
   post (url, data, config) {
-    return this.ajax({
-      url,
-      method: 'POST',
-      config,
-      data
-    })
+    config.method = 'POST'
+    config.url = url
+    config.data = data
+    return this.request(config)
   }
 }
