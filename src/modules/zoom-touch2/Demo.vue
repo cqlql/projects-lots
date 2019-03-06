@@ -7,17 +7,19 @@
 </template>
 
 <script>
-/* eslint-disable no-new */
-import ZoomTouch from './zoom-touch.js'
+import zoomTouch from './zoom-touch.js'
 export default {
   mounted () {
-    new ZoomTouch(this.$refs.eZoom)
+    zoomTouch(this.$refs.eZoom)
   }
 }
 </script>
 
 <style>
 .zoom {
-  height: 1000px;
+  background-color: #eee;
+  margin-left: 100px;
+  margin-top: 100px;
+  /* height: 1000px; */
 }
 </style>

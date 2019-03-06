@@ -1,6 +1,6 @@
 import drag from './drag-zoom'
 import autoPrefix from '../corejs/dom-css/autoprefix'
-import offsetxy from '../corejs/dom/el-page-xy.old'
+import offsetxy from '../corejs/dom/el-page-xy'
 
 /**
  * @param elem 容器
