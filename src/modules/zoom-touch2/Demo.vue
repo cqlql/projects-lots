@@ -7,10 +7,10 @@
 </template>
 
 <script>
-import zoomTouch from './zoom-touch.js'
+import ZoomTouch from './zoom-touch.js'
 export default {
   mounted () {
-    zoomTouch(this.$refs.eZoom)
+    new ZoomTouch(this.$refs.eZoom)
   }
 }
 </script>

@@ -3,7 +3,7 @@ import autoPrefix from '../corejs/dom-css/autoprefix'
 /**
  * @param isInit 初始更新部分参数，更新元素位置参数
  */
-class ZoomTouch extends DragZoom {
+export default class ZoomTouch extends DragZoom {
   constructor (params) {
     let { elem, isInit = true } = params
     if (!elem) elem = params
@@ -57,6 +57,7 @@ class ZoomTouch extends DragZoom {
     this.css()
   }
   update () {
+    // 注意：getBoundingClientRect 不会忽略 transform，而这里需要得到元素忽略 transform 的原始高宽坐标，待改正
     this.elClientRect = this.elem.getBoundingClientRect()
   }
   css () {
@@ -69,8 +70,4 @@ class ZoomTouch extends DragZoom {
     this.transformOriginX = ox
     this.transformOriginY = oy
   }
-}
-
-export default function (params) {
-  return new ZoomTouch(params)
 }
