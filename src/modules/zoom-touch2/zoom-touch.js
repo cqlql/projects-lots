@@ -63,11 +63,4 @@ export default class ZoomTouch extends DragZoom {
   css () {
     this.elem.style[this.transform] = `translate(${this.x}px,${this.y}px) scale(${this.scale})`
   }
-  transformOriginChange (ox, oy) {
-    let { elClientRect, transformOriginX, transformOriginY, scale } = this
-    this.x = this.x - (ox - transformOriginX) / 100 * (elClientRect.width * (scale - 1))
-    this.y = this.y - (oy - transformOriginY) / 100 * (elClientRect.height * (scale - 1))
-    this.transformOriginX = ox
-    this.transformOriginY = oy
-  }
 }
