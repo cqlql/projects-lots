@@ -1,6 +1,6 @@
 import darg from '@/modules/corejs/dom-drag/drag'
 import autoPrefix from '@/modules/corejs/dom-css/autoprefix'
-import Queue from '@/modules/corejs/queue'
+import Queue from '@/modules/corejs/queue/queue'
 import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
 let transform = autoPrefix('transform')
 export default class {

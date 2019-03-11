@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --progress",
     "build": "node w.prod.build",
     "build.test": "node w.prod.build --test",
-    "test": "karma start test/unit/karma.conf.js",
+    "test": "jest -c=test/unit/jest.config.js --watch",
     "test-node": "jest spec/.+[sS]pec\\.js$ --watch -c=test-node/jest.config.js",
     "data-mock": "node ./data-mock/server.run.js"
   },
@@ -47,6 +47,7 @@
     "fs-extra": "^7.0.1",
     "html-webpack-inline-source-plugin": "^0.0.10",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.4.0",
     "mini-css-extract-plugin": "^0.5.0",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-import": "^12.0.1",

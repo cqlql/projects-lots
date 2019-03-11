@@ -1,4 +1,5 @@
-import QueueWait from '@/queue/queue-wait'
+import QueueWait from '@/modules/corejs/queue/queue-wait.js'
+
 
 class AjaxCache {
   constructor (axios) {
@@ -36,11 +37,4 @@ class AjaxCache {
   }
 }
 
-export default function (axios) {
-  const ajaxCache = new AjaxCache(axios)
-  function get () {
-    return ajaxCache.get()
-  }
-
-  return get
-}
+export default AjaxCache
