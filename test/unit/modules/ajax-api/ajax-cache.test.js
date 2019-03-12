@@ -13,11 +13,12 @@ const axios = {
   }
 }
 
-test('ajax-cache', function () {
+test('ajax-cache', async function () {
   let ajaxCache = new AjaxCache(function () {
     return axios.get('/Power/GetClassesInGrades')
   })
-  return ajaxCache.request().then(d => {
-    expect(d.data).toEqual(null);
-  })
+
+  let d = await ajaxCache.request()
+  expect(d.data).toEqual(null)
+
 })
