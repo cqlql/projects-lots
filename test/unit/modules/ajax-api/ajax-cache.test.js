@@ -39,7 +39,7 @@ describe('ajax-cache', function () {
     expect(count).toEqual(1)
   })
 
-  test('是否拿的缓存2', async function () {
+  test('是否拿的缓存再次验证', async function () {
     let ajaxCache = new AjaxCache(function () {
       return axios.get('/Power/GetClassesInGrades')
     })
