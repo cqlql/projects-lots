@@ -1,13 +1,13 @@
-import QueueWait from '@/modules/corejs/queue/queue.js'
+import QueueWait from '@/modules/corejs/queue/queue-wait.js'
 
-class AjaxCache {
+export default class AjaxCache {
   constructor (axios) {
     this.cache = null
     this.axios = axios
     this.isLoading = false
     this.queueWait = new QueueWait()
   }
-  get () {
+  request () {
     const { cache, queueWait, axios } = this
     // 缓存情况
     if (cache) {
@@ -34,13 +34,4 @@ class AjaxCache {
       return Promise.reject(e)
     })
   }
-}
-
-export default function (axios) {
-  const ajaxCache = new AjaxCache(axios)
-  function get () {
-    return ajaxCache.get()
-  }
-
-  return get
 }

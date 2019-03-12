@@ -6,11 +6,13 @@ export default class {
   add (cb) {
     this.q.push(cb)
   }
-  excu (params) {
+  // 执行所有的队列
+  // ajax 情况将得到的 data 传入所有回调队列
+  excu (data) {
     let fn = this.q.shift()
     if (fn === undefined) return
-    fn(params)
-    this.excu(params)
+    fn(data)
+    this.excu(data)
   }
   clear () {
     this.q = []

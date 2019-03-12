@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue'
 
-class AjaxWeb {
+export class AjaxGeneral {
   constructor (dataHandle) {
     if (dataHandle) {
       this.dataHandle = dataHandle
@@ -14,16 +14,14 @@ class AjaxWeb {
       }
     }
   }
-  ajax (config) {
+  request (config) {
     let { $loading: loading, $toast: toast } = Vue.prototype
     let { hasLoading = true } = config
     if (hasLoading) loading.show()
     if (process.env.NODE_ENV !== 'production') {
-      Object.assign(config, {
-        // baseURL: '/mock',
-        // baseURL: '/api/historylesson',
-      })
+      config.baseURL = require('@/dev.config.js').default.baseURL
     }
+    config.timeout = 60000
     return axios(config).then(({ data }) => {
       const result = this.dataHandle(data)
       // 失败情况
@@ -42,16 +40,21 @@ class AjaxWeb {
   get (url, config = {}) {
     config.method = 'get'
     config.url = url
-    return this.ajax(config)
+    return this.request(config)
   }
   post (url, data, config = {}) {
     config.method = 'post'
     config.url = url
     config.data = data
-    return this.ajax(config)
+    return this.request(config)
   }
 }
 
-// window.AjaxWeb = AjaxWeb
+export default new AjaxGeneral(function (data) {
+  if (data.code === 0) {
+    return data.data
+  }
+  return new Error(data.message)
+})
 
-export default AjaxWeb
+// export const ajaxGo = new AjaxGeneral()
