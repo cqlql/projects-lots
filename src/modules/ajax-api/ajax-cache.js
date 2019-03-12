@@ -26,7 +26,11 @@ export default class AjaxCache {
     return axios().then(data => {
       this.isLoading = false
       this.cache = data
-      queueWait.excu(data)
+
+      // 注意，这里第一次的请求反而是最后执行的。如果有特殊要求，给 queueWait.excu(data) 加上定时器，如下
+      // queueWait.excu(data)
+      setTimeout(function () { queueWait.excu(data) }, 1)
+
       return data
     }).catch(e => {
       queueWait.clear()

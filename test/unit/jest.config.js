@@ -1,6 +1,6 @@
 module.exports = {
   moduleFileExtensions: ['js'],
-  // verbose: true,
+  verbose: true,
   rootDir: './',
   testMatch: ['<rootDir>/**/*.test.js'],
   // 'testRegex': [
