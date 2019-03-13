@@ -34,10 +34,15 @@ export default {
     close () {
       this.isShow = 0
     },
-    async show (options) {
+    show (options) {
       this.isShow = 1
+      this.$emit('show')
+      if (options) {
+        this.setOptions(options)
+      }
+    },
+    async setOptions (options) {
       await this.$nextTick()
-
       let { onConfirm } = options
       if (onConfirm) this.onConfirm = onConfirm
       this.$refs.vSlideSelectBase.setOptions(options)

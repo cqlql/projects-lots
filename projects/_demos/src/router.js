@@ -20,21 +20,26 @@ let routes = [
   //   meta: { title: '下拉刷新+到底加载' },
   //   component: require('@/components/load-refresh/demo.vue').default
   // },
-  // {
-  //   path: '/load-refresh-nodata',
-  //   meta: { title: '下拉刷新+到底加载-无数据情况' },
-  //   component: require('@/components/load-refresh/Demo.NoData.vue').default
-  // },
-  // {
-  //   path: '/pulldown-refresh',
-  //   meta: { title: '下拉刷新-无数据情况' },
-  //   component: require('@/components/pulldown-refresh/Demo.NoData.vue').default
-  // },
-  // {
-  //   path: '/slide-select',
-  //   meta: { title: '滑动选择' },
-  //   component: require('@/components/slide-select/demo.vue').default
-  // },
+  {
+    path: '/load-refresh-nodata',
+    meta: { title: '下拉刷新+到底加载-无数据情况' },
+    component: require('@/components/load-refresh/Demo.NoData.vue').default
+  },
+  {
+    path: '/pulldown-refresh',
+    meta: { title: '下拉刷新-无数据情况' },
+    component: require('@/components/pulldown-refresh/Demo.NoData.vue').default
+  },
+  {
+    path: '/scroll-bottom-load-page',
+    meta: { title: '到底加载+集成翻页' },
+    component: require('@/components/scroll-bottom-load/Demo.page.vue').default
+  },
+  {
+    path: '/slide-select',
+    meta: { title: '滑动选择' },
+    component: require('@/components/slide-select/Demo.vue').default
+  },
   // {
   //   path: '/slide-select-date',
   //   meta: { title: '滑动选择-日期时间' },
