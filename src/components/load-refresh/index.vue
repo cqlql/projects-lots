@@ -5,7 +5,7 @@
   </PulldownRefresh>
 </template>
 <script>
-import ScrollBottomLoad from '../scroll-bottom-load'
+import ScrollBottomLoad from '../scroll-bottom-load/ScrollBottomLoad.vue'
 import PulldownRefresh from '../pulldown-refresh'
 export default {
   components: {

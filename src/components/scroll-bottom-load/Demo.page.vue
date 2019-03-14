@@ -1,41 +1,59 @@
 <template>
-  <div :class="$style.statList">
-    <div class="item">
-      <div class="tit">二年级1班</div>
-      <div class="row">
-        <span class="tt">礼仪规范分值/等级：</span>
-        <span class="ct">9.40/a</span>
+  <div>
+    <a href="javascript:;" @click="reload">重新加载</a>
+    <div :class="$style.statList">
+      <div v-for="(item, key) of list" :key="key" class="item">
+        <div class="tit">{{ item.t }}</div>
+        <div v-for="(it,k) of item.ls" :key="k" class="row">
+          <span class="tt">{{ it.t }}</span>
+          <span class="ct">{{ it.v }}</span>
+        </div>
       </div>
-      <div class="row">
-        <span class="tt">课间操分值/等级：</span>
-        <span class="ct">9.80/a</span>
-      </div>
-      <div class="row">
-        <span class="tt">早读与晚自习分值/等级：</span>
-        <span class="ct">9.85/b</span>
-      </div>
-      <div class="row">
-        <span class="tt">午休分值/等级：</span>
-        <span class="ct">10.00/a</span>
-      </div>
-    </div>
-    <div class="item">
-      <div class="tit">二年级1班</div>
-      <div class="row">
-        <span class="tt">卫生分值/等级：</span>
-        <span class="ct">10.00/a</span>
-      </div>
-      <div class="row">
-        <span class="tt">宿舍常规管理分值/等级：</span>
-        <span class="ct">10.00/a</span>
-      </div>
-      <div class="row">
-        <span class="tt">考试规范管理分值/等级：</span>
-        <span class="ct">40.00/a</span>
-      </div>
+      <ScrollBottomLoadPage ref="VScrollBottomLoadPage" @load="load" />
     </div>
   </div>
 </template>
+<script>
+import ScrollBottomLoadPage from '@/components/scroll-bottom-load/ScrollBottomLoadPage.vue'
+// mock
+const axios = {
+  get (url) {
+    let page = /page=([^&]+)/.exec(url)[1]
+    console.log(url)
+    return new Promise(function (resolve) {
+      setTimeout(function () {
+        let list = require('./Demo.page.data.js').default()[page - 1]
+        resolve(list || [])
+      }, 1000)
+    })
+  }
+}
+export default {
+  components: {
+    ScrollBottomLoadPage
+  },
+  data () {
+    return {
+      list: []
+    }
+  },
+  methods: {
+    async load ({ complete, page }) {
+      let d = await axios.get('/getData?page=' + page)
+      if (d.length) {
+        this.list = this.list.concat(d)
+        complete()
+      } else {
+        complete(true) // 结束
+      }
+    },
+    reload () {
+      this.list = []
+      this.$refs.VScrollBottomLoadPage.reload()
+    }
+  }
+}
+</script>
 
 <style module>
 .statList :global{
