@@ -30,7 +30,7 @@
 
 <script>
 import ArrowTextBtn from '@/components/buttons/ArrowTextBtn.vue'
-import LoadRefresh from '@/components/load-refresh/index.vue'
+import LoadRefresh from '@/components/load-refresh/LoadRefresh.vue'
 export default {
   components: {
     ArrowTextBtn,

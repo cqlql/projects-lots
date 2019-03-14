@@ -15,11 +15,11 @@ let routes = [
   //   meta: { title: '基础组件-按钮' },
   //   component: require('@/components/buttons/demo.vue').default
   // },
-  // {
-  //   path: '/load-refresh',
-  //   meta: { title: '下拉刷新+到底加载' },
-  //   component: require('@/components/load-refresh/demo.vue').default
-  // },
+  {
+    path: '/load-refresh',
+    meta: { title: '下拉刷新+到底加载' },
+    component: require('@/components/load-refresh/Demo.vue').default
+  },
   {
     path: '/load-refresh-nodata',
     meta: { title: '下拉刷新+到底加载-无数据情况' },

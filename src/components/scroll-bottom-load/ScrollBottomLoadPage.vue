@@ -1,5 +1,11 @@
 <template>
-  <ScrollBottomLoad ref="vScrollBottomLoad" @loadData="load" />
+  <ScrollBottomLoad
+    ref="vScrollBottomLoad"
+    :color="color"
+    :first-load="firstLoad"
+    :no-data="noData"
+    @loadData="load"
+  />
 </template>
 
 <script>
@@ -9,6 +15,21 @@ export default {
     ScrollBottomLoad
   },
   props: {
+    // 图标字体颜色。两种色系选择
+    // black、white
+    color: {
+      type: String,
+      default: 'black'
+    },
+    // 渲染组件后是否自动加载
+    firstLoad: {
+      type: Boolean,
+      default: true
+    },
+    noData: {
+      type: Boolean,
+      default: false
+    },
     startPage: {
       type: Number,
       default: 1
@@ -17,6 +38,11 @@ export default {
   data () {
     return {
       page: this.startPage - 1
+    }
+  },
+  computed: {
+    vScrollBottomLoad () {
+      return this.$refs.vScrollBottomLoad
     }
   },
   methods: {
@@ -33,7 +59,16 @@ export default {
     },
     reload () {
       this.page = 0
-      this.$refs.vScrollBottomLoad.reStart()
+      this.vScrollBottomLoad.reStart()
+    },
+    reset () {
+      this.vScrollBottomLoad.reset()
+    },
+    tryLoad () {
+      this.vScrollBottomLoad.tryLoad()
+    },
+    hide () {
+      this.vScrollBottomLoad.hide()
     }
   }
 }

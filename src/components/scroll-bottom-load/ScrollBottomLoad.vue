@@ -104,7 +104,7 @@ export default {
     offScroll () {
       window.removeEventListener('scroll', this.scroll)
     },
-    // 重置并直接开始加载
+    // 重置并直接开始加载(不进行检测)
     reStart () {
       this.reset()
       this.load() // 直接加载

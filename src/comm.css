@@ -12,7 +12,7 @@ h1,h2,h3,h4,h5,h6{margin:0;font-size:inherit;font-weight:normal;}
 html {
   font-size: 100px;
   -webkit-tap-highlight-color:transparent; /* 解决 ios 中，元素绑定 click 阴影问题 */
-  cursor: pointer; /* 解决 ios 中，document 绑定 click 无效问题 */
+  /* cursor: pointer;  */ /* 解决 ios 中，document 绑定 click 无效问题 */
 }
 
 body{

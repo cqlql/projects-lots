@@ -1,16 +1,16 @@
 <template>
   <PulldownRefresh ref="vPulldownRefresh" :color="colorTop" :no-data="noData" :min-height="minHeight" @reload="reload">
     <slot />
-    <ScrollBottomLoad ref="vScrollBottomLoad" :first-load="firstLoad" :color="colorBottom" @loadData="loadData" />
+    <ScrollBottomLoadPage ref="vScrollBottomLoad" :start-page="startPage" :first-load="firstLoad" :color="colorBottom" @load="loadData" />
   </PulldownRefresh>
 </template>
 <script>
-import ScrollBottomLoad from '../scroll-bottom-load/ScrollBottomLoad.vue'
+import ScrollBottomLoadPage from '../scroll-bottom-load/ScrollBottomLoadPage.vue'
 import PulldownRefresh from '../pulldown-refresh'
 export default {
   components: {
     PulldownRefresh,
-    ScrollBottomLoad
+    ScrollBottomLoadPage
   },
   props: {
     // 图标字体颜色。两种色系选择
@@ -35,6 +35,10 @@ export default {
     minHeight: {
       type: Number,
       default: 0
+    },
+    startPage: {
+      type: Number,
+      default: 1
     }
   },
   computed: {
@@ -60,9 +64,11 @@ export default {
       }
     },
     reload (complete) {
-      let { vScrollBottomLoad } = this
+      let { vScrollBottomLoad, startPage } = this
+      vScrollBottomLoad.page = startPage
       let option = {
-        // type: 'refresh',
+        type: 'refresh',
+        page: startPage,
         isRefresh: true,
         complete (isFinish) {
           complete()
@@ -76,9 +82,9 @@ export default {
       this.$emit('load', option)
       this.$emit('refreshLoad', option)
     },
-    loadData (loaded) {
+    loadData ({ complete, page }) {
       let { vScrollBottomLoad } = this
-      let option = { complete: loaded, vScrollBottomLoad }
+      let option = { complete, vScrollBottomLoad, page }
       this.$emit('load', option)
       this.$emit('bottomLoad', option)
     },
@@ -90,7 +96,7 @@ export default {
     // 手动底部全新加载
     // 清除所有数据后进行全新加载用，比如切换页面
     reStart () {
-      this.vScrollBottomLoad.reStart()
+      this.vScrollBottomLoad.reload()
     }
   }
 }
