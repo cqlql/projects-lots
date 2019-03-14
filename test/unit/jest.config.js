@@ -1,5 +1,5 @@
 module.exports = {
-  moduleFileExtensions: ['js'],
+  moduleFileExtensions: ['js', 'vue'],
   verbose: true,
   rootDir: './',
   testMatch: ['<rootDir>/**/*.test.js'],
@@ -16,6 +16,10 @@ module.exports = {
     // 同步 webpack 别名
     '@/(.*)$': '<rootDir>../../src/$1'
   },
-  
-  transform: { '^.+\\.js$': '<rootDir>jest-preprocess.js' },
+
+  transform: {
+    '^.+\\.js$': '<rootDir>jest-preprocess.js',
+    // 用 `vue-jest` 处理 `*.vue` 文件
+    '.*\\.(vue)$': 'vue-jest'
+  },
 }

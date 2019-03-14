@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --progress",
     "build": "node w.prod.build",
     "build.test": "node w.prod.build --test",
-    "test": "jest -c=test/unit/jest.config.js --watch",
+    "test": "jest -c=test/unit/jest.config.js --watchAll",
     "test-node": "jest spec/.+[sS]pec\\.js$ --watch -c=test-node/jest.config.js",
     "data-mock": "node ./data-mock/server.run.js"
   },
@@ -56,6 +56,7 @@
     "postcss-pxtorem": "^4.0.1",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
+    "vue-jest": "^3.0.4",
     "vue-loader": "^15.6.2",
     "vue-template-compiler": "^2.6.6",
     "webpack": "^4.29.4",

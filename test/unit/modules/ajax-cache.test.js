@@ -1,4 +1,4 @@
-import AjaxCache from '@/modules/ajax-api/ajax-cache.js'
+import AjaxCache from '@/modules/corejs/ajax/ajax-cache.js'
 
 describe('ajax-cache', function () {
   let count = 0 // 请求次数
