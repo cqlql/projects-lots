@@ -69,6 +69,9 @@ export default {
     },
     hide () {
       this.vScrollBottomLoad.hide()
+    },
+    reTryLoad () {
+      this.vScrollBottomLoad.reTryLoad()
     }
   }
 }

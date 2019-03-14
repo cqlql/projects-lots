@@ -73,8 +73,7 @@ export default {
         complete (isFinish) {
           complete()
           if (!isFinish) {
-            vScrollBottomLoad.reset() // 重置激活
-            vScrollBottomLoad.tryLoad() // 检测是否执行加载
+            vScrollBottomLoad.reTryLoad() // 重置并检测是否需要加载
           }
         },
         vScrollBottomLoad
@@ -97,6 +96,9 @@ export default {
     // 清除所有数据后进行全新加载用，比如切换页面
     reStart () {
       this.vScrollBottomLoad.reload()
+    },
+    bottomReTryLoad () {
+      this.vScrollBottomLoad.reTryLoad() // 重置并检测是否需要加载
     }
   }
 }

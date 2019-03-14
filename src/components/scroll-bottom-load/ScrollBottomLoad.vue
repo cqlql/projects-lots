@@ -109,6 +109,11 @@ export default {
       this.reset()
       this.load() // 直接加载
     },
+    // 重置并检测是否需要加载
+    reTryLoad () {
+      this.reset() // 重置激活
+      this.tryLoad() // 检测是否执行加载
+    },
     // 重置但不加载
     reset () {
       this.isFinish = false
