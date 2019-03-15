@@ -24,7 +24,7 @@ export default function ({ el, active, to, end = () => {} }) {
     })
   }
 
-  each(to, (v, n) => {
-    style[autoprefix(n)] = v
-  })
+  // each(to, (v, n) => {
+  //   style[autoprefix(n)] = v
+  // })
 }
