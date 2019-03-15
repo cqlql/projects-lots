@@ -8,26 +8,53 @@
  *
  * 兼容性：所有
  */
-export default function imgSizeComplete (src, f, err) {
+// 旧版
+// export default function imgSizeComplete (src, f, err) {
+//   let img = new Image()
+//   let iserror = false
+
+//   function tryExcu () {
+//     if (iserror) return
+//     if (img.complete || img.width) {
+//       f(img)
+//       return
+//     }
+
+//     setTimeout(tryExcu, 100)
+//   }
+
+//   img.onerror = function () {
+//     err && err(img)
+//     iserror = true
+//   }
+
+//   img.src = src
+
+//   tryExcu()
+// }
+
+export default function (src) {
   let img = new Image()
   let iserror = false
 
-  function tryExcu () {
-    if (iserror) return
-    if (img.complete || img.width) {
-      f(img)
-      return
+  return new Promise(function (resolve, reject) {
+    function tryExcu () {
+      if (iserror) return
+      if (img.complete || img.width) {
+        resolve(img)
+        return
+      }
+
+      setTimeout(tryExcu, 100)
     }
 
-    setTimeout(tryExcu, 100)
-  }
+    img.onerror = function (err) {
+      reject(err)
+      iserror = true
+    }
 
-  img.onerror = function () {
-    err && err(img)
-    iserror = true
-  }
+    img.src = src
 
-  img.src = src
-
-  tryExcu()
+    tryExcu()
+  })
 }

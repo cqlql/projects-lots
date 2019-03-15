@@ -40,6 +40,11 @@ let routes = [
     meta: { title: '滑动选择' },
     component: require('@/components/slide-select/Demo.vue').default
   },
+  {
+    path: '/image-crop',
+    meta: { title: '图片裁剪' },
+    component: require('@/components/image-crop/Demo.vue').default
+  },
   // {
   //   path: '/slide-select-date',
   //   meta: { title: '滑动选择-日期时间' },
