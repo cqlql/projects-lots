@@ -16,7 +16,8 @@
           :style="{
             width: imgBoxStyle.w + 'px',
             height: imgBoxStyle.h + 'px',
-            [transformName]: `translate(${imgBoxStyle.x}px,${imgBoxStyle.y}px) scale(${imgBoxStyle.scale}) rotate(${imgBoxStyle.rotate}deg)`
+            [transformName]: `translate(${imgBoxStyleReal.x}px,${imgBoxStyleReal.y}px) scale(${imgBoxStyle.scale}) rotate(${imgBoxStyle.rotate}deg)`,
+            [transformOriginName]: `${imgBoxStyle.originX}% ${imgBoxStyle.originY}%`
           }"
         >
           <img
@@ -32,7 +33,8 @@
     </div>
     <div :class="$style.bottomBar">
       <button>取消</button>
-      <button>还原</button>
+      <button @click="rotate">旋转</button>
+      <button @click="center">还原</button>
       <button>完成</button>
     </div>
   </div>
@@ -41,12 +43,15 @@
 <script>
 import imgSize from '@/modules/corejs/dom/img-size-complete.js'
 import center from '@/modules/corejs/center/center.js'
+import fullCenter from '@/modules/corejs/center/full-center.js'
 import autoprefix from '@/modules/corejs/dom-css/autoprefix'
 import ZoomTouch from '@/modules/zoom-touch2/zoom-touch.js'
+import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
 export default {
   data () {
     return {
       aspectRatio: 16 / 9, // 选择框 宽/高 比
+      // aspectRatio: 1, // 选择框 宽/高 比
       selectAreaStyleWidth: 500,
       selectAreaStyleHeight: 500,
       slecteBoxStyle: {
@@ -57,12 +62,16 @@ export default {
       },
       url: 'https://img13.360buyimg.com/n1/s350x449_jfs/t18994/37/1125997630/238618/15b9a7d/5abc8fccN013d0d0a.jpg!cc_350x449.jpg',
       imgBoxStyle: {
+        // 原始高宽(不会变，变的是scale)，真实坐标(不会因 origin 改变)
         w: 300,
         h: 100,
         x: 0,
         y: 0,
+
         scale: 1,
-        rotate: 0
+        rotate: 0,
+        originX: 0,
+        originY: 0
       },
       imgStyle: {
         w: 300,
@@ -71,23 +80,41 @@ export default {
         y: 0,
         rotate: 0
       },
+      // rotateDirection: -90,
       transformName: autoprefix('transform'),
+      transformOriginName: autoprefix('transform-origin')
+    }
+  },
+  computed: {
+    // 真实高宽(放大后的实际高宽)， 实际坐标(会因 origin 改变)
+    imgBoxStyleReal () {
+      let { imgBoxStyle } = this
+      let { w, h, x, y, scale, originX, originY } = imgBoxStyle
+      let rw = w * scale
+      let rh = h * scale
+      return {
+        w: rw,
+        h: rh,
+        x: x + originX / 100 * (scale - 1) * w,
+        y: y + originY / 100 * (scale - 1) * h
+      }
     }
   },
   created () {
     this.sizeUpdate()
     this.slecteBoxStyleUpdate()
-    this.imgSizeUpdate()
   },
-  mounted () {
+  async mounted () {
+    await this.imgSizeUpdate()
     let { imgBoxStyle } = this
-    let zoomTouch = new ZoomTouch(this.$refs.eImgBox)
+    let zoomTouch = this.zoomTouch = new ZoomTouch(this.$refs.eImgBox)
     zoomTouch.css = function () {
       let { x, y, scale } = this
       imgBoxStyle.x = x
       imgBoxStyle.y = y
       imgBoxStyle.scale = scale
     }
+    this.center()
   },
   methods: {
     // 窗口尺寸更新
@@ -117,6 +144,73 @@ export default {
       } catch (err) {
         console.error('图片尺寸获取失败', err)
       }
+    },
+    center () {
+      let { slecteBoxStyle, imgBoxStyle, zoomTouch } = this
+      let { x, y, w } = fullCenter(slecteBoxStyle.w, slecteBoxStyle.h, imgBoxStyle.w, imgBoxStyle.h)
+      let scale = w / imgBoxStyle.w
+      zoomTouch.x = imgBoxStyle.x = x
+      zoomTouch.y = imgBoxStyle.y = y
+      zoomTouch.scale = imgBoxStyle.scale = scale
+    },
+    rotate () {
+      let { slecteBoxStyle, imgBoxStyle, imgBoxStyleReal } = this
+      let cx = slecteBoxStyle.w / 2
+      let cy = slecteBoxStyle.h / 2
+      imgBoxStyle.originX = (cx - imgBoxStyle.x) / imgBoxStyleReal.w * 100
+      imgBoxStyle.originY = (cy - imgBoxStyle.y) / imgBoxStyleReal.h * 100
+      setTimeout(() => {
+        this.transitionStart({
+          el: this.$refs.eImgBox,
+          active: this.$style.transitionActive,
+          start: () => {
+            imgBoxStyle.rotate = -90
+          },
+          end: () => {
+            // 更正。box 旋转恢复，改为旋转 img
+            this.rotateCorrect()
+          }
+        })
+      }, 1)
+    },
+    transitionStart ({ el, active, start, end }) {
+      let { classList } = el
+
+      // 目前以 active 判断是否进行动画
+      // 非动画进行时才注册
+      if (!classList.contains(active)) {
+        classList.add(active)
+        transitionendOnce(el, function () {
+          classList.remove(active)
+          end()
+        })
+        start()
+      }
+    },
+    rotateCorrect () {
+      let { imgBoxStyle, imgStyle, slecteBoxStyle, zoomTouch } = this
+      let { w, x, y } = imgBoxStyle
+      imgBoxStyle.w = imgBoxStyle.h
+      imgBoxStyle.h = w
+      imgBoxStyle.rotate = 0
+      imgBoxStyle.originX = imgBoxStyle.originY = 0
+      imgStyle.rotate = imgStyle.rotate - 90
+
+      // 更正坐标
+      let { h: rh } = this.imgBoxStyleReal
+      let cx = slecteBoxStyle.w / 2
+      let cy = slecteBoxStyle.h / 2
+      zoomTouch.x = imgBoxStyle.x = cx - cy + y
+      zoomTouch.y = imgBoxStyle.y = cy - (rh - cx + x)
+
+      this.rotateCorrectImgCenter()
+    },
+    rotateCorrectImgCenter () {
+      let { imgBoxStyle, imgStyle } = this
+      let { w, h } = imgBoxStyle
+      let { w: imgw, h: imgh } = imgStyle
+      imgStyle.x = (w - imgw) / 2
+      imgStyle.y = (h - imgh) / 2
     }
   }
 }
@@ -140,5 +234,7 @@ export default {
   position: fixed;
   bottom: 0;
 }
-
+.transitionActive {
+  transition: 0.3s ease;
+}
 </style>
