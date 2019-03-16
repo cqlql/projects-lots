@@ -4,8 +4,8 @@ export default class ZoomTouch {
     this.zStartLen = 0
     this.dragZoom(elem)
   }
-  onStart (clientX, clientY) {}
-  onMove (clientX, clientY, scale) {}
+  onStart (pageX, pageY) {}
+  onMove (pageX, pageY, scale) {}
   dragZoom (elem) {
     drag({
       elem,
@@ -30,12 +30,12 @@ export default class ZoomTouch {
       }
     })
   }
-  singleStart ({ clientX, clientY }) {
-    this.onStart(clientX, clientY)
+  singleStart ({ pageX, pageY }) {
+    this.onStart(pageX, pageY)
   }
   zoomStart ({ 0: t1, 1: t2 }) {
-    let { clientX: x1, clientY: y1 } = t1
-    let { clientX: x2, clientY: y2 } = t2
+    let { pageX: x1, pageY: y1 } = t1
+    let { pageX: x2, pageY: y2 } = t2
 
     let xlen = x2 - x1
     let ylen = y2 - y1
@@ -49,12 +49,12 @@ export default class ZoomTouch {
   }
 
   singleMove (touche) {
-    let { clientX, clientY } = touche
-    this.onMove(clientX, clientY, 1)
+    let { pageX, pageY } = touche
+    this.onMove(pageX, pageY, 1)
   }
   zoomMove ({ 0: t1, 1: t2 }) {
-    let { clientX: x1, clientY: y1 } = t1
-    let { clientX: x2, clientY: y2 } = t2
+    let { pageX: x1, pageY: y1 } = t1
+    let { pageX: x2, pageY: y2 } = t2
     let xlen = x2 - x1
     let ylen = y2 - y1
 

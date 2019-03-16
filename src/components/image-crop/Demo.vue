@@ -114,7 +114,6 @@ export default {
         img = await imgSize(this.url)
         imgStyle.w = imgBoxStyle.w = img.width
         imgStyle.h = imgBoxStyle.h = img.height
-        console.log(imgStyle)
       } catch (err) {
         console.error('图片尺寸获取失败', err)
       }

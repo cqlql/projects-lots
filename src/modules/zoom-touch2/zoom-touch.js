@@ -1,5 +1,6 @@
 import DragZoom from './drag-zoom'
 import autoPrefix from '../corejs/dom-css/autoprefix'
+import elPageXy from '@/modules/corejs/dom/el-page-xy.js'
 /**
  * @param isInit 初始更新部分参数，更新元素位置参数
  */
@@ -31,18 +32,18 @@ export default class ZoomTouch extends DragZoom {
     }
   }
   // 松开情况，只要还有手指在，就会触发
-  onStart (clientX, clientY) {
+  onStart (pageX, pageY) {
     let x = this.prex = this.x
     let y = this.prey = this.y
     this.preScale = this.scale
-    this.startx = clientX
-    this.starty = clientY
+    this.startx = pageX
+    this.starty = pageY
 
     let { elClientRect, scale } = this
-    this.transformOriginX = (clientX - elClientRect.left - x) / (elClientRect.width * scale)
-    this.transformOriginY = (clientY - elClientRect.top - y) / (elClientRect.height * scale)
+    this.transformOriginX = (pageX - elClientRect.left - x) / (elClientRect.width * scale)
+    this.transformOriginY = (pageY - elClientRect.top - y) / (elClientRect.height * scale)
   }
-  onMove (clientX, clientY, scale) {
+  onMove (pageX, pageY, scale) {
     let { preScale, elClientRect } = this
 
     this.scale = scale * preScale
@@ -52,13 +53,21 @@ export default class ZoomTouch extends DragZoom {
     let sx = elClientRect.width * toScale * this.transformOriginX
     let sy = elClientRect.height * toScale * this.transformOriginY
 
-    this.x = this.prex + clientX - this.startx - sx
-    this.y = this.prey + clientY - this.starty - sy
+    this.x = this.prex + pageX - this.startx - sx
+    this.y = this.prey + pageY - this.starty - sy
     this.css()
   }
   update () {
     // 注意：getBoundingClientRect 不会忽略 transform，而这里需要得到元素忽略 transform 的原始高宽坐标，待改正
-    this.elClientRect = this.elem.getBoundingClientRect()
+    // this.elClientRect = this.elem.getBoundingClientRect()
+
+    // 改正后
+    let { elClientRect, elem } = this
+    let { x, y } = elPageXy(elem)
+    elClientRect.left = x
+    elClientRect.top = y
+    elClientRect.width = elem.offsetWidth
+    elClientRect.height = elem.offsetHeight
   }
   css () {
     this.elem.style[this.transform] = `translate(${this.x}px,${this.y}px) scale(${this.scale})`
