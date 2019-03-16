@@ -4,12 +4,15 @@ export default class ZoomTouch {
     this.zStartLen = 0
     this.dragZoom(elem)
   }
+  onDown () {}
   onStart (pageX, pageY) {}
   onMove (pageX, pageY, scale) {}
+  onEnd () {}
   dragZoom (elem) {
     drag({
       elem,
-      onStart: (e) => {
+      onDown: e => this.onDown(e),
+      onStart: e => {
         let { touches } = e
         let { length } = touches
         if (length > 1) {
@@ -18,7 +21,7 @@ export default class ZoomTouch {
           this.singleStart(touches[0])
         }
       },
-      onMove: (e) => {
+      onMove: e => {
         e.preventDefault()
         let { touches } = e
         let { length } = touches
@@ -27,7 +30,8 @@ export default class ZoomTouch {
         } else {
           this.singleMove(touches[0])
         }
-      }
+      },
+      onEnd: e => this.onEnd()
     })
   }
   singleStart ({ pageX, pageY }) {
