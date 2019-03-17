@@ -50,6 +50,11 @@ let routes = [
     meta: { title: '图片裁剪' },
     component: require('@/components/image-crop/demo.vue').default
   },
+  {
+    path: '/image-crop-canvas',
+    meta: { title: '图片裁剪-canvas 裁图旋转测试' },
+    component: require('@/components/image-crop/Canvas.demo.vue').default
+  },
   // {
   //   path: '/slide-select-date',
   //   meta: { title: '滑动选择-日期时间' },
