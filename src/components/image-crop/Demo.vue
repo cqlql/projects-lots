@@ -35,7 +35,7 @@
       <button>取消</button>
       <button @click="rotate">旋转</button>
       <button @click="toCenter">还原</button>
-      <button>完成</button>
+      <button @click="confirm">完成</button>
     </div>
   </div>
 </template>
@@ -165,6 +165,23 @@ export default {
     this.minScaleUpdate()
   },
   methods: {
+    confirm () {
+      let { imgStyle, imgBoxStyle, slecteBoxStyle } = this
+      let { scale } = imgBoxStyle
+      let cropParams = {
+        width: imgStyle.w,
+        height: imgStyle.h,
+        angle: imgStyle.rotate % 360,
+        x: imgBoxStyle.x / scale,
+        y: imgBoxStyle.y / scale,
+        selectRectWdith: slecteBoxStyle.w / scale,
+        selectRectHeight: slecteBoxStyle.h / scale
+      }
+      // this.crop(cropParams) // 裁剪并上传
+      console.group('裁剪参数')
+      console.log(cropParams)
+      console.groupEnd()
+    },
     // 窗口尺寸更新
     sizeUpdate () {
       let slecteBoxBorderWidth = 4 // 选择框边框宽
