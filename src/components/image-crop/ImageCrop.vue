@@ -78,12 +78,15 @@ export default {
     url: {
       type: String,
       default: ''
+    },
+    // 选择框 宽/高 比
+    aspectRatio: {
+      type: Number,
+      default: 1 // 16 / 9
     }
   },
   data () {
     return {
-      // aspectRatio: 16 / 9, // 选择框 宽/高 比
-      aspectRatio: 1, // 选择框 宽/高 比
       selectAreaStyleWidth: 500,
       selectAreaStyleHeight: 500,
       slecteBoxStyle: {
@@ -146,6 +149,9 @@ export default {
   watch: {
     show (isShow) {
       if (isShow) this.restart()
+    },
+    url () {
+      this.restart()
     }
   },
   mounted () {
