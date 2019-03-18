@@ -1,50 +1,57 @@
 <template>
-  <div v-if="show" :class="$style.imageCrop">
-    <div :class="$style.selectArea">
-      <div
-        :class="$style.slecteBox"
-        :style="{
-          left: slecteBoxStyle.x + 'px',
-          top: slecteBoxStyle.y + 'px',
-          width: slecteBoxStyle.w + 'px',
-          height: slecteBoxStyle.h + 'px',
-        }"
-      >
+  <Transition
+    :enter-class="$style.slideEnter"
+    :leave-to-class="$style.slideEnter"
+    :enter-active-class="$style.slideActive"
+    :leave-active-class="$style.slideActive"
+  >
+    <div v-if="show" :class="$style.imageCrop">
+      <div :class="$style.selectArea">
         <div
-          ref="eImgBox"
-          :class="$style.imgBox"
+          :class="$style.slecteBox"
           :style="{
-            width: imgBoxStyle.w + 'px',
-            height: imgBoxStyle.h + 'px',
-            [transformName]: `translate(${imgBoxStyleReal.x}px,${imgBoxStyleReal.y}px) scale(${imgBoxStyle.scale}) rotate(${imgBoxStyle.rotate}deg)`,
-            [transformOriginName]: `${imgBoxStyle.originX}% ${imgBoxStyle.originY}%`
+            left: slecteBoxStyle.x + 'px',
+            top: slecteBoxStyle.y + 'px',
+            width: slecteBoxStyle.w + 'px',
+            height: slecteBoxStyle.h + 'px',
           }"
         >
-          <img
-            :src="url"
+          <div
+            ref="eImgBox"
+            :class="$style.imgBox"
             :style="{
-              width: imgStyle.w + 'px',
-              height: imgStyle.h + 'px',
-              [transformName]: `translate(${imgStyle.x}px,${imgStyle.y}px) rotate(${imgStyle.rotate}deg)`
+              width: imgBoxStyle.w + 'px',
+              height: imgBoxStyle.h + 'px',
+              [transformName]: `translate(${imgBoxStyleReal.x}px,${imgBoxStyleReal.y}px) scale(${imgBoxStyle.scale}) rotate(${imgBoxStyle.rotate}deg)`,
+              [transformOriginName]: `${imgBoxStyle.originX}% ${imgBoxStyle.originY}%`
             }"
           >
+            <img
+              :src="url"
+              :style="{
+                width: imgStyle.w + 'px',
+                height: imgStyle.h + 'px',
+                [transformName]: `translate(${imgStyle.x}px,${imgStyle.y}px) rotate(${imgStyle.rotate}deg)`
+              }"
+            >
+          </div>
+          <div
+            v-for="(v, i) of 8"
+            :key="v"
+            :class="$style.mask"
+            :style="maskStyle[i]"
+          />
+          <div :class="$style.boxShadow" />
         </div>
-        <div
-          v-for="(v, i) of 8"
-          :key="v"
-          :class="$style.mask"
-          :style="maskStyle[i]"
-        />
-        <div :class="$style.boxShadow" />
+      </div>
+      <div :class="$style.bottomBar">
+        <a :class="$style.rotate" @click="rotate"><RotateIco :class="$style.rotateIco" /></a>
+        <a @click="$emit('cancel', false)">取消</a>
+        <a @click="restore">还原</a>
+        <a @click="confirm">完成</a>
       </div>
     </div>
-    <div :class="$style.bottomBar">
-      <a :class="$style.rotate" @click="rotate"><RotateIco :class="$style.rotateIco" /></a>
-      <a @click="$emit('cancel', false)">取消</a>
-      <a @click="restore">还原</a>
-      <a @click="confirm">完成</a>
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <script>
@@ -509,5 +516,13 @@ export default {
   vertical-align: -2px;
   /* color: #fff; */
   display: inline-block;
+}
+.slideActive{
+  transition: 0.3s cubic-bezier(.55,0,.1,1);
+  transition-property:opacity,transform;
+}
+.slideEnter{
+  opacity: 0;
+  transform: translate3d(30px, 0, 0);
 }
 </style>
