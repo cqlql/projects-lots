@@ -303,7 +303,7 @@ export default {
             this.zoomTouch.onEnd()
           }, 1)
         })
-      }, 1)
+      }, 10)
     },
     transitionStart (end = () => {}) {
       let el = this.$refs.eImgBox
