@@ -41,7 +41,7 @@
     <div :class="$style.bottomBar">
       <button>取消</button>
       <button @click="rotate">旋转</button>
-      <!-- <button @click="toCenter">还原</button> -->
+      <button @click="restore">还原</button>
       <button @click="confirm">完成</button>
     </div>
   </div>
@@ -120,63 +120,67 @@ export default {
       }
     }
   },
-  created () {
-    this.sizeUpdate()
-    this.slecteBoxStyleUpdate()
-  },
-  async mounted () {
-    await this.imgSizeUpdate()
-    let { imgBoxStyle } = this
-    let zoomTouch = this.zoomTouch = new ZoomTouch({
-      elem: this.$refs.eImgBox
-    })
-    zoomTouch.css = function () {
-      let { x, y, scale } = this
-      imgBoxStyle.x = x
-      imgBoxStyle.y = y
-      imgBoxStyle.scale = scale
-    }
-    zoomTouch.onDown = e => {
-      return this.isRun !== true
-    }
-    zoomTouch.onEnd = () => {
-      let isChange = false
-      let { imgBoxStyle } = this
-      let { minScale } = imgBoxStyle
-      if (zoomTouch.scale < minScale) {
-        imgBoxStyle.scale = zoomTouch.scale = minScale
-        isChange = true
-      }
-      this.minXyUpdate()
-      let { x, y, minX, minY } = imgBoxStyle
-
-      if (x < minX) {
-        imgBoxStyle.x = zoomTouch.x = minX
-        isChange = true
-      }
-      if (y < minY) {
-        imgBoxStyle.y = zoomTouch.y = minY
-        isChange = true
-      }
-      if (x > 0) {
-        imgBoxStyle.x = zoomTouch.x = 0
-        isChange = true
-      }
-      if (y > 0) {
-        imgBoxStyle.y = zoomTouch.y = 0
-        isChange = true
-      }
-      if (isChange) {
-        this.isRun = true
-        this.transitionStart()
-      }
-    }
-    this.toCenter()
-    this.minScaleUpdate()
-
-    this.buildMask()
+  mounted () {
+    this.restart()
   },
   methods: {
+    async restart () {
+      this.sizeUpdate()
+      this.slecteBoxStyleUpdate()
+
+      let zoomTouch = this.zoomTouch
+      if (zoomTouch) zoomTouch.destroy()
+      await this.imgSizeUpdate()
+      let { imgBoxStyle } = this
+      zoomTouch = this.zoomTouch = new ZoomTouch({
+        elem: this.$refs.eImgBox
+      })
+      zoomTouch.css = function () {
+        let { x, y, scale } = this
+        imgBoxStyle.x = x
+        imgBoxStyle.y = y
+        imgBoxStyle.scale = scale
+      }
+      zoomTouch.onDown = e => {
+        return this.isRun !== true
+      }
+      zoomTouch.onEnd = () => {
+        let isChange = false
+        let { imgBoxStyle } = this
+        let { minScale } = imgBoxStyle
+        if (zoomTouch.scale < minScale) {
+          imgBoxStyle.scale = zoomTouch.scale = minScale
+          isChange = true
+        }
+        this.minXyUpdate()
+        let { x, y, minX, minY } = imgBoxStyle
+
+        if (x < minX) {
+          imgBoxStyle.x = zoomTouch.x = minX
+          isChange = true
+        }
+        if (y < minY) {
+          imgBoxStyle.y = zoomTouch.y = minY
+          isChange = true
+        }
+        if (x > 0) {
+          imgBoxStyle.x = zoomTouch.x = 0
+          isChange = true
+        }
+        if (y > 0) {
+          imgBoxStyle.y = zoomTouch.y = 0
+          isChange = true
+        }
+        if (isChange) {
+          this.isRun = true
+          this.transitionStart()
+        }
+      }
+      this.restore()
+      this.minScaleUpdate()
+      this.buildMask()
+
+    },
     async confirm () {
       let { imgStyle, imgBoxStyle, slecteBoxStyle } = this
       let { scale } = imgBoxStyle
@@ -250,6 +254,15 @@ export default {
       zoomTouch.x = imgBoxStyle.x = x
       zoomTouch.y = imgBoxStyle.y = y
       zoomTouch.scale = imgBoxStyle.scale = scale
+    },
+    // 还原
+    restore () {
+      let { imgBoxStyle, imgStyle } = this
+      imgBoxStyle.w = imgStyle.w
+      imgBoxStyle.h = imgStyle.h
+      imgStyle.x = imgStyle.y = imgStyle.rotate = 0
+
+      this.toCenter()
     },
     rotate () {
       if (this.isRun) return
@@ -458,7 +471,7 @@ export default {
   height: 100%;
   left: 0;
   top: 0;
-  box-shadow: inset 0 0 6px 1px #333;
+  box-shadow: inset 0 0 6px 1px rgba(0, 0, 0, 0.3);
   pointer-events: none;
   outline: 2px solid #fff;
 }

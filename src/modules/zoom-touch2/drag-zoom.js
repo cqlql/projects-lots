@@ -9,7 +9,7 @@ export default class ZoomTouch {
   onMove (pageX, pageY, scale) {}
   onEnd () {}
   dragZoom (elem) {
-    drag({
+    this.destroy = drag({
       elem,
       onDown: e => this.onDown(e),
       onStart: e => {
@@ -71,4 +71,6 @@ export default class ZoomTouch {
 
     this.onMove(cx, cy, scale)
   }
+  // 销毁，目前只用来解除相关触摸事件
+  destroy () {}
 }
