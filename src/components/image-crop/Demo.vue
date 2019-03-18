@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$style.imageCrop">
     <div :class="$style.selectArea">
       <div
         :class="$style.slecteBox"
@@ -29,12 +29,19 @@
             }"
           >
         </div>
+        <div
+          v-for="(v, i) of 8"
+          :key="v"
+          :class="$style.mask"
+          :style="maskStyle[i]"
+        />
+        <div :class="$style.boxShadow" />
       </div>
     </div>
     <div :class="$style.bottomBar">
       <button>取消</button>
       <button @click="rotate">旋转</button>
-      <button @click="toCenter">还原</button>
+      <!-- <button @click="toCenter">还原</button> -->
       <button @click="confirm">完成</button>
     </div>
   </div>
@@ -47,6 +54,7 @@ import fullCenter from '@/modules/corejs/center/full-center.js'
 import autoprefix from '@/modules/corejs/dom-css/autoprefix'
 import ZoomTouch from './zoom-touch.js'
 import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
+import url from './1.webp'
 export default {
   data () {
     return {
@@ -60,7 +68,8 @@ export default {
         x: 0,
         y: 0
       },
-      url: 'https://img13.360buyimg.com/n1/s350x449_jfs/t18994/37/1125997630/238618/15b9a7d/5abc8fccN013d0d0a.jpg!cc_350x449.jpg',
+      // url: 'https://img13.360buyimg.com/n1/s350x449_jfs/t18994/37/1125997630/238618/15b9a7d/5abc8fccN013d0d0a.jpg!cc_350x449.jpg',
+      url,
       imgBoxStyle: {
         // 原始高宽(不会变，变的是scale)，真实坐标(不会因 origin 改变)
         w: 300,
@@ -90,9 +99,10 @@ export default {
         rotate: 0
       },
       isRun: false, // 动画是否进行中
-      // rotateDirection: -90,
+      // rotateDirection: -90, // 旋转方向，逆时针
       transformName: autoprefix('transform'),
-      transformOriginName: autoprefix('transform-origin')
+      transformOriginName: autoprefix('transform-origin'),
+      maskStyle: []
     }
   },
   computed: {
@@ -139,7 +149,7 @@ export default {
       }
       this.minXyUpdate()
       let { x, y, minX, minY } = imgBoxStyle
-      
+
       if (x < minX) {
         imgBoxStyle.x = zoomTouch.x = minX
         isChange = true
@@ -163,31 +173,42 @@ export default {
     }
     this.toCenter()
     this.minScaleUpdate()
+
+    this.buildMask()
   },
   methods: {
-    confirm () {
+    async confirm () {
       let { imgStyle, imgBoxStyle, slecteBoxStyle } = this
       let { scale } = imgBoxStyle
       let cropParams = {
-        width: imgStyle.w,
-        height: imgStyle.h,
-        angle: imgStyle.rotate % 360,
+        url: this.url,
+        // 旋转后的高宽坐标
         x: imgBoxStyle.x / scale,
         y: imgBoxStyle.y / scale,
+        w: imgBoxStyle.w,
+        h: imgBoxStyle.h,
+        // 旋转角度
+        angle: imgStyle.rotate % 360,
+        // 图片原始高宽，未旋转前
+        width: imgStyle.w,
+        height: imgStyle.h,
+        // 选择框高宽
         selectRectWdith: slecteBoxStyle.w / scale,
         selectRectHeight: slecteBoxStyle.h / scale
       }
       // this.crop(cropParams) // 裁剪并上传
-      console.group('裁剪参数')
-      console.log(cropParams)
-      console.groupEnd()
+      let cvs = await this.crop(cropParams)
+      cvs.toBlob(blob => {
+        console.log(blob)
+        location.href = URL.createObjectURL(blob)
+      })
     },
     // 窗口尺寸更新
     sizeUpdate () {
-      let slecteBoxBorderWidth = 4 // 选择框边框宽
+      // let slecteBoxBorderWidth = 0 // 选择框边框宽
       let margin = 20 // selectArea 间距
-      this.selectAreaStyleWidth = window.innerWidth - slecteBoxBorderWidth - margin
-      this.selectAreaStyleHeight = window.innerHeight - 100 - slecteBoxBorderWidth - margin
+      this.selectAreaStyleWidth = window.innerWidth - margin // - slecteBoxBorderWidth
+      this.selectAreaStyleHeight = window.innerHeight - 100 - margin // - slecteBoxBorderWidth
     },
     // 选择框尺寸坐标更新
     slecteBoxStyleUpdate () {
@@ -290,17 +311,123 @@ export default {
       let { w: imgw, h: imgh } = imgStyle
       imgStyle.x = (w - imgw) / 2
       imgStyle.y = (h - imgh) / 2
+    },
+    imgLoad (url) {
+      return new Promise((resolve, reject) => {
+        let img = new Image()
+        img.onload = function () {
+          resolve(img)
+        }
+        img.onerror = function (err) {
+          reject(err)
+        }
+        img.src = url
+      })
+    },
+    async crop (params) {
+      let { x, y, selectRectWdith, selectRectHeight } = params
+
+      let rImg = await this.rotateCanvas(params)
+
+      let cvs = document.createElement('canvas')
+      let ctx = cvs.getContext('2d')
+      cvs.width = selectRectWdith
+      cvs.height = selectRectHeight
+      ctx.drawImage(rImg, x, y)
+      return cvs
+    },
+    async rotateCanvas (params) {
+      let { angle, url } = params
+      let eImg = await this.imgLoad(url)
+      if (!angle) return eImg // 没有旋转直接返回 img
+
+      let { w, h } = params
+      let cvs = document.createElement('canvas')
+      let ctx = cvs.getContext('2d')
+      cvs.width = w
+      cvs.height = h
+
+      switch (angle) {
+        case -90:
+          ctx.translate(0, h)
+          break
+        case -180:
+          ctx.translate(w, h)
+          break
+        case -270:
+          ctx.translate(w, 0)
+          break
+      }
+      ctx.rotate(angle * Math.PI / 180)
+      ctx.drawImage(eImg, 0, 0)
+      return cvs
+    },
+    buildMask () {
+      let { slecteBoxStyle } = this
+      let { w: selectRectWdith, h: selectRectHeight } = slecteBoxStyle
+      let w = window.innerWidth / 2
+      let h = window.innerHeight / 2
+
+      this.maskStyle = [
+        {
+          width: w + 'px',
+          left: -w + 'px'
+        },
+        {
+          width: w + 'px',
+          height: h + 'px',
+          left: -w + 'px',
+          top: -h + 'px'
+        },
+        {
+          height: h + 'px',
+          top: -h + 'px'
+        },
+        {
+          width: w + 'px',
+          height: h + 'px',
+          left: selectRectWdith + 'px',
+          top: -h + 'px'
+        },
+        {
+          width: w + 'px',
+          left: selectRectWdith + 'px'
+        },
+        {
+          width: w + 'px',
+          height: h + 'px',
+          left: selectRectWdith + 'px',
+          top: selectRectHeight + 'px'
+        },
+        {
+          height: h + 'px',
+          top: selectRectHeight + 'px'
+        },
+        {
+          width: w + 'px',
+          height: h + 'px',
+          left: -w + 'px',
+          top: selectRectHeight + 'px'
+        }
+      ]
+      console.log(this.maskStyle)
     }
   }
 }
 </script>
 
 <style module>
+.imageCrop {
+  position:fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .selectArea {
   margin: 10px;
 }
 .slecteBox {
-  border: 2px solid #333;
+  /* border: 2px solid #333; */
   position: relative;
 }
 .imgBox {
@@ -315,5 +442,24 @@ export default {
 }
 .transitionActive {
   transition: 0.3s ease;
+}
+
+.mask {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.boxShadow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  box-shadow: inset 0 0 6px 1px #333;
+  pointer-events: none;
+  outline: 2px solid #fff;
 }
 </style>

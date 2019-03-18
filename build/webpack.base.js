@@ -121,7 +121,7 @@ module.exports = function ({ dirname, indexTemplate, splitCss, sourceMap = true 
           ]
         },
         {
-          test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+          test: /\.(png|jpe?g|gif|svg|webp)(\?.*)?$/,
           loader: 'url-loader',
           options: {
             limit: 10000, // 单位 字节，1千字节(kb)=1024字节(b)
