@@ -236,7 +236,7 @@ export default {
       let cvs = await this.crop(cropParams)
       cvs.toBlob(blob => {
         this.$emit('confirm', blob)
-      })
+      }, 'image/jpeg', 0.7)
     },
     // 窗口尺寸更新
     sizeUpdate () {
