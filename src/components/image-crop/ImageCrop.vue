@@ -147,7 +147,7 @@ export default {
     }
   },
   watch: {
-    show (isShow) {
+    show () {
       this.restart()
     },
     url () {
@@ -159,7 +159,7 @@ export default {
   },
   methods: {
     async restart () {
-      if (!this.isShow) return
+      if (!this.show) return
       this.sizeUpdate()
       this.slecteBoxStyleUpdate()
 
