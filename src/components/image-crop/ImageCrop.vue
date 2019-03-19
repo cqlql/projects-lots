@@ -148,17 +148,18 @@ export default {
   },
   watch: {
     show (isShow) {
-      if (isShow) this.restart()
+      this.restart()
     },
     url () {
       this.restart()
     }
   },
   mounted () {
-    if (this.show) this.restart()
+    this.restart()
   },
   methods: {
     async restart () {
+      if (!this.isShow) return
       this.sizeUpdate()
       this.slecteBoxStyleUpdate()
 
