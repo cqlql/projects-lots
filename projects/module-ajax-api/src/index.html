@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+  <title></title>
+  <script>
+    function testPost () {
+      ajaxApi.getExam().then(function (d) {
+        console.log(d)
+      })
+    }
+
+    </script>
+</head>
+<body>
+<div id="app"></div>
+
+<button onclick="testPost()">请求测试</button>
+
+</body>
+</html>
