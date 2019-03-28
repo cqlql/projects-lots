@@ -1,13 +1,13 @@
-import axios from 'axios'
-// import Vue from 'vue'
 
-function urlHandle (url) {
-  if (process.env.NODE_ENV !== 'production') {
-    // url = '/mock' + url
-  }
-  return url
-}
-class AjaxWeb {
+// import ajaxApp from './app'
+import axios from 'axios'
+
+// let axios = ajaxWeb
+// if (location.protocol === 'file:') {
+//   axios = ajaxApp
+// }
+
+class AjaxGeneral {
   constructor (dataHandle) {
     if (dataHandle) {
       this.dataHandle = dataHandle
@@ -20,24 +20,47 @@ class AjaxWeb {
       }
     }
   }
-  post (url, data, config) {
-    // let { loading, toast } = Vue
-    // loading.show()
-    return axios.post(urlHandle(url), data, config).then(({ data }) => {
+  request (config) {
+    // let { $loading: loading, $toast: toast } = Vue.prototype
+    // let { hasLoading = true } = config
+    // if (hasLoading) loading.show()
+    // if (process.env.NODE_ENV !== 'production') {
+    //   config.baseURL = require('@/dev.config.js').default.baseURL
+    // }
+    config.timeout = 60000
+    config.headers = { 'X-Sd-token': this.token }
+    return axios(config).then(({ data }) => {
       const result = this.dataHandle(data)
       // 失败情况
       if (result instanceof Error) {
         return Promise.reject(result)
       }
       // 成功情况
-      // loading.hide()
+      // if (hasLoading) loading.hide()
       return result
     }).catch(e => {
-      // loading.hide()
-      // toast(e.message)
+      // if (hasLoading) loading.hide()
+      // toast.error(e.message)
       return Promise.reject(e)
     })
   }
+  get (url, config = {}) {
+    config.method = 'get'
+    config.url = url
+    return this.request(config)
+  }
+  post (url, data, config = {}) {
+    config.method = 'post'
+    config.url = url
+    config.data = data
+    return this.request(config)
+  }
 }
+export const ajaxLogin = new AjaxGeneral(function (data) {
+  if (data.code === 0) {
+    return data.result
+  }
+  return new Error(data.message)
+})
 
-export default AjaxWeb
+export default new AjaxGeneral()

@@ -2,37 +2,17 @@
 import excuIntervalTry from '@/modules/corejs/excu/excu-interval-try'
 import querystring from '@/modules/corejs/url/querystring'
 
-let hostLogin = 'http://api.shendupeiban.com'
-let host = 'http://testing.shendupeiban.com'
+// let hostLogin = 'http://api.shendupeiban.com'
+let host = 'https://api.shendupeiban.com'
 
 let id = 0
 function urlHandle (url) {
-  if (process.env.NODE_ENV === 'production') {
-    // 发布
-
-    if (process.env.APP_TEST === 'true') {
-      // 内网
-
-      if (/comm\/v1\/token/.test(url)) {
-        url = 'http://192.168.1.240:8086' + url
-      } else {
-        url = 'http://testing.shendupeiban.com' + url
-      }
-    } else {
-      // 外网
-
-      if (/comm\/v1\/token/.test(url)) {
-        url = hostLogin + url
-      } else {
-        url = host + url
-      }
-    }
-  } else {
-    // mock 开发
-
-    // url = '/mock' + url
-  }
-  return url
+  // if (/comm\/v1\/token/.test(url)) {
+  //   url = hostLogin + url
+  // } else {
+  //   url = host + url
+  // }
+  return host + url
 }
 export default class {
   constructor (dataHandle) {

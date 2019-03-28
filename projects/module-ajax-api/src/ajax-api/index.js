@@ -1,29 +1,26 @@
 
-import AjaxWeb from './ajax'
-import AjaxApp from './app'
-// import answer from '@/views/ques/com/answer'
-
-let Ajax = AjaxWeb
-if (location.protocol === 'file:') {
-  Ajax = AjaxApp
-}
-
-const ajax = new Ajax(function (data) {
-  if (data.code === 0) {
-    return data.data
-  }
-  return new Error(data.message)
-})
+import ajax, {ajaxLogin} from './ajax'
 
 const api = {
-  // token: '',
+  token: '',
   // userId: '',
   // userName: '',
-  // login (data) {
-  //   return ajaxGo.post('/comm/v1/token', data)
-  // },
-  getExam (data) {
-    return ajax.post('/Data/GetExam', data)
+  login () {
+    return ajaxLogin.post('/comm/v1/token', {
+      account: '466893', // userId
+      password: '123456' // pwd
+    })
+  },
+  async getExam (id) {
+    // let token = this.token
+    if (!this.token) {
+      let info = await this.login()
+      ajax.token = this.token = info.token
+    }
+    // console.log({"code":0,"message":"ok","result":{"token":"bac47191-1d43-441a-a9b6-f4edb3e80e38","uid":"466893","username":"王锐","role":0}})
+
+    let data = await ajax.get('/pi/v1/exams/do?exam_id=' + id)
+    return data.data
   }
   // submit () {
   //   return ajax.post('/Data/Submit', {
