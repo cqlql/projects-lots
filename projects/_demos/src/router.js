@@ -41,20 +41,25 @@ let routes = [
   //   component: require('@/components/slide-select/Demo.vue').default
   // },
   {
-    path: '/image-crop-rotate',
-    meta: { title: '图片裁剪-旋转测试' },
-    component: require('@/components/image-crop/Rotate.demo.vue').default
+    path: '/file-select',
+    meta: { title: 'demo - 文件选择-拍照、录像、录音、文件选择' },
+    component: require('@/modules/corejs/dom/file-select.demo.vue').default
   },
-  {
-    path: '/image-crop',
-    meta: { title: '图片裁剪' },
-    component: require('@/components/image-crop/demo.vue').default
-  },
-  {
-    path: '/image-crop-canvas',
-    meta: { title: '图片裁剪-canvas 裁图旋转测试' },
-    component: require('@/components/image-crop/Canvas.demo.vue').default
-  },
+  // {
+  //   path: '/image-crop-rotate',
+  //   meta: { title: '图片裁剪-旋转测试' },
+  //   component: require('@/components/image-crop/Rotate.demo.vue').default
+  // },
+  // {
+  //   path: '/image-crop',
+  //   meta: { title: '图片裁剪' },
+  //   component: require('@/components/image-crop/demo.vue').default
+  // },
+  // {
+  //   path: '/image-crop-canvas',
+  //   meta: { title: '图片裁剪-canvas 裁图旋转测试' },
+  //   component: require('@/components/image-crop/Canvas.demo.vue').default
+  // },
   // {
   //   path: '/slide-select-date',
   //   meta: { title: '滑动选择-日期时间' },

@@ -22,20 +22,11 @@ const api = {
     let data = await ajax.get('/pi/v1/exams/do?exam_id=' + id)
     return data.data
   },
-  async getExams () {
+  async getExams (userId) {
     await this.login()
-    let data = await ajax.get('/pi/v1/exams/list?start=0&size=1&user_id=486852')
+    let data = await ajax.get('/pi/v1/exams/list?start=0&size=16&user_id=' + userId)
     return data.data
   }
-  // submit () {
-  //   return ajax.post('/Data/Submit', {
-  //     userId: this.userId,
-  //     userName: this.userName,
-  //     examId: answer.examId,
-  //     results: answer.submit,
-  //     campusId: '4973983044197569754'
-  //   })
-  // }
 }
 
 export default api
