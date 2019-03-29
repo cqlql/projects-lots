@@ -41,6 +41,7 @@ export default function (src) {
   // 在 onload 事件获取也不行
   // 所以只能 dom 中
   // 而且只要从dom中一删除，立马又恢复反的了
+  // canvas 问题：被旋转的图片画到 canvas 上，即使增加到 dom 中也是反的，只能通过其他方式解决，见下面的注释
   let box = document.createElement('div')
   box.appendChild(img)
   let { style } = box
@@ -54,11 +55,13 @@ export default function (src) {
     function tryExcu () {
       if (iserror) return
       if (img.complete || img.width) {
-        resolve({
-          width: img.width,
-          height: img.height
-        })
+        let { width, height } = img
         box.remove()
+        resolve({
+          width: width,
+          height: height,
+          rotate: width !== img.width // 是否被旋转变形。变形修复可反转高宽，然后使用 canvas 重新生成图片数据修正(注意这不是彻底旋转修复，只是修复变形问题，彻底修复需使用 exif-js)
+        })
         return
       }
 
