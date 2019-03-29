@@ -46,7 +46,7 @@
       </div>
       <div :class="$style.bottomBar">
         <a :class="$style.rotate" @click="rotate"><RotateIco :class="$style.rotateIco" /></a>
-        <a @click="$emit('cancel', false)">取消</a>
+        <a @click="$emit('update:show', false)">取消</a>
         <a @click="restore">还原</a>
         <a @click="confirm">完成</a>
       </div>
@@ -66,11 +66,15 @@ export default {
   components: {
     RotateIco
   },
-  model: {
-    prop: 'show',
-    event: 'cancel'
-  },
+  // model: {
+  //   prop: 'show',
+  //   event: 'cancel'
+  // },
   props: {
+    dataType: {
+      type: String,
+      default: 'blob'
+    },
     show: {
       type: Boolean,
       default: false
@@ -83,10 +87,17 @@ export default {
     aspectRatio: {
       type: Number,
       default: 1 // 16 / 9
+    },
+    sizeLimit: {
+      type: Number,
+      default: 0
     }
   },
   data () {
     return {
+      bottomOptionsShowB: false,
+      // aspectRatio: 16 / 9, // 选择框 宽/高 比
+      // aspectRatio: 1, // 选择框 宽/高 比
       selectAreaStyleWidth: 500,
       selectAreaStyleHeight: 500,
       slecteBoxStyle: {
@@ -149,9 +160,6 @@ export default {
   watch: {
     show () {
       this.restart()
-    },
-    url () {
-      this.restart()
     }
   },
   mounted () {
@@ -162,11 +170,10 @@ export default {
       if (!this.show) return
       this.sizeUpdate()
       this.slecteBoxStyleUpdate()
-
-      let zoomTouch = this.zoomTouch
-      if (zoomTouch) zoomTouch.destroy()
       await this.imgSizeUpdate()
+      let zoomTouch = this.zoomTouch
       let { imgBoxStyle } = this
+      if (zoomTouch) zoomTouch.destroy()
       zoomTouch = this.zoomTouch = new ZoomTouch({
         elem: this.$refs.eImgBox
       })
@@ -234,10 +241,21 @@ export default {
         selectRectWdith: slecteBoxStyle.w / scale,
         selectRectHeight: slecteBoxStyle.h / scale
       }
-      let cvs = await this.crop(cropParams)
-      cvs.toBlob(blob => {
-        this.$emit('confirm', blob)
-      }, 'image/jpeg', 0.7)
+      let data = cropParams
+      let cvs
+      switch (this.dataType) {
+        case 'blob':
+          cvs = await this.crop(cropParams)
+          data = await new Promise(resolve => {
+            cvs.toBlob(blob => { resolve(blob) }, 'image/jpeg', 0.7)
+          })
+          break
+        case 'base64':
+          cvs = await this.crop(cropParams)
+          data = cvs.toDataURL('image/jpeg', 0.7)
+          break
+      }
+      this.$emit('confirm', data)
     },
     // 窗口尺寸更新
     sizeUpdate () {
@@ -258,11 +276,14 @@ export default {
     // 图片尺寸更新
     async imgSizeUpdate () {
       let { imgBoxStyle, imgStyle } = this
-      let img
+      let size
       try {
-        img = await imgSize(this.url)
-        imgStyle.w = imgBoxStyle.w = img.width
-        imgStyle.h = imgBoxStyle.h = img.height
+        size = await imgSize(this.url)
+        if (this.sizeLimit || size.rotate) { // 压缩 或者 修正旋转
+          await this.imageSizeCompress(size)
+        }
+        imgStyle.w = imgBoxStyle.w = size.width
+        imgStyle.h = imgBoxStyle.h = size.height
       } catch (err) {
         console.error('图片尺寸获取失败', err)
       }
@@ -360,6 +381,7 @@ export default {
     imgLoad (url) {
       return new Promise((resolve, reject) => {
         let img = new Image()
+        img.crossOrigin = 'Anonymous'
         img.onload = function () {
           resolve(img)
         }
@@ -455,6 +477,49 @@ export default {
           top: selectRectHeight + 'px'
         }
       ]
+    },
+    // 图片尺寸限制+压缩
+    async imageSizeCompress (imgSize) {
+      let { sizeLimit } = this
+
+      let toCorrect = false
+      let { width, height } = imgSize
+      let ratio = width / height
+      if (ratio > 1 && width > sizeLimit) { // 图片宽大于高
+        width = sizeLimit
+        height = width / ratio
+        toCorrect = true
+      } else if (height > sizeLimit) { // 图片高大于宽
+        height = sizeLimit
+        width = height * ratio
+        toCorrect = true
+      }
+
+      if (imgSize.rotate) {
+        let temp = width
+        width = imgSize.width = height
+        height = imgSize.height = temp
+        toCorrect = true
+      } else {
+        imgSize.width = width
+        imgSize.height = height
+      }
+
+      // 使用canvas 压缩成指定尺寸，或者修正拍照旋转变形问题，并重新赋值 this.url
+      if (toCorrect) {
+        let cvs = document.createElement('canvas')
+        let eImg = await this.imgLoad(this.url)
+        let ctx = cvs.getContext('2d')
+        cvs.width = width
+        cvs.height = height
+        ctx.drawImage(eImg, 0, 0, width, height)
+        let newUrl = await new Promise(resolve => {
+          cvs.toBlob(blob => {
+            resolve(URL.createObjectURL(blob))
+          }, 'image/jpeg', 1)
+        })
+        this.$emit('update:url', newUrl)
+      }
     }
   }
 }
@@ -468,6 +533,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  z-index: 10;
   background-color: #fff;
 }
 .selectArea {
@@ -492,6 +558,7 @@ export default {
   height: 100%;
   left: 0;
   top: 0;
+  pointer-events: none;
 }
 .boxShadow {
   position: absolute;
@@ -506,6 +573,7 @@ export default {
 .bottomBar {
   width: 100%;
   /* height: 60px; */
+  box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   bottom: 0;
