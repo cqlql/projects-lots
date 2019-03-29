@@ -24,9 +24,9 @@ class AjaxGeneral {
     // let { $loading: loading, $toast: toast } = Vue.prototype
     // let { hasLoading = true } = config
     // if (hasLoading) loading.show()
-    // if (process.env.NODE_ENV !== 'production') {
-    //   config.baseURL = require('@/dev.config.js').default.baseURL
-    // }
+    if (process.env.NODE_ENV !== 'production') {
+      // config.baseURL = '/online'
+    }
     config.timeout = 60000
     config.headers = { 'X-Sd-token': this.token }
     return axios(config).then(({ data }) => {

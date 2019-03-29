@@ -1,25 +1,30 @@
 
-import ajax, {ajaxLogin} from './ajax'
+import ajax, { ajaxLogin } from './ajax'
 
 const api = {
   token: '',
   // userId: '',
   // userName: '',
-  login () {
-    return ajaxLogin.post('/comm/v1/token', {
-      account: '466893', // userId
-      password: '123456' // pwd
-    })
-  },
-  async getExam (id) {
-    // let token = this.token
-    if (!this.token) {
-      let info = await this.login()
-      ajax.token = this.token = info.token
+  async login () {
+    if (this.token) return
+    let info = await ajaxLogin.post('/comm/v1/campustoken', {
+      'campus_id_str': '5255421148254165520',
+      'no': 'sd001',
+      'password': '123456',
+      'role': 2
     }
-    // console.log({"code":0,"message":"ok","result":{"token":"bac47191-1d43-441a-a9b6-f4edb3e80e38","uid":"466893","username":"王锐","role":0}})
 
+    )
+    ajax.token = this.token = info.token
+  },
+  async getRandomQues (id) {
+    await this.login()
     let data = await ajax.get('/pi/v1/exams/do?exam_id=' + id)
+    return data.data
+  },
+  async getExams () {
+    await this.login()
+    let data = await ajax.get('/pi/v1/exams/list?start=0&size=1&user_id=486852')
     return data.data
   }
   // submit () {

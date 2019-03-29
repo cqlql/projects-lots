@@ -5,8 +5,18 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
   <title></title>
   <script>
-    function testPost () {
-      ajaxApi.getExam().then(function (d) {
+    function getRandomQues () {
+      ajaxApi.getRandomQues('4865059765400504293').then(function (d) {
+
+        console.log(d)
+      })
+    }
+    function getExams () {
+      ajaxApi.getExams().then(function (d) {
+        d.exams = d.exams.map(function (exam) {
+          exam.Content = JSON.parse(exam.Content)
+          return exam
+        })
         console.log(d)
       })
     }
@@ -16,7 +26,8 @@
 <body>
 <div id="app"></div>
 
-<button onclick="testPost()">请求测试</button>
+<button onclick="getExams()">拿试卷id列表</button>
+<button onclick="getRandomQues()">拿试卷随机一题</button>
 
 </body>
 </html>

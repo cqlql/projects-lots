@@ -33,11 +33,11 @@ const conf = {
       // }
     },
     {
-      context: ['online'],
+      context: ['/online'],
       target: `https://api.shendupeiban.com`,
-      // pathRewrite: {
-      //   '^/mock': ''
-      // },
+      pathRewrite: {
+        '^/online': ''
+      },
 
       // 注意以下的自定义无法在浏览器端看到，因为是通过nodejs去请求的，而不是浏览器。所以只能在服务端看到
 
