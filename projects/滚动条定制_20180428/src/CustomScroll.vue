@@ -21,7 +21,7 @@
 <script>
 import dragPlus from '@/modules/corejs/dom-drag/drag-plus'
 import Animation from '@/modules/corejs/animation/animation'
-import relativexy from '@/modules/corejs/dom/relativexy'
+import relativexy from '@/modules/corejs/dom/relative'
 export default {
   data () {
     return {
@@ -125,8 +125,8 @@ export default {
 
       this.maxX = scrollBoxW - scrollBarW
       this.lastIndex = Math.round((scrollBoxW - scrollBarW) / cellW)
-      this.boxX = boxXY.x - arrowW
-      this.boxY = boxXY.y - barH
+      this.boxX = boxXY.left - arrowW
+      this.boxY = boxXY.top - barH
     },
     dragInit () {
       const animation = new Animation()

@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const getWebpackConfig = require('../../build/webpack.prod')
 const merge = require('webpack-merge')
 
@@ -8,13 +9,34 @@ function resolve (p) {
 }
 
 let webpackConfig = getWebpackConfig({
-  dirname: __dirname
+  dirname: __dirname,
+  indexTemplate () {
+    return new HtmlWebpackPlugin({
+      filename: './index.html',
+      template: './src/index.html',
+      // chunks: ['main'], // 指定引入的js包，只有main情况可忽略
+      // inlineSource: /main\.js/,
+      // inlineSource: /styles\.bundle\.js/,
+      // inlineSource: /(styles\.bundle\.js|main\.js)/,
+      minify: {
+        // removeComments: true,
+        // collapseWhitespace: true,
+        // removeAttributeQuotes: true,
+        // 内嵌 css js 压缩, 结合 HtmlWebpackInlineSourcePlugin 可能会压缩2次，非必要还是不要设了
+        // minifyCSS: true,
+        // minifyJS: true
+
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      }
+    })
+  }
 })
 delete webpackConfig.entry.main // 删掉默认入口
 let conf = {
   mode: 'production',
   // devtool: 'source-map',
-  watch: true,
+  // watch: true,
   entry: {
     customScroll: ['./src/customScroll.window.js']
   },
