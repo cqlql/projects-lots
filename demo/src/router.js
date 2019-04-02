@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 // 此处加入测试 demo
-let routes = [
+let children = [
   // {
   //   path: '/test',
   //   meta: { title: '实验室' },
@@ -93,7 +93,8 @@ let routes = [
   {
     path: '/switch-multi',
     meta: { title: 'switch-multi' },
-    component: require('@/modules/switch-multi/demo.vue').default
+    // component: require('@/modules/switch-multi/demo.vue').default,
+    docs: import(/* webpackChunkName: "toast" */ '@/components/toast/README.md')
   },
   // {
   //   path: '/switch-one',
@@ -106,31 +107,15 @@ let routes = [
   // },
 ]
 
-routes.push({
-  path: '*',
-  name: 'navDev',
-  meta: { title: '快捷导航-dev' },
-  component: {
-    render () {
-      const h2Style = { padding: '20px 6px 0', 'font-size': '16px' }
-      const pStyle = { padding: '4px 10px' }
-      const aStyle = { color: 'blue', 'text-decoration': 'underline' }
-
-      const links = []
-      routes.forEach(route => {
-        if (route.path !== '*') links.push(<p style={pStyle}><router-link to={route.path} style={aStyle}>{(route.meta && route.meta.title) || route.path}</router-link></p>)
-      })
-
-      return (
-        <div>
-          <h2 style={h2Style}>demos</h2>
-          {links}
-        </div>
-      )
-    }
-  }
-})
-
 export default new Router({
-  routes
+  routes: [
+    {
+      path: '*',
+      name: 'navDev',
+      meta: { title: '快捷导航-dev' },
+      component: require('./VMenu.vue').default,
+      props: { menu: children },
+      children
+    }
+  ]
 })

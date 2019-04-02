@@ -11,10 +11,6 @@
 </template>
 
 <script>
-// import Demo from '@/components/buttons/demo'
-// import Demo from '@/views/stat-new/VList.demo.vue'
-// import Demo from '@/views/stat-new/FilterBar.demo.vue'
-// import Demo from '@/components/v-transition/demo.vue'
 export default {
   data () {
     return {
@@ -28,19 +24,19 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      // if (from.name) {
-      let toPath = to.path
-      let fromPath = from.path
-      toPath = toPath.trim().replace(/\/$/, '').replace(/\/+/, '/')
-      fromPath = fromPath.trim().replace(/\/$/, '').replace(/\/+/, '/')
-      let toDepth = toPath.split('/').length
-      let fromDepth = fromPath.split('/').length
-      if (toDepth === fromDepth) {
-        toDepth = to.meta.zIndex
-        fromDepth = from.meta.zIndex
+      if (from.name) {
+        let toPath = to.path
+        let fromPath = from.path
+        toPath = toPath.trim().replace(/\/$/, '').replace(/\/+/, '/')
+        fromPath = fromPath.trim().replace(/\/$/, '').replace(/\/+/, '/')
+        let toDepth = toPath.split('/').length
+        let fromDepth = fromPath.split('/').length
+        if (toDepth === fromDepth) {
+          toDepth = to.meta.zIndex
+          fromDepth = from.meta.zIndex
+        }
+        this.slideName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
       }
-      this.slideName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-      // }
     }
   }
 }
