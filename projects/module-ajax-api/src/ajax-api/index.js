@@ -3,18 +3,15 @@ import ajax, { ajaxLogin } from './ajax'
 
 const api = {
   token: '',
-  // userId: '',
-  // userName: '',
+  user: {
+    'campus_id_str': '5255421148254165520',
+    'no': 'sd001',
+    'password': '123456',
+    'role': 2
+  },
   async login () {
     if (this.token) return
-    let info = await ajaxLogin.post('/comm/v1/campustoken', {
-      'campus_id_str': '5255421148254165520',
-      'no': 'sd001',
-      'password': '123456',
-      'role': 2
-    }
-
-    )
+    let info = await ajaxLogin.post('/comm/v1/campustoken', this.user)
     ajax.token = this.token = info.token
   },
   async getRandomQues (id) {

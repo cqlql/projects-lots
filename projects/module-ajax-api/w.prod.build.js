@@ -59,7 +59,7 @@ if (isTest) {
 
 delete webpackConfig.entry.main // 删掉默认入口
 const prodConfig = {
-  watch: true,
+  // watch: true,
   entry: { 'ajax-api': './src/ajax-api/index.js' }, // 更改 js 包文件名
   // 不打包的模块
   // 键为 import 调用名，值为全局名称

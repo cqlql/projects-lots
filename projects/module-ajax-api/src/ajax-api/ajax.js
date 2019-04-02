@@ -27,6 +27,7 @@ class AjaxGeneral {
     if (process.env.NODE_ENV !== 'production') {
       // config.baseURL = '/online'
     }
+    config.baseURL = this.baseURL
     config.timeout = 60000
     config.headers = { 'X-Sd-token': this.token }
     return axios(config).then(({ data }) => {
