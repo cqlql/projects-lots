@@ -2,6 +2,7 @@
 import ajax, { ajaxLogin } from './ajax'
 
 const api = {
+  baseUrl: '',
   token: '',
   user: {
     'campus_id_str': '5255421148254165520',
@@ -13,6 +14,7 @@ const api = {
     if (this.token) return
     let info = await ajaxLogin.post('/comm/v1/campustoken', this.user)
     ajax.token = this.token = info.token
+    ajax.baseUrl = this.baseUrl
   },
   async getRandomQues (id) {
     await this.login()
