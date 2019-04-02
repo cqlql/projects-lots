@@ -1,23 +1,28 @@
 let fileElem = null
 function getInputFile (options) {
   let { accept, capture } = options
-  let file = document.createElement('input')
+  let file = fileElem || document.createElement('input')
   file.type = 'file'
-  if (accept) file.accept = accept
-  if (capture) file.capture = capture
+  file.accept = accept || ''
+  file.capture = capture || ''
 
-  // 移动端 file 元素必须加到页面中，否则不会触发 onchange 事件
-  // 弹出的文件选择框，如果不选文件就不会删除元素，造成页面可能出现很多 input file。目前解决方案：目前只能如果没有删，就利用起来，这样最多也只会添加一个 input file 了
-  file.style.display = 'none'
-  document.body.appendChild(file)
+  if (!fileElem) {
+    // 移动端 file 元素必须加到页面中，否则不会触发 onchange 事件
+    // 弹出的文件选择框，如果不选文件就不会删除元素，造成页面可能出现很多 input file
+    // 目前解决方案：目前只能如果没有删，就利用起来，这样最多也只会添加一个 input file 了
+    file.style.display = 'none'
+    document.body.appendChild(file)
+    // setTimeout(() => file.remove(), 60000) // 固定1分钟后删除，好像不靠谱
+  }
   fileElem = file
-  // setTimeout(() => file.remove(), 60000) // 固定1分钟后删除，好像不靠谱
   return file
 }
 
 function removeFileElem () {
-  fileElem && fileElem.remove()
-  fileElem = null
+  if (fileElem) {
+    fileElem.remove()
+    fileElem = null
+  }
 }
 
 const fileSelect = {
