@@ -1,15 +1,11 @@
 <template>
   <div :class="$style.article">
     <!-- <div class="markdown-body" v-html="htmlCont" @click="onSelect"></div> -->
-    <div class="markdown-body" v-html="htmlCont" />
+    <div class="markdown-body" v-html="content" />
   </div>
 </template>
 
 <script>
-// import 'highlight.js/styles/xcode.css'
-// import DomSelect from './dom-select.js'
-import marked from 'marked'
-
 export default {
   props: {
     content: {
@@ -19,15 +15,6 @@ export default {
     path: {
       type: String,
       default: ''
-    }
-  },
-  computed: {
-    htmlCont () {
-      marked.setOptions({
-        baseUrl: '/docs' + this.path.replace(/[^/\\]+\.md$/, '')
-      })
-      return marked(this.content.replace(/\+\+\+([\d\D]+?)\+\+\+/, '```$1```'))
-      // return marked(this.content)
     }
   },
   // created () {
@@ -577,7 +564,7 @@ export default {
     background-color: #ffc;
   }
 
-/*   .hljs {
+  .hljs {
     display: block;
     background: #fff;
     padding: 0.5em;
@@ -642,6 +629,6 @@ export default {
 
   .hljs-link {
     text-decoration: underline;
-  } */
+  }
 }
 </style>
