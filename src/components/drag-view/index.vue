@@ -43,8 +43,17 @@ export default {
     let len = 0
     let tw
     let elem = this.$refs.eBar
+    // 双击变小
     elem.ondblclick = () => {
-      this.$emit('resize', this.minWidth)
+      let { width, minWidth } = this
+      let w
+      if (width > minWidth) {
+        w = minWidth
+        this.prevWidth = width
+      } else {
+        w = this.prevWidth
+      }
+      this.$emit('resize', w)
     }
     drag({
       elem,
