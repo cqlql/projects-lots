@@ -14,7 +14,7 @@
 
 -->
 <script>
-import menu from './menu.config.js'
+import menu from '../../menu.config.js'
 export default {
   data () {
     return {
@@ -26,7 +26,7 @@ export default {
     select (e, itemData) {
       e.stopPropagation()
       this.$emit('select', itemData)
-      // this.selectedId = itemData.path
+      this.selectedId = itemData.path
     }
   },
   render () {
@@ -48,7 +48,8 @@ export default {
     function build (children = []) {
       const list = []
       children.forEach(item => {
-        let { level, children, name, path } = item
+        let { level, children, name, path, show = true } = item
+        if (!show) return
         children = children || []
         const childList = build(children)
         list.push(
@@ -84,7 +85,7 @@ export default {
 .menu {
   box-sizing: border-box;
   background-color: #fff;
-  border-right: 1px solid #efefef;
+  /* border-right: 1px solid #efefef; */
   font-size: 14px;
   padding: 8px 10px;
   height: 100%;

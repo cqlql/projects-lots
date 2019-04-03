@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import LoaderBottom from '@/modules/loader-bottom/LoaderBottom.vue'
+  import LoaderBottom from '@/components/scroll-bottom-load/ScrollBottomLoad.vue'
   export default {
     data () {
       return {

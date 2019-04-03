@@ -1,5 +1,14 @@
 <template>
+  <TransitionGroup
+    v-if="group"
+    :name="name"
+    :enter-active-class="activeClass"
+    :leave-active-class="activeClass"
+  >
+    <slot />
+  </TransitionGroup>
   <Transition
+    v-else
     :name="name"
     :enter-active-class="activeClass"
     :leave-active-class="activeClass"
@@ -11,6 +20,9 @@
 <script>
 export default {
   props: {
+    group: {
+      type: Boolean
+    },
     name: {
       type: String,
       default: 'fade'

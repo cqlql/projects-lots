@@ -4,11 +4,11 @@ const webpack = require('webpack')
 // const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
 // const CopyWebpackPlugin = require('copy-webpack-plugin')
-const CompileEventsPlugin = require('../build/compile-events-plugin')
-const filterRemove = require('../build/filter-remove')
-const ScriptPlugin = require('../build/script-plugin')
+const CompileEventsPlugin = require('../../build/compile-events-plugin')
+const filterRemove = require('../../build/filter-remove')
+const ScriptPlugin = require('../../build/script-plugin')
 const merge = require('webpack-merge')
-const getProdConf = require('../build/webpack.prod')
+const getProdConf = require('../../build/webpack.prod')
 
 // 命令行参数
 // const argv = require('yargs').argv
@@ -79,4 +79,4 @@ const prodConf = {
   ]
 }
 
-webpack(merge(baseProdConf, prodConf), require('../build/msg-webpack'))
+webpack(merge(baseProdConf, prodConf), require('../../build/msg-webpack'))
