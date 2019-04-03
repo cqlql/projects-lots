@@ -14,6 +14,13 @@ export default [
         path: '/scroll-bottom-load-page',
         demo: () => import(/* webpackChunkName: "scroll-bottom-load" */ '@/components/scroll-bottom-load/Demo.page.vue'),
         docs: () => import(/* webpackChunkName: "scroll-bottom-load" */ '@/components/scroll-bottom-load/README.md')
+      },
+      {
+        name: 'buttons',
+        path: '/scroll-bottom-load-page',
+        show: false, // 是否在菜单可见
+        demo: () => import(/* webpackChunkName: "scroll-bottom-load" */ '@/components/scroll-bottom-load/Demo.page.vue'),
+        docs: () => import(/* webpackChunkName: "scroll-bottom-load" */ '@/components/scroll-bottom-load/README.md')
       }
     ],
   }
