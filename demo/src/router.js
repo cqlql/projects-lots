@@ -1,7 +1,7 @@
 /* eslint-disable comma-dangle */
 import Vue from 'vue'
 import Router from 'vue-router'
-import routes from './menu.config.js'
+import menu from './menu.config.js'
 Vue.use(Router)
 
 // 此处加入测试 demo
@@ -112,6 +112,27 @@ Vue.use(Router)
 //   //   component: require('@/modules/zoom-touch2/Demo.vue').default
 //   // },
 // ]
+const routes = [
+  {
+    path: '/',
+    component: require('./Docs.vue').default
+  }
+]
+
+function addRoute (children = []) {
+  children.forEach(item => {
+    let { children, name, path, demo } = item
+    if (children) addRoute(children)
+    if (path) {
+      routes.push({
+        path,
+        title: name,
+        component: demo
+      })
+    }
+  })
+}
+addRoute(menu)
 
 export default new Router({
   routes: routes

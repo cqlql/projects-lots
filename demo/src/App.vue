@@ -1,35 +1,68 @@
 <template>
   <div>
-    <h2 :class="$style.h2">demos</h2>
-    <p v-for="(item, i, key) of menu" :key="key" :class="$style.p"><a :to="item.path">{{ item.name }}</a></p>
+    <Transition
+      :name="slideName"
+      :enter-active-class="'leave '+activeClass"
+      :leave-active-class="activeClass"
+    >
+      <RouterView />
+    </Transition>
   </div>
 </template>
 
 <script>
-import menu from './menu.config.js'
 export default {
   data () {
     return {
-      menu
+      slideName: ''
     }
   },
-  beforeRouteEnter (to, from, next) {
-    console.log(to)
-    next()
+  computed: {
+    activeClass () {
+      return this.slideName && 'slide-active'
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      if (from.name) {
+        let toPath = to.path
+        let fromPath = from.path
+        toPath = toPath.trim().replace(/\/$/, '').replace(/\/+/, '/')
+        fromPath = fromPath.trim().replace(/\/$/, '').replace(/\/+/, '/')
+        let toDepth = toPath.split('/').length
+        let fromDepth = fromPath.split('/').length
+        if (toDepth === fromDepth) {
+          toDepth = to.meta.zIndex
+          fromDepth = from.meta.zIndex
+        }
+        this.slideName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+      }
+    }
   }
 }
 </script>
 
-<style module>
-.h2 {
-  padding: 20px 6px 0;
-  font-size: 16px
+<style scoped>
+.slide-active {
+  transition: 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+  transition-property: opacity, transform;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
 }
-.p {
-  padding: 4px 10px;
-  a {
-    color: blue;
-    text-decoration: underline
-  }
+.leave {
+  position: static;
+}
+.slide-left-enter,
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translate3d(30px, 0, 0);
+}
+.slide-left-leave-to,
+.slide-right-enter {
+  opacity: 0;
+  transform: translate3d(-30px, 0, 0);
 }
 </style>

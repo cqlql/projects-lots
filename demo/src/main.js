@@ -1,21 +1,14 @@
 /* eslint-disable */
 import '@/comm.css'
+import './scrollbar.css'
 import '@/modules/corejs/common.js'
 import '@/modules/corejs/em-auto.js'
 import Vue from 'vue'
 import App from './App.vue'
-// import router from './router'
-
-// router.beforeEach((to, from, next) => {
-//   console.log(to)
-//   next()
-// })
-// router.afterEach(() => {
-//   // loading.hide()
-// })
+import router from './router'
 
 new Vue({
   el: '#app',
-  // router,
+  router,
   render: h => h(App)
 })
