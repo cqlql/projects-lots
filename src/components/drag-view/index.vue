@@ -43,7 +43,7 @@ export default {
     let len = 0
     let tw
     let elem = this.$refs.eBar
-    // 双击变小
+    // 双击最小/恢复
     elem.ondblclick = () => {
       let { width, minWidth } = this
       let w
