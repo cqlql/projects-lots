@@ -36,5 +36,11 @@ export default [
     name: 'image-crop(裁图)',
     path: '/image-crop',
     demo: () => import(/* webpackChunkName: "image-crop" */ '@/components/image-crop/Demo.vue'),
+  },
+  {
+    name: 'v-transition (常用 vue transition 动画)',
+    path: '/v-transition',
+    demo: () => import(/* webpackChunkName: "v-transition" */ '@/components/v-transition/demo.vue'),
+    docs: () => import(/* webpackChunkName: "v-transition" */ '@/components/v-transition/README.md'),
   }
 ]
