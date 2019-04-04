@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import 'highlight.js/styles/xcode.css'
 export default {
   props: {
     content: {
@@ -564,7 +565,7 @@ export default {
     background-color: #ffc;
   }
 
-  .hljs {
+  /* .hljs {
     display: block;
     background: #fff;
     padding: 0.5em;
@@ -629,6 +630,6 @@ export default {
 
   .hljs-link {
     text-decoration: underline;
-  }
+  } */
 }
 </style>
