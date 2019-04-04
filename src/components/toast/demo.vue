@@ -1,10 +1,10 @@
 <template>
   <div>
+    <!-- <p>
+      <button @click="show">普通消息</button>
+    </p> -->
     <p>
-      <button @click="show">弹消息</button>
-    </p>
-    <p>
-      <button @click="pluginShow">插件方式调用</button>
+      <button @click="pluginShow">普通消息</button>
     </p>
     <p>
       <button @click="showSuccess">成功提醒</button>
@@ -34,7 +34,7 @@ export default {
       this.$refs.vToast.text('消息来了' + count++)
     },
     pluginShow () {
-      this.$toast('插件方式，消息来了' + count++)
+      this.$toast('消息来了' + count++)
     },
     showSuccess () {
       this.$toast.success('成功提醒')
