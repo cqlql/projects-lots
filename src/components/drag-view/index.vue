@@ -71,8 +71,7 @@ export default {
         } else if (width > maxWidth) {
           width = maxWidth
         }
-        // this.width = width
-        this.$emit('resize', width)
+        this.$emit('resize', width || maxWidth)
       }
     })
   }
