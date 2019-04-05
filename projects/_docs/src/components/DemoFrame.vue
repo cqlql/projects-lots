@@ -29,17 +29,17 @@ export default {
   width: 375px;
   height: 667px;
   /* position: fixed; */
-  position:absolute;
-  left: 50%;
+  /* position:absolute; */
+  /* left: 50%;
   top: 50%;
-  margin: -333px 0 0 -187px;
-  /* display: table; */
-  /* z-index: 99;
+  margin: -333px 0 0 -187px; */
+  /* display: table;
+  z-index: 99;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0; */
-  /* margin: auto; */
+  margin: 10px auto;
 }
 .iframe {
   /* position: fixed; */

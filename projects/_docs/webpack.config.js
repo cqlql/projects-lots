@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const getDevConf = require('../../build/webpack.dev')
 const merge = require('webpack-merge')
 const marked = require("marked");
@@ -17,6 +18,8 @@ marked.setOptions({
     return hljs.highlightAuto(code).value
   }
 })
+
+process.env.docs = true
 
 module.exports = require('../../build/friendly-error')(merge(
   getDevConf({
@@ -42,6 +45,14 @@ module.exports = require('../../build/friendly-error')(merge(
           ]
         }
       ]
-    }
+    },
+    plugins: [
+      // 文档环境变量
+      new webpack.DefinePlugin({
+        'process.env': {
+          docs: JSON.stringify(process.env.docs + ''),
+        }
+      }),
+    ]
   }
 ))

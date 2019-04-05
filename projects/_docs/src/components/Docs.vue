@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="$style.mid" :style="{'left':rightX+'px'}">
+    <div :class="$style.mid" :style="{left:midLeft+'px', right:midRight+'px'}">
       <Article :content="docsCont" />
     </div>
     <DragView v-model="menuWidth" :class="$style.aside" :max-width="500" @resize="onResize">
@@ -8,7 +8,7 @@
       <VMenu @select="menuSelect" />
       <!-- </aside> -->
     </DragView>
-    <div :class="$style.right">
+    <div v-show="showDemo" :class="$style.right">
       <DemoFrame :path="demoPath" />
     </div>
   </div>
@@ -34,12 +34,15 @@ export default {
 
       // 窗口大小
       menuWidth: (localStorage.getItem('leftMenuWidth') || 300) * 1,
-      // menuInitWidth: (localStorage.getItem('leftMenuWidth') || 260) * 1,
-      rightX: (localStorage.getItem('rightContX') || 300) * 1
+      // 中间内容x
+      midLeft: (localStorage.getItem('midLeft') || 300) * 1,
+      midRight: 391,
+
+      showDemo: true
     }
   },
   mounted () {
-    let eItem = document.getElementById(this.$route.query.path)
+    let eItem = document.getElementById(this.$route.query.path || '/readme')
     if (eItem) eItem.click()
   },
   methods: {
@@ -51,6 +54,15 @@ export default {
           path
         }
       })
+
+      if (itemData.demo) {
+        this.midRight = 391
+        this.showDemo = true
+      } else {
+        this.midRight = 0
+        this.showDemo = false
+      }
+
       if (itemData.docs) {
         this.docsCont = (await itemData.docs()).default
       } else {
@@ -58,9 +70,9 @@ export default {
       }
     },
     onResize (x) {
-      let rightX = this.rightX = x
+      let midLeft = this.midLeft = x
       localStorage.setItem('leftMenuWidth', x)
-      localStorage.setItem('rightContX', rightX)
+      localStorage.setItem('midLeft', midLeft)
     }
   }
 }

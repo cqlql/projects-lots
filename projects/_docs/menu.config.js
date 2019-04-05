@@ -1,6 +1,11 @@
 
 export default [
   {
+    name: '项目说明',
+    path: '/readme',
+    docs: () => import(/* webpackChunkName: "toast" */ '@/../README.md'),
+  },
+  {
     name: 'UI组件',
     children: [
       {
