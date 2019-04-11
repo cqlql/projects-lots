@@ -250,6 +250,12 @@ export default {
     color: #6a737d;
   }
 
+  .markdown-body ul {
+    list-style-type: disc;
+  }
+  .markdown-body ol {
+    list-style-type: decimal;
+  }
   .markdown-body ol,
   .markdown-body ul {
     padding-left: 2em;
