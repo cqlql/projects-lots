@@ -48,13 +48,13 @@ export default {
 ## 指定其他容器, 默认 window
 
 ```html
-<BottomLoad @load="load" :getElem="() => $el.parentElement" />
+<BottomLoad @load="load" :get-elem="() => $el.parentElement" />
 ```
 
 ## 指定起始页, 默认 1
 
 ```html
-<BottomLoad @load="load" :startPage="0" />
+<BottomLoad @load="load" :start-page="0" />
 ```
 
 ## 重新加载 1, 不检测直接加载
