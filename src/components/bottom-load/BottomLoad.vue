@@ -1,5 +1,11 @@
 <template>
-  <div :class="[$style.bottomLoad, color==='white'? $style.white:'', isShow?'':$style.hide]">
+  <div
+    :class="[
+      $style.bottomLoad,
+      color==='white'? $style.white:'',
+      isShow?'':$style.hide
+    ]"
+  >
     <span v-if="isFinish" :class="$style.txt">- 已经到底了 -</span>
     <div v-else class="hide" :class="{[$style.show]:isLoad}">
       <LoadIco :color="color" :class="$style.preloader" />
@@ -35,10 +41,6 @@ export default {
       type: Number,
       default: 1
     }
-    // noData: {
-    //   type: Boolean,
-    //   default: false
-    // }
   },
   data () {
     return {
@@ -46,7 +48,6 @@ export default {
       isLoad: false,
       isShow: true,
       noData: false,
-      // containerElem: null,
       page: 0,
       minHeight: 36 // 用来检测的最小高度
     }
@@ -120,11 +121,10 @@ export default {
       }
     },
     // 是否到底。在 initContainerElem 中 初始。根据容器元素是否是 window 而有所不同
-    testBottom () {},
+    // testBottom () {},
     // 初始容器元素。顺便初始 testBottom
     initContainerElem () {
       let { getElem } = this
-      // if (getElem) {
       let el = this.containerElem = getElem()
       if (el === window) {
         this.testBottom = () => {
@@ -139,9 +139,6 @@ export default {
           }
         }
       }
-      // } else {
-      //   this.containerElem = this.$el.parentElement
-      // }
     },
     // 重置但不加载
     reset () {
