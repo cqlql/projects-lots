@@ -11,12 +11,10 @@
 ```html
 <template>
   <div>
-    <div>
-      <div v-for="(item, key) of list" :key="key" class="item">
-        <div class="tit">{{ item.t }}</div>
-      </div>
-      <BottomLoad @load="load" />
+    <div v-for="(item, key) of list" :key="key" class="item">
+      <div class="tit">{{ item.t }}</div>
     </div>
+    <BottomLoad @load="load" />
   </div>
 </template>
 <script>
