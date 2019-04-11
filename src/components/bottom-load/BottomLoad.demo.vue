@@ -22,7 +22,7 @@ const axios = {
     console.log(url)
     return new Promise(function (resolve) {
       setTimeout(function () {
-        let list = require('./BottomLoad.data.js').default()[page - 1]
+        let list = require('./BottomLoad.demo.data.js').default()[page - 1]
         resolve(list || [])
       }, 1000)
     })
