@@ -55,10 +55,10 @@
 </template>
 
 <script>
-import imgSize from '@/modules/corejs/dom/img-size-complete.js'
+import imgSize from '@/modules/corejs/img/img-size-complete.js'
 import center from '@/modules/corejs/center/center.js'
 import fullCenter from '@/modules/corejs/center/full-center.js'
-import autoprefix from '@/modules/corejs/dom-css/autoprefix'
+import autoprefix from '@/modules/corejs/css/autoprefix'
 import ZoomTouch from './zoom-touch.js'
 import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
 import RotateIco from './RotateIco.vue'
