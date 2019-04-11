@@ -37,8 +37,8 @@ export default function ({ elem, onMove, onDown, onStart = () => {}, onEnd }) {
     elem,
     onMove (e) {
       const target = getTarget(e)
-      let {pageX, pageY} = target
-      onMove({lx: pageX - prevX, ly: pageY - prevY, e})
+      let { pageX, pageY } = target
+      onMove({ lx: pageX - prevX, ly: pageY - prevY, e })
       prevX = pageX
       prevY = pageY
     },

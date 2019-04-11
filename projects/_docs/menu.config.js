@@ -34,6 +34,12 @@ export default [
         path: '/buttons',
         demo: () => import(/* webpackChunkName: "docs1" */ '@/components/buttons/demo.vue'),
         // docs: () => import(/* webpackChunkName: "docs1" */ '@/components/scroll-bottom-load/README.md')
+      },
+      {
+        name: 'pulldown-refresh(下拉刷新)',
+        path: '/pulldown-refresh',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/PulldownRefresh.demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/README.md')
       }
     ],
   },
