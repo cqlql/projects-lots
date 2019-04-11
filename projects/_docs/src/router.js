@@ -26,6 +26,21 @@ function addRoute (children = []) {
 }
 addRoute(menu)
 
+// 404
+routes.push(
+  {
+    path: '*',
+    name: '404',
+    meta: { title: '404', zIndex: 99 },
+    component: {
+      render () {
+        return <div style="height:200px;font-size:30px;display:flex;align-items:center;justify-content: center;">404：没有这个页面(⊙﹏⊙)</div>
+      }
+    }
+  }
+)
+
 export default new Router({
+  mode: 'history',
   routes: routes
 })
