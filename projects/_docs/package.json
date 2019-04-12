@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress"
+    "start": "node ../../node_modules/webpack-dev-server/bin/webpack-dev-server --progress",
+    "build": "node w.prod.build.js"
   },
   "dependencies": {
     "highlight.js": "^9.15.6",
