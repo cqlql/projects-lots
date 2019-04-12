@@ -40,6 +40,10 @@ export default {
     startPage: {
       type: Number,
       default: 1
+    },
+    load: {
+      type: Function,
+      default: null
     }
   },
   data () {
@@ -62,7 +66,7 @@ export default {
     // 重置并直接开始加载(不进行检测)
     restart () {
       this.reset()
-      this.load()
+      this.toLoad()
     },
     // 重置并到底检测是否需要加载
     retryStart () {
@@ -76,32 +80,29 @@ export default {
       this.containerElem.removeEventListener('scroll', this.tryLoad)
     },
 
-    load () {
+    async toLoad () {
       this.isLoad = true
       let page = this.page + 1
-      this.$emit('load', {
-        page,
-        complete: status => {
-          this.page = page
-          if (!status || status === 'continue') {
-            // 解决页面切换动画问题：数据渲染后，如果 body 高度没有变化，300ms 后才进行加载(300ms动画结束)
-            let { body } = document
-            let preHeight = body.clientHeight
-            this.$nextTick(() => {
-              if (preHeight === body.clientHeight) {
-                setTimeout(() => {
-                  this.loaded()
-                }, 300)
-              } else {
-                this.loaded()
-              }
-            })
+
+      let status = await this.load(page)
+      this.page = page
+      if (!status || status === 'continue') {
+        // 解决页面切换动画问题：数据渲染后，如果 body 高度没有变化，300ms 后才进行加载(300ms动画结束)
+        let { body } = document
+        let preHeight = body.clientHeight
+        this.$nextTick(() => {
+          if (preHeight === body.clientHeight) {
+            setTimeout(() => {
+              this.loaded()
+            }, 300)
           } else {
-            this.noData = status === 'noData'
-            this.finish()
+            this.loaded()
           }
-        }
-      })
+        })
+      } else {
+        this.noData = status === 'noData'
+        this.finish()
+      }
     },
     // 加载完成(非结束)后调用
     loaded () {
@@ -117,7 +118,7 @@ export default {
     // 检测加载
     tryLoad () {
       if (this.isLoad === false && this.testBottom()) {
-        this.load()
+        this.toLoad()
       }
     },
     // 是否到底。在 initContainerElem 中 初始。根据容器元素是否是 window 而有所不同

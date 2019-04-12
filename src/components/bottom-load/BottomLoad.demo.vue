@@ -9,7 +9,7 @@
           <span class="ct">{{ it.v }}</span>
         </div>
       </div>
-      <BottomLoad ref="VBottomLoadPage" @load="load" />
+      <BottomLoad ref="VBottomLoadPage" :load="load" />
     </div>
   </div>
 </template>
@@ -38,14 +38,13 @@ export default {
     }
   },
   methods: {
-    async load ({ complete, page }) {
+    async load (page) {
       let d = await axios.get('/getData?page=' + page)
       if (d.length) {
         this.list = this.list.concat(d)
-        complete()
-      } else {
-        complete('finish') // 结束
+        return
       }
+      return 'finish' // 结束
     },
     restart () {
       this.list = []
