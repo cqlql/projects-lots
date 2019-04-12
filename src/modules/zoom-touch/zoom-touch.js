@@ -1,14 +1,14 @@
 import DragZoom from './drag-zoom'
-import autoPrefix from '../corejs/dom-css/autoprefix'
-import elPageXy from '@/modules/corejs/dom/el-page-xy.js'
+import autoPrefix from '../corejs/css/autoprefix'
+import elPageXy from '@/modules/corejs/xy/el-page-xy.js'
 /**
  * @param isInit 初始更新部分参数，更新元素位置参数
  */
 export default class ZoomTouch extends DragZoom {
   constructor (params) {
-    let { elem, isInit = true } = params
+    let { elem, isInit = true, elemEvent = elem } = params
     if (!elem) elem = params
-    super(elem)
+    super(elemEvent)
 
     this.elem = elem
     this.elClientRect = { left: 0, top: 0, width: 0, height: 0 }

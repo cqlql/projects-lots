@@ -10,7 +10,13 @@
 import ZoomTouch from './zoom-touch.js'
 export default {
   mounted () {
-    new ZoomTouch(this.$refs.eZoom)
+    // 直接指定一个放大元素
+    // new ZoomTouch(this.$refs.eZoom)
+    // 分别指定事件元素和放大元素
+    new ZoomTouch({
+      elemEvent: document,
+      elem: this.$refs.eZoom
+    })
   }
 }
 </script>

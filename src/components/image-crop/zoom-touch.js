@@ -1,4 +1,4 @@
-import DragZoom from '@/modules/zoom-touch2/drag-zoom'
+import DragZoom from '@/modules/zoom-touch/drag-zoom'
 import autoPrefix from '@/modules//corejs/css/autoprefix'
 import elPageXy from '@/modules/corejs/xy/el-page-xy.js'
 /**

@@ -57,6 +57,12 @@ export default [
     ],
   },
   {
+    name: 'zoom-touch(触摸捏合放大)',
+    path: '/zoom-touch',
+    demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/demo.vue'),
+    docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/README.md'),
+  },
+  {
     name: 'image-crop(裁图)',
     path: '/image-crop',
     demo: () => import(/* webpackChunkName: "docs1" */ '@/components/image-crop/Demo.vue'),
