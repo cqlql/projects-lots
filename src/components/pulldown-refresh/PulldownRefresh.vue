@@ -32,7 +32,11 @@ export default {
     },
     reload: {
       type: Function,
-      default: null
+      default: undefined
+    },
+    getElem: {
+      type: Function,
+      default: () => window
     }
   },
   data () {
@@ -52,6 +56,7 @@ export default {
   mounted () {
     this.drag = Darg({
       elem: this.$refs.cont,
+      containerElem: this.getElem(), // 容器元素
       maxY: 60,
       loadingY: 30,
       transitionActive: this.$style.transitionActive,

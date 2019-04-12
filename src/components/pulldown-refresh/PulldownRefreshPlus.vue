@@ -3,12 +3,14 @@
     ref="vPulldownRefresh"
     :color="colorTop" :no-data="noData" :min-height="minHeight"
     :reload="onReload"
+    :get-elem="getElem"
   >
     <slot />
     <BottomLoad
       ref="vBottomLoad"
       :start-page="startPage" :init-start="initStart" :color="colorBottom"
       :load="onBottomLoad"
+      :get-elem="getElem"
     />
   </PulldownRefresh>
 </template>
@@ -46,7 +48,11 @@ export default {
     },
     load: {
       type: Function,
-      default: null
+      default: undefined
+    },
+    getElem: {
+      type: Function,
+      default: undefined
     }
   },
   data () {

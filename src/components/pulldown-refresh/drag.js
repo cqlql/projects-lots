@@ -2,7 +2,7 @@ import darg from '@/modules/corejs/drag/drag.js'
 import autoPrefix from '@/modules/corejs/css/autoprefix'
 import Queue from '@/modules/corejs/queue/queue'
 import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
-export default function Drag ({ elem, maxY, loadingY, onChange, onReload, transitionActive }) {
+export default function Drag ({ elem, containerElem, maxY, loadingY, onChange, onReload, transitionActive }) {
   let states = 0 // 0 未开始 1 已开始，但不满足 2 满足 3 加载中 4 加载完成
   let eStyle = elem.style
   let transform = autoPrefix('transform')
@@ -53,8 +53,10 @@ export default function Drag ({ elem, maxY, loadingY, onChange, onReload, transi
     }
   }
 
-  let scrollTop = function () {
+  let scrollTop = containerElem === window ? function () {
     return window.pageYOffset
+  } : function () {
+    return containerElem.scrollTop
   }
 
   function startLoading () {

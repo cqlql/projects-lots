@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <h1 :class="$style.h1">这是以window为容器的demo</h1>
+  <div :class="$style.box">
+    <h1 :class="$style.h1">这是以指定元素为容器的demo</h1>
     <a href="javascript:;" @click="refresh">手动刷新</a>
     <a href="javascript:;" @click="noDataDemo">切换到无数情况</a>
-    <!-- <a href="/pulldown-refresh-plus-elem">跳转到以元素为容器的 deom</a> -->
-    <router-link to="/pulldown-refresh-plus-elem">跳转到以元素为容器的 deom</router-link>
     <div :class="$style.statList">
-      <PulldownRefreshPlus ref="vPulldownRefresh" :load="load" :min-height="containerMinHeight">
+      <PulldownRefreshPlus ref="vPulldownRefresh" :load="load" :min-height="containerMinHeight" :get-elem="() => $el">
         <div v-for="(item, key) of list" :key="key" class="item">
           <div class="tit">{{ item.t }}</div>
           <div v-for="(it,k) of item.ls" :key="k" class="row">
@@ -42,7 +40,7 @@ export default {
   data () {
     return {
       list: [],
-      containerMinHeight: window.innerHeight - 50
+      containerMinHeight: 500 - 50
     }
   },
   methods: {
@@ -74,13 +72,20 @@ export default {
 </script>
 
 <style module>
-.statList {
-  background-color: #f3f3f3;
+.box {
+  position: relative;
+  margin: 10px;
+  height: 500px;
+  overflow: auto;
+  border: 2px solid #999;
 }
 .h1 {
   padding: 4px 0;
   /* font-size: 16px; */
   font-weight: bold;
+}
+.statList {
+  background-color: #f3f3f3;
 }
 .statList :global{
   .item {
