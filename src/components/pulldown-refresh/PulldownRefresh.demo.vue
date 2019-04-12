@@ -42,7 +42,9 @@ export default {
     }
   },
   mounted () {
-    this.$refs.vPulldownRefresh.refresh()
+    setTimeout(() => {
+      this.$refs.vPulldownRefresh.refresh()
+    }, 10)
   },
   methods: {
     async reload () {

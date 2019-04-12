@@ -28,15 +28,13 @@ export default function Drag ({ elem, containerElem, maxY, loadingY, onChange, o
       } else {
         let { classList } = elem
         classList.add(transitionActive)
-        setTimeout(() => {
-          setCss(y)
-          transitionendOnce(elem, function () {
-            classList.remove(transitionActive)
-            isRun = false
-            complete()
-            next()
-          })
-        }, 1)
+        setCss(y)
+        transitionendOnce(elem, function () {
+          classList.remove(transitionActive)
+          isRun = false
+          complete()
+          next()
+        })
         currY = y
       }
     })
