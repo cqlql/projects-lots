@@ -3,7 +3,7 @@ module.exports = {
     ["@babel/preset-env", {
       "modules": false,
       "useBuiltIns": "usage",
-      "corejs": "2.6.5",
+      "corejs": "3.0.1",
       "targets": {
         "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
       }

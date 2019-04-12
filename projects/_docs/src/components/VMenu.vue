@@ -14,7 +14,7 @@
 
 -->
 <script>
-import menu from '../../menu.config.js'
+import menu from '../menu.config.js'
 export default {
   data () {
     return {

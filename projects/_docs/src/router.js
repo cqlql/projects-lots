@@ -1,7 +1,7 @@
 /* eslint-disable comma-dangle */
 import Vue from 'vue'
 import Router from 'vue-router'
-import menu from '../menu.config.js'
+import menu from './menu.config.js'
 Vue.use(Router)
 
 const routes = [
