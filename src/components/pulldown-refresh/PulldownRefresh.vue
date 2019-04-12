@@ -29,6 +29,10 @@ export default {
     minHeight: {
       type: Number,
       default: 60
+    },
+    reload: {
+      type: Function,
+      default: null
     }
   },
   data () {
@@ -46,13 +50,24 @@ export default {
     }
   },
   mounted () {
-    new Darg({
+    this.drag = Darg({
       elem: this.$refs.cont,
       maxY: 60,
+      loadingY: 30,
+      transitionActive: this.$style.transitionActive,
       onChange: states => {
         this.states = states
+      },
+      onReload: async () => {
+        // let loadStates = await this.reload()
+        this.noData = (await this.reload()) === 'noData'
       }
     })
+  },
+  methods: {
+    refresh () {
+      this.drag.refresh()
+    }
   }
 }
 </script>

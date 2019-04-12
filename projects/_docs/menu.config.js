@@ -40,6 +40,12 @@ export default [
         path: '/pulldown-refresh',
         demo: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/PulldownRefresh.demo.vue'),
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/README.md')
+      },
+      {
+        name: 'pulldown-refresh-plus(下拉刷新+到底加载)',
+        path: '/pulldown-refresh-plus',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/PulldownRefreshPlus.demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/README.md')
       }
     ],
   },

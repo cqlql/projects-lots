@@ -3,7 +3,7 @@
     <a href="javascript:;" @click="refresh">手动刷新</a>
     <a href="javascript:;" @click="noDataDemo">切换到无数情况</a>
     <div :class="$style.statList">
-      <PulldownRefresh ref="vPulldownRefresh" :reload="reload" :min-height="containerMinHeight">
+      <PulldownRefreshPlus ref="vPulldownRefresh" :load="load" :min-height="containerMinHeight">
         <div v-for="(item, key) of list" :key="key" class="item">
           <div class="tit">{{ item.t }}</div>
           <div v-for="(it,k) of item.ls" :key="k" class="row">
@@ -11,20 +11,22 @@
             <span class="ct">{{ it.v }}</span>
           </div>
         </div>
-      </PulldownRefresh>
+      </PulldownRefreshPlus>
     </div>
   </div>
 </template>
 <script>
-import PulldownRefresh from '@/components/pulldown-refresh/PulldownRefresh.vue'
+import PulldownRefreshPlus from '@/components/pulldown-refresh/PulldownRefreshPlus.vue'
 // mock
+import getMockList from '@/components/bottom-load/BottomLoad.demo.data.js'
+let useList = getMockList()
 const axios = {
   get (url) {
     let page = /page=([^&]+)/.exec(url)[1]
     console.log(url)
     return new Promise(function (resolve) {
       setTimeout(function () {
-        let list = require('@/components/bottom-load/BottomLoad.demo.data.js').default()[page - 1]
+        let list = useList[page - 1]
         resolve(list || [])
       }, 1000)
     })
@@ -32,30 +34,36 @@ const axios = {
 }
 export default {
   components: {
-    PulldownRefresh
+    PulldownRefreshPlus
   },
   data () {
     return {
       list: [],
-      containerMinHeight: window.innerHeight - 50,
-      page: 1
+      containerMinHeight: window.innerHeight - 50
     }
   },
-  mounted () {
-    this.$refs.vPulldownRefresh.refresh()
-  },
   methods: {
-    async reload () {
-      let d = await axios.get('/getData?page=' + this.page)
-      this.list = d
-      return d.length === 0 ? 'noData' : undefined
+    async load (page) {
+      let d = await axios.get('/getData?page=' + page)
+      let allList
+      if (page === 1) { // 刷新
+        allList = this.list = d
+      } else {
+        allList = this.list = this.list.concat(d)
+      }
+      if (!allList.length) {
+        return 'noData'
+      }
+      if (!d.length) {
+        return 'finish'
+      }
     },
     refresh () {
-      this.page = 1
+      useList = getMockList()
       this.$refs.vPulldownRefresh.refresh()
     },
     noDataDemo () {
-      this.page = 10
+      useList = []
       this.$refs.vPulldownRefresh.refresh()
     }
   }
