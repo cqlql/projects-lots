@@ -98,6 +98,10 @@ export default function Drag ({ elem, containerElem, maxY, loadingY, onChange, o
         dargStart = true
         prePageY = pageY
         preY = currY
+        // 本来可以不加，但android 一些老的浏览器不支持。qq 内置的浏览器也不行
+        // 自带：Mozilla/5.0 (Linux; Android 4.4.4; C6603 Build/10.5.1.A.0.283) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 MxBrowser/4.4.2.1000
+        // qq：Mozilla/5.0 (Linux; Android 4.4.4; C6603 Build/10.5.1.A.0.283; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/044606 Mobile Safari/537.36 V1_AND_SQ_7.9.9_1010_YYB_D QQ/7.9.9.3965 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/75
+        e.preventDefault()
         return
       }
 
