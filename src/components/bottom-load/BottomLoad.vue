@@ -150,6 +150,14 @@ export default {
       this.initContainerElem()
       this.unbindScroll()
       this.bindScroll()
+    },
+    // 隐藏控件
+    hide () {
+      this.isShow = false
+    },
+    // 显示控件
+    show () {
+      this.isShow = true
     }
   }
 }
