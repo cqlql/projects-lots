@@ -1,7 +1,7 @@
 <template>
   <div>
     <a href="javascript:;" @click="refresh">手动刷新</a>
-    <a href="javascript:;" @click="noDataDemo">切换到无数情况</a>
+    <a href="javascript:;" @click="noDataDemo">切换到无数据情况</a>
     <div :class="$style.statList">
       <PulldownRefresh ref="vPulldownRefresh" :reload="reload" :min-height="containerMinHeight">
         <div v-for="(item, key) of list" :key="key" class="item">

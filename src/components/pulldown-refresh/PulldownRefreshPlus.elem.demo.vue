@@ -2,7 +2,7 @@
   <div :class="$style.box">
     <h1 :class="$style.h1">这是以指定元素为容器的demo</h1>
     <a href="javascript:;" @click="refresh">手动刷新</a>
-    <a href="javascript:;" @click="noDataDemo">切换到无数情况</a>
+    <a href="javascript:;" @click="noDataDemo">切换到无数据情况</a>
     <div :class="$style.statList">
       <PulldownRefreshPlus ref="vPulldownRefresh" :load="load" :min-height="containerMinHeight" :get-elem="() => $el">
         <div v-for="(item, key) of list" :key="key" class="item">
