@@ -3,8 +3,7 @@
     <h1 :class="$style.h1">这是以window为容器的demo</h1>
     <a href="javascript:;" @click="refresh">手动刷新</a>
     <a href="javascript:;" @click="noDataDemo">切换到无数情况</a>
-    <!-- <a href="/pulldown-refresh-plus-elem">跳转到以元素为容器的 deom</a> -->
-    <router-link to="/pulldown-refresh-plus-elem">跳转到以元素为容器的 deom</router-link>
+    <router-link to="/pulldown-refresh-plus-elem">跳转到以元素为容器的 demo</router-link>
     <div :class="$style.statList">
       <PulldownRefreshPlus ref="vPulldownRefresh" :load="load" :min-height="containerMinHeight">
         <div v-for="(item, key) of list" :key="key" class="item">
