@@ -9,7 +9,7 @@ export default [
     name: 'UI组件',
     children: [
       {
-        name: 'toast(简易的消息提示框)',
+        name: 'toast 轻提醒',
         path: '/toast',
         demo: () => import(/* webpackChunkName: "docs1" */ '@/components/toast/demo.vue'),
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/toast/README.md')
@@ -36,14 +36,8 @@ export default [
         // docs: () => import(/* webpackChunkName: "docs1" */ '@/components/scroll-bottom-load/README.md')
       },
       {
-        name: 'pulldown-refresh(下拉刷新)',
+        name: 'pulldown-refresh(下拉刷新+到底加载)',
         path: '/pulldown-refresh',
-        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/PulldownRefresh.demo.vue'),
-        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/README.md')
-      },
-      {
-        name: 'pulldown-refresh-plus(下拉刷新+到底加载)',
-        path: '/pulldown-refresh-plus',
         demo: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/PulldownRefreshPlus.demo.vue'),
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/README.md')
       },
