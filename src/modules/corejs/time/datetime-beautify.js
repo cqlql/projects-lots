@@ -8,7 +8,7 @@
  * 昨天：昨天 12：30
  * 今天：12：30
  *
- * @param time 2017-04-12 16:58:11
+ * @param {String} time 可被 Date 实例化的字符串，比如 `2017-04-12 16:58:11`
  * */
 export default function dateTimeBeautify (time) {
   if (!time) return
@@ -25,7 +25,7 @@ export default function dateTimeBeautify (time) {
   if (nday === 0) nday = 7
 
   // 目前只处理2位
-  let fill = (number) => {
+  function fill (number) {
     if (number < 10) {
       return '0' + number
     }

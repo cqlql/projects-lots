@@ -1,10 +1,10 @@
 <template>
   <div>
-    <VMask v-if="isShow" @click="close" />
+    <VMask v-show="isShow" @click="onClose" />
     <transition name="up">
       <div v-if="isShow" class="slide-select">
         <SlideSelectBase ref="vSlideSelectBase" />
-        <BtnsBar @cancel="close" @confirm="confirm" />
+        <BtnsBar @cancel="onClose" @confirm="confirm" />
       </div>
     </transition>
   </div>
@@ -27,9 +27,13 @@ export default {
   },
   methods: {
     confirm () {
-      if (this.$refs.vSlideSelectBase.confirm()) {
-        this.close()
+      if (this.$refs.vSlideSelectBase.confirm() !== false) {
+        this.onClose()
       }
+    },
+    onClose () {
+      this.$emit('close')
+      this.close()
     },
     close () {
       this.isShow = 0
