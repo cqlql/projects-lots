@@ -1,4 +1,4 @@
-import autoprefix from '@/modules/corejs/dom-css/autoprefix'
+import autoprefix from '@/modules/corejs/css/autoprefix'
 import each from '@/modules/corejs/each/each-obj'
 import transitionendOnce from './transitionend-once'
 

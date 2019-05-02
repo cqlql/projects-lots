@@ -6,7 +6,7 @@
 
 <script>
 import transition from './transition.js'
-import autoprefix from '@/modules/corejs/dom-css/autoprefix'
+import autoprefix from '@/modules/corejs/css/autoprefix'
 import each from '@/modules/corejs/each/each-obj'
 export default {
   name: 'SwitchOne',

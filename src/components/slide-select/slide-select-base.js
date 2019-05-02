@@ -1,5 +1,5 @@
 import drag from '@/modules/corejs/dom-drag/drag'
-import autoPrefix from '@/modules/corejs/dom-css/autoprefix'
+import autoPrefix from '@/modules/corejs/css/autoprefix'
 import InertiaAnime from '@/modules/corejs/animation/inertia-anime'
 import Animation from '@/modules/corejs/animation/animation'
 let transform = autoPrefix('transform')

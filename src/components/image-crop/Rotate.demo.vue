@@ -24,7 +24,7 @@
 
 <script>
 import imgSize from '@/modules/corejs/dom/img-size-complete.js'
-import autoprefix from '@/modules/corejs/dom-css/autoprefix'
+import autoprefix from '@/modules/corejs/css/autoprefix'
 // import transition from '@/modules/corejs/animation/transition.js'
 import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
 
