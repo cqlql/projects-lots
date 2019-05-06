@@ -36,13 +36,13 @@ export default {
     change (index, id) {
       let { selectedIndexs } = this
       this.$set(selectedIndexs, id, index)
-      this.onChange(index, id, selectedIndexs)
+      this.onChange(index, id, selectedIndexs, this.lists[id][index])
     },
     confirm () {
       if (this.msgErrorTxt) return // 错误情况跳出
       return this.onConfirm(this) !== false
-      // if (this.onConfirm(this) === false)
     },
+    onConfirm () {},
     getSelectedIndexs () {
       // this.$refs.vListBase.forEach(vList => {
       //   console.log(vList.index)

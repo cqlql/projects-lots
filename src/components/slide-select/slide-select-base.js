@@ -98,7 +98,10 @@ export default class {
     })
 
     // 项改变更新
-    this.update = function (total) {
+    this.update = function (total, hasChange) {
+      if (hasChange && (total >= itemTotal || selectedIndex < total)) { // 手动change
+        onChange(selectedIndex)
+      }
       if (itemTotal === total) return
       itemTotal = total
       // let contHeight = total * itemHeight

@@ -4,7 +4,7 @@
     <transition name="up">
       <div v-if="isShow" class="slide-select">
         <SlideSelectBase ref="vSlideSelectBase" />
-        <BtnsBar @cancel="onClose" @confirm="confirm" />
+        <BtnsBar :btns="btns" />
       </div>
     </transition>
   </div>
@@ -20,6 +20,28 @@ export default {
     BtnsBar,
     VMask
   },
+  props: {
+    btns: {
+      type: Array,
+      default: function () {
+        return [
+          {
+            name: '取消',
+            style: 'gray',
+            fn: () => {
+              this.onClose()
+            }
+          },
+          {
+            name: '确定',
+            fn: () => {
+              this.confirm()
+            }
+          }
+        ]
+      }
+    }
+  },
   data () {
     return {
       isShow: 0
@@ -27,7 +49,7 @@ export default {
   },
   methods: {
     confirm () {
-      if (this.$refs.vSlideSelectBase.confirm() !== false) {
+      if (this.$refs.vSlideSelectBase.confirm()) {
         this.onClose()
       }
     },
@@ -47,8 +69,6 @@ export default {
     },
     async setOptions (options) {
       await this.$nextTick()
-      let { onConfirm } = options
-      if (onConfirm) this.onConfirm = onConfirm
       this.$refs.vSlideSelectBase.setOptions(options)
     }
   }

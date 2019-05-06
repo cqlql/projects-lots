@@ -1,24 +1,39 @@
 <template>
   <div class="s-bar">
-    <a class="cl-btn" @click="$emit('cancel')">取消</a>
-    <a class="cfm-btn" @click="$emit('confirm')">确认</a>
+    <a v-for="(btn,k) of btns" :key="k" :class="btn.style" @click="btn.fn">{{btn.name}}</a>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    btns: {
+      type: Array,
+      default: () => []
+    }
+  }
+}
+</script>
 
 <style scoped>
 .s-bar {
   height: 40px;
   border-bottom: 1px solid #ddd;
+  display: flex;
   a {
+    flex: 1;
     text-align: center;
     line-height: 40px;
     font-size: 16px;
     color: #26a2ff;
-    float: left;
-    width: 50%;
+    /* float: left;
+    width: 50%; */
   }
-  .cl-btn {
+  .gray {
     color: #666;
+  }
+  .red {
+    color: #f00;
   }
 }
 </style>

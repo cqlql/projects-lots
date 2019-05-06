@@ -32,7 +32,7 @@ export default {
       this.slideSelectBase.select(index)
     },
     list (v) {
-      this.slideSelectBase.update(v.length)
+      this.slideSelectBase.update(v.length, true)
     }
   },
   mounted () {
