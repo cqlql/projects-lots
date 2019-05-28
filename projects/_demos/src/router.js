@@ -40,11 +40,11 @@ let routes = [
   //   meta: { title: '滑动选择' },
   //   component: require('@/components/slide-select/Demo.vue').default
   // },
-  {
-    path: '/loading',
-    meta: { title: 'demo - loading' },
-    component: require('@/components/loading/demo.vue').default
-  },
+  // {
+  //   path: '/loading',
+  //   meta: { title: 'demo - loading' },
+  //   component: require('@/components/loading/demo.vue').default
+  // },
   // {
   //   path: '/file-select',
   //   meta: { title: 'demo - 文件选择-拍照、录像、录音、文件选择' },
@@ -95,11 +95,11 @@ let routes = [
   //   meta: { title: '动画测试2' },
   //   component: require('@/modules/corejs/animation/transition-transform.demo.vue').default
   // },
-  {
-    path: '/switch-multi',
-    meta: { title: 'switch-multi' },
-    component: require('@/modules/switch-multi/demo.vue').default
-  },
+  // {
+  //   path: '/switch-multi',
+  //   meta: { title: 'switch-multi' },
+  //   component: require('@/modules/switch-multi/demo.vue').default
+  // },
   // {
   //   path: '/switch-one',
   //   meta: { title: 'switch-one' },

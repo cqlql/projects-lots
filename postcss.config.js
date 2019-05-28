@@ -1,36 +1,38 @@
 /* eslint comma-dangle: "off" */
 const prodMode = process.env.NODE_ENV === 'production'
+const envDocs = process.env.docs // 文档情况
 module.exports = {
   plugins: [
-    // require('./build/postcss-iconfont')({
-    //   disable: process.env.NODE_ENV === 'production'
-    // }),
-    require('postcss-flexbugs-fixes'),
+    // require('postcss-flexbugs-fixes'),
     require('autoprefixer')({
-      browsers: [
-        '>0.5%',
-        'last 4 versions',
-        'Firefox ESR',
-        'not ie < 9',
-      ],
+      // 现在 package.json 中设置
+      // browsers: [
+      //   '>0.5%',
+      //   'last 4 versions',
+      //   'Firefox ESR',
+      //   'not ie < 9',
+      //   'ios >= 8'
+      // ],
       flexbox: 'no-2009',
       remove: false
     }),
-    require('postcss-nested'),
+    // require('postcss-nested'),
     // require('postcss-import'), // 允许 css 中使用 @import 导入合并其他css
     // css 优化，压缩css
     require('cssnano')({
       preset: 'default',
-    }),
-
-    // require('postcss-pxtorem')({
-    //   replace: prodMode, // 默认 true
-    //   rootValue: 100,
-    //   propList: ['*'],
-    //   selectorBlackList: [/^html$/],
-    //   minPixelValue: 2
-    // })
+    })
   ]
+  // .concat(prodMode ? [] : [])
+  // .concat(envDocs ? [] : [
+  //   require('postcss-pxtorem')({
+  //     replace: prodMode, // 默认 true
+  //     rootValue: 100,
+  //     propList: ['*'],
+  //     selectorBlackList: [/^html$/],
+  //     minPixelValue: 2
+  //   })
+  // ])
 }
 
 /* 说明

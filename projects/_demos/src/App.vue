@@ -1,12 +1,12 @@
 <template>
   <div>
-    <Transition
+    <!-- <Transition
       :name="slideName"
       :enter-active-class="'leave '+activeClass"
       :leave-active-class="activeClass"
     >
       <RouterView />
-    </Transition>
+    </Transition> -->
   </div>
 </template>
 
@@ -15,6 +15,7 @@
 // import Demo from '@/views/stat-new/VList.demo.vue'
 // import Demo from '@/views/stat-new/FilterBar.demo.vue'
 // import Demo from '@/components/v-transition/demo.vue'
+import scopeElements from '@/modules/corejs/dom/scope-elements.ts'
 export default {
   data () {
     return {
