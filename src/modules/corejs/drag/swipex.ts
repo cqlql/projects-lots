@@ -9,8 +9,26 @@ import drag from './drag'
  * @param {function} onSwipeRight 右滑，显示左边
  * @param {function} onSwipeNot 有移动，但没有切换
  */
-
-export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, onEnd = () => {}, onMove, onSwipeLeft, onSwipeRight, onSwipeNot }) {
+interface Options {
+  elem: HTMLElement
+  onDown (): void
+  onStart (): void
+  onEnd (): void
+  onMove (): void
+  onSwipeLeft (): void
+  onSwipeRight (): void
+  onSwipeNot (): void
+}
+export default function swipex ({
+  elem,
+  onDown = () => {},
+  onStart = () => {},
+  onEnd = () => {},
+  onMove,
+  onSwipeLeft,
+  onSwipeRight,
+  onSwipeNot
+}: Options) {
   let preX
   let preY
   let preTime
@@ -50,6 +68,8 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
 
       if (isStart === false) {
         // 手势相对于x轴 小于 45 度情况滑动才开始
+        // window.dlog(Math.atan(ylen / xlen), ylen / xlen, 'y:' + ylen, 'x:' + xlen)
+        // if (Math.abs(Math.atan(ylen / xlen)) < 1) {
         if (Math.abs(ylen / xlen) < 1) {
           isStart = true
           onStart(e)
@@ -74,7 +94,8 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
     },
     onEnd: function () {
       if (isStart) {
-        xData.push([0, Date.now() - preTime]) // end
+        xData.push([0, Date.now() - preTime, 'end'])
+        // console.log(JSON.stringify(xData))
 
         let x = 0
         let time = 0
