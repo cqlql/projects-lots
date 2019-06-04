@@ -1,4 +1,5 @@
-const path = require('path')
+// const path = require('path')
+// const webpack = require('webpack')
 const conf = {
   // pages: {
   //   index: {
@@ -11,6 +12,44 @@ const conf = {
   css: {
     extract: false,
     sourceMap: process.env.NODE_ENV !== 'production'
+  },
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === 'production') {
+      // 为生产环境修改配置...
+
+      // 新增插件
+      // config.plugins = [
+      //   ...config.plugins,
+      //   new webpack.NamedModulesPlugin()
+      // ]
+      // 去掉压缩
+      // config.optimization.minimizer = []
+    } else {
+      // 为开发环境修改配置...
+    }
+  },
+  chainWebpack: config => {
+    // 取消 eslint
+    const eslint = config.module.rule('eslint')
+    eslint.uses.clear()
+
+    // url-loader css @
+    // config.resolve
+    //   .alias
+    //   .set('./@', path.resolve(__dirname, 'src'))
+
+    // 修改环境变量
+    // config.plugin('define')
+    //   .tap(options => {
+    //     options[0]['process.env'].temp_data_handle = 'true'
+    //     return options
+    //   })
+
+    // 删除插件
+    // config.plugins.delete('hash-module-ids')
+
+    // 新增插件
+    // config.plugin('named-modules').use(new webpack.NamedModulesPlugin()) // 路径作为模块名，测试用
   },
   devServer: {
     proxy: {
@@ -68,30 +107,6 @@ const conf = {
         // }
       }
     }
-  },
-  // configureWebpack: config => {
-  //   if (process.env.NODE_ENV === 'production') {
-  //     // 为生产环境修改配置...
-  //   } else {
-  //     // 为开发环境修改配置...
-  //   }
-  // },
-  chainWebpack: config => {
-    // 取消 eslint
-    const eslint = config.module.rule('eslint')
-    eslint.uses.clear()
-
-    // url-loader css @
-    // config.resolve
-    //   .alias
-    //   .set('./@', path.resolve(__dirname, 'src'))
-
-    // 修改环境变量
-    // config.plugin('define')
-    //   .tap(options => {
-    //     options[0]['process.env'].temp_data_handle = 'true'
-    //     return options
-    //   })
   }
 }
 module.exports = conf

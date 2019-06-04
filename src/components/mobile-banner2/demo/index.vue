@@ -7,10 +7,21 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop, Component } from 'vue-property-decorator'
+import swipex from '@/modules/corejs/drag/swipex'
+
 @Component
 export default class MobileBannerDemo extends Vue {
   mounted () {
-    console.log(this.$el)
+    swipex({
+      elem: this.$el as HTMLElement,
+      // onDown () {},
+      onMove (xlen) {
+        console.log(xlen)
+      },
+      onSwipeLeft () {},
+      onSwipeRight () {},
+      onSwipeNot () {}
+    })
   }
 }
 </script>

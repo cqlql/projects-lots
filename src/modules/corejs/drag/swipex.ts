@@ -1,24 +1,16 @@
 import drag from './drag'
 
-/**
- * @param {function} onDown 可选 可在此处终止滑动开始
- * @param {function} onStart 可选
- * @param {function} onEnd 可选
- * @param {function} onMove
- * @param {function} onSwipeLeft 左滑，显示右边
- * @param {function} onSwipeRight 右滑，显示左边
- * @param {function} onSwipeNot 有移动，但没有切换
- */
-interface Options {
+interface SwipeOptions {
   elem: HTMLElement
-  onDown (): void
-  onStart (): void
-  onEnd (): void
-  onMove (): void
-  onSwipeLeft (): void
-  onSwipeRight (): void
-  onSwipeNot (): void
+  onDown? (e: TouchEvent|MouseEvent): void // 可在此处终止滑动开始
+  onStart? (e: TouchEvent|MouseEvent): void
+  onEnd? (): void
+  onMove (xlen: number, e: TouchEvent|MouseEvent): void
+  onSwipeLeft (): void // 左滑，显示右边
+  onSwipeRight (): void // 右滑，显示左边
+  onSwipeNot (): void // 有移动，但没有切换
 }
+
 export default function swipex ({
   elem,
   onDown = () => {},
@@ -28,37 +20,37 @@ export default function swipex ({
   onSwipeLeft,
   onSwipeRight,
   onSwipeNot
-}: Options) {
-  let preX
-  let preY
-  let preTime
-  let xData = []
+}: SwipeOptions) {
+  let preX: number
+  let preY: number
+  let preTime: number
+  let xData: number[][] = []
   let isStart = false
   let isCancel = false // 触发其他行为情况，比如滚动条
 
   drag({
     elem,
-    onDown (e) {
+    onDown (e: TouchEvent|MouseEvent) {
       // 保证滑动动作只激活当前一个实例--弃用，确保灵活性，尽量不在此处控制
       // e.stopPropagation()
       return onDown(e)
     },
-    onStart: function (e) {
+    onStart: function (e: TouchEvent|MouseEvent) {
       if (isCancel) return false
-      let touche = e.targetTouches ? e.targetTouches[0] : e
-      let { pageX, pageY } = touche
+      let touch = (<TouchEvent>e).touches ? (<TouchEvent>e).touches[0] : <MouseEvent>e
+      let { pageX, pageY } = touch
       preX = pageX
       preY = pageY
       preTime = Date.now()
     },
-    onMove: function (e) {
+    onMove: function (e: TouchEvent|MouseEvent) {
       // 保证滑动动作只激活当前一个实例
       e.stopPropagation()
 
       if (isCancel) return
 
-      let touche = e.targetTouches ? e.targetTouches[0] : e
-      let { pageX, pageY } = touche
+      let touch = (<TouchEvent>e).touches ? (<TouchEvent>e).touches[0] : <MouseEvent>e
+      let { pageX, pageY } = touch
 
       let currX = pageX
       let currY = pageY
@@ -94,9 +86,7 @@ export default function swipex ({
     },
     onEnd: function () {
       if (isStart) {
-        xData.push([0, Date.now() - preTime, 'end'])
-        // console.log(JSON.stringify(xData))
-
+        xData.push([0, Date.now() - preTime]) // end
         let x = 0
         let time = 0
         for (let i = xData.length, j = 0; i--;) {
