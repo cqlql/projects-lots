@@ -1,9 +1,10 @@
 <template>
   <div>
-    move
-    {{imgs}}
-    <br>
-    {{list}}
+    <ul>
+      <li v-for="(item,key) of list" :key="key">
+        <img :src="item.isShow && item.url" />
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -19,6 +20,7 @@ interface imgItem {
 @Component
 export default class Move extends Vue {
   @Prop() readonly imgs!: string[]
+  @Prop() readonly index!: number
   list: imgItem[] = []
   move (x: number) {
     console.log(x)
@@ -29,6 +31,7 @@ export default class Move extends Vue {
   }
   created () {
     this.listSet()
+    this.list[this.index].isShow = true
   }
   listSet () {
     this.list = this.imgs.map(url => ({

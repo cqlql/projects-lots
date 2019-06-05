@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-banner">
-    <component ref="animation" :is="currentComponent" :imgs="imgs"></component>
+    <component ref="animation" :is="currentComponent" :imgs="imgs" :index="index"></component>
   </div>
 </template>
 
@@ -21,6 +21,7 @@ interface AnimationComp extends Vue {
 })
 export default class MobileBanner extends Vue {
   currentComponent = 'Move'
+  index = 0
   imgs: string[] = []
   get animationComp () {
     return this.$refs.animation as AnimationComp
