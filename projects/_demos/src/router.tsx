@@ -5,14 +5,22 @@ Vue.use(Router)
 
 const routes: RouteConfig[] = []
 
-const modules = require.context('@', true, /^\.\/components\/.+\/demo\/index\.vue$/)
+// const modules = require.context('@', true, /^\.\/components\/.+\/(demo\/index\.vue|package\.json)$/) // 加载包括 package.json
+const modules = require.context('@', true, /^\.\/components\/.+\/(demo\/index\.vue)$/)
 
 modules.keys().forEach((path: string) => {
-  let name = (path.match(/([^/]+)\/demo\//) as string[])[1]
-  routes.push({
-    path: '/' + name,
-    component: modules(path).default
-  })
+  let regArr = path.match(/([^/]+)\/demo\//)
+  if (regArr) {
+    let name = regArr[1]
+    // let info = modules(path.replace(/demo.+/, '') + 'package.json')
+    routes.push({
+      path: '/' + name,
+      meta: {
+        title: name
+      },
+      component: modules(path).default
+    })
+  }
 })
 
 export default new Router({

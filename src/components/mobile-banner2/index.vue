@@ -63,6 +63,9 @@ export default class MobileBanner extends Vue {
 <style scoped>
 .mobile-banner {
   background: #ddd;
-  height: 300px;
+  width: 590px;
+  height: 470px;
+  overflow: hidden;
+  margin: 0 auto;
 }
 </style>
