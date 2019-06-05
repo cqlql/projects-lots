@@ -1,27 +1,27 @@
 /**
- * Created by cql on 2017/3/23.
+ * 范围元素遍历
+ * @description
+ * 目标元素逐个往上找 实现查找范围内的所有元素，或者说是赛选某元素内的所有元素
+ * @param startNode 起始节点
+ * @param listener 遍历执行函数
+ * @created by cql on 2017/3/23.
+ * @example
+ * scopeElements(e.target, elem => {
+ * if (elem === end) return false
+ *   if (elem.tagName === 'H2') {
+ *     // do something...
+ *     return false
+ *   }
+ *   return otherHandle() // 其他处理，返回false 结束
+ * })
  */
-
-// 元素查找 目标元素逐个往上找 实现查找范围内的所有元素，或者说是赛选某元素内的所有元素
-/**
- *
- 快速使用
-scopeElements(e.target, elem => {
-  if (elem === end) return false
-  if (elem.tagName === 'H2') {
-    // do something...
-    return false
-  }
-  return otherHandle() // 其他处理，返回false 结束
- })
- */
-export default function scopeElements (startElem, listener) {
-  startElem = startElem.nodeType === 1 ? startElem : startElem.parentElement
+export default function scopeElements (startNode, listener) {
+  let startElem = startNode.nodeType === 1 ? startNode : startNode.parentElement
   go(startElem)
-
-  function go (that, child) {
-    if (listener(that, child) !== false) {
-      go(that.parentElement, that)
+  function go (elem, child) {
+    if (listener(elem, child) !== false) {
+      let parentElement = elem.parentElement
+      if (parentElement) go(parentElement, elem)
     }
   }
 }
