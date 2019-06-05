@@ -8,7 +8,7 @@ interface SwipeOptions {
   onMove (xlen: number, e: TouchEvent|MouseEvent): void
   onSwipeLeft (): void // 左滑，显示右边
   onSwipeRight (): void // 右滑，显示左边
-  onSwipeNot (): void // 有移动，但没有切换
+  onSwipeNot (): void // 有移动，但没有滑动。 此处可处理超过指定比例，比如 1/3 后进行滑动
 }
 
 export default function swipex ({

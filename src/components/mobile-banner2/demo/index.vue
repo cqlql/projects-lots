@@ -1,34 +1,17 @@
 <template>
-  <div class="mobile-banner">
-    banner
-  </div>
+  <MobileBanner />
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Prop, Component } from 'vue-property-decorator'
-import swipex from '@/modules/corejs/drag/swipex'
+import MobileBanner from '../index.vue'
 
-@Component
-export default class MobileBannerDemo extends Vue {
-  mounted () {
-    swipex({
-      elem: this.$el as HTMLElement,
-      // onDown () {},
-      onMove (xlen) {
-        console.log(xlen)
-      },
-      onSwipeLeft () {},
-      onSwipeRight () {},
-      onSwipeNot () {}
-    })
+@Component({
+  components: {
+    MobileBanner
   }
+})
+export default class MobileBannerDemo extends Vue {
 }
 </script>
-
-<style scoped>
-.mobile-banner {
-  background: #ddd;
-  height: 300px;
-}
-</style>
