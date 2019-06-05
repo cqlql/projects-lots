@@ -46,18 +46,14 @@ export default function swipex ({
     onMove: function (e: TouchEvent|MouseEvent) {
       // 保证滑动动作只激活当前一个实例
       e.stopPropagation()
-
       if (isCancel) return
 
       let touch = (<TouchEvent>e).touches ? (<TouchEvent>e).touches[0] : <MouseEvent>e
       let { pageX, pageY } = touch
-
       let currX = pageX
       let currY = pageY
-
       let xlen = currX - preX
       let ylen = currY - preY
-
       if (isStart === false) {
         // 手势相对于x轴 小于 45 度情况滑动才开始
         // window.dlog(Math.atan(ylen / xlen), ylen / xlen, 'y:' + ylen, 'x:' + xlen)
