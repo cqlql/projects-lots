@@ -9,8 +9,7 @@ import drag from './drag'
  * @param {function} onSwipeRight 右滑，显示左边
  * @param {function} onSwipeNot 有移动，但没有切换
  */
-
-export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, onEnd = () => {}, onMove, onSwipeLeft, onSwipeRight, onSwipeNot }) {
+export default function swipex ({ elem, onDown = () => { }, onStart = () => { }, onEnd = () => { }, onMove, onSwipeLeft, onSwipeRight, onSwipeNot }) {
   let preX
   let preY
   let preTime
@@ -27,8 +26,8 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
     },
     onStart: function (e) {
       if (isCancel) return false
-      let touche = e.targetTouches ? e.targetTouches[0] : e
-      let { pageX, pageY } = touche
+      let touch = e.touches ? e.touches[0] : e
+      let { pageX, pageY } = touch
       preX = pageX
       preY = pageY
       preTime = Date.now()
@@ -36,20 +35,18 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
     onMove: function (e) {
       // 保证滑动动作只激活当前一个实例
       e.stopPropagation()
-
       if (isCancel) return
 
-      let touche = e.targetTouches ? e.targetTouches[0] : e
-      let { pageX, pageY } = touche
-
+      let touch = e.touches ? e.touches[0] : e
+      let { pageX, pageY } = touch
       let currX = pageX
       let currY = pageY
-
       let xlen = currX - preX
       let ylen = currY - preY
-
       if (isStart === false) {
         // 手势相对于x轴 小于 45 度情况滑动才开始
+        // window.dlog(Math.atan(ylen / xlen), ylen / xlen, 'y:' + ylen, 'x:' + xlen)
+        // if (Math.abs(Math.atan(ylen / xlen)) < 1) {
         if (Math.abs(ylen / xlen) < 1) {
           isStart = true
           onStart(e)
@@ -57,7 +54,6 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
           isCancel = true
         }
       }
-
       if (isStart) {
         e.preventDefault()
 
@@ -75,7 +71,6 @@ export default function swipex ({ elem, onDown = () => {}, onStart = () => {}, o
     onEnd: function () {
       if (isStart) {
         xData.push([0, Date.now() - preTime]) // end
-
         let x = 0
         let time = 0
         for (let i = xData.length, j = 0; i--;) {

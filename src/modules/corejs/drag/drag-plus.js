@@ -26,18 +26,13 @@
 
 import drag from './drag'
 
-function getTarget (e) {
-  return e.touches ? e.touches[0] : e
-}
-
 export default function ({ elem, onMove, onDown, onStart = () => {}, onEnd }) {
   let prevX
   let prevY
   drag({
     elem,
     onMove (e) {
-      const target = getTarget(e)
-      let { pageX, pageY } = target
+      let { pageX, pageY } = e.touches ? e.touches[0] : e
       onMove({ lx: pageX - prevX, ly: pageY - prevY, e })
       prevX = pageX
       prevY = pageY
@@ -45,9 +40,9 @@ export default function ({ elem, onMove, onDown, onStart = () => {}, onEnd }) {
     onDown,
     onStart (e) {
       onStart(e)
-      const target = getTarget(e)
-      prevX = target.pageX
-      prevY = target.pageY
+      let { pageX, pageY } = e.touches ? e.touches[0] : e
+      prevX = pageX
+      prevY = pageY
     },
     onEnd
   })

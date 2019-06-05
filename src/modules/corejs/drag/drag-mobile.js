@@ -2,20 +2,17 @@
 // https://www.chromestatus.com/feature/5093566007214080
 // https://developer.mozilla.org/zh-CN/docs/Web/API/EventTarget/addEventListener
 // https://segmentfault.com/a/1190000007913386
-let passiveSupported
-function passiveIsSupport () {
-  if (passiveSupported === undefined) {
-    passiveSupported = false
-    try {
-      var opts = Object.defineProperty({}, 'passive', {
-        get () {
-          passiveSupported = true
-        }
-      })
-      window.addEventListener('test', null, opts)
-    } catch (e) {}
-  }
-  return passiveSupported
+let passiveIsSupport = function () {
+  passiveIsSupport = () => false
+  try {
+    var opts = Object.defineProperty({}, 'passive', {
+      get () {
+        passiveIsSupport = () => true
+      }
+    })
+    window.addEventListener('test', null, opts)
+  } catch (e) {}
+  return passiveIsSupport()
 }
 
 /**
@@ -36,7 +33,13 @@ function passiveIsSupport () {
  *  在onDown 中可以阻止，勿在onStart中阻止
  *
  */
-export default function dragMobile ({elem, onMove, onDown = function () {}, onStart = function () {}, onEnd = function () {}}) {
+export default function dragMobile ({
+  elem,
+  onMove,
+  onDown = function () {},
+  onStart = function () {},
+  onEnd = function () {}
+}) {
   let isStart = false
 
   function touchstart (e) {
