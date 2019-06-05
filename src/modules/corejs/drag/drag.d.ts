@@ -6,6 +6,6 @@ interface DragOptions {
   onEnd (): void
 }
 
-declare function drag(options: DragOptions): () => void;
+declare function drag(options: DragOptions): void;
 
 export default drag
