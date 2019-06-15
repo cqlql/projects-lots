@@ -21,7 +21,9 @@ describe('ajax-cache', function () {
       return axios.get('/Power/GetClassesInGrades')
     })
     let d1
+    let num = 0
     ajaxCache.request().then(d => {
+      num++
       d1 = d
       expect(d.data).toEqual(null)
     })
@@ -30,6 +32,8 @@ describe('ajax-cache', function () {
     // 请求2。并发调用。不应该再次走真实请求。所以 count 必须为 1
     ajaxCache.request().then(d => {
       d2 = d
+      num++
+      expect(num === 2).toEqual(true) // 保证第一次先执行
       expect(d === d1).toEqual(true) // 确保拿的是缓存
     })
     // 请求3。并发调用

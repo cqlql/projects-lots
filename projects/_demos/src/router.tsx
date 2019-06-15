@@ -5,9 +5,12 @@ Vue.use(Router)
 
 const routes: RouteConfig[] = []
 
-// const modules = require.context('@', true, /^\.\/components\/.+\/(demo\/index\.vue|package\.json)$/) // 加载包括 package.json
-const modules = require.context('@', true, /^\.\/components\/.+\/(demo\/index\.vue)$/)
-
+// 加载所有
+// const modules = require.context('@', true, /^\.\/components\/.+\/(demo\/index\.vue)$/)
+// 加载所有 包括 package.json
+// const modules = require.context('@', true, /^\.\/components\/.+\/(demo\/index\.vue|package\.json)$/)
+ // 加载指定
+const modules = require.context('@', true, /^\.\/(components|modules)\/corejs\/load-once2\/(demo\/index\.vue)$/) // load-once2
 modules.keys().forEach((path: string) => {
   let regArr = path.match(/([^/]+)\/demo\//)
   if (regArr) {
