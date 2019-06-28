@@ -19,6 +19,14 @@ body{
   color:#333;font:14px/1.2 "Microsoft Yahei",sans-serif,arial,SimSun,tahoma,Srial,helvetica;
 }
 
+select {
+  border: 1px solid #dcdcdc;
+  color: #767575;
+  outline: none;
+}
+select:focus {
+  border: 1px solid #0ace82;
+}
 
 /*# 公共 */
 /* .cf:after {
