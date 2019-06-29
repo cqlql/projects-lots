@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import fileSelect from '@/modules/corejs/dom/file-select.js'
+import fileSelect from '@/modules/corejs/file/file-select.js'
 export default {
   data () {
     return {
@@ -28,10 +28,11 @@ export default {
       this.src = await fileSelect.fileReadAsDataURL(file)
       console.log('成功')
     },
-    // 多文件，待实现
-    // async filesSelect () {
-    //   let files = await fileSelect.files() // 多文件
-    // },
+    // 多文件
+    async filesSelect () {
+      let files = await fileSelect.files() // 多文件
+      console.log(files)
+    },
     async camera () {
       let file = await fileSelect.camera()
       console.log(file)
