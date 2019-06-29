@@ -7,7 +7,7 @@
       <UploadImages :upload="upload" :image-list="imageList2" multiple="1" />
     </p>
     <p>
-      <UploadImages :upload="upload" :image-list="imageList3" />
+      <UploadImages :upload="upload" :image-list="imageList3" multiple="3" />
     </p>
   </div>
 </template>

@@ -1,16 +1,16 @@
 <template>
   <div class="upload-images">
     <ul>
-      <li class="item">
+      <li v-show="imgNum<multiple" class="item">
         <div class="item-cont" @click="add">
           <i v-show="!progressText" class="add-ico" />
           <span v-show="progressText" class="text">{{ progressText }}<a @click="abortUpload">终止</a></span>
         </div>
       </li>
-      <li v-for="(item,k) of imageList" :key="k" class="item">
+      <li v-for="(item,i,k) of imageList" :key="k" class="item">
         <div class="item-cont">
           <img class="img" :src="item.url" :alt="item.name">
-          <div class="del"><i class="del-ico" /></div>
+          <div class="del" @click="del(i)"><i class="del-ico" /></div>
         </div>
       </li>
     </ul>
@@ -38,17 +38,38 @@ export default class UploadImages extends Vue {
   @Prop({ default: () => [] }) readonly imageList!: ImageInfo[]
   @Prop({ type: [String, Number], default: 20 }) readonly multiple!: string|number // 最大文件数
   @Prop() readonly upload!: (options: UploadOptions) => UploadResult
+
   progressText = ''
-  created () {
-    console.log(this.multiple)
+
+  get imgNum () {
+    return this.imageList.length
   }
+
   abortUpload (e: Event) {}
   async add () {
     if (this.progressText) return
-    let file = await fileSelect.file({
-      accept: 'image/*'
-    })
+    let files = []
+    if (this.multiple > 1) {
+      files = await fileSelect.files({
+        accept: 'image/*'
+      })
+    } else {
+      files = [await fileSelect.file({
+        accept: 'image/*'
+      })]
+    }
     this.progressText = '0%'
+    for (let index = 0, length = files.length; index < length; index++) {
+      if (this.imgNum >= this.multiple) break
+      const file = files[index]
+      await this.excuUpload(file)
+    }
+    this.progressText = ''
+  }
+  del (index: number) {
+    this.imageList.splice(index, 1)
+  }
+  async excuUpload (file: File) {
     try {
       let { url } = await this.upload({
         file,
@@ -67,8 +88,8 @@ export default class UploadImages extends Vue {
         url
       })
     } catch (e) {
+      console.error(e)
     }
-    this.progressText = ''
   }
 }
 </script>
