@@ -5,8 +5,8 @@ var router = require('./data')
 
 var app = express()
 
-app.use('/Content', express.static('E:\\_work\\sd.pi\\src\\sd.pi.wxweb\\Content'))
-
+// app.use('/Content', express.static('E:\\_work\\sd.pi\\src\\sd.pi.wxweb\\Content'))
+app.use('/uploads', express.static('E:\\uploads'))
 app.use('/', router)
 var server = app.listen(3003, getIPAdress(), function () {
   var host = server.address().address

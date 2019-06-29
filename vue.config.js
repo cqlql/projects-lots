@@ -79,12 +79,12 @@ const conf = {
           '^/api': ''
         }
       },
-      // '/mock': {
-      //   target: `http://${getIPAdress()}:3003`,
-      //   pathRewrite: {
-      //     '^/mock': ''
-      //   },
-      // },
+      '/mock': {
+        target: `http://${require('ip').address()}:3003`,
+        pathRewrite: {
+          '^/mock': ''
+        }
+      },
       '/online': {
         target: 'https://api.shendupeiban.com',
         pathRewrite: {

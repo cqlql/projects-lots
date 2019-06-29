@@ -3,11 +3,11 @@
     <ul>
       <li class="item">
         <div class="item-cont" @click="add">
-          <i class="add-ico" />
-          <!-- <span class="text">10%<a href="">终止</a></span> -->
+          <i v-show="!progressText" class="add-ico" />
+          <span v-show="progressText" class="text">{{ progressText }}<a @click="abortUpload">终止</a></span>
         </div>
       </li>
-      <li v-for="(item,k) of list" :key="k" class="item">
+      <li v-for="(item,k) of imageList" :key="k" class="item">
         <div class="item-cont">
           <img class="img" :src="item.url" :alt="item.name">
           <div class="del"><i class="del-ico" /></div>
@@ -21,30 +21,54 @@
 import Vue from 'vue'
 import { Prop, Component } from 'vue-property-decorator'
 import fileSelect from '@/modules/corejs/file/file-select'
-interface ImgInfo {
+interface ImageInfo {
   url: string
   name: string
 }
+export interface UploadResult {
+  url: string
+}
+export interface UploadOptions {
+  file: File,
+  onProgress: (p: number) => void,
+  cancelToken: (abortUpload: () => void) => void
+}
 @Component
 export default class UploadImages extends Vue {
+  @Prop({ default: () => [] }) readonly imageList!: ImageInfo[]
   @Prop({ type: [String, Number], default: 20 }) readonly multiple!: string|number // 最大文件数
-  list: ImgInfo[] = [
-    // {
-    //   url: 'https://img1.360buyimg.com/pop/s590x470_jfs/t1/80267/39/3240/79645/5d15aeabE022b588f/30d8734e02c1befb.jpg!q90!cc_590x470.webp',
-    //   name: '图片1'
-    // },
-    // {
-    //   url: 'https://img1.360buyimg.com/pop/s590x470_jfs/t1/50617/7/3424/99845/5d133006E5eb0a2d4/b921453cd161a1b3.jpg!q90!cc_590x470.webp',
-    //   name: '图片2'
-    // }
-  ]
+  @Prop() readonly upload!: (options: UploadOptions) => UploadResult
+  progressText = ''
   created () {
     console.log(this.multiple)
   }
-  add () {
-    fileSelect.file().then(file => {
-      console.log(file.name)
+  abortUpload (e: Event) {}
+  async add () {
+    if (this.progressText) return
+    let file = await fileSelect.file({
+      accept: 'image/*'
     })
+    this.progressText = '0%'
+    try {
+      let { url } = await this.upload({
+        file,
+        onProgress: (p: number) => {
+          this.progressText = ~~(p * 100 - 1) + '%'
+        },
+        cancelToken: (abortUpload: () => void) => {
+          this.abortUpload = (e: Event) => {
+            e.stopPropagation()
+            abortUpload()
+          }
+        }
+      })
+      this.imageList.push({
+        name: file.name,
+        url
+      })
+    } catch (e) {
+    }
+    this.progressText = ''
   }
 }
 </script>
@@ -73,8 +97,11 @@ export default class UploadImages extends Vue {
   font-size: 12px;
 }
 .text a {
-  display: inline-block;
+  display: block;
   margin-top: 5px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
 }
 .add-ico {
   width: 20px;
