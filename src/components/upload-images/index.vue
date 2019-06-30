@@ -4,7 +4,7 @@
       <li v-show="imgNum<multiple" class="item">
         <div class="item-cont" @click="add">
           <i v-show="!progressText" class="add-ico" />
-          <span v-show="progressText" class="text">{{ progressText }}<a @click="abortUpload">终止</a></span>
+          <span v-show="progressText" class="text">{{ progressText }}<a href="javascript:;" @click="abortUpload">终止</a></span>
         </div>
       </li>
       <li v-for="(item,i,k) of imageList" :key="k" class="item">
@@ -120,9 +120,8 @@ export default class UploadImages extends Vue {
 .text a {
   display: block;
   margin-top: 5px;
-  cursor: pointer;
   text-decoration: underline;
-  color: blue;
+  color: #25a2c7;
 }
 .add-ico {
   width: 20px;
