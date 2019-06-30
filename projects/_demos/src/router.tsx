@@ -11,7 +11,8 @@ const routes: RouteConfig[] = []
 // const modules = require.context('@', true, /^\.\/components\/.+\/(demo\/index\.vue|package\.json)$/)
  // 加载指定
 // const modules = require.context('@', true, /^\.\/(components|modules)\/.+\/load-once2\/(demo\/index\.vue)$/) // load-once2
-const modules = require.context('@', true, /^\.\/components\/(upload-label|upload-images)\/(demo\/index\.vue|package\.json)$/) // upload-label upload-images
+// const modules = require.context('@', true, /^\.\/components\/(upload-label|upload-images)\/(demo\/index\.vue|package\.json)$/) // upload-label upload-images
+const modules = require.context('@', true, /^\.\/modules\/corejs\/dom\/demo\/outside-close.vue$/)
 
 modules.keys().forEach((path: string) => {
   let regArr = path.match(/([^/]+)\/demo\//)
