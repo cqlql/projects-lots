@@ -29,7 +29,7 @@ export interface UploadOptions {
   cancelToken: (abortUpload: () => void) => void
 }
 @Component
-export default class UploadImages extends Vue {
+export default class UploadLabel extends Vue {
   @Prop({ default: null }) readonly fileData!: FileData
   @Prop() readonly upload!: (options: UploadOptions) => UploadResult
   @Prop({ default: '*' }) readonly accept!: string

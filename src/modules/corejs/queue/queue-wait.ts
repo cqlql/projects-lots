@@ -1,4 +1,3 @@
-// import function from '../load-once2/index';
 type Cb = (data: any) => void
 export default class {
   private q: Cb[] = []
