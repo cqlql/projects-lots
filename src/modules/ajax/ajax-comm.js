@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue'
 
-export class AjaxGeneral {
+export class AjaxComm {
   constructor (dataHandle) {
     if (dataHandle) {
       this.dataHandle = dataHandle

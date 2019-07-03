@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Ajax from './ajax'
+import Ajax from './ajax-comm'
 // import AjaxApp from './app'
 import answer from '@/views/ques/com/answer'
 
