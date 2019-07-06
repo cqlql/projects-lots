@@ -112,10 +112,20 @@ export default class MobileBanner extends Vue {
 
 <style scoped>
 .mobile-banner {
-  background: #ddd;
-  width: 590px;
-  height: 470px;
+  /* min-width: 100px;
+  min-height: 100px; */
+  width: 100%;
+  height: 100%;
+
   overflow: hidden;
   margin: 0 auto;
+}
+.mobile-banner >>> img {
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

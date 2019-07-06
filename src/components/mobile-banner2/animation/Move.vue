@@ -126,10 +126,13 @@ export default class Move extends Vue {
 <style scoped>
 .move {
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 .item {
   position: absolute;
   width: 100%;
+  height: 100%;
 }
 .transitionActive {
   transition:transform 0.3s ease;

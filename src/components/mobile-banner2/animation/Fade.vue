@@ -160,10 +160,13 @@ export default class Move extends Vue {
 <style scoped>
 .fade {
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 .item {
   position: absolute;
   width: 100%;
+  height: 100%;
 }
 .transitionActive {
   transition:opacity 0.3s ease;
