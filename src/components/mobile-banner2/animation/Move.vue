@@ -53,7 +53,7 @@ export default class Move extends Vue {
     }
     let { index } = this
     index++
-    this.show(index)
+    this.loadImg(index)
     this.animate(this.$el as HTMLElement, -index * this.width, () => {
       if (index >= this.count) {
         index = 0
@@ -69,7 +69,7 @@ export default class Move extends Vue {
     }
     let { index } = this
     index--
-    this.show(index)
+    this.loadImg(index)
     this.animate(this.$el as HTMLElement, -index * this.width, () => {
       if (index < 0) {
         index = this.count - 1
@@ -85,10 +85,14 @@ export default class Move extends Vue {
   @Watch('imgs')
   onImgsChanged () {
     this.listSet()
+    this.loadImg(0)
+    this.index = 0
+    this.move(0)
   }
   created () {
     this.listSet()
-    this.show(this.index)
+    this.loadImg(this.index)
+    this.move(0)
   }
   listSet () {
     this.list = this.imgs.map(url => ({
@@ -96,7 +100,7 @@ export default class Move extends Vue {
       url
     }))
   }
-  show (index: number) {
+  loadImg (index: number) {
     let list = this.list
     let preItem = list[index - 1]
     if (preItem) preItem.isShow = true

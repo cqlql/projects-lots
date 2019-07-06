@@ -11,12 +11,6 @@ import LoadOnce from '../index'
 import scriptLoad from '../../dom/script-load'
 let ckeditorLoadOnce = new LoadOnce()
 
-declare global {
-  interface Window {
-    CKEDITOR: any;
-  }
-}
-
 @Component
 export default class LoadOnce2Demo extends Vue {
   count = 0

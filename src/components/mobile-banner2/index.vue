@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-banner">
-    <component :is="currentComponent" ref="animation" :imgs="imgs" :width="width" />
+    <component :is="type" ref="animation" :imgs="imgs" :width="width" />
   </div>
 </template>
 
@@ -9,10 +9,12 @@ import Vue from 'vue'
 import { Prop, Component, Watch } from 'vue-property-decorator'
 import swipex from '@/modules/corejs/drag/swipex.ts'
 import Move from './animation/Move.vue'
+import Fade from './animation/Fade.vue'
 import Timer from '@/modules/corejs/time/timer.ts'
 
 interface AnimationComp extends Vue {
   locked: boolean
+  show (index: number): void
   move (x: number): void
   swipeLeft (): void
   swipeRight (): void
@@ -21,46 +23,57 @@ interface AnimationComp extends Vue {
 
 @Component({
   components: {
-    Move
+    Move,
+    Fade
   }
 })
 export default class MobileBanner extends Vue {
-  currentComponent = 'Move'
-  // index = 0
-  imgs: string[] = []
+  @Prop({ default: () => [] }) imgs!:string[]
+  @Prop() timerInterval!:number
+  @Prop({ default: 'Fade' }) type!:string
   width = 300
   timer!: Timer
-  get animationComp () {
+  getAnimationComp () {
     return this.$refs.animation as AnimationComp
   }
   get imgsCount () {
     return this.imgs.length
   }
   @Watch('imgsCount')
-  onImgsChanged () {
-    this.timerStart()
+  watchImgsCount () {
+    this.timerUpdate()
   }
-  created () {
-    this.imgs = [
-      'https://img20.360buyimg.com/babel/s590x470_jfs/t1/71657/36/811/90591/5cf0992bEbedc5968/5811f6e6885aa79d.jpg!q90!cc_590x470.webp',
-      'https://img1.360buyimg.com/pop/s590x470_jfs/t1/35566/22/8894/89520/5cf09f96Eaad51d43/473a70dbda131d1b.jpg!q90!cc_590x470.webp',
-      'https://img1.360buyimg.com/da/s590x470_jfs/t1/45170/18/1300/97198/5cf11302E98732d77/76d682cb81b56414.jpg!q90!cc_590x470.webp'
-    ]
+  @Watch('timerInterval')
+  watchTimerInterval (timerInterval: number) {
+    this.timer.time = timerInterval
+    this.timerUpdate()
   }
   mounted () {
+    this.timer = new Timer({
+      time: this.timerInterval,
+      callback: () => {
+        this.getAnimationComp().swipeLeft()
+      }
+    })
+    this.timerUpdate()
+    this.slideBind()
+  }
+  timerUpdate () {
+    if (this.imgsCount > 1 && this.timerInterval) {
+      this.timer.start()
+    } else {
+      this.timer.stop()
+    }
+  }
+  // 滑动交互
+  slideBind () {
     this.width = this.$el.clientWidth
     let xFullLen = 0
     let that = this
-    this.timer = new Timer({
-      time: 1000,
-      callback () {
-        that.animationComp.swipeLeft()
-      }
-    })
     swipex({
       elem: this.$el as HTMLElement,
       onDown () {
-        return that.animationComp.locked !== true
+        return that.getAnimationComp().locked !== true
       },
       onStart () {
         xFullLen = 0
@@ -68,38 +81,31 @@ export default class MobileBanner extends Vue {
       },
       onMove (xlen) {
         xFullLen += xlen
-        that.animationComp.move(xFullLen)
+        that.getAnimationComp().move(xFullLen)
       },
       onEnd () {
-        that.timerStart()
+        that.timerUpdate()
       },
       onSwipeLeft () {
-        that.animationComp.swipeLeft()
+        that.getAnimationComp().swipeLeft()
       },
       onSwipeRight () {
-        that.animationComp.swipeRight()
+        that.getAnimationComp().swipeRight()
       },
       onSwipeNot () {
+        let animationComp = that.getAnimationComp()
         // 此处处理超过 1/3 后进行滑动
         let meet = 1 / 3
         let curr = xFullLen / that.width
         if (curr < -meet) {
-          that.animationComp.swipeLeft()
+          animationComp.swipeLeft()
         } else if (curr > meet) {
-          that.animationComp.swipeRight()
+          animationComp.swipeRight()
         } else {
-          that.animationComp.swipeNot()
+          animationComp.swipeNot()
         }
       }
     })
-    this.timerStart()
-  }
-  timerStart () {
-    if (this.imgsCount > 1) {
-      this.timer.tryStart()
-    } else {
-      this.timer.stop()
-    }
   }
 }
 </script>

@@ -1,5 +1,5 @@
-import loadJs from '../dom/script-load'
-import searchString from '../url/search-string'
+import loadJs from '../corejs/dom/script-load'
+import querystring from '../corejs/url/querystring'
 let count = 0
 export default function jsonp ({ url, data }) {
   return new Promise(function (resolve, reject) {
@@ -22,7 +22,7 @@ export default function jsonp ({ url, data }) {
       resolve(d)
     }
 
-    loadJs(url + '?' + searchString(data) + '&callback=' + idName + '&_=' + now).catch(() => {
+    loadJs(url + '?' + querystring(data) + '&callback=' + idName + '&_=' + now).catch(() => {
       clear()
       reject(new Error(`JSONP request to ${url} failed`))
     })
