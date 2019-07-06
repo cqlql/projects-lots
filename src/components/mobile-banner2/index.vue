@@ -49,6 +49,7 @@ export default class MobileBanner extends Vue {
     this.timerUpdate()
   }
   mounted () {
+    this.sizeUpdate()
     this.timer = new Timer({
       time: this.timerInterval,
       callback: () => {
@@ -64,6 +65,9 @@ export default class MobileBanner extends Vue {
     } else {
       this.timer.stop()
     }
+  }
+  sizeUpdate (w = this.$el.clientWidth) {
+    this.width = w
   }
   // 滑动交互
   slideBind () {

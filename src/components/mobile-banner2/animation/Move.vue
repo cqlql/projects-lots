@@ -81,6 +81,11 @@ export default class Move extends Vue {
   swipeNot () {
     this.animate(this.$el as HTMLElement, -this.index * this.width)
   }
+  @Watch('width')
+  watchWidth () {
+    if (this.locked) return
+    this.move(0)
+  }
 
   @Watch('imgs')
   onImgsChanged () {
