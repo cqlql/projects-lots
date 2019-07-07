@@ -21,7 +21,7 @@
 import Vue from 'vue'
 import { Prop, Component } from 'vue-property-decorator'
 import fileSelect from '@/modules/corejs/file/file-select'
-interface ImageInfo {
+export interface ImageInfo {
   url: string
   name: string
 }
@@ -68,6 +68,7 @@ export default class UploadImages extends Vue {
   }
   del (index: number) {
     this.imageList.splice(index, 1)
+    this.$emit('change', this.imageList)
   }
   async excuUpload (file: File) {
     try {
@@ -87,6 +88,7 @@ export default class UploadImages extends Vue {
         name: file.name,
         url
       })
+      this.$emit('change', this.imageList)
     } catch (e) {
       console.error(e)
     }
@@ -97,7 +99,7 @@ export default class UploadImages extends Vue {
 <style scoped>
 .upload-images {
   /* background: #ddd; */
-  width: 590px;
+  width: 100%;
   /* height: 470px; */
   overflow: hidden;
   margin: 0 auto;
