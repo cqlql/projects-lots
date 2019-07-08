@@ -12,8 +12,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop, Component } from 'vue-property-decorator'
-import UploadLabel, { UploadOptions } from '../index.vue'
+import UploadLabel from '../index.vue'
+import { UploadOptions } from '../types'
 import axios from 'axios'
+
 const CancelToken = axios.CancelToken
 @Component({
   components: {

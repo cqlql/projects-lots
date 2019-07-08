@@ -16,18 +16,14 @@
 import Vue from 'vue'
 import { Prop, Component } from 'vue-property-decorator'
 import fileSelect from '@/modules/corejs/file/file-select'
+import { UploadOptions, UploadResult } from './types'
+import UploadLabelDemo from './demo/index.vue'
+
 interface FileData {
   url: string
   name: string
 }
-export interface UploadResult {
-  url: string
-}
-export interface UploadOptions {
-  file: File,
-  onProgress: (p: number) => void,
-  cancelToken: (abortUpload: () => void) => void
-}
+
 @Component
 export default class UploadLabel extends Vue {
   @Prop({ default: null }) readonly fileData!: FileData
@@ -52,7 +48,7 @@ export default class UploadLabel extends Vue {
   async add () {
     if (this.progressText) return
     let file = await fileSelect.file({
-      accept: 'image/*'
+      accept: this.accept
     })
     this.progressText = '0%'
     await this.excuUpload(file)
@@ -60,6 +56,7 @@ export default class UploadLabel extends Vue {
   }
   del () {
     this.$emit('update:fileData', null)
+    this.$emit('change', null)
   }
   async excuUpload (file: File) {
     try {
@@ -76,6 +73,10 @@ export default class UploadLabel extends Vue {
         }
       })
       this.$emit('update:fileData', {
+        name: file.name,
+        url
+      })
+      this.$emit('change', {
         name: file.name,
         url
       })
