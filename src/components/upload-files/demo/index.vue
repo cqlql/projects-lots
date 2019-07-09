@@ -7,7 +7,7 @@
       <UploadFiles :upload="upload" :file-list="fileList2" multiple="1" />
     </p>
     <p>
-      <UploadFiles :upload="upload" :file-list="fileList3" multiple="3" />
+      <UploadFiles :upload="upload" :file-list="fileList3" accept="video/mp4" multiple="3" />
     </p>
   </div>
 </template>

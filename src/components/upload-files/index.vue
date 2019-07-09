@@ -40,6 +40,7 @@ export interface UploadOptions {
   }
 })
 export default class UploadFiles extends Vue {
+  @Prop({ default: '*' }) readonly accept!: string
   @Prop({ default: () => [] }) readonly fileList!: FileInfo[]
   @Prop({ type: [String, Number], default: 20 }) readonly multiple!: string|number // 最大文件数
   @Prop() readonly upload!: (options: UploadOptions) => UploadResult
@@ -55,9 +56,13 @@ export default class UploadFiles extends Vue {
     if (this.progressText) return
     let files = []
     if (this.multiple > 1) {
-      files = await fileSelect.files()
+      files = await fileSelect.files({
+        accept: this.accept
+      })
     } else {
-      files = [await fileSelect.file()]
+      files = [await fileSelect.file({
+        accept: this.accept
+      })]
     }
     this.progressText = '0%'
     for (let index = 0, length = files.length; index < length; index++) {

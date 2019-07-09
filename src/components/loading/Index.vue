@@ -2,13 +2,13 @@
   <div :class="$style.preloaderFull" v-show="show1">
     <VMask v-show="mask && show2"/>
     <div :class="$style.preloaderModal" v-show="show2">
-      <LoadIco color="white" :class="$style.preloader" />
+      <Icoload color="white" :class="$style.preloader" />
     </div>
   </div>
 </template>
 
 <script>
-import LoadIco from '@/components/ico/load'
+import Icoload from '@/components/ico/Icoload'
 import VMask from '@/components/base/VMask'
 export default {
   data () {
@@ -19,7 +19,7 @@ export default {
     }
   },
   components: {
-    LoadIco,
+    Icoload,
     VMask
   },
   created () {

@@ -38,7 +38,7 @@ function excu (callBack, time) {
 
 export default class ExcuDelay {
   constructor () {
-    this.timeId = null
+    this.timeId = undefined
   }
   excu (callBack, time = 200) {
     this.clear()
@@ -46,18 +46,18 @@ export default class ExcuDelay {
     if (time === 0) {
       callBack()
     } else {
-      this.timeId = setTimeout(function () {
-        this.timeId = null
+      this.timeId = setTimeout(() => {
+        this.timeId = undefined
         callBack()
       }, time)
     }
   }
   clear () {
-    let {timeId} = this
-    if (timeId !== null) {
+    let { timeId } = this
+    if (timeId !== undefined) {
       clearTimeout(timeId)
 
-      this.timeId = null
+      this.timeId = undefined
 
       return true
     }
@@ -65,6 +65,6 @@ export default class ExcuDelay {
   }
 
   getStatus () {
-    return this.timeId !== null
+    return this.timeId !== undefined
   }
 }
