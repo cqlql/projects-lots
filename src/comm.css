@@ -7,7 +7,7 @@ dl,dd,p{margin: 0;}
 /* table {border-collapse: collapse;} */
 ol,ul{list-style-type:none;padding:0;margin:0}
 h1,h2,h3,h4,h5,h6{margin:0;font-size:inherit;font-weight:normal;}
-
+/* img{border:0\9;} *//*ie*/
 html {
   font-size: 100px;
   -webkit-tap-highlight-color:transparent; /* 解决 ios 中，元素绑定 click 阴影问题 */
