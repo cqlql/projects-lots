@@ -1,5 +1,4 @@
 import axios from 'axios'
-import Vue from 'vue'
 
 export class AjaxComm {
   constructor (dataHandle) {
@@ -15,9 +14,8 @@ export class AjaxComm {
     }
   }
   request (config) {
-    let { $loading: loading, $toast: toast } = Vue.prototype
     let { hasLoading = true } = config
-    if (hasLoading) loading.show()
+    if (hasLoading) this.loadingShow()
     if (process.env.NODE_ENV !== 'production') {
       config.baseURL = require('@/dev.config.js').default.baseURL
     }
@@ -29,11 +27,11 @@ export class AjaxComm {
         return Promise.reject(result)
       }
       // 成功情况
-      if (hasLoading) loading.hide()
+      if (hasLoading) this.loadingClose()
       return result
     }).catch(e => {
-      if (hasLoading) loading.hide()
-      toast.error(e.message)
+      if (hasLoading) this.loadingClose()
+      this.messageError(e.message)
       return Promise.reject(e)
     })
   }
@@ -48,13 +46,22 @@ export class AjaxComm {
     config.data = data
     return this.request(config)
   }
+  loadingShow () {}
+  loadingClose () {}
+  messageError (msg) {
+    console.error(msg)
+  }
+  // 可以改为灵活配置 ajax 库
+  // axios () {}
 }
 
-export default new AjaxGeneral(function (data) {
+// .net 接口通用
+export default new AjaxComm(function (data) {
   if (data.code === 0) {
     return data.data
   }
   return new Error(data.message)
 })
 
-// export const ajaxGo = new AjaxGeneral()
+// go 接口通用
+// export const ajaxGo = new AjaxComm()
