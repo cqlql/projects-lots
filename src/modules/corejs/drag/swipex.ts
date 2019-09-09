@@ -37,7 +37,7 @@ export default function swipex ({
     },
     onStart: function (e: TouchEvent|MouseEvent) {
       if (isCancel) return false
-      let touch = (<TouchEvent>e).touches ? (<TouchEvent>e).touches[0] : <MouseEvent>e
+      let touch = (e as TouchEvent).touches ? (e as TouchEvent).touches[0] : e as MouseEvent
       let { pageX, pageY } = touch
       preX = pageX
       preY = pageY
@@ -48,7 +48,7 @@ export default function swipex ({
       e.stopPropagation()
       if (isCancel) return
 
-      let touch = (<TouchEvent>e).touches ? (<TouchEvent>e).touches[0] : <MouseEvent>e
+      let touch = (e as TouchEvent).touches ? (e as TouchEvent).touches[0] : e as MouseEvent
       let { pageX, pageY } = touch
       let currX = pageX
       let currY = pageY

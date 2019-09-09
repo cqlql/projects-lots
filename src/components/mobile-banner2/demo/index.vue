@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height:300px">
     <MobileBanner :imgs="imgs" :timer-interval="timerInterval" :type="type" />
     <p>
       <button @click="restart">还原</button>

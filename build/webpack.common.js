@@ -1,76 +1,25 @@
 /* eslint comma-dangle: "off" */
 const path = require('path')
 // const CopyWebpackPlugin = require('copy-webpack-plugin')
-// const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const merge = require('webpack-merge')
+const getCssLoaders = require('./css-loaders')
+const getCacheLoader = require('./cache-loader')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
-module.exports = function ({ dirname, indexTemplate, splitCss, sourceMap = true }) {
+module.exports = function (options) {
+  const { rootPath, indexTemplate, splitCss, cache } = options
   // const devMode = process.env.NODE_ENV !== 'production'
   // 项目根路径
-  let _resolve = p => path.resolve(__dirname, '../', p)
+  const _resolve = p => path.resolve(__dirname, '../', p)
   // 子项目路径
-  let resolve = dirname && (p => path.resolve(dirname, p))
-
-  function getCssLoaders () {
-    function getCssLoaderComm ({ css = {}, scss, less } = {}) {
-      let loaders = [
-        splitCss ? MiniCssExtractPlugin.loader : 'vue-style-loader',
-        {
-          loader: 'css-loader',
-          options: Object.assign({
-            sourceMap
-          }, css)
-        },
-        'postcss-loader?sourceMap=' + sourceMap,
-      ]
-      if (less) {
-        loaders.push(
-          'less-loader?sourceMap=' + sourceMap, // 增加 less 支持，还需安装 less-loader
-        )
-      }
-      if (scss) {
-        loaders.push(
-          'sass-loader?sourceMap=' + sourceMap // 增加 sass 支持，还需安装 sass-loader 、 node-sass
-        )
-      }
-      return loaders
-    }
-    let options = [
-      {
-        resourceQuery: /module/,
-        use: getCssLoaderComm({
-          css: {
-            modules: true,
-            localIdentName: '[local]_[hash:base64:5]'
-          }
-        })
-      },
-      {
-        resourceQuery: /scss/,
-        use: getCssLoaderComm({
-          scss: true
-        })
-      },
-      {
-        test: /\.scss/,
-        use: getCssLoaderComm({
-          scss: true
-        })
-      },
-      {
-        use: getCssLoaderComm()
-      }
-    ]
-
-    return options
-  }
+  const resolve = rootPath && (p => path.resolve(rootPath, p))
 
   let conf = {
     entry: {
-      main: ['./src/main.js']
+      app: ['./src/main.ts']
     },
     output: {
       path: (resolve || _resolve)('./dist'),
@@ -94,34 +43,41 @@ module.exports = function ({ dirname, indexTemplate, splitCss, sourceMap = true 
         // },
         {
           test: /\.vue$/,
-          loader: 'vue-loader'
+          use: [
+            ...getCacheLoader('vue-loader', cache),
+            'vue-loader'
+          ]
         },
         {
-          test: /\.js$/,
-          loader: 'babel-loader',
+          test: /\.(js|tsx?)$/,
           include: [_resolve('src')].concat(resolve ? resolve('src') : []),
-          options: require('../babel.config')
-        // exclude: ['node_modules'],
+          use: [
+            ...getCacheLoader('babel-loader', cache),
+            {
+              loader: 'babel-loader',
+              options: require('../babel.config'),
+              // exclude: ['node_modules'],
+            }
+          ]
         },
         {
           test: /\.(c|le|sc|postc)ss$/,
-
           // 一起处理
-          // oneOf: getCssLoaders()
+          // oneOf: getCssLoaders(options)
 
           // 分开处理 vue css
           oneOf: [
             {
               test: /\.vue/,
-              oneOf: getCssLoaders()
+              oneOf: getCssLoaders(options)
             },
             {
-              oneOf: getCssLoaders()
+              oneOf: getCssLoaders(options)
             }
           ]
         },
         {
-          test: /\.(png|jpe?g|gif|svg|webp)(\?.*)?$/,
+          test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
           loader: 'url-loader',
           options: {
             limit: 10000, // 单位 字节，1千字节(kb)=1024字节(b)
@@ -141,7 +97,7 @@ module.exports = function ({ dirname, indexTemplate, splitCss, sourceMap = true 
       ]
     },
     plugins: [
-      new VueLoaderPlugin()
+      new VueLoaderPlugin(),
       // copy custom static assets
       // 在开启 devServer 情况，将 copy 到内存中
       // new CopyWebpackPlugin([
@@ -151,6 +107,16 @@ module.exports = function ({ dirname, indexTemplate, splitCss, sourceMap = true 
       //     ignore: ['.*'] // 排除
       //   }
       // ])
+      new ForkTsCheckerWebpackPlugin(
+        {
+          vue: true,
+          tslint: false,
+          formatter: 'codeframe',
+          checkSyntacticErrors: false,
+          tsconfig: path.resolve(__dirname, '../tsconfig.json')
+          // async: false
+        }
+      )
     ].concat(
       function () {
         if (indexTemplate === undefined) { // 默认模板
@@ -168,7 +134,7 @@ module.exports = function ({ dirname, indexTemplate, splitCss, sourceMap = true 
       modules: [
         'node_modules'
       ],
-      extensions: ['.js', '.vue'],
+      extensions: ['.ts', '.tsx', '.vue', '.js'],
       alias: {
         './@': _resolve('src'), // css url 别名
         '@': _resolve('src'),
@@ -178,7 +144,7 @@ module.exports = function ({ dirname, indexTemplate, splitCss, sourceMap = true 
     /* // 代码拆分
     optimization: {
       splitChunks: {
-        // 此处的设置会影响 main.js
+        // 此处的设置会影响 app.js
         // 如果 cacheGroups 没设置，也会影响
 
         // chunks: 'async',

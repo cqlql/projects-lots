@@ -3,4 +3,3 @@ node_modules/
 .vscode/
 report.html
 yarn.lock
-package-lock.json
