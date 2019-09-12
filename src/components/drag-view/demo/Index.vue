@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DragView :s="$style" :initialWidth="200" :maxWidth="400" @resize="onResize">
+    <DragView :s="$style" :initialWidth="200" :maxWidth="400" @resize="onResize" v-model="x">
       <div class="type-menu">
         <ul>
           <li data-index="0" class="selected">canvas 画图</li>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import DragView from './index'
+import DragView from '../Index'
 export default {
   components: {
     DragView

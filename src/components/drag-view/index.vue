@@ -42,10 +42,10 @@ export default {
   mounted () {
     let len = 0
     let tw
-    let elem = this.$refs.eBar
+    const elem = this.$refs.eBar
     // 双击最小/恢复
     elem.ondblclick = () => {
-      let { width, minWidth } = this
+      const { width, minWidth } = this
       let w
       if (width > minWidth) {
         w = minWidth
@@ -65,7 +65,7 @@ export default {
       onMove: ({ lx }) => {
         len += lx
         let width = tw + len
-        let { maxWidth, minWidth } = this
+        const { maxWidth, minWidth } = this
         if (width < minWidth) {
           width = minWidth
         } else if (width > maxWidth) {

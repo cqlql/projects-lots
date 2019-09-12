@@ -12,12 +12,13 @@ const routes: RouteConfig[] = []
  // 加载指定
 // const modules = require.context('@', true, /^\.\/modules\/.+\/load-once2\/(demo\/index\.vue)$/) // load-once2
 // const modules = require.context('@', true, /^\.\/components\/rich-editor\/(demo\/index\.vue)$/)
-const modules = require.context('@', true, /^\.\/components\/mobile-banner2\/(demo\/index\.vue)$/)
+// const modules = require.context('@', true, /^\.\/components\/mobile-banner2\/(demo\/index\.vue)$/)
+// const modules = require.context('@', true, /^\.\/components\/drag-view\/(demo\/index\.vue)$/)
+const modules = require.context('@', true, /^\.\/components\/(drag-bar|drag-view)\/(demo\/Index\.vue)$/)
 // const modules = require.context('@', true, /^\.\/components\/upload-files\/(demo\/index\.vue)$/)
 // const modules = require.context('@', true, /^\.\/components\/(upload-label|upload-images)\/(demo\/index\.vue|package\.json)$/) // upload-label upload-images
 // const modules = require.context('@', true, /^\.\/modules\/corejs\/dom\/demo\/outside-close.vue$/)
 // const modules = require.context('@', true, /^\.\/modules\/corejs\/dom\/demo\/outside-close.vue$/)
-
 modules.keys().forEach((path: string) => {
   let regArr = path.match(/([^/]+)\/demo\//)
   if (regArr) {
