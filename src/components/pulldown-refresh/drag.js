@@ -1,15 +1,15 @@
 import darg from '@/modules/corejs/drag/drag.js'
-import autoPrefix from '@/modules/corejs/css/autoprefix'
-import Queue from '@/modules/corejs/queue/queue'
+import autoprefix from '@/modules/corejs/css/autoprefix'
+import Queue from '@/modules/corejs/queue/queue.js'
 import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
 export default function Drag ({ elem, containerElem, maxY, loadingY, onChange, onReload, transitionActive }) {
   let states = 0 // 0 未开始 1 已开始，但不满足 2 满足 3 加载中 4 加载完成
   let eStyle = elem.style
-  let transform = autoPrefix('transform')
+  let transform = autoprefix('transform')
   let currY = 0
   let preY
   let prePageY
-  let dargStart = false // 在 move 中判断开始。好处更多
+  let dargStart = false
   let isRun = false
   let queue = new Queue()
 
@@ -51,10 +51,22 @@ export default function Drag ({ elem, containerElem, maxY, loadingY, onChange, o
     }
   }
 
-  let scrollTop = containerElem === window ? function () {
-    return window.pageYOffset
-  } : function () {
-    return containerElem.scrollTop
+  let scrollTop
+  let scrollTopSet
+  if (containerElem === window) {
+    scrollTop = function () {
+      return window.pageYOffset
+    }
+    scrollTopSet = function (y) {
+      window.scrollTo(0, y)
+    }
+  } else {
+    scrollTop = function () {
+      return containerElem.scrollTop
+    }
+    scrollTopSet = function (y) {
+      containerElem.scrollTop = y
+    }
   }
 
   function startLoading () {
@@ -69,7 +81,7 @@ export default function Drag ({ elem, containerElem, maxY, loadingY, onChange, o
       // 拖动情况不归0
       if (dargStart) {
         animate(loadingY)
-        dargStart = false
+        // dargStart = false // move 中判断用，衔接更平滑
         return
       }
       // 归0
@@ -83,30 +95,42 @@ export default function Drag ({ elem, containerElem, maxY, loadingY, onChange, o
     onDown () {
       if (isRun) return false
     },
-    // onStart (e) {
-    //   let touche = e.touches ? e.touches[0] : e
-    //   prePageY = touche.pageY
-    // },
+    onStart (e) {
+      let touche = e.touches ? e.touches[0] : e
+      prePageY = touche.pageY
+      dargStart = true
+      preY = currY
+    },
     onMove (e) {
       if (isRun) return false
-      if (scrollTop() !== 0) return
       let touche = e.touches ? e.touches[0] : e
       let { pageY } = touche
-      if (!dargStart) {
-        dargStart = true
+      // require('@/modules/debug-msg/w.js').default.show(scrollTop())
+      if (scrollTop() > 0) {
         prePageY = pageY
-        preY = currY
-        // 本来可以不加，但android 一些老的浏览器不支持。qq 内置的浏览器也不行
-        // 自带：Mozilla/5.0 (Linux; Android 4.4.4; C6603 Build/10.5.1.A.0.283) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 MxBrowser/4.4.2.1000
-        // qq：Mozilla/5.0 (Linux; Android 4.4.4; C6603 Build/10.5.1.A.0.283; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/044606 Mobile Safari/537.36 V1_AND_SQ_7.9.9_1010_YYB_D QQ/7.9.9.3965 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/75
-        e.preventDefault()
         return
       }
+      // 在 move 中判断开始。是为了加载中情况触发拖动，衔接更平滑，后来问题大于好处，所以弃用。问题见下
+      // if (!dargStart) {
+      //   // require('@/modules/debug-msg/w.js').default.show('start')
+      //   dargStart = true
+      //   prePageY = pageY
+      //   preY = currY
+      //   // 本来可以不加，但android 一些老的浏览器不支持。qq 内置的浏览器也不行
+      //   // ios 中加了直接再在触发滚动了，更坑
+      //   // 自带：Mozilla/5.0 (Linux; Android 4.4.4; C6603 Build/10.5.1.A.0.283) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36 MxBrowser/4.4.2.1000
+      //   // qq：Mozilla/5.0 (Linux; Android 4.4.4; C6603 Build/10.5.1.A.0.283; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/044606 Mobile Safari/537.36 V1_AND_SQ_7.9.9_1010_YYB_D QQ/7.9.9.3965 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/75
+      //   e.preventDefault()
+      //   return
+      // }
 
       let y = pageY - prePageY
 
-      if (y < 0) y = 0
-      else e.preventDefault()
+      if (y < 0) {
+        y = 0
+      } else if (e.cancelable) {
+        e.preventDefault()
+      }
 
       currY = (y * 100 / (100 + currY)) + preY // 加阻力
       setCss(currY)
@@ -132,9 +156,15 @@ export default function Drag ({ elem, containerElem, maxY, loadingY, onChange, o
 
   return {
     refresh () {
-      if (states === 0) {
-        startLoading()
-      }
+      // 初始状态才允许手动刷新
+      // if (states === 0) {
+      //   scrollTopSet(0)
+      //   startLoading()
+      // }
+
+      // 现在改为 什么时候都能手动刷新
+      scrollTopSet(0)
+      startLoading()
     },
     unbind () {
       unbindDrag()

@@ -28,7 +28,7 @@ export default {
     },
     minHeight: {
       type: Number,
-      default: 60
+      default: undefined
     },
     reload: {
       type: Function,
@@ -54,9 +54,18 @@ export default {
     }
   },
   mounted () {
+    let containerElem = this.getElem()
+    if (containerElem === 'self') {
+      containerElem = this.$el
+      if (this.minHeight !== undefined) {
+        containerElem.style.height = this.minHeight + 'px'
+      }
+      containerElem.classList.add(this.$style.self)
+    }
+
     this.drag = Darg({
-      elem: this.$refs.cont,
-      containerElem: this.getElem(), // 容器元素
+      elem: this.$refs.cont, // 拖动元素，也是事件元素
+      containerElem, // 容器元素
       maxY: 60,
       loadingY: 30,
       transitionActive: this.$style.transitionActive,
@@ -80,6 +89,11 @@ export default {
 <style module>
 .pulldownRefresh {
   position: relative;
+}
+/* 以自身为容器 */
+.self {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .topBack {
   text-align: center;
@@ -133,12 +147,13 @@ export default {
 
 .cont {
   position: relative;
+  min-height: 100%;
 }
 .transitionActive {
   transition: 0.3s ease;
 }
 .noData {
-  background: url(@/components/ico/no-date.png) no-repeat center 38%;
+  background: url(@/components/ico/no-data.png) no-repeat center;
   background-size: 50% auto;
   pointer-events: none;
   position: absolute;

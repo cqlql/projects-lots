@@ -5,12 +5,14 @@
     :reload="onReload"
     :get-elem="getElem"
   >
-    <slot />
+    <div ref="eCont"><slot /></div>
     <BottomLoad
       ref="vBottomLoad"
-      :start-page="startPage" :init-start="initStart" :color="colorBottom"
+      :start-page="startPage" :color="colorBottom"
+      :init-start="false"
       :load="onBottomLoad"
-      :get-elem="getElem"
+      :get-elem="getElemBottomLoad"
+      :get-cont-elem="()=>$refs.eCont"
     />
   </PulldownRefresh>
 </template>
@@ -38,9 +40,10 @@ export default {
       type: Boolean,
       default: true
     },
+    // 最小容器高度。否则没内容时将没有拖动区域
     minHeight: {
       type: Number,
-      default: 0
+      default: undefined
     },
     startPage: {
       type: Number,
@@ -52,12 +55,13 @@ export default {
     },
     getElem: {
       type: Function,
-      default: undefined
+      default: () => window
     }
   },
   data () {
     return {
-      noData: false
+      noData: false,
+      getElemBottomLoad: () => this.getElemMin()
     }
   },
   computed: {
@@ -68,22 +72,35 @@ export default {
       return this.$refs.vBottomLoad
     }
   },
+  mounted () {
+    let containerElem = this.getElem()
+    if (containerElem === 'self') {
+      containerElem = this.$el
+      this.getElemMin = () => containerElem
+    }
+    if (this.initStart) {
+      this.vBottomLoad.restart()
+      // setTimeout(() => {
+      //   this.vPulldownRefresh.refresh()
+      // }, 10)
+    }
+  },
   methods: {
-    async onReload (complete) {
+    async onReload () {
       let { vBottomLoad, startPage } = this
-      vBottomLoad.page = startPage
-
       let status = await this.load(startPage)
-
       if (status === 'noData') {
-        this.vBottomLoad.hide()
+        vBottomLoad.hide()
+        vBottomLoad.finish()
         return status
       }
       if (status === 'finish') {
+        vBottomLoad.show()
+        vBottomLoad.finish()
         return status
       }
-      // 还有下一页情况。重置并检测是否需要加载
-      vBottomLoad.retryStart()
+      // 还有下一页情况。重置检测是否需要加载
+      vBottomLoad.retryStart(startPage) // 已经由下拉刷新加载了第一页，所以这里加一页
     },
     async onBottomLoad (page) {
       let status = await this.load(page)
@@ -108,6 +125,16 @@ export default {
     },
     bottomRetryStart () {
       this.vBottomLoad.retryStart() // 重置并检测是否需要加载
+    },
+    // 容器滚动到顶部。目前已在 drag.js 中控制
+    // scrollTop () {
+    //   let containerElem = this.getElemMin()
+    //   if (containerElem === window) window.scrollTo(0, 0)
+    //   else containerElem.scrollTop = 0
+    // },
+    // 以函数为属性传给子组件一旦赋值则无法改变。。所以通过一个中间函数处理
+    getElemMin () {
+      return this.getElem()
     }
   }
 }

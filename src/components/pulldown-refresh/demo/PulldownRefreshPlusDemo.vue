@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <h1 :class="$style.h1">这是以window为容器的demo</h1>
-    <a href="javascript:;" @click="refresh">手动刷新</a>
-    <a href="javascript:;" @click="noDataDemo">切换到无数据情况</a>
-    <router-link to="/pulldown-refresh-plus-elem">跳转到以元素为容器的 demo</router-link>
+  <div :class="$style.main">
+    <div :class="$style.btns">
+      <h1 :class="$style.h1">这是以 <em>window</em> 为容器的demo</h1>
+      <p><button @click="refresh">手动刷新</button></p>
+      <p><button @click="noDataDemo">切换到无数据情况</button></p>
+      <p><button @click="refreshOnePage">手动刷新，并且数据不足一页情况</button></p>
+    </div>
     <div :class="$style.statList">
       <PulldownRefreshPlus ref="vPulldownRefresh" :load="load" :min-height="containerMinHeight">
         <div v-for="(item, key) of list" :key="key" class="item">
@@ -19,21 +21,8 @@
 </template>
 <script>
 import PulldownRefreshPlus from '@/components/pulldown-refresh/PulldownRefreshPlus.vue'
-// mock
-import getMockList from '@/components/bottom-load/BottomLoad.demo.data.js'
-let useList = getMockList()
-const axios = {
-  get (url) {
-    let page = /page=([^&]+)/.exec(url)[1]
-    console.log(url)
-    return new Promise(function (resolve) {
-      setTimeout(function () {
-        let list = useList[page - 1]
-        resolve(list || [])
-      }, 1000)
-    })
-  }
-}
+import axios from './mock-axios'
+
 export default {
   components: {
     PulldownRefreshPlus
@@ -41,12 +30,14 @@ export default {
   data () {
     return {
       list: [],
-      containerMinHeight: window.innerHeight - 50
+      containerMinHeight: window.innerHeight - 50,
+      onepage: false,
+      nodata: false
     }
   },
   methods: {
     async load (page) {
-      let d = await axios.get('/getData?page=' + page)
+      let d = await axios.get(`/getData?page=${page}&onepage=${this.onepage}&nodata=${this.nodata}`)
       let allList
       if (page === 1) { // 刷新
         allList = this.list = d
@@ -56,16 +47,23 @@ export default {
       if (!allList.length) {
         return 'noData'
       }
-      if (!d.length) {
+      // 当前每页3条
+      if (d.length < 3) {
         return 'finish'
       }
     },
     refresh () {
-      useList = getMockList()
+      this.onepage = false
+      this.nodata = false
       this.$refs.vPulldownRefresh.refresh()
     },
     noDataDemo () {
-      useList = []
+      this.nodata = true
+      this.$refs.vPulldownRefresh.refresh()
+    },
+    refreshOnePage () {
+      this.onepage = true
+      this.nodata = false
       this.$refs.vPulldownRefresh.refresh()
     }
   }
@@ -73,13 +71,19 @@ export default {
 </script>
 
 <style module>
+.btns {
+  padding: 10px;
+}
 .statList {
   background-color: #f3f3f3;
 }
 .h1 {
-  padding: 4px 0;
-  /* font-size: 16px; */
+  padding: 4px 0 10px;
+  font-size: 16px;
   font-weight: bold;
+  em {
+    color: #f00;
+  }
 }
 .statList :global{
   .item {

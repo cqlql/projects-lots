@@ -3,7 +3,7 @@
  * complete 不会触发情况：目标值与当前值一样，此种情况不能调用 start，请再调用前判断好
  */
 
-import autoprefix from '../../dom-css/autoprefix'
+import autoprefix from '@/modules/corejs/css/autoprefix'
 import transitionendOnce from '../transitionend-once'
 
 let transition = autoprefix('transition')

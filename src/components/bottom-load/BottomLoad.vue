@@ -6,7 +6,7 @@
       isShow?'':$style.hide
     ]"
   >
-    <span v-if="isFinish" :class="$style.txt">- 已经到底了 -</span>
+    <span v-if="isFinish" :class="$style.txt">- 没有更多了 -</span>
     <div v-else class="hide" :class="{[$style.show]:isLoad}">
       <LoadIco :color="color" :class="$style.preloader" />
       <span :class="$style.txt">正在加载...</span>
@@ -37,6 +37,11 @@ export default {
       type: Function,
       default: () => window
     },
+    // 内容元素。计算真实内容高度，是否需要加载
+    getContElem: {
+      type: Function,
+      default: () => document.body
+    },
     startPage: {
       type: Number,
       default: 1
@@ -64,13 +69,13 @@ export default {
   },
   methods: {
     // 重置并直接开始加载(不进行检测)
-    restart () {
-      this.reset()
+    restart (page) {
+      this.reset(page)
       this.toLoad()
     },
     // 重置并到底检测是否需要加载
-    retryStart () {
-      this.reset()
+    retryStart (page) {
+      this.reset(page)
       this.tryLoad()
     },
     bindScroll () {
@@ -83,15 +88,15 @@ export default {
     async toLoad () {
       this.isLoad = true
       let page = this.page + 1
-
       let status = await this.load(page)
       this.page = page
       if (!status || status === 'continue') {
-        // 解决页面切换动画问题：数据渲染后，如果 body 高度没有变化，300ms 后才进行加载(300ms动画结束)
-        let { body } = document
-        let preHeight = body.clientHeight
+        // 解决页面切换动画问题：数据渲染后，如果 body 高度没有变化或者等于0，300ms 后才进行加载(300ms动画结束)
+        let preHeight = this.getContainerHeight()
         this.$nextTick(() => {
-          if (preHeight === body.clientHeight) {
+          // 等于0的情况可能页面离开
+          let h = this.getContainerHeight()
+          if (h === 0 || preHeight === h) {
             setTimeout(() => {
               this.loaded()
             }, 300)
@@ -121,32 +126,42 @@ export default {
         this.toLoad()
       }
     },
+    // 容器高度
+    getContainerHeight () {
+      let el = this.containerElem
+      if (el === window) {
+        return document.body.clientHeight
+      } else {
+        return el.scrollHeight
+      }
+    },
     // 是否到底。在 initContainerElem 中 初始。根据容器元素是否是 window 而有所不同
     // testBottom () {},
     // 初始容器元素。顺便初始 testBottom
     initContainerElem () {
-      let { getElem } = this
-      let el = this.containerElem = getElem()
+      let el = this.containerElem = this.getElem()
+      let elCont = this.getContElem()
       if (el === window) {
         this.testBottom = () => {
-          if (document.body.clientHeight - el.innerHeight - el.pageYOffset < this.minHeight) {
+          if (elCont.offsetHeight - el.innerHeight - el.pageYOffset < this.minHeight) {
             return true
           }
         }
       } else {
         this.testBottom = () => {
-          if (el.scrollHeight - el.clientHeight - el.scrollTop < this.minHeight) {
+          if (elCont.offsetHeight - el.clientHeight - el.scrollTop < this.minHeight) {
             return true
           }
         }
       }
     },
     // 重置但不加载
-    reset () {
+    // page: 指定页开始加载，默认第一页
+    reset (page = this.startPage - 1) {
       this.isFinish = false
       this.isLoad = false
       this.isShow = true
-      this.page = this.startPage - 1
+      this.page = page
       this.initContainerElem()
       this.unbindScroll()
       this.bindScroll()

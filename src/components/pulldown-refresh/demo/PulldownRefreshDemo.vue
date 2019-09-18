@@ -1,9 +1,12 @@
 <template>
   <div>
-    <a href="javascript:;" @click="refresh">手动刷新</a>
-    <a href="javascript:;" @click="noDataDemo">切换到无数据情况</a>
+    <div :class="$style.btns">
+      <h1 :class="$style.h1">这是仅仅只有下拉刷新的 demo</h1>
+      <p><button @click="refresh">手动刷新</button></p>
+      <p><button @click="noDataDemo">切换到无数据情况</button></p>
+    </div>
     <div :class="$style.statList">
-      <PulldownRefresh ref="vPulldownRefresh" :reload="reload" :min-height="containerMinHeight">
+      <PulldownRefresh class="PulldownRefresh" ref="vPulldownRefresh" :reload="reload">
         <div v-for="(item, key) of list" :key="key" class="item">
           <div class="tit">{{ item.t }}</div>
           <div v-for="(it,k) of item.ls" :key="k" class="row">
@@ -17,19 +20,7 @@
 </template>
 <script>
 import PulldownRefresh from '@/components/pulldown-refresh/PulldownRefresh.vue'
-// mock
-const axios = {
-  get (url) {
-    let page = /page=([^&]+)/.exec(url)[1]
-    console.log(url)
-    return new Promise(function (resolve) {
-      setTimeout(function () {
-        let list = require('@/components/bottom-load/BottomLoad.demo.data.js').default()[page - 1]
-        resolve(list || [])
-      }, 1000)
-    })
-  }
-}
+import axios from './mock-axios'
 export default {
   components: {
     PulldownRefresh
@@ -48,7 +39,7 @@ export default {
   },
   methods: {
     async reload () {
-      let d = await axios.get('/getData?page=' + this.page)
+      let d = await axios.get(`/getData?page=${this.page}&onepage=false&nodata=false`)
       this.list = d
       return d.length === 0 ? 'noData' : undefined
     },
@@ -65,6 +56,17 @@ export default {
 </script>
 
 <style module>
+.btns {
+  padding: 10px;
+}
+.h1 {
+  padding: 4px 0 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.PulldownRefresh {
+  /* min-height: 600px; */
+}
 .statList {
   background-color: #f3f3f3;
 }
