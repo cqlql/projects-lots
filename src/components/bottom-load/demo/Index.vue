@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     async load (page) {
-            let d = await axios.get(`/getData?page=${page}&onepage=false&nodata=false`)
+      let d = await axios.get(`/getData?page=${page}&onepage=false&nodata=false`)
       if (d.length) {
         this.list = this.list.concat(d)
         return
