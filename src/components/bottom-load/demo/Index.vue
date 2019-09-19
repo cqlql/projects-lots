@@ -15,19 +15,7 @@
 </template>
 <script>
 import BottomLoad from '@/components/bottom-load/BottomLoad.vue'
-// mock
-const axios = {
-  get (url) {
-    let page = /page=([^&]+)/.exec(url)[1]
-    console.log(url)
-    return new Promise(function (resolve) {
-      setTimeout(function () {
-        let list = require('./BottomLoad.demo.data.js').default()[page - 1]
-        resolve(list || [])
-      }, 1000)
-    })
-  }
-}
+import axios from '@/components/pulldown-refresh/demo/mock-axios.js'
 export default {
   components: {
     BottomLoad
@@ -39,7 +27,7 @@ export default {
   },
   methods: {
     async load (page) {
-      let d = await axios.get('/getData?page=' + page)
+            let d = await axios.get(`/getData?page=${page}&onepage=false&nodata=false`)
       if (d.length) {
         this.list = this.list.concat(d)
         return

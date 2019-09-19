@@ -20,7 +20,7 @@
 </template>
 <script>
 import PulldownRefresh from '@/components/pulldown-refresh/PulldownRefresh.vue'
-import axios from './mock-axios'
+import axios from '@/components/pulldown-refresh/demo/mock-axios.js'
 export default {
   components: {
     PulldownRefresh
