@@ -15,88 +15,86 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-import { Prop, Component } from 'vue-property-decorator'
+<script>
 import fileSelect from '@/modules/corejs/file/file-select'
-import IcoAdd from '@/components/ico/IcoAdd.vue'
-import IcoDel from '@/components/ico/IcoDel.vue'
-export interface FileInfo {
-  url: string
-  name: string
-}
-export interface UploadResult {
-  url: string
-}
-export interface UploadOptions {
-  file: File,
-  onProgress: (p: number) => void,
-  cancelToken: (abortUpload: () => void) => void
-}
-@Component({
+import IcoAdd from '@/components/ico/Add.vue'
+import IcoDel from '@/components/ico/Del.vue'
+
+export default {
   components: {
     IcoAdd,
     IcoDel
-  }
-})
-export default class UploadFiles extends Vue {
-  @Prop({ default: '*' }) readonly accept!: string
-  @Prop({ default: () => [] }) readonly fileList!: FileInfo[]
-  @Prop({ type: [String, Number], default: 20 }) readonly multiple!: string|number // 最大文件数
-  @Prop() readonly upload!: (options: UploadOptions) => UploadResult
-
-  progressText = ''
-
-  get fileNum () {
-    return this.fileList.length
-  }
-
-  abortUpload (e: Event) {}
-  async add () {
-    if (this.progressText) return
-    let files = []
-    if (this.multiple > 1) {
-      files = await fileSelect.files({
-        accept: this.accept
-      })
-    } else {
-      files = [await fileSelect.file({
-        accept: this.accept
-      })]
+  },
+  props: {
+    accept: {
+      default: '*'
+    },
+    fileList: {
+      default: () => []
+    },
+    multiple: {
+      type: [String, Number], default: 20
+    },
+    upload: undefined
+  },
+  data () {
+    return {
+      progressText: ''
     }
-    this.progressText = '0%'
-    for (let index = 0, length = files.length; index < length; index++) {
-      if (this.fileNum >= this.multiple) break
-      const file = files[index]
-      await this.excuUpload(file)
+  },
+  computed: {
+    fileNum () {
+      return this.fileList.length
     }
-    this.progressText = ''
-  }
-  del (index: number) {
-    this.fileList.splice(index, 1)
-    this.$emit('change', this.fileList)
-  }
-  async excuUpload (file: File) {
-    try {
-      let { url } = await this.upload({
-        file,
-        onProgress: (p: number) => {
-          this.progressText = ~~(p * 100 - 1) + '%'
-        },
-        cancelToken: (abortUpload: () => void) => {
-          this.abortUpload = (e: Event) => {
-            e.stopPropagation()
-            abortUpload()
-          }
-        }
-      })
-      this.fileList.push({
-        name: file.name,
-        url
-      })
+  },
+  methods: {
+    abortUpload (e) {},
+    async add () {
+      if (this.progressText) return
+      let files = []
+      if (this.multiple > 1) {
+        files = await fileSelect.files({
+          accept: this.accept
+        })
+      } else {
+        files = [await fileSelect.file({
+          accept: this.accept
+        })]
+      }
+      this.progressText = '0%'
+      for (let index = 0, length = files.length; index < length; index++) {
+        if (this.fileNum >= this.multiple) break
+        const file = files[index]
+        await this.excuUpload(file)
+      }
+      this.progressText = ''
+    },
+    del (index) {
+      this.fileList.splice(index, 1)
       this.$emit('change', this.fileList)
-    } catch (e) {
-      console.error(e)
+    },
+    async excuUpload (file) {
+      try {
+        const { url } = await this.upload({
+          file,
+          onProgress: (p) => {
+            this.progressText = ~~(p * 100 - 1) + '%'
+          },
+          cancelToken: (abortUpload) => {
+            this.abortUpload = (e) => {
+              e.stopPropagation()
+              abortUpload()
+            }
+          }
+        })
+        this.fileList.push({
+          name: file.name,
+          url
+        })
+        this.$emit('change', this.fileList)
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 }
