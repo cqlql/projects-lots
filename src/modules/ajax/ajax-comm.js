@@ -12,10 +12,13 @@ export class AjaxComm {
         return new Error(data.message)
       }
     }
+    this.loading = { show () {}, hide () {} }
   }
+
   request (config) {
-    let { hasLoading = true } = config
-    if (hasLoading) this.loadingShow()
+    const { loading } = this
+    const { hasLoading = true } = config
+    if (hasLoading) loading.show()
     if (process.env.NODE_ENV !== 'production') {
       config.baseURL = require('@/dev.config.js').default.baseURL
     }
@@ -27,27 +30,28 @@ export class AjaxComm {
         return Promise.reject(result)
       }
       // 成功情况
-      if (hasLoading) this.loadingClose()
+      if (hasLoading) loading.hide()
       return result
     }).catch(e => {
-      if (hasLoading) this.loadingClose()
+      if (hasLoading) loading.hide()
       this.messageError(e.message)
       return Promise.reject(e)
     })
   }
+
   get (url, config = {}) {
     config.method = 'get'
     config.url = url
     return this.request(config)
   }
+
   post (url, data, config = {}) {
     config.method = 'post'
     config.url = url
     config.data = data
     return this.request(config)
   }
-  loadingShow () {}
-  loadingClose () {}
+
   messageError (msg) {
     console.error(msg)
   }
