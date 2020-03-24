@@ -10,7 +10,7 @@
 ```js
 // 调用示例
 import Vue from 'vue'
-import axios from '@/modules/ajax/ajax-comm'
+import ajax from '@/modules/ajax/ajax-comm'
 const loading = Vue.prototype.$loading
-axios.loading = loading
+ajax.loading = loading
 ```
