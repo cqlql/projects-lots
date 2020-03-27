@@ -12,16 +12,27 @@ export class AjaxComm {
         return new Error(data.message)
       }
     }
-    this.loading = { show () {}, hide () {} }
+  }
+
+  loadingShow () {
+    this.loading.show()
+  }
+
+  loadingHide () {
+    this.loading.hide()
   }
 
   request (config) {
     const { loading } = this
-    const { hasLoading = true } = config
+    let { hasLoading = true } = config
+    hasLoading = hasLoading && (loading !== undefined)
     if (hasLoading) loading.show()
+
+    // 开发环境专用配置
     if (process.env.NODE_ENV !== 'production') {
       config.baseURL = require('@/dev.config.js').default.baseURL
     }
+
     config.timeout = 60000
     return axios(config).then(({ data }) => {
       const result = this.dataHandle(data)
