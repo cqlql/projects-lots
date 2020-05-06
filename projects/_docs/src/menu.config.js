@@ -17,7 +17,7 @@ export default [
       {
         name: 'bottom-load(到底加载)',
         path: '/bottom-load',
-        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/bottom-load/BottomLoad.demo.vue'),
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/bottom-load/demo/Index.vue'),
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/bottom-load/README.md')
       },
       // {
@@ -38,29 +38,29 @@ export default [
       {
         name: 'pulldown-refresh(下拉刷新+到底加载)',
         path: '/pulldown-refresh',
-        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/PulldownRefreshPlus.demo.vue'),
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/demo/Index.vue'),
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/README.md')
       },
-      {
-        name: 'pulldown-refresh-plus-elem(下拉刷新+到底加载+以元素为容器)',
-        path: '/pulldown-refresh-plus-elem',
-        show: false,
-        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/PulldownRefreshPlus.elem.demo.vue'),
-        // docs: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/README.md')
-      }
+      // {
+      //   name: 'pulldown-refresh-plus-elem(下拉刷新+到底加载+以元素为容器)',
+      //   path: '/pulldown-refresh-plus-elem',
+      //   show: false,
+      //   demo: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/PulldownRefreshPlus.elem.demo.vue'),
+      //   // docs: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/README.md')
+      // }
     ],
   },
-  {
-    name: 'zoom-touch(触摸捏合放大)',
-    path: '/zoom-touch',
-    demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/demo.vue'),
-    docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/README.md'),
-  },
-  {
-    name: 'image-crop(裁图)',
-    path: '/image-crop',
-    demo: () => import(/* webpackChunkName: "docs1" */ '@/components/image-crop/Demo.vue'),
-  },
+  // {
+  //   name: 'zoom-touch(触摸捏合放大)',
+  //   path: '/zoom-touch',
+  //   demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/demo.vue'),
+  //   docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/README.md'),
+  // },
+  // {
+  //   name: 'image-crop(裁图)',
+  //   path: '/image-crop',
+  //   demo: () => import(/* webpackChunkName: "docs1" */ '@/components/image-crop/Demo.vue'),
+  // },
   // {
   //   name: 'v-transition (常用 vue transition 动画)',
   //   path: '/v-transition',

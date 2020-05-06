@@ -13,7 +13,7 @@ const routes = [
 
 function addRoute (children = []) {
   children.forEach(item => {
-    let { children, name, path, demo } = item
+    const { children, name, path, demo } = item
     if (children) addRoute(children)
     if (path) {
       routes.push({

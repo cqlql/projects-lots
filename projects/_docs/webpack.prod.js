@@ -6,10 +6,10 @@ const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin
 // const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CompileEventsPlugin = require('../../build/compile-events-plugin')
 const filterRemove = require('../../build/filter-remove')
-const ScriptPlugin = require('../../build/script-plugin')
+// const ScriptPlugin = require('../../build/script-plugin')
 const merge = require('webpack-merge')
 const getProdConf = require('../../build/webpack.prod')
-const docsConf = require('./w.docs.config.js')
+const docsConf = require('./webpack.common.js')
 
 // 命令行参数
 // const argv = require('yargs').argv
@@ -43,7 +43,7 @@ const baseProdConf = getProdConf({
 })
 
 // 打包输出路径设置：
-let outputPath = path.resolve(__dirname, './dist')
+const outputPath = path.resolve(__dirname, './dist')
 
 const prodConf = {
   // 不打包的模块

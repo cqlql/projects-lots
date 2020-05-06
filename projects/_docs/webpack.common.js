@@ -1,11 +1,11 @@
 const webpack = require('webpack')
-const marked = require("marked");
-const renderer = new marked.Renderer();
+const marked = require('marked')
+const renderer = new marked.Renderer()
 // 代码高亮
 // 所有语言
 // const highlight = require('highlight.js')
 // 指定语言
-const hljs = require('highlight.js/lib/highlight.js')
+const hljs = require('highlight.js/lib/core.js')
 hljs.registerLanguage('xml', require('highlight.js/lib/languages/xml'))
 hljs.registerLanguage('css', require('highlight.js/lib/languages/css'))
 hljs.registerLanguage('javascript', require('highlight.js/lib/languages/javascript'))
@@ -19,6 +19,9 @@ marked.setOptions({
 process.env.docs = true
 
 module.exports = {
+  entry: {
+    app: './src/main.js'
+  },
   output: {
     publicPath: '/'
   },
@@ -45,11 +48,11 @@ module.exports = {
     // 文档环境变量
     new webpack.DefinePlugin({
       'process.env': {
-        docs: JSON.stringify(process.env.docs + ''),
+        docs: JSON.stringify(process.env.docs + '')
       }
-    }),
+    })
   ],
   devServer: {
-    historyApiFallback: true, // HTML5 History 模式情况开启
+    historyApiFallback: true // HTML5 History 模式情况开启
   }
 }
