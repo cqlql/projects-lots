@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.frame">
-    <iframe :class="$style.iframe" :src="path" />
+    <iframe :class="$style.iframe" :src="'#' + path" />
   </div>
 </template>
 
@@ -11,7 +11,7 @@ export default {
       type: String,
       default: '/404'
     }
-  },
+  }
   // computed: {
   //   src () {
   //     return '#' + this.path
@@ -45,7 +45,7 @@ export default {
   /* position: fixed; */
   height: 100%;
   width: 100%;
-  border: none;
+  /* border: none; */
   box-sizing: border-box;
   border: 1px solid #e3e3e4;
   box-shadow: 0px 0px 20px 0px #e8e8e8;

@@ -42,18 +42,20 @@ export default {
     }
   },
   mounted () {
-    let eItem = document.getElementById(this.$route.query.path || '/readme')
+    const eItem = document.getElementById(this.$route.query.path || '/readme')
     if (eItem) eItem.click()
   },
   methods: {
     async menuSelect (itemData) {
-      let path = this.demoPath = itemData.path
-      this.$router.push({
-        path: '/',
-        query: {
-          path
-        }
-      })
+      const path = this.demoPath = itemData.path
+      if (this.$route.query.path !== path) {
+        this.$router.push({
+          path: '/',
+          query: {
+            path
+          }
+        })
+      }
 
       if (itemData.demo) {
         this.midRight = 391
@@ -70,7 +72,7 @@ export default {
       }
     },
     onResize (x) {
-      let midLeft = this.midLeft = x
+      const midLeft = this.midLeft = x
       localStorage.setItem('leftMenuWidth', x)
       localStorage.setItem('midLeft', midLeft)
     }

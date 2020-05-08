@@ -51,8 +51,5 @@ module.exports = {
         docs: JSON.stringify(process.env.docs + '')
       }
     })
-  ],
-  devServer: {
-    historyApiFallback: true // HTML5 History 模式情况开启
-  }
+  ]
 }

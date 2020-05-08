@@ -30,9 +30,9 @@ export default {
     }
   },
   render () {
-    let { $style, foldLevel, selectedId, select } = this
+    const { $style, foldLevel, selectedId, select } = this
 
-    let {
+    const {
       menu: sMenu,
       menuList: sMenuList,
       menuItem: sMenuItem,
