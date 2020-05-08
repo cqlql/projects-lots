@@ -14,8 +14,6 @@
     "mock-server": "nodemon ./mock-server/server.run.js"
   },
   "dependencies": {
-    "@types/core-js": "^2.5.3",
-    "@types/webpack-env": "^1.15.2",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
@@ -31,6 +29,8 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-typescript": "^7.9.0",
     "@babel/runtime": "^7.9.6",
+    "@types/core-js": "^2.5.3",
+    "@types/webpack-env": "^1.15.2",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",

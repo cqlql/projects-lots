@@ -1,1 +1,1 @@
-declare let process: any
+// declare let process: any

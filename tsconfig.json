@@ -30,6 +30,9 @@
         "src/*"
       ]
     },
+    "types": [
+      "webpack-env"
+    ],
     "typeRoots": [
       "./src/types",
       "./node_modules/vue/types"
@@ -45,6 +48,9 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
+    "projects/**/src/**/*.ts",
+    "projects/**/src/**/*.tsx",
+    "projects/**/src/**/*.vue",
     // "tests/**/*.ts",
     // "tests/**/*.tsx"
   ],
