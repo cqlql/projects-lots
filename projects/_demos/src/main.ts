@@ -1,16 +1,19 @@
 import '@/comm.css'
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
 
-Vue.config.productionTip = false
+import App from '@/components/pulldown-refresh/demo/Index.vue'// 下拉刷新
 
-router.beforeEach((to, from, next) => {
-  document.title = to.meta.title || ''
-  next()
-})
+// import App from './App.vue'
+// import router from './router'
+
+// Vue.config.productionTip = false
+
+// router.beforeEach((to, from, next) => {
+//   document.title = to.meta.title || ''
+//   next()
+// })
 
 new Vue({
-  router,
+  // router,
   render: h => h(App)
 }).$mount('#app')

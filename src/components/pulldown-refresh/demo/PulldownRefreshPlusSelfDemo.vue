@@ -10,7 +10,7 @@
       <p><button @click="refreshOnePage">手动刷新，并且数据不足一页情况</button></p>
     </div>
     <div :class="$style.statList">
-      <PulldownRefreshPlus :class="$style.self" ref="vPulldownRefresh" :load="load" :min-height="containerMinHeight" :get-elem="() => 'self'">
+      <PulldownRefreshPlus :class="$style.self" ref="vPulldownRefresh" :load="load" :get-elem="() => 'self'">
         <div v-for="(item, key) of list" :key="key" class="item">
           <div class="tit">{{ item.t }}</div>
           <div v-for="(it,k) of item.ls" :key="k" class="row">
@@ -31,8 +31,7 @@ export default {
   },
   data () {
     return {
-      list: [],
-      containerMinHeight: 500 - 50
+      list: []
     }
   },
   methods: {
@@ -76,7 +75,7 @@ export default {
 }
 .self {
   border: 2px solid #999;
-  height: 600px;
+  height: 500px;
 }
 .h1 {
   padding: 4px 0 10px;

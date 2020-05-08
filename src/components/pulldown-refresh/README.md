@@ -70,7 +70,7 @@ export default {
 ```html
 <!--自身，即 PulldownRefresh 组件根元素，需css设置容器高度，一般 fiexd 控制高度的情况多一些-->
 <PulldownRefreshPlus :get-elem="() => 'self'" />
-  <!--其他指定元素-->
+  <!--指定其他元素，只能是组件之上的元素-->
 <PulldownRefreshPlus :get-elem="() => $el" />
 ```
 
@@ -95,8 +95,7 @@ this.$refs.vPulldownRefresh.refresh()
 
 否则没内容时将没有拖动区域
 
-**自身为容器情况可不用设置：**  
-**因为已经直接css控制了 PulldownRefreshPlus 组件根元素高度。当然，设置也行，设置情况此值将为根元素的固定高度，就不用 css 控制了**
+**自身为容器情况可不用设置，自己控制根元素css即可**
 
 ```html
 <PulldownRefreshPlus :min-Height="500" />

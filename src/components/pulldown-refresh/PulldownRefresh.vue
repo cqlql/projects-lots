@@ -57,9 +57,9 @@ export default {
     let containerElem = this.getElem()
     if (containerElem === 'self') {
       containerElem = this.$el
-      if (this.minHeight !== undefined) {
-        containerElem.style.height = this.minHeight + 'px'
-      }
+      // if (this.minHeight !== undefined) {
+      //   containerElem.style.height = this.minHeight + 'px'
+      // }
       containerElem.classList.add(this.$style.self)
     }
 
