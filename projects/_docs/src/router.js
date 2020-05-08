@@ -7,7 +7,7 @@ Vue.use(Router)
 const routes = [
   {
     path: '/',
-    component: require('./components/Docs.vue').default
+    component: require('./App.vue').default
   }
 ]
 

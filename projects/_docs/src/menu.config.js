@@ -1,12 +1,12 @@
 
 export default [
   {
-    name: '项目说明',
+    name: '开发笔记',
     path: '/readme',
-    docs: () => import(/* webpackChunkName: "docs1" */ '@/../README.md'),
+    docs: () => import(/* webpackChunkName: "docs1" */ './note.md'),
   },
   {
-    name: 'UI组件',
+    name: 'vue UI组件',
     children: [
       {
         name: 'toast 轻提醒',
