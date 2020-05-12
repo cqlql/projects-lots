@@ -1,7 +1,7 @@
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getCacheLoader = require('./cache-loader')
-module.exports = function ({ sourceMap = true, splitCss, cache }) {
+module.exports = function ({ sourceMap = true, splitCss, cache, postcss }) {
   function getCssLoaderComm ({ css = {}, scss, less } = {}) {
     const loaders = [
       ...getCacheLoader('css-loader', cache),
@@ -10,7 +10,13 @@ module.exports = function ({ sourceMap = true, splitCss, cache }) {
         loader: 'css-loader',
         options: Object.assign({ sourceMap }, css)
       },
-      'postcss-loader?sourceMap=' + sourceMap
+      {
+        loader: 'postcss-loader',
+        options: {
+          ...postcss,
+          sourceMap
+        }
+      }
     ]
     if (less) {
       loaders.push(

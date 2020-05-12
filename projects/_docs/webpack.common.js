@@ -16,40 +16,50 @@ marked.setOptions({
   }
 })
 
+const postcssConfig = require('../../postcss.config')
+postcssConfig.plugins.pop() // 不要 rem
+
 process.env.docs = true
 
 module.exports = {
-  entry: {
-    app: './src/main.js'
-  },
-  output: {
-    publicPath: '/'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.md$/,
-        use: [
-          {
-            loader: 'html-loader'
-          },
-          {
-            loader: 'markdown-loader',
-            options: {
-              renderer
-              /* your options here */
+  rootPath: __dirname, // 如果是子项目则需要传
+  // indexTemplate: null, // 不要默认的 index.html 模板
+  // splitCss: true,
+  // cache: false, // 关闭缓存 loader。如果css未改变，将不会触发拆分css，也不会插入link标签到 html 模板中，但开发环境很少去拆分css
+  postcss: postcssConfig,
+  webpack: {
+    entry: {
+      app: './src/main.js'
+    },
+    output: {
+      publicPath: '/'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.md$/,
+          use: [
+            {
+              loader: 'html-loader'
+            },
+            {
+              loader: 'markdown-loader',
+              options: {
+                renderer
+                /* your options here */
+              }
             }
-          }
-        ]
-      }
+          ]
+        }
+      ]
+    },
+    plugins: [
+      // 文档环境变量
+      new webpack.DefinePlugin({
+        'process.env': {
+          docs: JSON.stringify(process.env.docs + '')
+        }
+      })
     ]
-  },
-  plugins: [
-    // 文档环境变量
-    new webpack.DefinePlugin({
-      'process.env': {
-        docs: JSON.stringify(process.env.docs + '')
-      }
-    })
-  ]
+  }
 }

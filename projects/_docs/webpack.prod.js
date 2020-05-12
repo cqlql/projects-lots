@@ -16,7 +16,7 @@ const docsConf = require('./webpack.common.js')
 // const isTest = argv['test'] === true // 有时候可能需要测试编译结果
 
 const baseProdConf = getProdConf({
-  dirname: __dirname, // 如果是子项目则需要传
+  ...docsConf,
   splitCss: true, // css 拆分
   // sourceMap: false, // 默认为 true
   indexTemplate () {
@@ -104,4 +104,4 @@ const prodConf = {
   ]
 }
 
-webpack(merge(baseProdConf, prodConf, docsConf), require('../../build/msg-webpack'))
+webpack(merge(baseProdConf, prodConf, docsConf.webpack), require('../../build/msg-webpack'))

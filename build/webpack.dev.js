@@ -6,7 +6,7 @@ const getCommConf = require('./webpack.common')
 const merge = require('webpack-merge')
 
 module.exports = function (options) {
-  const { splitCss, rootPath, friendlyError = true, mergeConf } = options
+  const { splitCss, rootPath, friendlyError = true } = options
   const devConf = {
     mode: 'development',
     // 拆分后需使用 'source-map' css 才能正确定向。需使用 devtool: 'source-map'
@@ -40,7 +40,7 @@ module.exports = function (options) {
   const endConf = merge(
     getCommConf(options),
     devConf,
-    mergeConf
+    options.webpack
   )
 
   if (friendlyError) {

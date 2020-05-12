@@ -98,6 +98,6 @@ module.exports = function (options) {
   return merge(
     getCommConf(options),
     prodConf,
-    options.mergeConf
+    options.webpack
   )
 }
