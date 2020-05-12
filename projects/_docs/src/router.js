@@ -4,13 +4,16 @@ import Router from 'vue-router'
 import menu from './menu.config.js'
 Vue.use(Router)
 
-const routes = [
+let routes = [
   {
     path: '/',
     component: require('./App.vue').default
   }
 ]
 
+if (process.env.NODE_ENV !== 'production') {
+  routes = routes.concat(require('./router-demos').default)
+}
 function addRoute (children = []) {
   children.forEach(item => {
     const { children, name, path, demo } = item
