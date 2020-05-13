@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <button class="button" @click="onClick">测试</button> -->
     <VMenu2 :data="menuData" @select="onSelect" />
   </div>
 </template>
@@ -14,8 +15,13 @@ export default {
     return {
       menuData: [
         {
-          name: '开发笔记',
-          id: '/readme'
+          name: '个人项目',
+          children: [
+            {
+              name: '开发笔记',
+              id: 'note'
+            }
+          ]
         },
         {
           name: 'vue UI组件',
@@ -40,7 +46,21 @@ export default {
             },
             {
               name: 'bottom-load(到底加载)',
-              id: '/bottom-load'
+              id: '/bottom-load',
+              children: [
+                {
+                  name: 'bottom-load(到底加载)',
+                  id: '/bottom-load'
+                },
+                {
+                  name: 'buttons',
+                  id: '/buttons'
+                },
+                {
+                  name: 'pulldown-refresh(下拉刷新+到底加载)',
+                  id: '/pulldown-refresh'
+                }
+              ]
             },
             {
               name: 'buttons',
@@ -56,8 +76,29 @@ export default {
     }
   },
   methods: {
-    onSelect (d) {
-      console.log(d.isChild, d.item)
+    onSelect ({ isChild, item }) {
+      console.log(isChild, item)
+      if (item.secondChild) {
+        item.secondChild = null
+      } else if (!isChild) {
+        item.secondChild = [
+          {
+            name: 'zoom-touch(触摸捏合放大)',
+            id: '/zoom-touch'
+          },
+          {
+            name: 'image-crop(裁图)',
+            id: '/image-crop'
+          },
+          {
+            name: 'v-transition (常用 vue transition 动画)',
+            id: '/v-transition'
+          }
+        ]
+      }
+    },
+    onClick () {
+
     }
   }
 }

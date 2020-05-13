@@ -1,9 +1,14 @@
 
 export default [
   {
-    name: '开发笔记',
-    path: '/readme',
-    docs: () => import(/* webpackChunkName: "docs1" */ './note.md'),
+    name: '个人项目',
+    children: [
+      {
+        name: '开发笔记',
+        path: '/readme',
+        docs: () => import(/* webpackChunkName: "docs1" */ './note.md'),
+      }
+    ]
   },
   {
     name: 'vue UI组件',
@@ -29,12 +34,12 @@ export default [
       //   demo: () => import(/* webpackChunkName: "docs1" */ '@/components/scroll-bottom-load/Demo.page.vue'),
       //   docs: () => import(/* webpackChunkName: "docs1" */ '@/components/scroll-bottom-load/README.md')
       // },
-      {
-        name: 'buttons',
-        path: '/buttons',
-        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/buttons/demo.vue'),
-        // docs: () => import(/* webpackChunkName: "docs1" */ '@/components/scroll-bottom-load/README.md')
-      },
+      // {
+      //   name: 'buttons',
+      //   path: '/buttons',
+      //   demo: () => import(/* webpackChunkName: "docs1" */ '@/components/buttons/demo.vue'),
+      //   // docs: () => import(/* webpackChunkName: "docs1" */ '@/components/scroll-bottom-load/README.md')
+      // },
       {
         name: 'pulldown-refresh(下拉刷新+到底加载)',
         path: '/pulldown-refresh',

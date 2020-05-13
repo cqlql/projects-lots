@@ -25,6 +25,77 @@ export default {
   mounted () {
     // 文章定位优化
     this.$el.children[0].style.paddingBottom = innerHeight / 2 + 'px'
+  },
+  watch: {
+    content () {
+      this.$nextTick(() => {
+        const hx = this.$el.querySelectorAll('h1,h2,h3,h4,h5,h6')
+        const generateOutline = this.GenerateOutline()
+        for (let i = 0, len = hx.length; i < len; i++) {
+          const h = hx[i]
+          const { tagName, textContent, id } = h
+          generateOutline.add(textContent, tagName[1] * 1, id)
+        }
+        console.log(generateOutline.data)
+      })
+    }
+  },
+  methods: {
+    GenerateOutline () {
+      const startLevel = 1 // h1 开始是0，h2 开始是1，其他类推
+      const rootItem = {
+        children: []
+      }
+      let currItem = rootItem
+      let currLevel = startLevel
+      return {
+        data: rootItem.children,
+        add (text, level, id) {
+          const breakLevel = level - currLevel
+          // 兼容跳级
+          if (breakLevel > 0) { // 跳子级
+            for (let i = 0, len = breakLevel - 1; i < len; i++) {
+              const item = {
+                children: []
+              }
+              currItem.children.push(item)
+              currItem = item
+              currLevel = level + i
+            }
+          } else if (breakLevel <= 0) { // 跳父级
+            currItem = rootItem
+            for (let i = startLevel + 1; i < level; i++) {
+              currItem = currItem.children[currItem.children.length - 1]
+            }
+          }
+
+          const item = {
+            id,
+            level,
+            name: text,
+            children: []
+          }
+          currItem.children.push(item)
+          currItem = item
+          currLevel = level
+        }
+      }
+    },
+    getOutlineData () {
+      const hx = this.$el.querySelectorAll('h2,h3,h4,h5,h6')
+      const generateOutline = this.GenerateOutline()
+      for (let i = 0, len = hx.length; i < len; i++) {
+        const h = hx[i]
+        const { tagName, textContent, id } = h
+        generateOutline.add(textContent, tagName[1] * 1, id)
+      }
+      return generateOutline.data
+    },
+    scrollTop (id) {
+      const hx = document.getElementById(id)
+      console.log(hx)
+      this.$el.parentElement.scrollTop = hx.offsetTop
+    }
   }
   // methods: {
   //   onSelect ({ target }) {

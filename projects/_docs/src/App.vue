@@ -1,11 +1,11 @@
 <template>
   <div>
     <div :class="$style.mid" :style="{left:midLeft+'px', right:midRight+'px'}">
-      <Article :content="docsCont" />
+      <Article ref="vArticle" :content="docsCont" />
     </div>
     <DragView v-model="menuWidth" :class="$style.aside" :max-width="500" @resize="onResize">
       <!-- <aside :class="$style.aside"> -->
-      <VMenu @select="menuSelect" />
+      <VMenu ref="vMenu" :data="menuData" @select="menuSelect" />
       <!-- </aside> -->
     </DragView>
     <div v-show="showDemo" :class="$style.right">
@@ -15,10 +15,11 @@
 </template>
 
 <script>
-import VMenu from './components/VMenu.vue'
+import VMenu from './components/VMenu2.vue'
 import DemoFrame from './components/DemoFrame.vue'
 import Article from './components/Article.vue'
 import DragView from '@/components/drag-view/index.vue'
+import dataApi from './data-api'
 // import Vue from 'vue'
 export default {
   components: {
@@ -38,24 +39,44 @@ export default {
       midLeft: (localStorage.getItem('midLeft') || 300) * 1,
       midRight: 391,
 
-      showDemo: true
+      showDemo: true,
+      menuData: []
     }
   },
   mounted () {
-    const eItem = document.getElementById(this.$route.query.path || '/readme')
-    if (eItem) eItem.click()
+    this.menuData = dataApi.getMenuDataView()
+    const { path, id } = this.$route.query
+    this.menuSelect({ id: path || '/readme' }).then(() => {
+      const { vArticle, vMenu } = this.$refs
+      if (id) {
+        vArticle.scrollTop(id)
+        vMenu.selectedId = id
+      } else {
+        vMenu.selectedId = path
+      }
+    })
   },
   methods: {
-    async menuSelect (itemData) {
-      const path = this.demoPath = itemData.path
-      if (this.$route.query.path !== path) {
+    async menuSelect ({ id, isChild }) {
+      if (isChild) {
+        this.$refs.vArticle.scrollTop(id)
         this.$router.push({
           path: '/',
           query: {
-            path
+            path: this.$route.query.path,
+            id
           }
-        })
+        }).catch(() => {})
+        return
       }
+      const { item: itemData, newItem: newItemData } = dataApi.menuDataKey[id]
+      const path = this.demoPath = itemData.path
+      this.$router.push({
+        path: '/',
+        query: {
+          path
+        }
+      }).catch(() => {})
 
       if (itemData.demo) {
         this.midRight = 391
@@ -67,6 +88,13 @@ export default {
 
       if (itemData.docs) {
         this.docsCont = (await itemData.docs()).default
+        await this.$nextTick()
+        if (newItemData.secondChild === null) {
+          newItemData.secondChild = this.$refs.vArticle.getOutlineData()
+        }
+        if (this.showItem) this.showItem.show = false
+        newItemData.show = true
+        this.showItem = newItemData
       } else {
         this.docsCont = '未编写文档'
       }

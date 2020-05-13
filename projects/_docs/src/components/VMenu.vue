@@ -25,7 +25,7 @@ export default {
   methods: {
     select (e, itemData) {
       e.stopPropagation()
-      this.$emit('select', itemData)
+      this.$emit('select', { e, itemData })
       this.selectedId = itemData.path
     }
   },
@@ -63,7 +63,7 @@ export default {
               <span class={sTxt} domPropsInnerHTML={name}></span>
             </div>
             <div class={sList}>{childList}</div>
-          </div >
+          </div>
         )
       })
       return list

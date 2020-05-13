@@ -28,10 +28,10 @@ export default {
     }
   },
   methods: {
-    select (e, itemData) {
-      e.stopPropagation()
-      this.$emit('select', { e, itemData })
-      this.selectedId = itemData.id
+    select (params) {
+      params.e.stopPropagation()
+      this.$emit('select', params)
+      this.selectedId = params.id
     }
   },
   render () {
@@ -51,28 +51,29 @@ export default {
       childList: sChildList
     } = $style
 
-    function build (children = [], isChild) {
+    function build (children = [], isChild, level = 0) {
       const list = []
       children.forEach(item => {
-        const { level, children, name, id, secondChild } = item
+        const { children, name, id, secondChild } = item
         let childList = null
         if (children) {
-          childList = build(children)
+          childList = build(children, isChild, level + 1)
         } else if (secondChild) {
-          childList = build(secondChild)
-          isChild = true
+          childList = build(secondChild, true, level + 1)
         }
         list.push(
           <div
-            class={[sMenuItem, level < foldLevel ? '' : sFold, id ? sIsLink : '']} key={id}
-            id={id} data-level={level}
-            onClick={e => { if (id) select(e, item, isChild) }}
+            class={[sMenuItem, level < foldLevel ? '' : sFold, id ? sIsLink : '']}
+            key={id}
+            id={id}
+            data-level={level}
+            onClick={e => { if (id) select({ e, id, isChild }) }}
           >
             <div class={[sItem, id === selectedId && sSelected]}>
               <i class={children ? '' : sHidden}></i>
               <span class={sTxt} domPropsInnerHTML={name}></span>
             </div>
-            <div class={[sList, sChildList]}>{childList}</div>
+            <div class={{ [sList]: true, [sChildList]: secondChild !== null }} v-show={item.show}>{childList}</div>
           </div>
         )
       })
@@ -96,9 +97,10 @@ export default {
   box-sizing: border-box;
   background-color: #fff;
   /* border-right: 1px solid #efefef; */
-  font-size: 15px;
+  font-size: 14px;
   padding: 8px 10px;
   height: 100%;
+  /* font-weight: bold; */
 }
 .menuList {
   /* position: absolute;
@@ -144,11 +146,10 @@ export default {
   opacity: 1;
   background-color: #ffc;
 }
-.childList {
-  .item {
-    font-size: 13px;
-  }
+.list.childList .isLink .txt{
+  color: #00ad1f;
 }
+
 /* .item i {
   float: left;
   width: 19px;
