@@ -17,8 +17,8 @@ const docsConf = require('./webpack.common.js')
 
 const baseProdConf = getProdConf({
   ...docsConf,
-  splitCss: true, // css 拆分
-  // sourceMap: false, // 默认为 true
+  // splitCss: true, // css 拆分
+  sourceMap: false, // 默认为 true
   indexTemplate () {
     return new HtmlWebpackPlugin({
       filename: './index.html',
@@ -104,4 +104,4 @@ const prodConf = {
   ]
 }
 
-webpack(merge(baseProdConf, prodConf, docsConf.webpack), require('../../build/msg-webpack'))
+webpack(merge(baseProdConf, prodConf), require('../../build/msg-webpack'))

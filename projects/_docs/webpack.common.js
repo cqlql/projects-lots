@@ -31,16 +31,19 @@ module.exports = {
     entry: {
       app: './src/main.js'
     },
-    output: {
-      publicPath: '/'
-    },
+    // output: {
+    //   publicPath: '/'
+    // },
     module: {
       rules: [
         {
           test: /\.md$/,
           use: [
             {
-              loader: 'html-loader'
+              loader: 'html-loader',
+              options: {
+                minimize: false
+              }
             },
             {
               loader: 'markdown-loader',

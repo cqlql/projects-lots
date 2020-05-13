@@ -36,7 +36,6 @@ export default {
           const { tagName, textContent, id } = h
           generateOutline.add(textContent, tagName[1] * 1, id)
         }
-        console.log(generateOutline.data)
       })
     }
   },

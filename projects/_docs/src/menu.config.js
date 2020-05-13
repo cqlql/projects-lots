@@ -5,13 +5,23 @@ export default [
     children: [
       {
         name: '开发笔记',
-        path: '/readme',
-        docs: () => import(/* webpackChunkName: "docs1" */ './note.md'),
+        path: '/my-note',
+        docs: () => import(/* webpackChunkName: "docs1" */ './docs/my-note.md'),
+      },
+      {
+        name: '前端开发工程环境',
+        path: '/template-vue',
+        docs: () => import(/* webpackChunkName: "docs1" */ './docs/template-vue.md'),
+      },
+      {
+        name: '个人项目集合',
+        path: '/projects-lots',
+        docs: () => import(/* webpackChunkName: "docs1" */ './docs/projects-lots.md'),
       }
     ]
   },
   {
-    name: 'vue UI组件',
+    name: 'Vue UI组件',
     children: [
       {
         name: 'toast 轻提醒',

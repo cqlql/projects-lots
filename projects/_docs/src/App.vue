@@ -45,8 +45,9 @@ export default {
   },
   mounted () {
     this.menuData = dataApi.getMenuDataView()
-    const { path, id } = this.$route.query
-    this.menuSelect({ id: path || '/readme' }).then(() => {
+    let { path, id } = this.$route.query
+    if (!path) path = '/my-note'
+    this.menuSelect({ id: path }).then(() => {
       const { vArticle, vMenu } = this.$refs
       if (id) {
         vArticle.scrollTop(id)
