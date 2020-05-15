@@ -43,7 +43,7 @@ const baseProdConf = getProdConf({
 })
 
 // 打包输出路径设置：
-const outputPath = path.resolve(__dirname, './dist')
+const outputPath = path.resolve(__dirname, './dist/docs.dist')
 
 const prodConf = {
   // 不打包的模块

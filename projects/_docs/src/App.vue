@@ -70,7 +70,7 @@ export default {
   mounted () {
     this.menuData = dataApi.getMenuDataView()
     let { path, id } = this.$route.query
-    if (!path) path = '/my-note'
+    if (!path) path = 'readme'
     this.menuSelect({ id: path }).then(() => {
       const { vArticle, vMenu } = this.$refs
       if (id) {
