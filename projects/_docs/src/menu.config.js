@@ -13,8 +13,11 @@ export default [
     children: [
       {
         name: '开发笔记',
-        path: '/my-note',
-        docs: () => import(/* webpackChunkName: "docs1" */ './docs/my-note.md'),
+        // path: '/my-note',
+        // docs: () => import(/* webpackChunkName: "docs1" */ './docs/my-note.md'),
+        path: 'http://cqlql.gitee.io/note/',
+        noDocs: true,
+        env: 'pc'
       },
       {
         name: '前端开发工程环境',
@@ -89,8 +92,14 @@ export default [
         noDocs: true
       },
       {
-        name: '换座位-pc',
+        name: '换座位',
         path: 'https://cqlql.github.io/demos/seating-pc/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '英语单词挑战',
+        path: 'https://cqlql.github.io/demos/english-words-challenge/',
         env: 'pc',
         noDocs: true
       }
