@@ -1,18 +1,3 @@
-<!--
-<template>
-  <div>
-    <h2 :class="$style.h2">demos</h2>
-    <ul
-      v-for="(item, i, key) of menu" :key="key" :class="$style.p"
-    >
-      <li>
-        <a :to="item.id">{{ item.name }}</a>
-      </li>
-    </ul>
-  </div>
-</template>
-
--->
 <script>
 export default {
   props: {
@@ -102,14 +87,6 @@ export default {
   height: 100%;
   /* font-weight: bold; */
 }
-.menuList {
-  /* position: absolute;
-  top: 122px;
-  bottom: 0;
-  width: 100%;
-  overflow: auto; */
-}
-
 .txt {
   position: relative;
 }

@@ -126,6 +126,10 @@ export default {
 </script>
 
 <style module>
+.article {
+  padding: 10px;
+  padding-right: 0;
+}
 .article :global {
   .markdown-body {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,

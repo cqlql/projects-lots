@@ -1,5 +1,13 @@
-
+/* 
+path 用作 id，只有拥有 demo 才会注册为路由，没有 demo 可以当作 id 命名
+没有 docs demo ，path 可以不设
+*/
 export default [
+  {
+    path: 'readme',
+    name: '关于本网站',
+    docs: () => import(/* webpackChunkName: "docs1" */ '../README.md'),
+  },
   {
     name: '个人项目',
     children: [
@@ -56,15 +64,38 @@ export default [
         demo: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/demo/Index.vue'),
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/README.md')
       },
-      // {
-      //   name: 'pulldown-refresh-plus-elem(下拉刷新+到底加载+以元素为容器)',
-      //   path: '/pulldown-refresh-plus-elem',
-      //   show: false,
-      //   demo: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/PulldownRefreshPlus.elem.demo.vue'),
-      //   // docs: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/README.md')
-      // }
+      {
+        name: '宽口宽拖动改变 - 简单、高度可配置',
+        path: '/drag-bar',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/drag-bar/demo/Index.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/drag-bar/README.md'),
+        env: 'pc'
+      },
+      {
+        name: '宽口宽拖动改变',
+        path: '/drag-view',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/drag-view/demo/Index.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/drag-view/README.md'),
+        env: 'pc'
+      },
     ],
   },
+  {
+    name: '其他',
+    children: [
+      {
+        name: '圆周率记忆练习',
+        path: 'https://cqlql.gitee.io/pi-train',
+        noDocs: true
+      },
+      {
+        name: '换座位-pc',
+        path: 'https://cqlql.github.io/demos/seating-pc/',
+        env: 'pc',
+        noDocs: true
+      }
+    ]
+  }
   // {
   //   name: 'zoom-touch(触摸捏合放大)',
   //   path: '/zoom-touch',

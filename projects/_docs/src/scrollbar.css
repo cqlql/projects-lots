@@ -2,7 +2,7 @@
 /*** webkit ***/  
 /*滚动条整体*/
 ::-webkit-scrollbar{
-  width:14px; /*滚动条宽度*/
+  width:10px; /*滚动条宽度*/
 }
 /*滚动条按钮*/
 /* ::-webkit-scrollbar-button {
@@ -27,9 +27,12 @@
 } */
 /*滚动条*/
 ::-webkit-scrollbar-thumb{
-  background-color:#F3F3F3;
-  border:solid 1px #C0C0C0;
+  background-color:#d3d3d3;
+  /* border:solid 1px #C0C0C0; */
 }
 ::-webkit-scrollbar-thumb:hover{
-  background-color:#F3F3E0;
+  background-color:#c9c9c9;
+}
+::-webkit-scrollbar-thumb:active{
+  background-color:#bbb;
 }
