@@ -1,17 +1,17 @@
 <template>
-  <div :class="[$style.leftBox,s.leftBox]" :style="{width:width+'px'}">
+  <div class="dv-box" :style="{width:width+'px'}">
     <slot />
-    <div ref="eBar" :class="[$style.bar, s.bar]"/>
+    <div ref="eBar" class="dv-bar"/>
   </div>
 </template>
 
 <script>
 import drag from '@/modules/corejs/drag/drag-plus.js'
 export default {
-  model: {
-    prop: 'width',
-    event: 'resize'
-  },
+  // model: {
+  //   prop: 'width',
+  //   event: 'resize'
+  // },
   props: {
     s: {
       type: Object,
@@ -53,6 +53,7 @@ export default {
       } else {
         w = this.prevWidth
       }
+      this.$emit('update:width', w)
       this.$emit('resize', w)
     }
     drag({
@@ -61,6 +62,7 @@ export default {
         len = 0
         tw = this.width
         e.preventDefault()
+        this.$emit('start')
       },
       onMove: ({ lx }) => {
         len += lx
@@ -71,19 +73,23 @@ export default {
         } else if (width > maxWidth) {
           width = maxWidth
         }
-        this.$emit('resize', width || maxWidth)
+        width = width || maxWidth
+        this.$emit('update:width', width)
+        this.$emit('resize', width)
+      },
+      onEnd: () => {
+        this.$emit('end')
       }
     })
   }
 }
 </script>
 
-<style module>
-.leftBox {
+<style scoped>
+.dv-box {
   position: relative;
-  z-index: 1;
 }
-.bar {
+.dv-bar {
   position: absolute;
   right: 0;
   top: 0;

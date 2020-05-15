@@ -1,3 +1,8 @@
+# 窗口宽拖动改变
+
+## 快速使用
+
+```html
 <template>
   <div class="dv-demo">
     <DragView :initialWidth="200" :maxWidth="400" :width.sync="x">
@@ -68,3 +73,5 @@ export default {
   padding: 10px;
 }
 </style>
+
+```

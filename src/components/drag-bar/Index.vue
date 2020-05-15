@@ -11,7 +11,8 @@ export default {
       type: Number,
       default: 0
     },
-    max: Number
+    max: Number,
+    change: Function // 定制 change
   },
   mounted () {
     let len
@@ -22,16 +23,24 @@ export default {
         len = 0
         start = this.size
         e.preventDefault()
+        this.$emit('start')
       },
       onMove: ({ lx }) => {
-        const { min, max } = this
         len += lx
+        if (this.change) {
+          this.change({ len, start })
+          return
+        }
+        const { min, max } = this
         let size = len + start
         if (max && size > max) size = max
         if (size < min) size = min
 
-        this.$emit('change', size - start)
+        this.$emit('change', { size, start, len })
         this.$emit('update:size', size)
+      },
+      onEnd: () => {
+        this.$emit('end')
       }
     })
   }

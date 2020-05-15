@@ -1,3 +1,10 @@
+# 窗口宽拖动改变 - 简单、高度可配置
+
+适合3个及以上的窗口拖动改变
+
+## 快速使用
+
+```html
 <template>
   <div class="bd">
     <div class="left-box" :style="{width:w+'px'}">
@@ -76,3 +83,5 @@ export default {
   padding: 10px;
 }
 </style>
+
+```
