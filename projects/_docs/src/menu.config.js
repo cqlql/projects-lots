@@ -91,18 +91,149 @@ export default [
         path: 'https://cqlql.gitee.io/pi-train',
         noDocs: true
       },
-      {
-        name: '换座位',
-        path: 'https://cqlql.github.io/demos/seating-pc/',
-        env: 'pc',
-        noDocs: true
-      },
+
       {
         name: '英语单词挑战',
         path: 'https://cqlql.github.io/demos/english-words-challenge/',
         env: 'pc',
         noDocs: true
+      },
+      {
+        name: '跟随式弹框',
+        path: 'https://cqlql.github.io/demo/20160827_%E8%B7%9F%E9%9A%8F%E5%BC%8F%E5%BC%B9%E6%A1%86/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '自定义滚动条',
+        path: 'https://cqlql.github.io/demo/20151013_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%BB%9A%E5%8A%A8%E6%9D%A1_%E6%BB%9A%E5%8A%A8%E5%B1%95%E7%A4%BA%E5%8A%9F%E8%83%BD/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '图片幻灯_鱼眼放大',
+        path: 'https://cqlql.github.io/demo/20141111_JQ_%E5%9B%BE%E7%89%87%E5%B9%BB%E7%81%AF/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '图片展示360度+缩放',
+        path: 'https://cqlql.github.io/demo/20141111_JQ_%E5%9B%BE%E7%89%87%E5%B1%95%E7%A4%BA360%E5%BA%A6/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '图片展示Metro风格',
+        path: 'https://cqlql.github.io/demo/20141111_JQ_%E5%9B%BE%E7%89%87%E5%B1%95%E7%A4%BAMetro%E9%A3%8E%E6%A0%BC/',
+        env: 'pc',
+        noDocs: true
+      },
+      
+      {
+        name: '20120725_仿京东商品放大查看'
+      },
+      {
+        name: '20120905_日历'
+      },
+      {
+        name: '20130101_标签跟随淡出'
+      },
+      {
+        name: '20140000_层级树',
+        path: 'https://cqlql.github.io/demo/20141111_JQ_%E6%97%A0%E9%99%90%E5%B1%82%E7%BA%A7%E6%A0%91/',
+        env: 'pc',
+        noDocs: true
       }
+      ,
+      {
+        name: '20160426_省级联动',
+        path: 'https://cqlql.github.io/demo/20160426_%E7%9C%81%E7%BA%A7%E8%81%94%E5%8A%A8/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '20160801_换座位',
+        path: 'https://cqlql.github.io/demos/seating-pc/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '20160803_满屏轮播',
+        path: 'https://cqlql.github.io/demo/20160803_%E6%BB%A1%E5%B1%8F%E8%BD%AE%E6%92%AD/',
+        env: 'pc',
+        noDocs: true
+      },
+      
+      {
+        name: '20160804_移动端_题目截图',
+        path: 'https://cqlql.github.io/demo/20160804_%E7%A7%BB%E5%8A%A8%E7%AB%AF_%E9%A2%98%E7%9B%AE%E6%88%AA%E5%9B%BE/dist/',
+        noDocs: true
+      },
+      {
+        name: '20160830_简单放大镜效果',
+        path: 'https://cqlql.github.io/demo/20160830_%E7%AE%80%E5%8D%95%E6%94%BE%E5%A4%A7%E9%95%9C%E6%95%88%E6%9E%9C/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '20161122_层叠式图片轮换css3实现',
+        path: 'https://cqlql.github.io/demo/20161122_%E5%B1%82%E5%8F%A0%E5%BC%8F%E5%9B%BE%E7%89%87%E8%BD%AE%E6%8D%A2css3%E5%AE%9E%E7%8E%B0/view',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '20161207_文字滚动-animation实现',
+        path: 'https://cqlql.github.io/demo/20161207_%E6%96%87%E5%AD%97%E8%B7%91%E9%A9%AC%E7%81%AF/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '20161230_数字随机滚动_抽奖',
+        path: 'https://cqlql.github.io/demo/20161230_%E6%95%B0%E5%AD%97%E4%B8%8A%E4%B8%8B%E5%BE%AA%E7%8E%AF%E6%BB%9A%E5%8A%A8_%E6%8A%BD%E5%A5%96/index1',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '20170317_转盘抽奖',
+        path: 'https://cqlql.github.io/demo/20170317_happywheel/dist/happywheel.html',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '20170322_拖动换位',
+        path: 'https://cqlql.github.io/demo/20170322_%E6%8B%96%E5%8A%A8%E6%8D%A2%E4%BD%8D/dist/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '20170407_移动端_仿微信截图',
+        path: 'https://cqlql.github.io/demo/20170407_%E7%A7%BB%E5%8A%A8%E7%AB%AF_%E4%BB%BF%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE/dist/',
+        noDocs: true
+      },
+      {
+        name: '20170428_翻页模块封装',
+        path: 'https://cqlql.github.io/demo/20170428_paginator/dist/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '20170527_定制评课富文本',
+        path: 'https://cqlql.github.io/demo/20170527_%E8%AF%84%E8%AF%BE%E4%B8%93%E7%94%A8%E5%AF%8C%E6%96%87%E6%9C%AC/dist/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
+        name: '20170816_定制饼图统计-svg实现',
+        path: 'https://cqlql.github.io/demo/20170816_%E5%88%86%E5%9D%97%E9%A5%BC%E5%9B%BE%E7%BB%9F%E8%AE%A1/dist/',
+        env: 'pc',
+        noDocs: true
+      }
+      // {
+      //   name: 'xxx',
+      //   path: 'xxx',
+      //   env: 'pc',
+      //   noDocs: true
+      // }
     ]
   }
   // {

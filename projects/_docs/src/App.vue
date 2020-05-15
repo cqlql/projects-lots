@@ -4,7 +4,9 @@
       :width.sync="menuWidth" :class="$style.aside" :max-width="500" @resize="onResize"
       @start="onDragStart" @end="onDragEnd"
     >
-      <VMenu ref="vMenu" :data="menuData" @select="menuSelect" />
+      <div :class="$style.menuCont">
+        <VMenu ref="vMenu" :data="menuData" @select="menuSelect" />
+      </div>
     </DragView>
     <!-- <aside :class="$style.aside" :style="{width:menuWidth+'px'}">
       <VMenu ref="vMenu" :data="menuData" @select="menuSelect" />
@@ -168,6 +170,12 @@ export default {
   height: 100%;
   border-right: 1px solid #efefef;
   /* box-sizing: border-box; */
+}
+.menuCont {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  position: relative;
 }
 .mid {
   /* margin-left: 300px;
