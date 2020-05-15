@@ -50,7 +50,6 @@ export default {
           <div
             class={[sMenuItem, level < foldLevel ? '' : sFold, id ? sIsLink : '']}
             key={id}
-            id={id}
             data-level={level}
             onClick={e => { if (id) select({ e, id, isChild }) }}
           >

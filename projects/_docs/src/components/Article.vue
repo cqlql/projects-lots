@@ -92,7 +92,6 @@ export default {
     },
     scrollTop (id) {
       const hx = document.getElementById(id)
-      console.log(hx)
       this.$el.parentElement.scrollTop = hx.offsetTop
     }
   }
