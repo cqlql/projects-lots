@@ -108,6 +108,17 @@ export default [
         demo: () => import(/* webpackChunkName: "docs1" */ '@/components/popup/demo.vue'),
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/popup/README.md')
       },
+      {
+        name: '截图',
+        path: '/image-crop',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/image-crop/Demo.vue'),
+      },
+      {
+        name: '常用 vue transition 动画',
+        path: '/v-transition',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/v-transition/demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/v-transition/README.md'),
+      },
       // {
       //   name: '滑动唯一加载',
       //   path: '/slider-one-load',
