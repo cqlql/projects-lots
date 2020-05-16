@@ -1,0 +1,30 @@
+<template>
+  <div>
+    <p>
+      <button @click="show">普通消息</button>
+    </p>
+    <p>
+      <button @click="onErrorMsg">错误消息</button>
+    </p>
+    <p>
+    </p>
+  </div>
+</template>
+
+<script>
+import toast from '@/modules/toast-js'
+export default {
+  mounted () {
+    toast('开始~')
+  },
+  methods: {
+    show () {
+      toast('消息来了' + ~~(Math.random() * 100))
+      // toast.text('消息来了' + ~~(Math.random() * 100))
+    },
+    onErrorMsg () {
+      toast.error('操作失败操作失败操作失败操作失败操作失败操作失败')
+    }
+  }
+}
+</script>

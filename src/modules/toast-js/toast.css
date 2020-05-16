@@ -1,0 +1,26 @@
+.toast {
+  position: fixed;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 4px 10px 6px;
+  font-size: 16px;
+  line-height: 1.2;
+  max-width: 86%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  border-radius: 3px;
+  z-index: 100;
+  /* pointer-events: none; */
+
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+}
+
+.error {
+  color: #fff;
+  background-color: #eb3941;
+  font-size: 14px;
+  text-align: left;
+}
