@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.marqueeTextDownBox">
     <div :class="$style.move">
-      <div :class="$style.cont" :style="{'padding-right': paddingRight + 'px'}">
+      <div :class="$style.cont" ref="vCont" :style="{'padding-right': paddingRight + 'px'}">
         <template v-if="text">{{text}}</template>
         <slot v-else/>
       </div>

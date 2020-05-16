@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$style.main">
     <div>
       <h1>demo 滚动条版本 横向</h1>
       <p>
@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import MarqueeTextDown from './MarqueeTextAcross.vue'
+import MarqueeTextDown from '../MarqueeTextAcross.vue'
 // import Demo from './Demo.1.vue'
-const t1 = `多年来，不曾一人等候过日落。`
+const t1 = '多年来，不曾一人等候过日落。'
 const t2 = `${t1}而当独自一人坐在华山东峰顶---`
 export default {
   data () {
@@ -57,6 +57,12 @@ export default {
 </script>
 
 <style module>
+.main :global {
+  h1{
+    font-size: 24px;
+    padding: 5px;
+  }
+}
 .box {
   border: 2px solid #ddd;
   height: 50px;

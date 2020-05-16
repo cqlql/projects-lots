@@ -30,7 +30,7 @@ interface AnimationComp extends Vue {
 export default class MobileBanner extends Vue {
   @Prop({ default: () => [] }) imgs!:string[]
   @Prop() timerInterval!:number
-  @Prop({ default: 'Fade' }) type!:string
+  @Prop({ default: 'Move' }) type!:string
   width = 300
   timer!: Timer
   getAnimationComp () {

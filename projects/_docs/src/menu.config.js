@@ -15,7 +15,7 @@ export default [
         name: '开发笔记',
         // path: '/my-note',
         // docs: () => import(/* webpackChunkName: "docs1" */ './docs/my-note.md'),
-        path: 'http://cqlql.gitee.io/note/',
+        path: 'https://cqlql.gitee.io/note/',
         noDocs: true,
         env: 'pc'
       },
@@ -68,6 +68,69 @@ export default [
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/pulldown-refresh/README.md')
       },
       {
+        name: '移动端 banner',
+        path: '/mobile-banner2',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/mobile-banner2/demo/index.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/mobile-banner2/README.md')
+      },
+      {
+        name: '文本跑马灯',
+        path: '/marquee-text',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/marquee-text/demo/Index.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/marquee-text/README.md')
+      },
+      {
+        name: 'loading',
+        path: '/loading',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/loading/Demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/loading/README.md')
+      },
+      {
+        name: '确认框',
+        path: '/confirm',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/confirm/demo.vue')
+      },
+      {
+        name: '滑动选择',
+        path: '/slide-select',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/slide-select/demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/slide-select/README.md')
+      },
+      {
+        name: '滑动选择-日期',
+        path: '/slide-select-date',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/slide-select-date/demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/slide-select-date/README.md')
+      },
+      // {
+      //   name: '滑动唯一加载',
+      //   path: '/slider-one-load',
+      //   demo: () => import(/* webpackChunkName: "docs1" */ '@/components/slider-one-load/Demo.vue'),
+      //   docs: () => import(/* webpackChunkName: "docs1" */ '@/components/slider-one-load/README.md')
+      // },
+      // {
+      //   name: '切换效果-多元素',
+      //   path: '/switch-multi',
+      //   demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/switch-multi/demo.vue'),
+      //   noDocs: true,
+      //   env: 'pc'
+      //   // docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/switch-multi/README.md')
+      // },
+      // {
+      //   name: '切换效果-单元素',
+      //   path: '/switch-one',
+      //   demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/switch-one/demo.vue'),
+      //   noDocs: true,
+      //   env: 'pc'
+      //   // docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/switch-multi/README.md')
+      // },
+      // {
+      //   name: '',
+      //   path: '',
+      //   demo: () => import(/* webpackChunkName: "docs1" */ '@/components/zoom-touch/demo.vue'),
+      //   docs: () => import(/* webpackChunkName: "docs1" */ '@/components/zoom-touch/README.md')
+      // },
+      {
         name: '宽口宽拖动改变 - 简单、高度可配置',
         path: '/drag-bar',
         demo: () => import(/* webpackChunkName: "docs1" */ '@/components/drag-bar/demo/Index.vue'),
@@ -84,8 +147,25 @@ export default [
     ],
   },
   {
+    name: 'js 原生模块',
+    children: [
+      {
+        name: '双指捏合放大',
+        path: '/zoom-touch',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/README.md')
+      }
+    ]
+  },
+  {
     name: '其他',
     children: [
+      {
+        name: '页面可视化编辑',
+        path: 'https://cqlql.github.io/demos/visual-edit',
+        noDocs: true,
+        env: 'pc'
+      },
       {
         name: '圆周率记忆练习',
         path: 'https://cqlql.gitee.io/pi-train',
@@ -98,14 +178,9 @@ export default [
         env: 'pc',
         noDocs: true
       },
+      
       {
-        name: '跟随式弹框',
-        path: 'https://cqlql.github.io/demo/20160827_%E8%B7%9F%E9%9A%8F%E5%BC%8F%E5%BC%B9%E6%A1%86/',
-        env: 'pc',
-        noDocs: true
-      },
-      {
-        name: '自定义滚动条',
+        name: '20151013_自定义滚动条',
         path: 'https://cqlql.github.io/demo/20151013_%E8%87%AA%E5%AE%9A%E4%B9%89%E6%BB%9A%E5%8A%A8%E6%9D%A1_%E6%BB%9A%E5%8A%A8%E5%B1%95%E7%A4%BA%E5%8A%9F%E8%83%BD/',
         env: 'pc',
         noDocs: true
@@ -128,15 +203,23 @@ export default [
         env: 'pc',
         noDocs: true
       },
-      
       {
-        name: '20120725_仿京东商品放大查看'
+        name: '20120725_仿京东商品放大查看',
+        path: 'https://cqlql.github.io/demo/20120725_%E4%BB%BF%E4%BA%AC%E4%B8%9C%E5%95%86%E5%93%81%E6%94%BE%E5%A4%A7%E6%9F%A5%E7%9C%8B',
+        env: 'pc',
+        noDocs: true
       },
       {
-        name: '20120905_日历'
+        name: '20120905_日历',
+        path: 'https://cqlql.github.io/demo/20120905_%E6%97%A5%E5%8E%86/index.html',
+        env: 'pc',
+        noDocs: true
       },
       {
-        name: '20130101_标签跟随淡出'
+        name: '20130101_标签跟随淡出',
+        path: 'https://cqlql.github.io/demo/20130101_%E6%A0%87%E7%AD%BE%E8%B7%9F%E9%9A%8F%E6%B7%A1%E5%87%BA',
+        env: 'pc',
+        noDocs: true
       },
       {
         name: '20140000_层级树',
@@ -170,6 +253,12 @@ export default [
         noDocs: true
       },
       {
+        name: '20160827_跟随式弹框',
+        path: 'https://cqlql.github.io/demo/20160827_%E8%B7%9F%E9%9A%8F%E5%BC%8F%E5%BC%B9%E6%A1%86/',
+        env: 'pc',
+        noDocs: true
+      },
+      {
         name: '20160830_简单放大镜效果',
         path: 'https://cqlql.github.io/demo/20160830_%E7%AE%80%E5%8D%95%E6%94%BE%E5%A4%A7%E9%95%9C%E6%95%88%E6%9E%9C/',
         env: 'pc',
@@ -196,7 +285,6 @@ export default [
       {
         name: '20170317_转盘抽奖',
         path: 'https://cqlql.github.io/demo/20170317_happywheel/dist/happywheel.html',
-        env: 'pc',
         noDocs: true
       },
       {
@@ -210,22 +298,20 @@ export default [
         path: 'https://cqlql.github.io/demo/20170407_%E7%A7%BB%E5%8A%A8%E7%AB%AF_%E4%BB%BF%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE/dist/',
         noDocs: true
       },
-      {
-        name: '20170428_翻页模块封装',
-        path: 'https://cqlql.github.io/demo/20170428_paginator/dist/',
-        env: 'pc',
-        noDocs: true
-      },
+      // {
+      //   name: '20170428_翻页模块封装',
+      //   path: 'https://cqlql.github.io/demo/20170428_paginator/dist/',
+      //   env: 'pc',
+      //   noDocs: true
+      // },
       {
         name: '20170527_定制评课富文本',
         path: 'https://cqlql.github.io/demo/20170527_%E8%AF%84%E8%AF%BE%E4%B8%93%E7%94%A8%E5%AF%8C%E6%96%87%E6%9C%AC/dist/',
-        env: 'pc',
         noDocs: true
       },
       {
         name: '20170816_定制饼图统计-svg实现',
         path: 'https://cqlql.github.io/demo/20170816_%E5%88%86%E5%9D%97%E9%A5%BC%E5%9B%BE%E7%BB%9F%E8%AE%A1/dist/',
-        env: 'pc',
         noDocs: true
       }
       // {

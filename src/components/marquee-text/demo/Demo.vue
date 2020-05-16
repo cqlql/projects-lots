@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$style.main">
     <div>
       <h1>demo 滚动条版本</h1>
       <p>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import MarqueeTextDown from './MarqueeTextDown.vue'
+import MarqueeTextDown from '../MarqueeTextDown.vue'
 // import Demo from './Demo.1.vue'
 const t1 = `
       多年来，不曾一人等候过日落。而当独自一人坐在华山东峰顶，静静观赏夕阳西下和天边绚丽的晚霞时，内心的世界，有了不同往常的从容无恙。而人生，因了这场行走，更加美好辽阔。渐渐地，夕阳消失，起风了。山风从耳边呼啸而过，嘴角扬起的笑意也加深着。不知道未来将是什么样，只愿能一直这样简单安好。
@@ -61,9 +61,15 @@ export default {
 </script>
 
 <style module>
+.main :global {
+  h1{
+    font-size: 24px;
+    padding: 5px;
+  }
+}
 .box {
   border: 2px solid #ddd;
-  height: 300px;
+  height: 200px;
 }
 .marqueeTextDownBox {
   width:300px;

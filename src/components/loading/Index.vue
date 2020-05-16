@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Icoload from '@/components/ico/Icoload'
+import Icoload from '@/components/ico/load'
 import VMask from '@/components/base/VMask'
 export default {
   data () {

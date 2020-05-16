@@ -10,8 +10,8 @@
 
 <script>
 import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
-import autoprefix from '@/modules/corejs/css/autoprefix/index.js'
-import swipex from '@/modules/corejs/dom-drag/swipex'
+import autoprefix from '@/modules/corejs/css/autoprefix.js'
+import swipex from '@/modules/corejs/drag/swipex'
 import LengthTest from './LengthTest'
 import MoveArray from './MoveArray'
 export default {

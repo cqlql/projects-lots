@@ -1,4 +1,4 @@
-import drag from '@/modules/corejs/dom-drag/drag'
+import drag from '@/modules/corejs/drag/drag.js'
 import autoPrefix from '@/modules/corejs/css/autoprefix'
 import InertiaAnime from '@/modules/corejs/animation/inertia-anime'
 import Animation from '@/modules/corejs/animation/animation'

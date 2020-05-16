@@ -31,7 +31,7 @@ import MobileBanner from '../index.vue'
 export default class MobileBannerDemo extends Vue {
   timerInterval = 0
   imgs: string[] = []
-  type = 'Fade'
+  type = 'Move'
   created () {
     this.restart()
   }

@@ -19,7 +19,7 @@ module.exports = function (options) {
 
   let conf = {
     entry: {
-      app: ['./src/main.ts']
+      app: './src/main.ts'
     },
     output: {
       path: (resolve || _resolve)('./dist'),
