@@ -3,7 +3,9 @@ import Vue from 'vue'
 
 // import App from '@/components/pulldown-refresh/demo/Index.vue'// 下拉刷新
 // import App from '@/components/drag-view/demo/Index.vue'// 窗口宽拖动改变
-import App from '@/components/drag-bar/demo/Index.vue'// 窗口宽拖动改变 - 更高的可配置
+// import App from '@/components/drag-bar/demo/Index.vue'// 窗口宽拖动改变 - 更高的可配置
+// import App from '@/components/popup/demo.vue'// 窗口宽拖动改变 - 更高的可配置
+import App from '@/modules/toast-js/demo.vue'// 窗口宽拖动改变 - 更高的可配置
 
 // import App from './App.vue'
 // import router from './router'

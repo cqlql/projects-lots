@@ -86,11 +86,6 @@ export default [
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/loading/README.md')
       },
       {
-        name: '确认框',
-        path: '/confirm',
-        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/confirm/demo.vue')
-      },
-      {
         name: '滑动选择',
         path: '/slide-select',
         demo: () => import(/* webpackChunkName: "docs1" */ '@/components/slide-select/demo.vue'),
@@ -101,6 +96,17 @@ export default [
         path: '/slide-select-date',
         demo: () => import(/* webpackChunkName: "docs1" */ '@/components/slide-select-date/demo.vue'),
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/slide-select-date/README.md')
+      },
+      {
+        name: '确认框',
+        path: '/confirm',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/confirm/demo.vue')
+      },
+      {
+        name: '弹窗',
+        path: '/popup',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/components/popup/demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/popup/README.md')
       },
       // {
       //   name: '滑动唯一加载',
@@ -155,6 +161,12 @@ export default [
         demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/demo.vue'),
         docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/README.md')
       }
+      // {
+      //   name: '轻提醒-js版',
+      //   path: '/toast-js',
+      //   // demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/demo.vue'),
+      //   docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/toast-js/README.md')
+      // }
     ]
   },
   {

@@ -34,7 +34,7 @@ module.exports = function (options) {
       hotOnly: false,
       // 这是webpack本身出于安全考虑，因为不检查主机的应用程序容易受到DNS重新绑定攻击。但是，在我们的开发环境下，可以禁用掉disableHostCheck这一配置项。
       disableHostCheck: true, // ie 报 Invalid Host/Origin header 问题
-      // https: true
+      https: true
     }
   }
 

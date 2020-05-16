@@ -1,10 +1,10 @@
 <template>
   <div>
     <VTransition group :activeClass="$style.transitionActive" name="slide-up">
-      <ToastSide v-for="options of listSlideUp" :options="options" :key="options.id"></ToastSide>
+      <Toast v-for="options of listSlideUp" :options="options" :key="options.id"></Toast>
     </VTransition>
     <VTransition group :activeClass="$style.transitionActive" name="slide-down">
-      <ToastSide v-for="options of listSlideDown" :options="options" :key="options.id"></ToastSide>
+      <Toast v-for="options of listSlideDown" :options="options" :key="options.id"></Toast>
     </VTransition>
     <VTransition group :activeClass="$style.transitionActive">
       <Toast v-for="options of listFade" :options="options" :key="options.id"></Toast>
@@ -14,13 +14,11 @@
 
 <script>
 import VTransition from '@/components/v-transition'
-import ToastSide from './ToastSide'
 import Toast from './Toast'
 let id = 0
 export default {
   components: {
     VTransition,
-    ToastSide,
     Toast
   },
   data () {
@@ -42,7 +40,7 @@ export default {
       options.id = id++
 
       // 位置处理
-      let {position} = options
+      let { position } = options
       if (!position) {
         if (options.type === 'success') {
           position = this.successPosition

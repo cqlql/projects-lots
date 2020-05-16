@@ -13,7 +13,7 @@ module.exports = function (webpackConfig) {
       webpackConfig.devServer.quiet = true // 取消自带的编译信息。 necessary for FriendlyErrorsPlugin
       webpackConfig.plugins.unshift(new FriendlyErrorsWebpackPlugin({
         compilationSuccessInfo: {
-          messages: [`start: http://${webpackConfig.devServer.host}:${port} \n`]
+          messages: [`start: https://${webpackConfig.devServer.host}:${port} \n`]
         }
       }))
       resolve(webpackConfig)

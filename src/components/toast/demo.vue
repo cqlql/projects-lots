@@ -24,17 +24,16 @@
 
 <script>
 import Toast from './index'
-let count = 0
 export default {
   components: {
     Toast
   },
   methods: {
     show () {
-      this.$refs.vToast.text('消息来了' + count++)
+      this.$refs.vToast.text('消息来了' + ~~(Math.random() * 100))
     },
     pluginShow () {
-      this.$toast('消息来了' + count++)
+      this.$toast('消息来了' + ~~(Math.random() * 100))
     },
     showSuccess () {
       this.$toast.success('成功提醒')
