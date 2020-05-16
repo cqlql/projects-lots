@@ -319,11 +319,11 @@ export default [
         env: 'pc',
         noDocs: true
       },
-      {
-        name: '20170407_移动端_仿微信截图',
-        path: 'https://cqlql.github.io/demo/20170407_%E7%A7%BB%E5%8A%A8%E7%AB%AF_%E4%BB%BF%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE/dist/',
-        noDocs: true
-      },
+      // {
+      //   name: '20170407_移动端_仿微信截图',
+      //   path: 'https://cqlql.github.io/demo/20170407_%E7%A7%BB%E5%8A%A8%E7%AB%AF_%E4%BB%BF%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE/dist/',
+      //   noDocs: true
+      // },
       // {
       //   name: '20170428_翻页模块封装',
       //   path: 'https://cqlql.github.io/demo/20170428_paginator/dist/',
