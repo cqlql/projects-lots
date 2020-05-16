@@ -236,10 +236,13 @@ export default [
       {
         name: '20140000_层级树',
         path: 'https://cqlql.github.io/demo/20141111_JQ_%E6%97%A0%E9%99%90%E5%B1%82%E7%BA%A7%E6%A0%91/',
-        env: 'pc',
-        noDocs: true
-      }
-      ,
+        env: 'pc',noDocs: true
+      },
+      {
+        name: '20141015_自定义下拉框_带搜索_支持快捷键',
+        path: 'https://cqlql.github.io/demo/20141015_%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%8B%E6%8B%89%E6%A1%86_%E5%B8%A6%E6%90%9C%E7%B4%A2_%E6%94%AF%E6%8C%81%E5%BF%AB%E6%8D%B7%E9%94%AE/',
+        env: 'pc',noDocs: true
+      },
       {
         name: '20160426_省级联动',
         path: 'https://cqlql.github.io/demo/20160426_%E7%9C%81%E7%BA%A7%E8%81%94%E5%8A%A8/',
