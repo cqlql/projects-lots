@@ -112,6 +112,7 @@ export default [
         name: '截图',
         path: '/image-crop',
         demo: () => import(/* webpackChunkName: "docs1" */ '@/components/image-crop/Demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/components/image-crop/README.md')
       },
       {
         name: '常用 vue transition 动画',
