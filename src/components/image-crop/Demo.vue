@@ -25,7 +25,7 @@
 import ImageCrop from '@/components/image-crop/ImageCrop.vue'
 // import url from './1.jpg'
 // import qiniup from '@/js/file-upload-qiniu.js'
-import fileSelect from '@/modules/corejs/dom/file-select.js'
+import fileSelect from '@/modules/corejs/file/file-select.js'
 export default {
   components: {
     ImageCrop

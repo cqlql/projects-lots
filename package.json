@@ -5,9 +5,7 @@
   "author": "陈桥黎",
   "private": true,
   "scripts": {
-    "_demo": "cd ./projects/_demos&&npm start",
-    "start": "webpack-dev-server --progress --config webpack.dev.js",
-    "build": "node webpack.prod.js",
+    "_demos": "cd ./projects/_demos&&npm start",
     "test": "karma start test/unit/karma.conf.js",
     "test-jest": "jest -c=test/jest.config.js",
     "test-node": "jest spec/.+[sS]pec\\.js$ --watch -c=test-node/jest.config.js",
