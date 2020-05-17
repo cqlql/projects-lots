@@ -1,4 +1,9 @@
 import $style from './toast.css?module'
+// import transition from '@/modules/corejs/animation/transition.js'
+// import transitionendOnce from '@/modules/corejs/animation/transitionend-once.js'
+import transitionendOncePromise from '@/modules/corejs/animation/transitionend-once-promise.js'
+import timeoutAsync from '@/modules/corejs/time/timeout-async'
+
 class Toast {
   text (text) {
     this.show({
@@ -20,7 +25,7 @@ class Toast {
     })
   }
 
-  show ({ text, type }) {
+  async show ({ text, type }) {
     const el = document.createElement('div')
     const eText = document.createElement('div')
     el.appendChild(eText)
@@ -31,14 +36,16 @@ class Toast {
     eText.textContent = text
     type = $style[type]
     el.className = $style.toast + (type ? (' ' + type) : '')
-
-    animation({
-      el,
-      transitionName: $style.transitionActive,
-      end () {}
-    })
-
-    setTimeout(() => { el.remove() }, 1600)
+    const { classList, style } = el
+    style.opacity = 0
+    classList.add($style.transitionActive)
+    await timeoutAsync(1)
+    style.opacity = 1
+    await transitionendOncePromise(el)
+    await timeoutAsync(1600)
+    style.opacity = 0
+    await transitionendOncePromise(el)
+    el.remove()
   }
 }
 
