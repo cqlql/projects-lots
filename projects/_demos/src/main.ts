@@ -5,8 +5,8 @@ import Toast from '@/components/toast/plugin'
 // import App from '@/components/drag-view/demo/Index.vue'// 窗口宽拖动改变
 // import App from '@/components/drag-bar/demo/Index.vue'// 窗口宽拖动改变 - 更高的可配置
 // import App from '@/components/popup/demo.vue'// 窗口宽拖动改变 - 更高的可配置
-// import App from '@/modules/toast-js/demo.vue'// 窗口宽拖动改变 - 更高的可配置
-import App from '@/components/image-crop/Demo.vue'// 窗口宽拖动改变 - 更高的可配置
+import App from '@/modules/toast-js/demo.vue'// 窗口宽拖动改变 - 更高的可配置
+// import App from '@/components/image-crop/Demo.vue'// 窗口宽拖动改变 - 更高的可配置
 
 Vue.use(Toast)
 // import App from './App.vue'
