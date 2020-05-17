@@ -1,6 +1,3 @@
-
-let cache = {}
-
 /**
  * 自动加前缀
  * 检测浏览器支持的属性。如果直接支持便不处理
@@ -18,13 +15,8 @@ export default function autoprefix (cssPropertyName, type = 'js') {
       throw new Error('不能带浏览器前缀')
     }
   }
-
-  // 如果有直接返回
-  let propertyName = cache[cssPropertyName]
-  if (propertyName) return propertyName[type]
-
+  let propertyName
   let humpName = minusHump(cssPropertyName)
-
   let style = document.body.style
 
   if (humpName in style) { // 直接支持情况

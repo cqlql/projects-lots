@@ -1,5 +1,5 @@
 
-import autoprefix from './index'
+import autoprefix from './autoprefix'
 export default function (el, values = {}) {
   const { style } = el
   for (const k in values) {
