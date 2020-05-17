@@ -7,7 +7,7 @@
   "scripts": {
     "_demos": "cd ./projects/_demos&&npm start",
     "test": "karma start test/unit/karma.conf.js",
-    "test-jest": "jest -c=test/jest.config.js",
+    "test-jest": "jest -c=test/jest.config.js --watch",
     "test-node": "jest spec/.+[sS]pec\\.js$ --watch -c=test-node/jest.config.js",
     "mock-server": "nodemon ./mock-server/server.run.js"
   },
