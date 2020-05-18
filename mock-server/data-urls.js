@@ -1,4 +1,4 @@
 module.exports = {
-  '/User/LoginByCampusId': 'LoginByCampusId',
+  '/GetClassesInGrades': 'GetClassesInGrades',
   '/Organization/GetDepartments': 'GetDepartments'
 }
