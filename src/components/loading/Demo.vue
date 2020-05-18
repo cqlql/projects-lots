@@ -1,18 +1,18 @@
 <template>
   <div>
     <p>
-      <button @click="show">显示 loading，默认延迟 200ms，1s 后关闭</button>
+      <button class="button" @click="show">显示 loading，默认延迟 200ms，1s 后关闭</button>
     </p>
     <p>
-      <button @click="directShow">直接显示 loading，不延迟，1s 后关闭</button>
+      <button class="button" @click="directShow">直接显示 loading，不延迟，1s 后关闭</button>
     </p>
     <p>
-      <button @click="maskShow">带蒙层</button>
+      <button class="button" @click="maskShow">带蒙层</button>
     </p>
     <p>
-      <button @click="pluginShow">plugin 调用</button>
+      <button class="button" @click="pluginShow">plugin 调用</button>
     </p>
-    <div>记录点击数，延迟情况是否也避免点击：{{clickCount}}</div>
+    <p>记录点击数，延迟情况是否也避免点击：{{clickCount}}</p>
     <Loading ref="vLoading" />
   </div>
 </template>
@@ -59,3 +59,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+p {
+  margin: 5px;
+}
+</style>

@@ -20,17 +20,13 @@
   }
 }
 .preloader-full {
-
-  & {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 99;
-    display: none;
-  }
-
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 99;
+  display: none;
 
   .preloader-modal {
     position: absolute;
@@ -50,10 +46,10 @@
     width: 34px;
     height: 34px;
   }
-  &.show {
+  &.show1 {
     display: block;
   }
-  &.show-load .preloader-modal{
+  &.show2 .preloader-modal{
     display: block;
   }
   &.mask {

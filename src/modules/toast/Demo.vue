@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import toast from '@/modules/toast-js'
+import toast from '@/modules/toast'
 export default {
   mounted () {
-    toast('开始~')
+    toast.success('开始~')
   },
   methods: {
     show () {
@@ -38,5 +38,6 @@ export default {
 <style scoped>
 p {
   text-align: center;
+  margin: 5px;
 }
 </style>

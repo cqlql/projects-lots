@@ -34,14 +34,14 @@ export default {
 
       this.mask = mask
       this.show1 = true
-      let ex = () => {
+      const showLoad = () => {
         this.show2 = true
       }
 
       if (time) {
-        this.timeId = setTimeout(ex, time)
+        this.timeId = setTimeout(showLoad, time)
       } else {
-        ex()
+        showLoad()
       }
     },
     hide () {

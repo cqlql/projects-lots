@@ -61,5 +61,6 @@ export default {
 <style scoped>
 p {
   text-align: center;
+  margin: 5px;
 }
 </style>
