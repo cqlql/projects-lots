@@ -4,6 +4,9 @@
       <button @click="show">普通消息</button>
     </p>
     <p>
+      <button @click="showSuccess">成功提醒</button>
+    </p>
+    <p>
       <button @click="onErrorMsg">错误消息</button>
     </p>
     <p>
@@ -21,6 +24,9 @@ export default {
     show () {
       toast('消息来了' + ~~(Math.random() * 100))
       // toast.text('消息来了' + ~~(Math.random() * 100))
+    },
+    showSuccess () {
+      toast.success('成功提醒')
     },
     onErrorMsg () {
       toast.error('操作失败操作失败操作失败操作失败操作失败操作失败')

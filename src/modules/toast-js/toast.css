@@ -17,7 +17,13 @@
   bottom: 10%;
   transform: translateX(-50%);
 }
-
+.text {
+  vertical-align: middle;
+}
+.success {
+  max-width: 120px;
+  padding: 14px;
+}
 .error {
   color: #fff;
   background-color: #eb3941;
@@ -27,4 +33,48 @@
 .transitionActive {
   transition: 0.3s ease;
   transition-property:opacity;
+}
+.tickIcon {
+  width: 55px;
+  margin: 0 auto;
+}
+.errorIcon {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  background-color: #fff;
+  border-radius: 100%;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 4px;
+}
+.errorIcon::before,
+.errorIcon::after {
+  content: "";
+  width: 70%;
+  height: 10%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background-color: #eb3941;
+  transform: rotate(45deg);
+}
+.errorIcon::after {
+  transform: rotate(-45deg);
+}
+
+/* 位置弹出 */
+.bottom {
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+}
+.center {
+  left: 50%;
+  bottom: auto;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

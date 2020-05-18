@@ -11,12 +11,12 @@ class Toast {
     })
   }
 
-  // success () {
-  //   this.show({
-  //     type: 'success',
-  //     text
-  //   })
-  // }
+  success (text) {
+    this.show({
+      type: 'success',
+      text
+    })
+  }
 
   error (text) {
     this.show({
@@ -27,15 +27,32 @@ class Toast {
 
   async show ({ text, type }) {
     const el = document.createElement('div')
-    const eText = document.createElement('div')
+    const eText = document.createElement('span')
+    let position = 'bottom' // 位置
+    if (type === 'success') {
+      const eTickIcon = document.createElement('div')
+      eTickIcon.className = $style.tickIcon
+      eTickIcon.innerHTML = '<svg viewBox="0 0 1024 1024"><path d="M962 237.778l-585 630-315-405 115.313-98.438 199.688 208.125 495-424.688 90 90z" fill="currentColor"></path></svg>'
+      el.appendChild(eTickIcon)
+      position = 'center'
+    } else if (type === 'error') {
+      const eErrIco = document.createElement('i')
+      eErrIco.className = $style.errorIcon
+      el.appendChild(eErrIco)
+      position = 'center'
+    }
+
     el.appendChild(eText)
     el.className = $style.toast
-    eText.className = $style.txt
+    eText.className = $style.text
+
     document.body.appendChild(el)
 
     eText.textContent = text
-    type = $style[type]
-    el.className = $style.toast + (type ? (' ' + type) : '')
+    type = $style[type] || ''
+    el.className = $style.toast + ' ' + $style[position] + ' ' + type
+
+    // fade 动画
     const { classList, style } = el
     style.opacity = 0
     classList.add($style.transitionActive)
@@ -58,6 +75,6 @@ function toast (text) {
 toast.text = function (v) { t.text(v) }
 toast.error = function (v) { t.error(v) }
 toast.show = function (v) { t.show(v) }
-// toast.success = t.success
+toast.success = function (v) { t.success(v) }
 
 export default toast
