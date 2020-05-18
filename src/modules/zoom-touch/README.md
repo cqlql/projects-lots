@@ -3,7 +3,7 @@
 ## 使用示例
 
 ```js
-import ZoomTouch from './zoom-touch.js'
+import ZoomTouch from '@/modules/zoom-touch/zoom-touch.js'
 
 // 1 直接指定一个放大元素
 new ZoomTouch(elemZoom)
@@ -25,4 +25,4 @@ new ZoomTouch({
 
 ## 已实现的功能
 
-[Vue UI组件/截图](/#/image-crop)
+[Vue UI组件/截图](#/image-crop)
