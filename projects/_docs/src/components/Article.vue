@@ -25,6 +25,17 @@ export default {
   mounted () {
     // 文章定位优化
     this.$el.children[0].style.paddingBottom = innerHeight / 2 + 'px'
+
+    // 文档可跳转左菜单
+    // 也就是页面内井号后问号参数变更可跳转处理
+    // this.$el.addEventListener('click', ({ target }) => {
+    //   if (target.tagName === 'A') {
+    //     if (/\/?#\/\?path=/.test(target.href)) {
+    //       location.href = ''
+    //       location.href = target.href
+    //     }
+    //   }
+    // })
   },
   watch: {
     content () {

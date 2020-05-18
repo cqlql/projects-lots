@@ -22,3 +22,7 @@ new ZoomTouch({
 | elem      | 放大元素                         | Element | -                  |
 | elemEvent | 事件元素，指定拖动范围           | Element | elem, 使用放大元素 |
 | isInit    | 是否更新坐标尺寸，操作前必须更新 | Boolean | true               |
+
+## 已实现的功能
+
+[Vue UI组件/截图](/#/image-crop)

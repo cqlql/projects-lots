@@ -172,13 +172,19 @@ export default [
         path: '/zoom-touch',
         demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/demo.vue'),
         docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/README.md')
-      }
-      // {
-      //   name: '轻提醒-js版',
-      //   path: '/toast-js',
-      //   // demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/demo.vue'),
-      //   docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/toast-js/README.md')
-      // }
+      },
+      {
+        name: 'toast 轻提醒-js版',
+        path: '/toast-js',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/toast/Demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/toast/README.md')
+      },
+      {
+        name: 'loading-js版',
+        path: '/loading-js',
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/loading/Demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/loading/README.md')
+      },
     ]
   },
   {

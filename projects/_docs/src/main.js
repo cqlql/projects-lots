@@ -1,6 +1,6 @@
 /* eslint-disable */
 import '@/comm.css'
-// import '@/button.css'
+import '@/button.css'
 import './scrollbar.css'
 import '@/modules/corejs/common.js'
 // import '@/modules/corejs/em-auto.js'
