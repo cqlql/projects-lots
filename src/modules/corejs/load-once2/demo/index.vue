@@ -1,28 +1,27 @@
 <template>
   <div>
-    <button @click="excu">执行加载，快速点击多次看效果</button>
+    <button @click="excu">快速点击多次看 network 是否多次重复加载 </button>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { Prop, Component } from 'vue-property-decorator'
-import LoadOnce from '../index'
-import scriptLoad from '../../dom/script-load'
-let ckeditorLoadOnce = new LoadOnce()
+import { Component } from 'vue-property-decorator'
+import LoadOnce from '@/modules/corejs/load-once2'
+import scriptLoad from '@/modules/corejs/dom/script-load'
+const ckeditorLoadOnce = new LoadOnce()
 
 @Component
 export default class LoadOnce2Demo extends Vue {
   count = 0
-  excu () {
-    let id = ++this.count
-    ckeditorLoadOnce.load(async () => {
-      await scriptLoad('http://style.shenduxuetang.com/ckeditor/4.11.1/ckeditor.js')
-      await scriptLoad('http://style.shenduxuetang.com/ckeditor/4.11.1/config.js')
+  async excu () {
+    const id = ++this.count
+    const ckeditor = await ckeditorLoadOnce.load(async () => {
+      await scriptLoad('https://style.shenduxuetang.com/ckeditor/4.11.1/ckeditor.js')
+      await scriptLoad('https://style.shenduxuetang.com/ckeditor/4.11.1/config.js')
       return window.CKEDITOR
-    }).then(ckeditor => {
-      console.log(id, ckeditor)
     })
+    console.log(id, ckeditor)
   }
 }
 </script>

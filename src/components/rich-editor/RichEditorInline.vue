@@ -62,7 +62,7 @@ export default class RichEditorInline extends Vue {
 
       editor.on('change', () => {
         this.$emit('changeData', editor.getData())
-        // 主动设置情况 不触发 inputValue
+        // 实现主动设置情况 不触发 inputValue
         if (this.autoset === true) {
           this.autoset = false
           return

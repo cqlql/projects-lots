@@ -9,7 +9,8 @@ import Toast from '@/components/toast/plugin'
 // import App from '@/modules/toast/Demo.vue'// toast 简易消息 js版
 // import App from '@/modules/loading/Demo.vue'// loading js版
 // import App from '@/components/image-crop/Demo.vue'// 截图
-import App from '@/modules/ajax/Demo.vue'// ajax
+// import App from '@/modules/ajax/Demo.vue'// ajax
+import App from '@/modules/corejs/load-once2/demo/Index.vue'// ajax
 
 Vue.use(Toast)
 // import App from './App.vue'
