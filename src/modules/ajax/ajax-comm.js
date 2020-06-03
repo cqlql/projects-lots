@@ -66,8 +66,6 @@ export class AjaxComm {
   messageError (msg) {
     console.error(msg)
   }
-  // 可以改为灵活配置 ajax 库
-  // axios () {}
 }
 
 // .net 接口通用
