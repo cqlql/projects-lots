@@ -1,5 +1,5 @@
 
-/* eslint-env jest, mocha */
+/* eslint-env jest */
 /* eslint-disable no-unused-expressions */
 import autoprefix from './autoprefix'
 // import minusHump from './minus-hump'

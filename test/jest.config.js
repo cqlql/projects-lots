@@ -1,7 +1,8 @@
 module.exports = {
   verbose: true,
   rootDir: '../',
-  testMatch: ['<rootDir>/src/**/autoprefix.test.js'],
+  // testMatch: ['<rootDir>/src/**/autoprefix.test.js'],
+  testMatch: ['<rootDir>/src/utils/corejs/dict-data/dict-create.js'],
   // 'testRegex': [
   //   '/test/unit/.+(test|spec)\\.[jt]sx?$'
   // ],
