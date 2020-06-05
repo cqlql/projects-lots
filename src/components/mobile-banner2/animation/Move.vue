@@ -15,8 +15,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop, Component, Watch } from 'vue-property-decorator'
-import autoprefix from '@/modules/corejs/css/autoprefix.ts'
-import transitionendOnce from '@/modules/corejs/animation/transitionend-once.ts'
+import autoprefix from '@/utils/corejs/css/autoprefix.ts'
+import transitionendOnce from '@/utils/corejs/animation/transitionend-once.ts'
 interface imgItem {
   isShow: boolean
   url: string

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import SwitchOne from '@/modules/switch-one/SwitchOne.vue'
+import SwitchOne from '@/utils/switch-one/SwitchOne.vue'
 export default {
   components: {
     SwitchOne

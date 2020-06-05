@@ -34,7 +34,7 @@
 /**
    * transitionendOnce 有待改造，支持 switch(index)
    */
-// import SwitchMulti from '@/modules/switch-multi'
+// import SwitchMulti from '@/utils/switch-multi'
 import SwitchMulti from './SwitchMulti'
 import SwitchBase from './switch-base.js'
 export default {

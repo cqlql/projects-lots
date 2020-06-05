@@ -16,8 +16,8 @@
 </template>
 
 <script>
-  import MarqueeTextAcross from '@/modules/marquee-text/Across'
-  import MarqueeTextDown from '@/modules/marquee-text/Down'
+  import MarqueeTextAcross from '@/utils/marquee-text/Across'
+  import MarqueeTextDown from '@/utils/marquee-text/Down'
   export default {
     data () {
       return {

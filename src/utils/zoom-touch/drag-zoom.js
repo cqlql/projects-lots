@@ -1,4 +1,4 @@
-import drag from '@/modules/corejs/drag/drag-mobile'
+import drag from '@/utils/corejs/drag/drag-mobile'
 export default class ZoomTouch {
   constructor (elem) {
     this.zStartLen = 0

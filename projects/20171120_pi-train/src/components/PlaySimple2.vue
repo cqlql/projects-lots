@@ -42,10 +42,10 @@
 <script>
   import Heade from './Header.vue'
   import Result from './Result.vue'
-  import VMask from '@/modules/VMask.vue'
-  import Timing from '@/modules/timing'
+  import VMask from '@/utils/VMask.vue'
+  import Timing from '@/utils/timing'
   import piData from '@/js/pi-data'
-  import autoprefix from '@/modules/autoprefix.js'
+  import autoprefix from '@/utils/autoprefix.js'
   let transform = autoprefix('transform')[1]
   export default {
     name: 'play-simple',

@@ -6,8 +6,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Prop, Component } from 'vue-property-decorator'
-import RichEditorInline from '../RichEditorInline.vue'
+import { Component } from 'vue-property-decorator'
+// import RichEditorInline from './EditorInline.vue'
+import RichEditorInline from './EditorInlineJS.vue'
 
 @Component({
   components: {

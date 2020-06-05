@@ -1,4 +1,4 @@
-import QueueWait from '@/modules/corejs/queue/queue-wait.ts'
+import QueueWait from '@/utils/corejs/queue/queue-wait.ts'
 
 export default class LoadOnce {
   isComplete = false

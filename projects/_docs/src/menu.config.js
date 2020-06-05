@@ -129,18 +129,18 @@ export default [
       // {
       //   name: '切换效果-多元素',
       //   path: '/switch-multi',
-      //   demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/switch-multi/demo.vue'),
+      //   demo: () => import(/* webpackChunkName: "docs1" */ '@/utils/switch-multi/demo.vue'),
       //   noDocs: true,
       //   env: 'pc'
-      //   // docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/switch-multi/README.md')
+      //   // docs: () => import(/* webpackChunkName: "docs1" */ '@/utils/switch-multi/README.md')
       // },
       // {
       //   name: '切换效果-单元素',
       //   path: '/switch-one',
-      //   demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/switch-one/demo.vue'),
+      //   demo: () => import(/* webpackChunkName: "docs1" */ '@/utils/switch-one/demo.vue'),
       //   noDocs: true,
       //   env: 'pc'
-      //   // docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/switch-multi/README.md')
+      //   // docs: () => import(/* webpackChunkName: "docs1" */ '@/utils/switch-multi/README.md')
       // },
       // {
       //   name: '',
@@ -170,20 +170,20 @@ export default [
       {
         name: '双指捏合放大',
         path: '/zoom-touch',
-        demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/demo.vue'),
-        docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/README.md')
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/utils/zoom-touch/demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/utils/zoom-touch/README.md')
       },
       {
         name: 'toast 轻提醒-js版',
         path: '/toast-js',
-        demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/toast/Demo.vue'),
-        docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/toast/README.md')
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/utils/toast/Demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/utils/toast/README.md')
       },
       {
         name: 'loading-js版',
         path: '/loading-js',
-        demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/loading/Demo.vue'),
-        docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/loading/README.md')
+        demo: () => import(/* webpackChunkName: "docs1" */ '@/utils/loading/Demo.vue'),
+        docs: () => import(/* webpackChunkName: "docs1" */ '@/utils/loading/README.md')
       },
     ]
   },
@@ -358,8 +358,8 @@ export default [
   // {
   //   name: 'zoom-touch(触摸捏合放大)',
   //   path: '/zoom-touch',
-  //   demo: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/demo.vue'),
-  //   docs: () => import(/* webpackChunkName: "docs1" */ '@/modules/zoom-touch/README.md'),
+  //   demo: () => import(/* webpackChunkName: "docs1" */ '@/utils/zoom-touch/demo.vue'),
+  //   docs: () => import(/* webpackChunkName: "docs1" */ '@/utils/zoom-touch/README.md'),
   // },
   // {
   //   name: 'image-crop(裁图)',

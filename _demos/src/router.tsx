@@ -3,7 +3,12 @@ import Router, { RouteConfig } from 'vue-router'
 
 Vue.use(Router)
 
-const routes: RouteConfig[] = []
+const routes: RouteConfig[] = [
+  {
+    path: '/editor',
+    component: require('@/components/editor/Demo.vue').default
+  } 
+]
 
 // 加载所有
 // const modules = require.context('@', true, /^\.\/components\/.+\/(demo\/index\.vue)$/)
@@ -17,24 +22,24 @@ const routes: RouteConfig[] = []
 // const modules = require.context('@', true, /^\.\/components\/(drag-bar|drag-view)\/(demo\/Index\.vue)$/)
 // const modules = require.context('@', true, /^\.\/(modules)\/(zoom)\/(demo\/Index\.vue)$/)
 // const modules = require.context('@', true, /^\.\/(modules)\/corejs\/.+(demo\/MouseWheel\.vue)$/)
-const modules = require.context('@', true, /^\.\/(modules|components)\/(pulldown-refresh|bottom-load)\/(demo\/Index\.vue)$/)
+// const modules = require.context('@', true, /^\.\/(modules|components)\/(pulldown-refresh|bottom-load)\/(demo\/Index\.vue)$/)
 // const modules = require.context('@', true, /^\.\/components\/(upload-files|upload-label|upload-images)\/(demo\/Index\.vue|package\.json)$/) // upload-label upload-images
 // const modules = require.context('@', true, /^\.\/modules\/corejs\/dom\/demo\/outside-close.vue$/)
 // const modules = require.context('@', true, /^\.\/modules\/corejs\/dom\/demo\/outside-close.vue$/)
-modules.keys().forEach((path: string) => {
-  let regArr = path.match(/([^/]+)\/demo\//)
-  if (regArr) {
-    let name = regArr[1]
-    // let info = modules(path.replace(/demo.+/, '') + 'package.json')
-    routes.push({
-      path: '/' + name,
-      meta: {
-        title: name
-      },
-      component: modules(path).default
-    })
-  }
-})
+// modules.keys().forEach((path: string) => {
+//   let regArr = path.match(/([^/]+)\/demo\//)
+//   if (regArr) {
+//     let name = regArr[1]
+//     // let info = modules(path.replace(/demo.+/, '') + 'package.json')
+//     routes.push({
+//       path: '/' + name,
+//       meta: {
+//         title: name
+//       },
+//       component: modules(path).default
+//     })
+//   }
+// })
 
 export default new Router({
   routes: [

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import Banner from '@/modules/banner-mobile/banner-mobile'
+  import Banner from '@/utils/banner-mobile/banner-mobile'
   let banner = new Banner()
   export default {
     name: 'banner-mobile',

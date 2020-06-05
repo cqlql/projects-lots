@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import fileSelect from '@/modules/corejs/file/file-select.js'
+import fileSelect from '@/utils/corejs/file/file-select.js'
 export default {
   data () {
     return {

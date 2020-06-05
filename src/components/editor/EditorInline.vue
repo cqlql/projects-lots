@@ -5,8 +5,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop, Component, Watch } from 'vue-property-decorator'
-import scriptLoad from '../../modules/corejs/dom/script-load';
-import LoadOnce from '@/modules/corejs/load-once2'
+import scriptLoad from '@/utils/corejs/load/script-load'
+import LoadOnce from '@/utils/corejs/load-once'
 declare global {
   interface Window {
     CKEDITOR: any;
@@ -20,7 +20,7 @@ export default class RichEditorInline extends Vue {
   autoset!: boolean
   mounted () {
     ckeditorLoadOnce.load(async () => {
-      await scriptLoad('http://style.shenduxuetang.com/ckeditor/4.11.1/ckeditor.js')
+      await scriptLoad('//style.shenduxuetang.com/ckeditor/4.11.1/ckeditor.js')
       return window.CKEDITOR
     }).then((CKEDITOR: any) => {
       let sizes = ''

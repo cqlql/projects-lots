@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import dragPlus from '@/modules/corejs/dom-drag/drag-plus'
-import Animation from '@/modules/corejs/animation/animation'
-import relativexy from '@/modules/corejs/dom/relative'
+import dragPlus from '@/utils/corejs/dom-drag/drag-plus'
+import Animation from '@/utils/corejs/animation/animation'
+import relativexy from '@/utils/corejs/dom/relative'
 export default {
   data () {
     return {

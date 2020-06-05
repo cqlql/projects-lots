@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import toast from '@/modules/toast'
+import toast from '@/utils/toast'
 export default {
   mounted () {
     toast.success('开始~')

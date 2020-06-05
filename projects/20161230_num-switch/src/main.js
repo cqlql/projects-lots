@@ -1,6 +1,6 @@
 /* eslint-disable */
 // import '@/assets/css/comm.css'
-// import '@/modules/corejs/em-auto'
+// import '@/utils/corejs/em-auto'
 
 import Vue from 'vue'
 // import App from './App.vue'

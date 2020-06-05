@@ -5,7 +5,7 @@
   "author": "陈桥黎",
   "private": true,
   "scripts": {
-    "_demos": "cd ./projects/_demos&&npm start",
+    "_demos": "cd ./_demos&&npm start",
     "test": "karma start test/unit/karma.conf.js",
     "test-jest": "jest -c=test/jest.config.js --watch",
     "test-node": "jest spec/.+[sS]pec\\.js$ --watch -c=test-node/jest.config.js",

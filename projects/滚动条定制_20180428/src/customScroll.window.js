@@ -1,7 +1,7 @@
-// import dragPlus from '@/modules/corejs/drag/drag-plus'
-// import Animation from '@/modules/corejs/animation/animation'
-// import offsetxy from '@/modules/corejs/dom/offsetxy'
-import scriptLoad from '@/modules/corejs/dom/script-load'
+// import dragPlus from '@/utils/corejs/drag/drag-plus'
+// import Animation from '@/utils/corejs/animation/animation'
+// import offsetxy from '@/utils/corejs/dom/offsetxy'
+import scriptLoad from '@/utils/corejs/dom/script-load'
 import CustomScrollComponent from './CustomScroll.vue'
 
 let $vm

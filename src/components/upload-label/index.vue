@@ -15,7 +15,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop, Component } from 'vue-property-decorator'
-import fileSelect from '@/modules/corejs/file/file-select'
+import fileSelect from '@/utils/corejs/file/file-select'
 import { UploadOptions, UploadResult } from './types'
 import UploadLabelDemo from './demo/index.vue'
 

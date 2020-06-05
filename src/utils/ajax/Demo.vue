@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ajax from '@/modules/ajax/ajax'
+import ajax from '@/utils/ajax/ajax'
 export default {
   methods: {
     go () {

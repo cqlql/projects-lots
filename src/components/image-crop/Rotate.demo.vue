@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import imgSize from '@/modules/corejs/dom/img-size-complete.js'
-import autoprefix from '@/modules/corejs/css/autoprefix'
-// import transition from '@/modules/corejs/animation/transition.js'
-import transitionendOnce from '@/modules/corejs/animation/transitionend-once'
+import imgSize from '@/utils/corejs/dom/img-size-complete.js'
+import autoprefix from '@/utils/corejs/css/autoprefix'
+// import transition from '@/utils/corejs/animation/transition.js'
+import transitionendOnce from '@/utils/corejs/animation/transitionend-once'
 
 export default {
   data () {

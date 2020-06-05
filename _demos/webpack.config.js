@@ -1,4 +1,4 @@
-const getDevConf = require('../../build/webpack.dev')
+const getDevConf = require('../build/webpack.dev')
 const merge = require('webpack-merge')
 
 module.exports = getDevConf({

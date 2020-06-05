@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import drag from '@/modules/corejs/drag/drag-plus.js'
+import drag from '@/utils/corejs/drag/drag-plus.js'
 export default {
   props: {
     size: Number,

@@ -1,5 +1,5 @@
 import transitionendOnce from './transitionend-once'
-import css from '@/modules/corejs/css/css.js'
+import css from '@/utils/corejs/css/css.js'
 
 /**
  *

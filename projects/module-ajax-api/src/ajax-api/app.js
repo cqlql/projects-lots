@@ -1,6 +1,6 @@
 // import Vue from 'vue'
-import excuIntervalTry from '@/modules/corejs/excu/excu-interval-try'
-import querystring from '@/modules/corejs/url/querystring'
+import excuIntervalTry from '@/utils/corejs/excu/excu-interval-try'
+import querystring from '@/utils/corejs/url/querystring'
 
 // let hostLogin = 'http://api.shendupeiban.com'
 let host = 'https://api.shendupeiban.com'

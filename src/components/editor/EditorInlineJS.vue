@@ -3,16 +3,11 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { Prop, Component, Watch } from 'vue-property-decorator'
-import scriptLoad from '../../modules/corejs/dom/script-load';
-import LoadOnce from '@/modules/corejs/load-once'
+import scriptLoad from '@/utils/corejs/load/script-load'
+import LoadOnce from '@/utils/corejs/load-once'
 
-let ckeditorLoadOnce = new LoadOnce()
+const ckeditorLoadOnce = new LoadOnce()
 export default {
-  // @Prop({ default: '' }) value!: string
-  // editor!: any
-  // autoset!: boolean
   props: {
     value: {
       default: ''
@@ -25,15 +20,18 @@ export default {
   },
   mounted () {
     ckeditorLoadOnce.load(async () => {
-      await scriptLoad('http://style.shenduxuetang.com/ckeditor/4.11.1/ckeditor.js')
-      return window.CKEDITOR
+      // await scriptLoad('//cdn.ckeditor.com/4.14.0/standard/ckeditor.js')
+      await scriptLoad('//cdn.ckeditor.com/4.14.0/full/ckeditor.js')
+      // await scriptLoad('//style.shenduxuetang.com/ckeditor/4.11.1/ckeditor.js')
+      CKEDITOR.disableAutoInline = true
+      return CKEDITOR
     }).then((CKEDITOR) => {
       let sizes = ''
       for (let index = 12; index < 200;) {
         sizes += `${index}/${index}px;`
         index += 2
       }
-      let editor = CKEDITOR.inline(this.$el, {
+      const editor = CKEDITOR.inline(this.$el, {
         // 不加载 config.js
         customConfig: '',
         fontSize_sizes: sizes,
@@ -48,18 +46,18 @@ export default {
           'Times New Roman/Times New Roman, Times, serif;' +
           'Verdana',
         toolbar: [
-          { name: 'document', items: [ 'Source', '-', 'Preview' ] },
-          { name: 'clipboard', items: [ 'PasteText', 'PasteFromWord' ] },
-          { name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll' ] },
-          { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe' ] },
-          { name: 'links', items: [ 'Link', 'Unlink' ] },
+          { name: 'document', items: ['Source', '-', 'Preview'] },
+          { name: 'clipboard', items: ['PasteText', 'PasteFromWord'] },
+          { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll'] },
+          { name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] },
+          { name: 'links', items: ['Link', 'Unlink'] },
           '/',
-          { name: 'basicstyles', items: [ 'Bold', 'Italic', '-', 'CopyFormatting', 'RemoveFormat' ] },
-          { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl' ] },
+          { name: 'basicstyles', items: ['Bold', 'Italic', '-', 'CopyFormatting', 'RemoveFormat'] },
+          { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl'] },
           '/',
-          { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
-          { name: 'styles', items: [ 'Format', 'Font', 'FontSize', 'Styles' ] },
-          { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] }
+          { name: 'colors', items: ['TextColor', 'BGColor'] },
+          { name: 'styles', items: ['Format', 'Font', 'FontSize', 'Styles'] },
+          { name: 'tools', items: ['Maximize', 'ShowBlocks'] }
         ]
       })
       this.editor = editor
@@ -98,6 +96,7 @@ export default {
   box-sizing: border-box;
   outline: none;
   width: 100%;
+  border: 2px solid #333;
 
   /*滚动条整体*/
   &::-webkit-scrollbar {

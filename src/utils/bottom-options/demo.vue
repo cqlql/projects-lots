@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import BottomOptions from '@/modules/bottom-options/BottomOptions.vue'
+  import BottomOptions from '@/utils/bottom-options/BottomOptions.vue'
   export default {
     data () {
       return {

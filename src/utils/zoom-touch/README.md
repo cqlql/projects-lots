@@ -3,7 +3,7 @@
 ## 使用示例
 
 ```js
-import ZoomTouch from '@/modules/zoom-touch/zoom-touch.js'
+import ZoomTouch from '@/utils/zoom-touch/zoom-touch.js'
 
 // 1 直接指定一个放大元素
 new ZoomTouch(elemZoom)

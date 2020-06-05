@@ -6,7 +6,7 @@
 
 <script>
 
-import textWidth from '@/modules/corejs/dom/text-width.js'
+import textWidth from '@/utils/corejs/dom/text-width.js'
 export default {
   data () {
     return {
