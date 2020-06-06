@@ -14,14 +14,6 @@ export class AjaxComm {
     }
   }
 
-  loadingShow () {
-    this.loading.show()
-  }
-
-  loadingHide () {
-    this.loading.hide()
-  }
-
   request (config) {
     const { loading } = this
     let { hasLoading = true } = config

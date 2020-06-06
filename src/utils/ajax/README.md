@@ -13,5 +13,8 @@
 import Vue from 'vue'
 import ajax from '@/utils/ajax/ajax-comm'
 const loading = Vue.prototype.$loading
+// 指定 loading
 ajax.loading = loading
+// 指定错误消息输出。默认 console.error
+ajax.messageError = function (msg) {}
 ```
