@@ -1,14 +1,16 @@
-function CompileEventsPlugin(options) {
+function CompileEventsPlugin (options) {
   this.options = options
 }
 
-CompileEventsPlugin.prototype.apply = function(compiler) {
+CompileEventsPlugin.prototype.apply = function (compiler) {
   compiler.plugin('compile', params => {
-    this.options.compile()
-  });
+    const { compile } = this.options
+    compile && compile()
+  })
   compiler.plugin('done', params => {
-    this.options.done()
-  });
-};
+    const { done } = this.options
+    done && done()
+  })
+}
 
-module.exports = CompileEventsPlugin;
+module.exports = CompileEventsPlugin

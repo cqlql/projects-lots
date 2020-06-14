@@ -22,7 +22,7 @@ module.exports = function (options) {
         template: './src/index.html',
         // chunks: ['app'], // 指定引入的js包，只有 app 情况可忽略
         // inlineSource: /(styles\.bundle\.js|app\.js)/, // 要包含的 js css，需结合 html-webpack-inline-source-plugin 插件
-        scripts: { 3: 'http://js/test.js', a1: 'http://js/test2.js' }, // 给此模板指定 script 链接，需配合 script-plugin
+        // scripts: { 3: 'http://js/test.js', a1: 'http://js/test2.js' }, // 给此模板指定 script 链接，需配合 script-plugin
         minify: {
           removeComments: true,
           collapseWhitespace: true,

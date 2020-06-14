@@ -10,12 +10,14 @@ const getCacheLoader = require('./cache-loader')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 module.exports = function (options) {
-  const { rootPath, indexTemplate, splitCss, cache } = options
+  let { rootPath, indexTemplate, splitCss, cache, include = [] } = options
   // const devMode = process.env.NODE_ENV !== 'production'
   // 项目根路径
   const _resolve = p => path.resolve(__dirname, '../', p)
   // 子项目路径
   const resolve = rootPath && (p => path.resolve(rootPath, p))
+
+  include = [_resolve('src')].concat(include, resolve ? resolve('src') : [])
 
   let conf = {
     entry: {
@@ -23,6 +25,8 @@ module.exports = function (options) {
     },
     output: {
       path: (resolve || _resolve)('./dist'),
+
+      // publicPath: '/',
 
       // filename: 'js/[name].[chunkhash:7].js',
       // chunkFilename: 'js/[name].bundle.[chunkhash:7].js',
@@ -36,7 +40,7 @@ module.exports = function (options) {
         //   test: /\.(js|vue)$/,
         //   loader: 'eslint-loader',
         //   enforce: 'pre',
-        //   include: [_resolve('src')].concat(resolve ? resolve('src') : []),
+        //   include,
         //   options: {
         //     formatter: require('eslint-friendly-formatter')
         //   }
@@ -50,7 +54,7 @@ module.exports = function (options) {
         },
         {
           test: /\.(js|tsx?)$/,
-          include: [_resolve('src')].concat(resolve ? resolve('src') : []),
+          include,
           use: [
             ...getCacheLoader('babel-loader', cache),
             {
@@ -183,6 +187,8 @@ module.exports = function (options) {
       /*
       css 拆分到一个文件。将所有css，包括异步包中的css，全部打包到一个文件
 
+      使用 optimization 抽离原理：将 css 相关的 js 合并到一个 js 里面，然后由 MiniCssExtractPlugin 抽离，剩下一个空的 js 文件
+
       问题1：无法合并异步 vue 单文件中的 style css。
       问题2：同步的 vue 单文件也不以设置的 name 命名
 
@@ -190,6 +196,7 @@ module.exports = function (options) {
       方案2，临时可行：test 中包括 vue 相关css。但会多出一个空的 styles.bundle.js，再把这个空js包含进 template.html 中。
         看看能不能在事件中排除这个空js？经测试，此js不能删除
         有时间可以写个插件，将小于 200 字节的js包含进 template.html 中
+      方案3，直接注释 optimization，适合没有异步模块情况。有异步模块每个异步模块都会对应生成一个css文件
       */
       optimization: {
         splitChunks: {
@@ -197,12 +204,14 @@ module.exports = function (options) {
             styles: {
               name: 'styles',
               // test (module) {
-              //   console.log('-------------------------------------')
-              //   console.log(
-              //     module.nameForCondition && module.nameForCondition(),
-              //     module.type, // css/mini-extract
-              //     module.constructor.name
-              //   )
+              //   // console.log('-------------------------------------')
+              //   // console.log(
+              //   //   '1', module.nameForCondition && module.nameForCondition(),
+              //   //   '2', module.type, // css/mini-extract
+              //   //   '3', module.constructor.name
+              //   // )
+              //   // return false
+              //   return false
               // },
               // test: /\.css$/,
               test: m => m.constructor.name === 'CssModule', // 能匹配到 vue 中的 style
