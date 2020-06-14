@@ -1,3 +1,4 @@
+## 概述
 使用 typescript 实现
 
 目前只有二种动画方式：
@@ -5,7 +6,7 @@
 2. 渐变 `./animation/Move.vue`
 3. ...待扩展
 
-使用示例
+简单使用示例
 
 ```html
 <template>

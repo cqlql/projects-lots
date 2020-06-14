@@ -13,8 +13,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop, Component, Watch } from 'vue-property-decorator'
-import autoprefix from '@/utils/corejs/css/autoprefix.ts'
 import transitionendOnce from '@/utils/corejs/animation/transitionend-once.ts'
+import timeout from '@/utils/corejs/time/timeout-async'
 interface imgItem {
   isShow: boolean
   url: string
@@ -37,15 +37,18 @@ export default class Move extends Vue {
   get count () {
     return this.list.length
   }
+
   get lastIndex () {
     return this.count - 1
   }
+
   get multiple () {
     return this.count > 1
   }
+
   move (x: number) {
     let { index, prevIndex, nextIndex } = this
-    let ratio = x / this.width
+    const ratio = x / this.width
     if (x < 0) {
       this.opcity(index, 1 + ratio)
       nextIndex = index + 1
@@ -68,6 +71,7 @@ export default class Move extends Vue {
       this.prevIndex = this.moveIndex = prevIndex
     }
   }
+
   swipeLeft () {
     if (!this.multiple) {
       this.swipeNot()
@@ -83,6 +87,7 @@ export default class Move extends Vue {
     this.fade(index, 1)
     this.index = index
   }
+
   swipeRight () {
     if (!this.multiple) {
       this.swipeNot()
@@ -98,24 +103,28 @@ export default class Move extends Vue {
     this.fade(index, 1)
     this.index = index
   }
+
   swipeNot () {
     this.fade(this.index, 1)
     this.fade(this.moveIndex, 0)
   }
 
   @Watch('imgs')
-  onImgsChanged (imgs: string[]) {
+  onImgsChanged () {
     this.listSet()
     this.loadImg(0)
     this.opcity(0, 1)
   }
+
   created () {
     this.listSet()
     this.loadImg(this.index)
   }
+
   mounted () {
     this.opcity(this.index, 1)
   }
+
   listSet () {
     this.list = this.imgs.map(url => ({
       isShow: false,
@@ -123,25 +132,25 @@ export default class Move extends Vue {
       opacity: 0
     }))
   }
-  loadImg (index: number) {
-    let list = this.list
+
+  async loadImg (index: number) {
+    const list = this.list
+    const item = list[index]
+    item.isShow = true
+
+    await timeout(2000)
+
     let preIndex = index - 1
     if (preIndex < 0) preIndex = this.lastIndex
-    let preItem = list[preIndex]
-    if (preItem) preItem.isShow = true
-
-    let item = list[index]
-    if (item) item.isShow = true
-
     let nextIndex = index + 1
     if (nextIndex > this.lastIndex) nextIndex = 0
-    let nextItem = list[nextIndex]
-    if (nextItem) nextItem.isShow = true
+    list[preIndex].isShow = list[nextIndex].isShow = true
   }
+
   fade (index: number, value: number) {
-    let elem = (this.$refs.items as HTMLElement[])[index]
-    let item = this.list[index]
-    let { classList } = elem
+    const elem = (this.$refs.items as HTMLElement[])[index]
+    const item = this.list[index]
+    const { classList } = elem
     classList.add('transitionActive')
     this.locked = true
     transitionendOnce(elem, () => {
@@ -150,8 +159,9 @@ export default class Move extends Vue {
     })
     item.opacity = value
   }
+
   opcity (index: number, value: number) {
-    let item = this.list[index]
+    const item = this.list[index]
     if (item) item.opacity = value
   }
 }

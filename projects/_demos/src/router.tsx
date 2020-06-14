@@ -7,7 +7,15 @@ const routes: RouteConfig[] = [
   {
     path: '/editor',
     component: require('@/components/editor/Demo.vue').default
-  } 
+  },
+  {
+    path: '/mobile-banner2',
+    component: require('@/components/mobile-banner2/demo/index.vue').default
+  },
+  {
+    path: '/mobile-banner2-PcFullWidth',
+    component: require('@/components/mobile-banner2/demo/PcFullWidth.vue').default
+  }
 ]
 
 // 加载所有

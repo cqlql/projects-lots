@@ -17,6 +17,7 @@ import Vue from 'vue'
 import { Prop, Component, Watch } from 'vue-property-decorator'
 import autoprefix from '@/utils/corejs/css/autoprefix.ts'
 import transitionendOnce from '@/utils/corejs/animation/transitionend-once.ts'
+import timeout from '@/utils/corejs/time/timeout-async'
 interface imgItem {
   isShow: boolean
   url: string
@@ -34,18 +35,23 @@ export default class Move extends Vue {
   get count () {
     return this.list.length
   }
+
   get multiple () {
     return this.count > 1
   }
+
   get firstItem () {
     return this.list[0]
   }
+
   get lastItem () {
     return this.list[this.count - 1]
   }
+
   move (x: number) {
     this.left = x - this.index * this.width
   }
+
   swipeLeft () {
     if (!this.multiple) {
       this.swipeNot()
@@ -62,6 +68,7 @@ export default class Move extends Vue {
       this.index = index
     })
   }
+
   swipeRight () {
     if (!this.multiple) {
       this.swipeNot()
@@ -78,9 +85,11 @@ export default class Move extends Vue {
       this.index = index
     })
   }
+
   swipeNot () {
     this.animate(this.$el as HTMLElement, -this.index * this.width)
   }
+
   @Watch('width')
   watchWidth () {
     if (this.locked) return
@@ -94,28 +103,46 @@ export default class Move extends Vue {
     this.index = 0
     this.move(0)
   }
+
   created () {
     this.listSet()
     this.loadImg(this.index)
     this.move(0)
   }
+
   listSet () {
     this.list = this.imgs.map(url => ({
       isShow: false,
       url
     }))
   }
-  loadImg (index: number) {
-    let list = this.list
-    let preItem = list[index - 1]
-    if (preItem) preItem.isShow = true
-    let item = list[index]
-    if (item) item.isShow = true
-    let nextItem = list[index + 1]
-    if (nextItem) nextItem.isShow = true
+
+  // 三张图加载方案：当前张和旁边两张，尽量不然用户看到加载的过程
+  async loadImg (index: number) {
+    if (index >= this.count) index = 0
+    if (index < 0) index = this.count - 1
+
+    const list = this.list
+    const item = list[index]
+    item.isShow = true
+
+    await timeout(2000)
+
+    const preItem = list[index - 1] || this.lastItem
+    const nextItem = list[index + 1] || list[0]
+    preItem.isShow = nextItem.isShow = true
   }
+
+  // 一张图加载方案：只加载当前图片，最快的将整个页面渲染出来
+  // loadImg (index: number) {
+  //   if (index >= this.count) index = 0
+  //   if (index < 0) index = this.count - 1
+  //   const item = list[index]
+  //   if (item) item.isShow = true
+  // }
+
   animate (elem: HTMLElement, x: number, cb: () => void = () => {}) {
-    let { classList } = elem
+    const { classList } = elem
     classList.add('transitionActive')
     this.locked = true
     transitionendOnce(elem, () => {

@@ -33,32 +33,37 @@ export default class MobileBanner extends Vue {
   @Prop({ default: 'Move' }) type!:string
   width = 300
   timer!: Timer
-  getAnimationComp () {
-    return this.$refs.animation as AnimationComp
-  }
+  // getAnimationComp () {
+  //   return this.$refs.animation as AnimationComp
+  // }
+
   get imgsCount () {
     return this.imgs.length
   }
+
   @Watch('imgsCount')
   watchImgsCount () {
     this.timerUpdate()
   }
+
   @Watch('timerInterval')
   watchTimerInterval (timerInterval: number) {
     this.timer.time = timerInterval
     this.timerUpdate()
   }
+
   mounted () {
     this.sizeUpdate()
     this.timer = new Timer({
       time: this.timerInterval,
       callback: () => {
-        this.getAnimationComp().swipeLeft()
+        this.swipeLeft()
       }
     })
     this.timerUpdate()
     this.slideBind()
   }
+
   timerUpdate () {
     if (this.imgsCount > 1 && this.timerInterval) {
       this.timer.start()
@@ -66,18 +71,37 @@ export default class MobileBanner extends Vue {
       this.timer.stop()
     }
   }
+
+  // 宽度更新，等宽情况窗口大小改变可调用
   sizeUpdate (w = this.$el.clientWidth) {
     this.width = w
   }
+
+  swipeLeft () {
+    (this.$refs.animation as AnimationComp).swipeLeft()
+  }
+
+  swipeRight () {
+    (this.$refs.animation as AnimationComp).swipeRight()
+  }
+
+  swipeNot () {
+    (this.$refs.animation as AnimationComp).swipeNot()
+  }
+
+  move (x: number) {
+    (this.$refs.animation as AnimationComp).move(x)
+  }
+
   // 滑动交互
   slideBind () {
     this.width = this.$el.clientWidth
     let xFullLen = 0
-    let that = this
+    const that = this
     swipex({
       elem: this.$el as HTMLElement,
       onDown () {
-        return that.getAnimationComp().locked !== true
+        return (that.$refs.animation as AnimationComp).locked !== true
       },
       onStart () {
         xFullLen = 0
@@ -85,28 +109,27 @@ export default class MobileBanner extends Vue {
       },
       onMove (xlen) {
         xFullLen += xlen
-        that.getAnimationComp().move(xFullLen)
+        that.move(xFullLen)
       },
       onEnd () {
         that.timerUpdate()
       },
       onSwipeLeft () {
-        that.getAnimationComp().swipeLeft()
+        that.swipeLeft()
       },
       onSwipeRight () {
-        that.getAnimationComp().swipeRight()
+        that.swipeRight()
       },
       onSwipeNot () {
-        let animationComp = that.getAnimationComp()
         // 此处处理超过 1/3 后进行滑动
-        let meet = 1 / 3
-        let curr = xFullLen / that.width
+        const meet = 1 / 3
+        const curr = xFullLen / that.width
         if (curr < -meet) {
-          animationComp.swipeLeft()
+          that.swipeLeft()
         } else if (curr > meet) {
-          animationComp.swipeRight()
+          that.swipeRight()
         } else {
-          animationComp.swipeNot()
+          that.swipeNot()
         }
       }
     })
@@ -116,8 +139,6 @@ export default class MobileBanner extends Vue {
 
 <style scoped>
 .mobile-banner {
-  /* min-width: 100px;
-  min-height: 100px; */
   width: 100%;
   height: 100%;
 
