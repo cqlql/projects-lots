@@ -192,7 +192,7 @@ export default [
     children: [
       {
         name: '页面可视化编辑',
-        path: 'https://cqlql.github.io/demos/visual-edit',
+        path: 'https://cqlql.gitee.io/demos/visual-edit',
         noDocs: true,
         env: 'pc'
       },
@@ -204,7 +204,7 @@ export default [
 
       {
         name: '英语单词挑战',
-        path: 'https://cqlql.github.io/demos/english-words-challenge/',
+        path: 'https://cqlql.gitee.io/demos/english-words-challenge/',
         env: 'pc',
         noDocs: true
       },
@@ -269,7 +269,7 @@ export default [
       },
       {
         name: '20160801_换座位',
-        path: 'https://cqlql.github.io/demos/seating-pc/',
+        path: 'https://cqlql.gitee.io/demos/seating-pc/',
         env: 'pc',
         noDocs: true
       },
