@@ -4,12 +4,14 @@
 export default class Timer {
   /**
    * @param {Function} allowStart 必须满足此条件才能开始，默认 true
+   * @param {Boolean} initStart 创建实例后立即开始，默认 false
    */
-  constructor ({ callBack, time, allowStart = () => true }) {
+  constructor ({ callBack, time, allowStart = () => true, initStart = false }) {
     this.time = time
     this.callBack = callBack
     this.allowStart = allowStart
     this.stopId = null
+    if (initStart) this.start()
   }
 
   // 开始/重新开始
