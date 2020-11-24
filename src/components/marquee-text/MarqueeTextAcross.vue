@@ -30,7 +30,7 @@ export default {
   data () {
     return {
       contWidth: 0,
-      // 是否开启自动滚动
+      // 是否允许滚动
       autoRoll: false
     }
   },
