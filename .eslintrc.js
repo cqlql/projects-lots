@@ -1,35 +1,34 @@
+// https://eslint.org/docs/user-guide/configuring
+
 module.exports = {
   root: true,
+  parserOptions: {
+    parser: 'babel-eslint'
+  },
   env: {
-    // node: true
-    browser: true
+    browser: true,
   },
   extends: [
-    'plugin:vue/essential',
+    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
+    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
+    'plugin:vue/recommended',
+    // https://github.com/standard/standard/blob/master/docs/RULES-en.md
     'standard'
   ],
-  plugins: ['@typescript-eslint'],
-  // Prerequisite `eslint-plugin-vue`, being extended, sets
-  // root property `parser` to `'vue-eslint-parser'`, which, for code parsing,
-  // in turn delegates to the parser, specified in `parserOptions.parser`:
-  // https://github.com/vuejs/eslint-plugin-vue#what-is-the-use-the-latest-vue-eslint-parser-error
-  parserOptions: {
-    parser: '@typescript-eslint/parser'
-  },
+  // required to lint *.vue files
+  plugins: [
+    'vue'
+  ],
+  // globals: {
+  //   Vue: true
+  // },
+  // add your custom rules here
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-
-    // https://typescript-eslint.io/parser
-    'no-undef': 'off',
-
-    'no-unused-vars': 'off',
-    // https://github.com/typescript-eslint/typescript-eslint/issues/46
-    '@typescript-eslint/no-unused-vars': 'error',
-
-    // temporary fix for https://github.com/vuejs/vue-cli/issues/1922
-    // very strange as somehow this rule gets different behaviors depending
-    // on the presence of @typescript-eslint/parser...
-    'strict': 'off'
+    'vue/max-attributes-per-line': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
+    // allow async-await
+    'generator-star-spacing': 'off',
+    // allow debugger during development
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
 }
