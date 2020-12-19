@@ -1,12 +1,11 @@
 <template>
   <div class="region-selector">
-    <div class="r-header">
-      <div
-        v-for="(tit,i) in tits"
-        :class="['h-item', currIndex===i ? 'active':'']"
-        @click="onHeaderSelect(i)"
-      >{{ tit }}</div>
-    </div>
+    <RHeader
+      :index="currIndex"
+      :selected-items="selectedItems"
+      :types="types"
+      @select="onHeaderSelect"
+    />
     <div class="cont">
       <ul
         v-for="(list,i) of all"
@@ -24,7 +23,11 @@
 </template>
 
 <script>
+import RHeader from './RHeader'
 export default {
+  components: {
+    RHeader
+  },
   props: {
     get: {
       type: Function,
@@ -33,13 +36,11 @@ export default {
   },
   data () {
     return {
-      // initName: '省',
       types: ['省', '市', '区'],
-      // tits: [],
-      currIndex: 0,
-      // maxLevel: 3,
+      currIndex: 0, // 当前展示的列表
       all: [],
-      selectedItems: [],
+      selectedItems: [], // 当前选中的项
+      // 当前选中id
       value: ''
     }
   },
@@ -55,21 +56,6 @@ export default {
     maxLevel () {
       return this.types.length
     },
-    tits () {
-      const tits = []
-      let noOne = true
-      this.selectedItems.forEach(({ name }) => {
-        tits.push(name)
-        noOne = false
-      })
-      if (noOne) {
-        tits.push(this.types[this.currIndex])
-      } else {
-        tits.push(this.types[this.currIndex])
-      }
-      // if (this.isNoMax) tits.push(this.types[this.currIndex])
-      return tits
-    },
     isNoMax () {
       return this.selectedItems.length < this.maxLevel
     }
@@ -82,10 +68,10 @@ export default {
     async onSelect (item) {
       const { maxLevel, selectedItems } = this
       const index = this.currIndex + 1
-      if (index >= maxLevel) {
-        if (this.isNoMax) {
+      if (index >= maxLevel) { // 显示最后一级列表
+        if (this.isNoMax) { // 还没选择最后一级
           selectedItems.push(item)
-        } else {
+        } else { // 已选择最后一级
           this.$set(selectedItems, selectedItems.length - 1, item)
         }
         return
@@ -93,11 +79,11 @@ export default {
       const { id } = item
       this.selectedItems.push(item)
       const list = await this.get(id)
-      this.$set(this.all, index, list)
+      this.$set(this.all, index, list) // 显示列表
       this.currIndex = index
-      console.log(this.all)
     },
     onHeaderSelect (i) {
+      console.log(i)
       this.currIndex = i
       this.selectedItems.splice(i + 1)
     }
@@ -111,22 +97,7 @@ export default {
   border: 1px solid #ddd;
   font-size: 14px;
   line-height: 34px;
-  .r-header {
-    padding: 0 20px;
-    border-bottom: 1px solid #ddd;
-    /* text-align: center; */
-    display: flex;
-    justify-content: space-around;
-    align-items: stretch;
-  }
-  .h-item {
-    /* flex: 1; */
-    display: inline-block;
-    text-align: center;
-  }
-  .h-item.active {
-    border-bottom: 3px solid #409eff;
-  }
+
   .r-list {
     list-style-type:none;padding:0;margin:0
   }

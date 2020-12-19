@@ -26,6 +26,8 @@ module.exports = {
   rules: {
     'vue/max-attributes-per-line': 'off',
     'vue/singleline-html-element-content-newline': 'off',
+    'vue/require-v-for-key': 'off',
+    'vue/multiline-html-element-content-newline': 'off',
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development
