@@ -1,5 +1,5 @@
 <template>
-  <div class="r-header">
+  <div class="a-header">
     <div
       v-for="(tit,i) in tits"
       :class="['h-item', index===i ? 'active':'']"
@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style scoped>
-  .r-header {
+  .a-header {
     padding: 0 20px;
     border-bottom: 1px solid #ddd;
     /* text-align: center; */

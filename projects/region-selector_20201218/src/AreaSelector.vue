@@ -1,6 +1,6 @@
 <template>
-  <div class="region-selector">
-    <RHeader
+  <div class="area-selector">
+    <AHeader
       :index="currIndex"
       :selected-items="selectedItems"
       :types="types"
@@ -10,11 +10,11 @@
       <ul
         v-for="(list,i) of all"
         v-show="currIndex===i"
-        class="r-list"
+        class="a-list"
       >
         <li
           v-for="(item) in list" :key="item.id"
-          :class="['r-item', (selectedItems[i]||{}).id===item.id ? 'active':'']"
+          :class="['a-item', (selectedItems[i]||{}).id===item.id ? 'active':'']"
           @click="onSelect(item)"
         >{{ item.name }}</li>
       </ul>
@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import RHeader from './RHeader'
+import AHeader from './AHeader'
 export default {
   components: {
-    RHeader
+    AHeader
   },
   props: {
     get: {
@@ -68,22 +68,16 @@ export default {
     async onSelect (item) {
       const { maxLevel, selectedItems } = this
       const index = this.currIndex + 1
-      if (index >= maxLevel) { // 显示最后一级列表
-        if (this.isNoMax) { // 还没选择最后一级
-          selectedItems.push(item)
-        } else { // 已选择最后一级
-          this.$set(selectedItems, selectedItems.length - 1, item)
-        }
+      this.$set(selectedItems, index - 1, item)
+      if (index >= maxLevel) { // 最后一级不再新增列表
         return
       }
       const { id } = item
-      this.selectedItems.push(item)
       const list = await this.get(id)
       this.$set(this.all, index, list) // 显示列表
       this.currIndex = index
     },
     onHeaderSelect (i) {
-      console.log(i)
       this.currIndex = i
       this.selectedItems.splice(i + 1)
     }
@@ -92,16 +86,18 @@ export default {
 </script>
 
 <style scoped>
-.region-selector {
+.area-selector {
   color: #606266;
   border: 1px solid #ddd;
   font-size: 14px;
   line-height: 34px;
 
-  .r-list {
-    list-style-type:none;padding:0;margin:0
+  .a-list {
+    list-style-type:none;padding:0;margin:0;
+    height: 300px;
+    overflow: auto;
   }
-  .r-item {
+  .a-item {
     padding: 0 20px;
     &:hover {
       background: #F5F7FA;

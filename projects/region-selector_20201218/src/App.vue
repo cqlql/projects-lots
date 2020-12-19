@@ -1,15 +1,34 @@
 <template>
   <div class="s">
-    <!-- <div class="ipt" @click="click"></div> -->
-    <RegionSelector :get="getRegionList" />
+    <div v-areaselect class="ipt" @click="click" />
+    <!-- <AreaSelector :get="getRegionList" /> -->
   </div>
 </template>
 
 <script>
-import RegionSelector from './RegionSelector'
+// import AreaSelector from './AreaSelector'
+import AreaSelectorFn from './area-selector-fn.js'
 export default {
   components: {
-    RegionSelector
+    // AreaSelector
+  },
+  directives: {
+    areaselect: {
+      bind (el) {
+        const areaSelectorFn = el.areaSelectorFn = new AreaSelectorFn()
+        console.log(areaSelectorFn.isShow)
+        el.addEventListener('click', function () {
+          if (areaSelectorFn.isShow) areaSelectorFn.hide()
+          else areaSelectorFn.show()
+        })
+        areaSelectorFn.change(function ({ value }) {
+          console.log(value)
+        })
+      },
+      unbind (el) {
+        el.areaSelectorFn.destroy()
+      }
+    }
   },
   methods: {
     click () {
