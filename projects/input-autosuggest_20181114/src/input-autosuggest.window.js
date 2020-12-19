@@ -1,7 +1,7 @@
-// import dragPlus from '@/utils/corejs/drag/drag-plus'
-// import Animation from '@/utils/corejs/animation/animation'
-// import offsetxy from '@/utils/corejs/dom/offsetxy'
-import scriptLoad from '@/utils/corejs/dom/script-load'
+// import dragPlus from '@/libs/corejs/drag/drag-plus'
+// import Animation from '@/libs/corejs/animation/animation'
+// import offsetxy from '@/libs/corejs/dom/offsetxy'
+import scriptLoad from '@/libs/corejs/dom/script-load'
 import InputAutosuggestComponent from './InputAutosuggest.vue'
 
 export default class InputAutosuggest {

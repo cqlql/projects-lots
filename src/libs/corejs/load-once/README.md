@@ -6,8 +6,8 @@
 特别适用于不是必须用到的一些大型js库，比如 ckeditor,echart
 
 ```js
-import LoadOnce from '@/utils/corejs/load-once2'
-import scriptLoad from '@/utils/corejs/dom/script-load'
+import LoadOnce from '@/libs/corejs/load-once2'
+import scriptLoad from '@/libs/corejs/dom/script-load'
 const ckeditor = await ckeditorLoadOnce.load(async () => {
   await scriptLoad('https://style.shenduxuetang.com/ckeditor/4.11.1/ckeditor.js')
   await scriptLoad('https://style.shenduxuetang.com/ckeditor/4.11.1/config.js')

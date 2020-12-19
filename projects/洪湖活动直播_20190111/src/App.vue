@@ -18,7 +18,7 @@
 
 <script>
 /* eslint-disable comma-dangle */
-import scriptLoad from '@/utils/corejs/dom/script-load.js'
+import scriptLoad from '@/libs/corejs/dom/script-load.js'
 export default {
   data () {
     return {

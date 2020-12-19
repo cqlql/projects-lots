@@ -1,4 +1,4 @@
-﻿import querystring from '@/utils/corejs/url/querystring.js'
+﻿import querystring from '@/libs/corejs/url/querystring.js'
 function ajax (config) {
   return new Promise((resolve, reject) => {
     let { url, method = 'GET', params, responseType = 'json' } = config

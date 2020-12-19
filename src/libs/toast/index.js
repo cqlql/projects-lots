@@ -1,8 +1,8 @@
 import $style from './toast.css?module'
-// import transition from '@/utils/corejs/animation/transition.js'
-// import transitionendOnce from '@/utils/corejs/animation/transitionend-once.js'
-import transitionendOncePromise from '@/utils/corejs/animation/transitionend-once-promise.js'
-import timeoutAsync from '@/utils/corejs/time/timeout-async'
+// import transition from '@/libs/corejs/animation/transition.js'
+// import transitionendOnce from '@/libs/corejs/animation/transitionend-once.js'
+import transitionendOncePromise from '@/libs/corejs/animation/transitionend-once-promise.js'
+import timeoutAsync from '@/libs/corejs/time/timeout-async'
 
 class Toast {
   text (text) {

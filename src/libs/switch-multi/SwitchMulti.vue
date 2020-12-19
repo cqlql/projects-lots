@@ -6,8 +6,8 @@
 
 <script>
 import transition from './transition.js'
-import autoprefix from '@/utils/corejs/css/autoprefix'
-import each from '@/utils/corejs/each/each-obj'
+import autoprefix from '@/libs/corejs/css/autoprefix'
+import each from '@/libs/corejs/each/each-obj'
 export default {
   name: 'SwitchOne',
   props: {

@@ -1,4 +1,4 @@
-import drag from '@/utils/corejs/dom-drag/drag'
+import drag from '@/libs/corejs/dom-drag/drag'
 
 /**
  * @param {function} onDown 可选 可在此处终止滑动开始

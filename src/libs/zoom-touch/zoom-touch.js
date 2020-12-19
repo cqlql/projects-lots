@@ -1,6 +1,6 @@
 import DragZoom from './drag-zoom'
 import autoPrefix from '../corejs/css/autoprefix'
-import elPageXy from '@/utils/corejs/xy/el-page-xy.js'
+import elPageXy from '@/libs/corejs/xy/el-page-xy.js'
 /**
  * @param isInit 初始更新部分参数，更新元素位置参数
  */

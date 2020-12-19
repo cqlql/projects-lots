@@ -1,6 +1,6 @@
 /* eslint-env jest */
 /* eslint-disable no-unused-expressions */
-import dictCreate from '@/utils/corejs/dict-data/dict-create.js'
+import dictCreate from '@/libs/corejs/dict-data/dict-create.js'
 
 describe('dict-data-数据字典创建', function () {
   it('基础调用', function () {

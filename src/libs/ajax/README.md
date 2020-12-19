@@ -11,7 +11,7 @@
 // 调用示例
 // 最好在入口 main.js 中初始 loading 设置
 import Vue from 'vue'
-import ajax from '@/utils/ajax/ajax-comm'
+import ajax from '@/libs/ajax/ajax-comm'
 const loading = Vue.prototype.$loading
 // 指定 loading
 ajax.loading = loading

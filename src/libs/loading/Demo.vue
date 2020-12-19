@@ -15,7 +15,7 @@
 
 <script>
 
-import loading from '@/utils/loading'
+import loading from '@/libs/loading'
 export default {
   data () {
     return {

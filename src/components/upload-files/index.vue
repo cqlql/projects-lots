@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import fileSelect from '@/utils/corejs/file/file-select'
+import fileSelect from '@/libs/corejs/file/file-select'
 import IcoAdd from '@/components/ico/Add.vue'
 import IcoDel from '@/components/ico/Del.vue'
 

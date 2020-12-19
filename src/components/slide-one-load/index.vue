@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import transitionendOnce from '@/utils/corejs/animation/transitionend-once'
-import autoprefix from '@/utils/corejs/css/autoprefix.js'
-import swipex from '@/utils/corejs/drag/swipex'
+import transitionendOnce from '@/libs/corejs/animation/transitionend-once'
+import autoprefix from '@/libs/corejs/css/autoprefix.js'
+import swipex from '@/libs/corejs/drag/swipex'
 import LengthTest from './LengthTest'
 import MoveArray from './MoveArray'
 export default {

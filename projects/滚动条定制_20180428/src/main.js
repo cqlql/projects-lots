@@ -15,7 +15,7 @@ customScroll({
 })
  */
 import App from './App.vue'
-// import scriptLoad from '@/utils/corejs/dom/script-load'
+// import scriptLoad from '@/libs/corejs/dom/script-load'
 
 // scriptLoad('http://style.shenduxuetang.com/vue/2.5.21/vue.runtime.min.js').then(() => {
 //   new Vue({

@@ -7,8 +7,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import LoadOnce from '@/utils/corejs/load-once'
-import scriptLoad from '@/utils/corejs/load/script-load'
+import LoadOnce from '@/libs/corejs/load-once'
+import scriptLoad from '@/libs/corejs/load/script-load'
 const ckeditorLoadOnce = new LoadOnce()
 
 @Component

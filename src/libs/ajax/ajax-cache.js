@@ -1,4 +1,4 @@
-import QueueWait from '@/utils/corejs/queue/queue-wait.js'
+import QueueWait from '@/libs/corejs/queue/queue-wait.js'
 
 export default class AjaxCache {
   constructor (axios) {

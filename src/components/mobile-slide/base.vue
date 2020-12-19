@@ -1,6 +1,6 @@
 
 <script>
-import autoprefix from '@/utils/corejs/css/autoprefix'
+import autoprefix from '@/libs/corejs/css/autoprefix'
 export default {
   props: {
     imgs: {

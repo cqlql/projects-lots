@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ZoomTouch from '@/utils/zoom-touch/zoom-touch.js'
+import ZoomTouch from '@/libs/zoom-touch/zoom-touch.js'
 export default {
   mounted () {
     // 直接指定一个放大元素

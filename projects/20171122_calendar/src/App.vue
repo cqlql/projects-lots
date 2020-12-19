@@ -34,7 +34,7 @@
 
 <script>
   import Datetime from '../src/modules/datetime'
-  import SliderOne from '@/utils/slider-one/slider-one'
+  import SliderOne from '@/libs/slider-one/slider-one'
   import calendarHandle from './calendar-handle'
   let datetime = new Datetime()
   export default {

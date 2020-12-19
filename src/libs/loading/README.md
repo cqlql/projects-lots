@@ -3,7 +3,7 @@
 ## 使用示例
 
 ```js
-import loading from '@/utils/loading'
+import loading from '@/libs/loading'
 loading.show() // 200ms延迟显示
 loading.show({ time: 0 }) // 立即显示
 loading.show({ mask: true }) // 蒙层显示

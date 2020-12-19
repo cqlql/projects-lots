@@ -1,5 +1,5 @@
-import drag from '@/utils/corejs/dom-drag/drag'
-import autoprefix from '@/utils/corejs/css/autoprefix'
+import drag from '@/libs/corejs/dom-drag/drag'
+import autoprefix from '@/libs/corejs/css/autoprefix'
 const transform = autoprefix('transform')
 function getTarget (e) {
   return e.targetTouches ? e.targetTouches[0] : e

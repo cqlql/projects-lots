@@ -9,7 +9,7 @@
 
 <script>
 import BaseCheckbox from '@/components/forms/BaseCheckbox.vue'
-import SelectAll from '@/utils/corejs/select-all'
+import SelectAll from '@/libs/corejs/select-all'
 export default {
   components: {
     BaseCheckbox

@@ -62,7 +62,7 @@
 
 <script>
   import Heade from './Header.vue'
-  import VMask from '@/utils/VMask.vue'
+  import VMask from '@/libs/VMask.vue'
   export default {
     props: ['bus'],
     data () {

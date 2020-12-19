@@ -13,7 +13,7 @@
 
 <script>
 import transition from './transition.js'
-import autoprefix from '@/utils/corejs/css/autoprefix'
+import autoprefix from '@/libs/corejs/css/autoprefix'
 export default {
   data () {
     return {

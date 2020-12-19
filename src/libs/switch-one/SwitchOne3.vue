@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import transitionendOnce from '@/utils/corejs/animation/transitionend-once.js'
+import transitionendOnce from '@/libs/corejs/animation/transitionend-once.js'
 
 // 一次队列：队列只暂存最新的一个
 // class QueueOne {

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import drag from '@/utils/corejs/drag/drag-plus.js'
+import drag from '@/libs/corejs/drag/drag-plus.js'
 export default {
   // model: {
   //   prop: 'width',
