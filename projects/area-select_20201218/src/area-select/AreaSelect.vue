@@ -1,38 +1,50 @@
 <template>
-  <div class="s">
-    <div v-areaselect class="ipt" @click="click" />
-    <!-- <AreaSelector :get="getRegionList" /> -->
+  <div>
+    <div class="ipt" @click="click">{{ names }}</div>
+    <div class="a-select">
+      <AreaSelectBase v-if="show" :get="getRegionList" @change="change" />
+    </div>
   </div>
 </template>
 
 <script>
-// import AreaSelector from './AreaSelector'
-import AreaSelectorFn from './area-selector-fn.js'
+import OutsideClose from '@/libs/corejs/dom/outside-close.js'
+import AreaSelectBase from './AreaSelectBase'
 export default {
-  components: {
-    // AreaSelector
+  components: { AreaSelectBase },
+  model: {
+    prop: 'value',
+    event: 'change'
   },
-  directives: {
-    areaselect: {
-      bind (el) {
-        const areaSelectorFn = el.areaSelectorFn = new AreaSelectorFn()
-        console.log(areaSelectorFn.isShow)
-        el.addEventListener('click', function () {
-          if (areaSelectorFn.isShow) areaSelectorFn.hide()
-          else areaSelectorFn.show()
-        })
-        areaSelectorFn.change(function ({ value }) {
-          console.log(value)
-        })
-      },
-      unbind (el) {
-        el.areaSelectorFn.destroy()
-      }
+  props: {
+    value: {
+      default: '',
+      type: String
     }
   },
+  data () {
+    return {
+      show: false,
+      names: ''
+    }
+  },
+  mounted () {
+    // 点外面关闭
+    // 用最外层可能会有一块空白区域，所以用了独立的子元素区别里外
+    // 但由于 AreaSelectBase 用了 v-if，所以无法初始绑定，才增加了 a-select
+    this.outsideClose = new OutsideClose(this.$el.children, () => {
+      this.show = false
+    })
+  },
+  destroyed () {
+    this.outsideClose.off()
+  },
   methods: {
-    click () {
-      // toggle
+    toggle () { this.show = !this.show },
+    click () { this.toggle() },
+    change (values) {
+      this.names = values.names
+      this.$emit('change', values.value)
     },
     getRegionList (id = '1') {
       console.log('请求')
@@ -296,10 +308,6 @@ export default {
 </script>
 
 <style scoped>
-.s {
-  color: red;
-  font-size: 20px;
-}
 .ipt {
   height: 38px;
   width: 300px;

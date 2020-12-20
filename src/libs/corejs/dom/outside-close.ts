@@ -9,6 +9,7 @@ export default class OutsideClose {
     this.clickOutside = this.clickOutside.bind(this)
     this.on(el)
   }
+
   close () {}
   clickOutside () {
     if (this.outside) {
@@ -16,12 +17,14 @@ export default class OutsideClose {
     }
     this.outside = true
   }
+
   on (el: HTMLElement) {
     el.addEventListener('mousedown', () => {
       this.outside = false
     })
     window.addEventListener('mousedown', this.clickOutside)
   }
+
   off () {
     window.removeEventListener('mousedown', this.clickOutside)
   }

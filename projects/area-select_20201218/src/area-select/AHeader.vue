@@ -25,17 +25,10 @@ export default {
       default: () => []
     }
   },
-  // data () {
-  //   return {
-  //   }
-  // },
   computed: {
     tits () {
       const { index, selectedItems } = this
       const tits = []
-      // this.selectedItems.forEach(({ name }) => {
-      //   tits.push(name)
-      // })
       for (let i = 0, len = index + 1; i < len; i++) {
         const item = selectedItems[i]
         if (item) {
@@ -44,18 +37,9 @@ export default {
           tits.push(this.types[i])
         }
       }
-      console.log(this.index)
-      // if (this.index < maxLevel && isNoMax) {
-      //   tits.push(this.types[this.index])
-      // }
       return tits
     }
   }
-  // methods: {
-  //   onClick (i) {
-  //     this.$emit('select', i)
-  //   }
-  // }
 }
 </script>
 

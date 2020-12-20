@@ -1,5 +1,5 @@
 /**
- *
+ * 点外面关闭
  * @example
   let outsideClose = new OutsideClose({
     onClose () {
@@ -34,14 +34,19 @@
 //     document.removeEventListener('mousedown', this.onActive)
 //   }
 // }
-
+/**
+ *
+ * @param {Element, Array} els 里面元素,不触发关闭的元素。多个元素时，只要有 forEach 的集合就行
+ *
+ */
 export default class OutsideClose {
   outside = true
-  constructor (el, close) {
+  constructor (els, close) {
     this.close = close
     this.clickOutside = this.clickOutside.bind(this)
-    this.on(el)
+    this.on(els)
   }
+
   close () {}
   clickOutside () {
     if (this.outside) {
@@ -49,12 +54,23 @@ export default class OutsideClose {
     }
     this.outside = true
   }
-  on (el) {
-    el.addEventListener('mousedown', () => {
+
+  on (els) {
+    console.log(els)
+    const inside = () => {
       this.outside = false
+    }
+    if (!els.forEach) {
+      els = [els]
+    }
+    els.forEach(el => {
+      console.log(el)
+      el.addEventListener('mousedown', inside)
     })
+
     window.addEventListener('mousedown', this.clickOutside)
   }
+
   off () {
     window.removeEventListener('mousedown', this.clickOutside)
   }

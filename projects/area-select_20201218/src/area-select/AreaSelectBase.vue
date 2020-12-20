@@ -1,5 +1,5 @@
 <template>
-  <div class="area-selector">
+  <div class="area-select">
     <AHeader
       :index="currIndex"
       :selected-items="selectedItems"
@@ -25,9 +25,7 @@
 <script>
 import AHeader from './AHeader'
 export default {
-  components: {
-    AHeader
-  },
+  components: { AHeader },
   props: {
     get: {
       type: Function,
@@ -41,7 +39,7 @@ export default {
       all: [],
       selectedItems: [], // 当前选中的项
       // 当前选中id
-      value: ''
+      // value: ''
     }
   },
   computed: {
@@ -58,6 +56,20 @@ export default {
     },
     isNoMax () {
       return this.selectedItems.length < this.maxLevel
+    }
+  },
+  watch: {
+    selectedItems (items) {
+      let value = ''
+      let names = ''
+      if (items.length) {
+        value = items[items.length - 1].id
+        this.selectedItems.forEach(({ name }) => {
+          names += '/' + name
+        })
+        names = names.substr(1)
+      }
+      this.$emit('change', { value, names })
     }
   },
   async created () {
@@ -86,7 +98,7 @@ export default {
 </script>
 
 <style scoped>
-.area-selector {
+.area-select {
   color: #606266;
   border: 1px solid #ddd;
   font-size: 14px;
