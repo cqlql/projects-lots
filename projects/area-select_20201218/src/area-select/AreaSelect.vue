@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import OutsideClose from '@/libs/corejs/dom/outside-close.js'
+import OutsideClose from '@/utils/corejs/dom/outside-close.js'
 import AreaSelectBase from './AreaSelectBase'
 export default {
   components: { AreaSelectBase },

@@ -36,8 +36,8 @@
 <script>
   import Heade from './Header.vue'
   import Result from './Result.vue'
-  import VMask from '@/libs/VMask.vue'
-  import Timing from '@/libs/timing'
+  import VMask from '@/utils/VMask.vue'
+  import Timing from '@/utils/timing'
   import piData from '@/js/pi-data'
   export default {
     props: ['bus'],

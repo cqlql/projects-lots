@@ -1,7 +1,7 @@
-import darg from '@/libs/corejs/drag/drag.js'
-import autoprefix from '@/libs/corejs/css/autoprefix'
-import Queue from '@/libs/corejs/queue/queue.js'
-import transitionendOnce from '@/libs/corejs/animation/transitionend-once'
+import darg from '@/utils/corejs/drag/drag.js'
+import autoprefix from '@/utils/corejs/css/autoprefix'
+import Queue from '@/utils/corejs/queue/queue.js'
+import transitionendOnce from '@/utils/corejs/animation/transitionend-once'
 export default function Drag ({ elem, containerElem, maxY, loadingY, onChange, onReload, transitionActive }) {
   let states = 0 // 0 未开始 1 已开始，但不满足 2 满足 3 加载中 4 加载完成
   let eStyle = elem.style
@@ -105,14 +105,14 @@ export default function Drag ({ elem, containerElem, maxY, loadingY, onChange, o
       if (isRun) return false
       let touche = e.touches ? e.touches[0] : e
       let { pageY } = touche
-      // require('@/libs/debug-msg/w.js').default.show(scrollTop())
+      // require('@/utils/debug-msg/w.js').default.show(scrollTop())
       if (scrollTop() > 0) {
         prePageY = pageY
         return
       }
       // 在 move 中判断开始。是为了加载中情况触发拖动，衔接更平滑，后来问题大于好处，所以弃用。问题见下
       // if (!dargStart) {
-      //   // require('@/libs/debug-msg/w.js').default.show('start')
+      //   // require('@/utils/debug-msg/w.js').default.show('start')
       //   dargStart = true
       //   prePageY = pageY
       //   preY = currY

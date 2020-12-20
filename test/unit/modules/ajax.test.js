@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
-import Ajax from '@/libs/ajax-api/ajax'
+import Ajax from '@/utils/ajax-api/ajax'
 
 Vue.loading = {
   show () {

@@ -10,7 +10,7 @@
 -->
 
 <script>
-import scopeElements from '@/libs/corejs/dom/scope-elements.js'
+import scopeElements from '@/utils/corejs/dom/scope-elements.js'
 import Highlight from './highlight.js'
 export default {
   data () {

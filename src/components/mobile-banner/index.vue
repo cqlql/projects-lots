@@ -1,8 +1,8 @@
 <script>
-import swipex from '@/libs/corejs/dom-drag/swipex'
-import autoprefix from '@/libs/corejs/css/autoprefix'
-import transitionendOnce from '@/libs/corejs/animation/transitionend-once'
-import Timer from '@/libs/corejs/time/timer'
+import swipex from '@/utils/corejs/dom-drag/swipex'
+import autoprefix from '@/utils/corejs/css/autoprefix'
+import transitionendOnce from '@/utils/corejs/animation/transitionend-once'
+import Timer from '@/utils/corejs/time/timer'
 let transform = autoprefix('transform')
 export default {
   render () {

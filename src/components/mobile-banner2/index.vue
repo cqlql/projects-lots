@@ -7,10 +7,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop, Component, Watch } from 'vue-property-decorator'
-import swipex from '@/libs/corejs/drag/swipex.ts'
+import swipex from '@/utils/corejs/drag/swipex.ts'
 import Move from './animation/Move.vue'
 import Fade from './animation/Fade.vue'
-import Timer from '@/libs/corejs/time/timer.ts'
+import Timer from '@/utils/corejs/time/timer.ts'
 
 interface AnimationComp extends Vue {
   locked: boolean

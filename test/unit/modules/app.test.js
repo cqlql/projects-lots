@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Ajax from '@/libs/ajax-api/app'
+import Ajax from '@/utils/ajax-api/app'
 
 Vue.loading = {
   show () {

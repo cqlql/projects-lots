@@ -3,7 +3,7 @@
 /**
  * 关于惯性实现，直接根据角度值计算即可
  */
-import drag from '@/libs/corejs/dom-drag/drag.js'
+import drag from '@/utils/corejs/dom-drag/drag.js'
 // import InertiaAnime from '../corejs/animation/inertia-anime'
 const PI = Math.PI
 export default class {

@@ -13,8 +13,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop, Component, Watch } from 'vue-property-decorator'
-import transitionendOnce from '@/libs/corejs/animation/transitionend-once.ts'
-import timeout from '@/libs/corejs/time/timeout-async'
+import transitionendOnce from '@/utils/corejs/animation/transitionend-once.ts'
+import timeout from '@/utils/corejs/time/timeout-async'
 interface imgItem {
   isShow: boolean
   url: string

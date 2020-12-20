@@ -1,4 +1,4 @@
-import autoprefix from '@/libs/corejs/css/autoprefix'
+import autoprefix from '@/utils/corejs/css/autoprefix'
 const transform = autoprefix('transform')
 export default class {
   constructor ({eBarBox, eBar, getRatio, $style}) {

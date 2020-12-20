@@ -20,7 +20,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Prop, Component } from 'vue-property-decorator'
-import fileSelect from '@/libs/corejs/file/file-select'
+import fileSelect from '@/utils/corejs/file/file-select'
 export interface ImageInfo {
   url: string
   name: string

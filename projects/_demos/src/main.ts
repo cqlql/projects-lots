@@ -8,11 +8,11 @@ import router from './router'
 // import App from '@/components/drag-view/demo/Index.vue'// 窗口宽拖动改变
 // import App from '@/components/drag-bar/demo/Index.vue'// 窗口宽拖动改变 - 更高的可配置
 // import App from '@/components/popup/demo.vue'// 窗口宽拖动改变 - 更高的可配置
-// import App from '@/libs/toast/Demo.vue'// toast 简易消息 js版
-// import App from '@/libs/loading/Demo.vue'// loading js版
+// import App from '@/utils/toast/Demo.vue'// toast 简易消息 js版
+// import App from '@/utils/loading/Demo.vue'// loading js版
 // import App from '@/components/image-crop/Demo.vue'// 截图
-// import App from '@/libs/ajax/Demo.vue'// ajax
-// import App from '@/libs/corejs/load-once2/demo/Index.vue'// ajax
+// import App from '@/utils/ajax/Demo.vue'// ajax
+// import App from '@/utils/corejs/load-once2/demo/Index.vue'// ajax
 
 Vue.use(Toast)
 

@@ -9,7 +9,7 @@
 <script>
 /* eslint-disable */
 import swipex from './swipex.js'
-import Animation from '@/libs/corejs/animation/animation.js'
+import Animation from '@/utils/corejs/animation/animation.js'
 
 class Anima {
   constructor ({move = () => {}, rate = 0.2, complete = () => {}}) {
