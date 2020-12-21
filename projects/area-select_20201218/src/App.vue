@@ -1,7 +1,7 @@
 <template>
   <div class="s">
-    <p>{{ id }}</p>
-    <AreaSelect v-model="id" />
+    <p>{{ JSON.stringify(values) }}</p>
+    <AreaSelect @change="change" />
   </div>
 </template>
 
@@ -12,7 +12,12 @@ export default {
   components: { AreaSelect },
   data () {
     return {
-      id: ''
+      values: ''
+    }
+  },
+  methods: {
+    change (values) {
+      this.values = values
     }
   }
 }

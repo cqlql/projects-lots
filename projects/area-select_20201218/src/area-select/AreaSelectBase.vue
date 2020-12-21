@@ -27,6 +27,10 @@ import AHeader from './AHeader'
 export default {
   components: { AHeader },
   props: {
+    loading: {
+      type: Boolean,
+      default: false
+    },
     get: {
       type: Function,
       default: () => new Promise((resolve, reject) => resolve())
@@ -37,7 +41,7 @@ export default {
       types: ['省', '市', '区'],
       currIndex: 0, // 当前展示的列表
       all: [],
-      selectedItems: [], // 当前选中的项
+      selectedItems: [] // 当前选中的项
       // 当前选中id
       // value: ''
     }
@@ -62,14 +66,17 @@ export default {
     selectedItems (items) {
       let value = ''
       let names = ''
+      let name = '' // 当前选中的最后一级name
       if (items.length) {
-        value = items[items.length - 1].id
+        const lastItem = items[items.length - 1]
+        value = lastItem.id
+        name = lastItem.name
         this.selectedItems.forEach(({ name }) => {
           names += '/' + name
         })
         names = names.substr(1)
       }
-      this.$emit('change', { value, names })
+      this.$emit('change', { value, name, names, max: !this.isNoMax })
     }
   },
   async created () {
@@ -88,6 +95,9 @@ export default {
       const list = await this.get(id)
       this.$set(this.all, index, list) // 显示列表
       this.currIndex = index
+      if (list.length === 1) {
+        this.onSelect(list[0])
+      }
     },
     onHeaderSelect (i) {
       this.currIndex = i
@@ -111,13 +121,13 @@ export default {
   }
   .a-item {
     padding: 0 20px;
-    &:hover {
-      background: #F5F7FA;
-    }
-    &.active {
-      color: #409eff;
-      font-weight: 700;
-    }
+  }
+  .a-item:hover {
+    background: #F5F7FA;
+  }
+  .a-item.active {
+    color: #409eff;
+    font-weight: 700;
   }
 }
 </style>

@@ -1,15 +1,18 @@
 /**
  * 点外面关闭
  * @example
-  let outsideClose = new OutsideClose({
-    onClose () {
-      dataApi.activeIndex = -1
-    },
-    check (eventElement) {
-      return eventElement.className.indexOf('cke') > -1
-    }
+  let outsideClose = new OutsideClose(els, () => {
+    this.show = false
   })
  */
+// let outsideClose = new OutsideClose({
+//   onClose () {
+//     dataApi.activeIndex = -1
+//   },
+//   check (eventElement) {
+//     return eventElement.className.indexOf('cke') > -1
+//   }
+// })
 // export default class OutsideClose {
 //   /**
 //    * @param {function} check 检查，true 则不关闭

@@ -1,9 +1,9 @@
-// 直接 js 方式使用，待实现
+// ！！直接 js 方式使用，待实现！！
 
 import Vue from 'vue'
 import AreaSelectComp from './AreaSelectBase.vue'
 
-export default class AreaSelectFn {
+export default class AreaSelect {
   areaSelect = null // 组件实例
   isShow = false
 

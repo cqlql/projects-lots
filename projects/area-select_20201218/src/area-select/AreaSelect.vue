@@ -1,53 +1,41 @@
 <template>
-  <div>
-    <div class="ipt" @click="click">{{ names }}</div>
-    <div class="a-select">
-      <AreaSelectBase v-if="show" :get="getRegionList" @change="change" />
-    </div>
-  </div>
+  <AreaSelectIpt :get="getRegionList" :loading="loading" @change="change" />
 </template>
 
 <script>
-import OutsideClose from '@/utils/corejs/dom/outside-close.js'
-import AreaSelectBase from './AreaSelectBase'
+import AreaSelectIpt from './AreaSelectIpt.vue'
+// import { area } from "@/api/area"
 export default {
-  components: { AreaSelectBase },
-  model: {
-    prop: 'value',
-    event: 'change'
-  },
+  components: { AreaSelectIpt },
+  // model: {
+  //   prop: 'value',
+  //   event: 'change'
+  // },
   props: {
     value: {
-      default: '',
-      type: String
+      type: String,
+      default: ''
     }
   },
   data () {
     return {
-      show: false,
-      names: ''
+      loading: false
     }
   },
-  mounted () {
-    // 点外面关闭
-    // 用最外层可能会有一块空白区域，所以用了独立的子元素区别里外
-    // 但由于 AreaSelectBase 用了 v-if，所以无法初始绑定，才增加了 a-select
-    this.outsideClose = new OutsideClose(this.$el.children, () => {
-      this.show = false
-    })
-  },
-  destroyed () {
-    this.outsideClose.off()
-  },
   methods: {
-    toggle () { this.show = !this.show },
-    click () { this.toggle() },
-    change (values) {
-      this.names = values.names
-      this.$emit('change', values.value)
-    },
     getRegionList (id = '1') {
-      console.log('请求')
+      // this.loading = true
+      // return area({ id }).then((res) => {
+      //   if (res.code == 200) {
+      //     return res.data.map((item) => {
+      //       return {
+      //         id: item.id,
+      //         name: item.name,
+      //         level: item.level
+      //       }
+      //     })
+      //   }
+      // }).finally(() => this.loading = false);
       if (id === '1') {
         return new Promise((resolve, reject) => {
           resolve(
@@ -302,15 +290,10 @@ export default {
           ]
         )
       })
+    },
+    change (values) {
+      this.$emit('change', values)
     }
   }
 }
 </script>
-
-<style scoped>
-.ipt {
-  height: 38px;
-  width: 300px;
-  border: 1px solid #ddd;
-}
-</style>
