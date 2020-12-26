@@ -2,18 +2,18 @@
   <div class="box">
     <VBtn @click="add">增加选项</VBtn>
     <div class="tab-box">
-    <VTab :names="names" @change="onChange">
+    <Tabs :names="names" @change="onChange">
       <div class="cont-item" v-for="(item, i) in list" :key="i" v-show="selectedIndex===i">
         {{item}}
       </div>
-    </VTab>
+    </Tabs>
     </div>
   </div>
 </template>
 
 <script>
 import VBtn from '../buttons/VButtonSmall'
-import VTab from './index'
+import Tabs from './index'
 export default {
   data () {
     return {
@@ -36,7 +36,7 @@ export default {
     }
   },
   components: {
-    VTab,
+    Tabs,
     VBtn
   }
 }

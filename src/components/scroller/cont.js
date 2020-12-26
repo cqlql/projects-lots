@@ -1,4 +1,4 @@
-import drag from '@/utils/corejs/dom-drag/drag'
+import drag from '@/utils/corejs/drag/drag.js'
 import autoprefix from '@/utils/corejs/css/autoprefix'
 const transform = autoprefix('transform')
 function getTarget (e) {

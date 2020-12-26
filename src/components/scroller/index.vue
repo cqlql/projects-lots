@@ -1,9 +1,9 @@
 <template>
   <div :class="$style.box">
     <div class="move">
-    <slot/>
+      <slot />
     </div>
-    <div :class="$style.barBox"><b :class="$style.bar"></b></div>
+    <div :class="$style.barBox"><b :class="$style.bar" /></div>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
     const eMove = child[0]
     const eBarBox = child[1]
     const eBar = eBarBox.children[0]
-    const {$style} = this
+    const { $style } = this
     const styleHover = $style.hover
 
     const cont = this.cont = new Cont({
@@ -75,7 +75,7 @@ export default {
 /* .box:hover .barBox.show{
   display: block;
 } */
-.barBox.show{
+.barBox.show {
   display: block;
 }
 .bar {
