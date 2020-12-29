@@ -1,15 +1,15 @@
 <template>
   <div class="s">
     <p>{{ JSON.stringify(values) }}</p>
-    <AreaSelect @change="change" />
+    <RegionSelector @change="change" />
   </div>
 </template>
 
 <script>
-import AreaSelect from './area-select/AreaSelect.vue'
+import RegionSelector from './region-selector/RegionSelector'
 
 export default {
-  components: { AreaSelect },
+  components: { RegionSelector },
   data () {
     return {
       values: ''

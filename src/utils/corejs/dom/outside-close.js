@@ -43,9 +43,9 @@
  *
  */
 export default class OutsideClose {
-  outside = true
   constructor (els, close) {
     this.close = close
+    this.outside = true
     this.clickOutside = this.clickOutside.bind(this)
     this.on(els)
   }

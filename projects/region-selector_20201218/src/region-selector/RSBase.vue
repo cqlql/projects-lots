@@ -1,6 +1,6 @@
 <template>
-  <div class="area-select">
-    <AHeader
+  <div class="region-selector">
+    <RSHeader
       :index="currIndex"
       :selected-items="selectedItems"
       :types="types"
@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import AHeader from './AHeader'
+import RSHeader from './RSHeader'
 export default {
-  components: { AHeader },
+  components: { RSHeader },
   props: {
     loading: {
       type: Boolean,
@@ -108,7 +108,7 @@ export default {
 </script>
 
 <style scoped>
-.area-select {
+.region-selector {
   color: #606266;
   border: 1px solid #ddd;
   font-size: 14px;

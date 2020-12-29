@@ -1,12 +1,12 @@
 <template>
-  <AreaSelectIpt :get="getRegionList" :loading="loading" @change="change" />
+  <RSInput :get="getRegionList" :loading="loading" @change="change" />
 </template>
 
 <script>
-import AreaSelectIpt from './AreaSelectIpt.vue'
+import RSInput from './RSInput.vue'
 // import { area } from "@/api/area"
 export default {
-  components: { AreaSelectIpt },
+  components: { RSInput },
   // model: {
   //   prop: 'value',
   //   event: 'change'

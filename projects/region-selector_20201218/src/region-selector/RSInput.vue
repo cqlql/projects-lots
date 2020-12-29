@@ -4,7 +4,7 @@
     <!-- <el-input :value="names" readonly placeholder="请选择" @click.native="click" /> -->
     <div class="a-select">
       <keep-alive>
-        <AreaSelectBase v-if="show" class="a-list" :get="get" :loading="loading" @change="change" />
+        <RSBase v-if="show" class="a-list" :get="get" :loading="loading" @change="change" />
       </keep-alive>
     </div>
   </div>
@@ -12,9 +12,9 @@
 
 <script>
 import OutsideClose from '@/utils/corejs/dom/outside-close.js'
-import AreaSelectBase from './AreaSelectBase'
+import RSBase from './RSBase'
 export default {
-  components: { AreaSelectBase },
+  components: { RSBase },
   // model: {
   //   prop: 'value',
   //   event: 'change'
@@ -42,7 +42,7 @@ export default {
   mounted () {
     // 点外面关闭
     // 用最外层可能会有一块空白区域，所以用了独立的子元素区别里外
-    // 但由于 AreaSelectBase 用了 v-if，所以无法初始绑定，才增加了 a-select
+    // 但由于 RSBase 用了 v-if，所以无法初始绑定，才增加了 a-select
     this.outsideClose = new OutsideClose(this.$el.children, () => {
       this.show = false
     })
