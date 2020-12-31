@@ -109,7 +109,7 @@ export default [
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/popup/README.md')
       },
       {
-        name: '截图',
+        name: '移动端裁图',
         path: '/image-crop',
         demo: () => import(/* webpackChunkName: "docs1" */ '@/components/image-crop/Demo.vue'),
         docs: () => import(/* webpackChunkName: "docs1" */ '@/components/image-crop/README.md')

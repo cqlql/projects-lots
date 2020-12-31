@@ -17,17 +17,25 @@ const routes: RouteConfig[] = [
   //   component: require('@/components/mobile-banner2/demo/PcFullWidth.vue').default
   // },
   {
-    path: '/scroller',
-    component: require('@/components/scroller/demo.vue').default
+    path: '/image-crop-pc',
+    component: require('@/components/image-crop-pc/Demo.vue').default
   },
   {
-    path: '/tabs',
-    component: require('@/components/tabs/demo.vue').default
+    path: '/image-crop',
+    component: require('@/components/image-crop/Demo.vue').default
   },
-  {
-    path: '/switch-one',
-    component: require('@/components/switch-one/demo/Index.vue').default
-  },
+  // {
+  //   path: '/scroller',
+  //   component: require('@/components/scroller/demo.vue').default
+  // },
+  // {
+  //   path: '/tabs',
+  //   component: require('@/components/tabs/demo.vue').default
+  // },
+  // {
+  //   path: '/switch-one',
+  //   component: require('@/components/switch-one/demo/Index.vue').default
+  // },
 ]
 
 export default new Router({
