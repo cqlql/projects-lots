@@ -24,6 +24,18 @@ const routes: RouteConfig[] = [
     path: '/image-crop',
     component: require('@/components/image-crop/Demo.vue').default
   },
+  {
+    path: '/confirm',
+    component: require('@/components/confirm/demo.vue').default
+  },
+  {
+    path: '/bottom-load',
+    component: require('@/components/bottom-load/demo/Index.vue').default
+  },
+  {
+    path: '/switch-one',
+    component: require('@/components/switch-one/demo/Index.vue').default
+  },
   // {
   //   path: '/scroller',
   //   component: require('@/components/scroller/demo.vue').default
