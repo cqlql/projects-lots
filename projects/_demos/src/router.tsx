@@ -36,6 +36,10 @@ const routes: RouteConfig[] = [
     path: '/switch-one',
     component: require('@/components/switch-one/demo/Index.vue').default
   },
+  {
+    path: '/popup',
+    component: require('@/components/popup/demo.vue').default
+  },
   // {
   //   path: '/scroller',
   //   component: require('@/components/scroller/demo.vue').default
