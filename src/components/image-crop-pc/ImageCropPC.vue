@@ -78,11 +78,11 @@ export default {
     },
     show: {
       type: Boolean,
-      default: true
+      default: false
     },
     url: {
       type: String,
-      default: 'https://hbfile.huabanimg.com/img/home/banner/e0c5d472e83937cea19dc16052c070e8502869d113ff2f'
+      default: ''
     },
     // 选择框 宽/高 比
     aspectRatio: {
