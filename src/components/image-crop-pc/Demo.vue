@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <button @click="imgSelect">选择截图</button>
-    <ZoomMouseDemo />
-    <!-- <ImageCropPC
+    <!-- <ZoomMouseDemo /> -->
+    <ImageCropPC
       :show="true"
       :url="url"
-    /> -->
+    />
   </div>
 </template>
 

@@ -31,44 +31,48 @@ export default class ZoomTouch extends DragZoom {
       this.update()
     }
   }
+
   // 松开情况，只要还有手指在，就会触发
   onStart (pageX, pageY) {
-    let x = this.prex = this.x
-    let y = this.prey = this.y
+    const x = this.prex = this.x
+    const y = this.prey = this.y
     this.preScale = this.scale
     this.startx = pageX
     this.starty = pageY
 
-    let { elClientRect, scale } = this
+    const { elClientRect, scale } = this
     this.transformOriginX = (pageX - elClientRect.left - x) / (elClientRect.width * scale)
     this.transformOriginY = (pageY - elClientRect.top - y) / (elClientRect.height * scale)
   }
+
   onMove (pageX, pageY, scale) {
-    let { preScale, elClientRect } = this
+    const { preScale, elClientRect } = this
 
     this.scale = scale * preScale
 
     // 放大后偏移的 xy
-    let toScale = (scale - 1) * preScale
-    let sx = elClientRect.width * toScale * this.transformOriginX
-    let sy = elClientRect.height * toScale * this.transformOriginY
+    const toScale = (scale - 1) * preScale
+    const sx = elClientRect.width * toScale * this.transformOriginX
+    const sy = elClientRect.height * toScale * this.transformOriginY
 
     this.x = this.prex + pageX - this.startx - sx
     this.y = this.prey + pageY - this.starty - sy
     this.css()
   }
+
   update () {
     // 注意：getBoundingClientRect 不会忽略 transform，而这里需要得到元素忽略 transform 的原始高宽坐标，待改正
     // this.elClientRect = this.elem.getBoundingClientRect()
 
     // 改正后
-    let { elClientRect, elem } = this
-    let { x, y } = elPageXy(elem)
+    const { elClientRect, elem } = this
+    const { x, y } = elPageXy(elem)
     elClientRect.left = x
     elClientRect.top = y
     elClientRect.width = elem.offsetWidth
     elClientRect.height = elem.offsetHeight
   }
+
   css () {
     this.elem.style[this.transform] = `translate(${this.x}px,${this.y}px) scale(${this.scale})`
   }
