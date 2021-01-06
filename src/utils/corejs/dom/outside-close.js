@@ -59,7 +59,6 @@ export default class OutsideClose {
   }
 
   on (els) {
-    console.log(els)
     const inside = () => {
       this.outside = false
     }
@@ -67,14 +66,13 @@ export default class OutsideClose {
       els = [els]
     }
     els.forEach(el => {
-      console.log(el)
-      el.addEventListener('mousedown', inside)
+      el.addEventListener('click', inside)
     })
 
-    window.addEventListener('mousedown', this.clickOutside)
+    window.addEventListener('click', this.clickOutside)
   }
 
   off () {
-    window.removeEventListener('mousedown', this.clickOutside)
+    window.removeEventListener('click', this.clickOutside)
   }
 }

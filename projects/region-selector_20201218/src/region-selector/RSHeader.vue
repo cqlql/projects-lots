@@ -1,5 +1,6 @@
 <template>
   <div class="a-header">
+    <!-- eslint-disable-next-line vue/require-v-for-key -->
     <div
       v-for="(tit,i) in tits"
       :class="['h-item', index===i ? 'active':'']"
@@ -20,9 +21,10 @@ export default {
       type: Array,
       default: () => []
     },
+    // eslint-disable-next-line vue/require-default-prop
     types: {
-      type: Array,
-      default: () => []
+      // default: () => []
+      type: Array
     }
   },
   computed: {

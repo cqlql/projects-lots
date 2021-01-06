@@ -1,7 +1,25 @@
 <template>
   <div class="s">
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <button @click="destroy">销毁</button>
     <p>{{ JSON.stringify(values) }}</p>
-    <RegionSelector @change="change" />
+    <div v-if="show">
+      <RegionSelector @change="change" />
+    </div>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
+    <p>1</p>
   </div>
 </template>
 
@@ -12,12 +30,16 @@ export default {
   components: { RegionSelector },
   data () {
     return {
+      show: true,
       values: ''
     }
   },
   methods: {
     change (values) {
       this.values = values
+    },
+    destroy () {
+      this.show = false
     }
   }
 }
@@ -27,6 +49,12 @@ export default {
 .s {
   color: red;
   font-size: 20px;
+  width: 300px;
+  border: 1px solid #ddd;
+  overflow: auto;
+  height: 300px;
+  position: absolute;
+  right: 100px;
 }
 .ipt {
   height: 38px;

@@ -1,21 +1,23 @@
 <template>
-  <div class="region-selector">
+  <div class="region-selector" :style="{left:left+'px',top:top+'px'}">
     <RSHeader
       :index="currIndex"
       :selected-items="selectedItems"
       :types="types"
-      @select="onHeaderSelect"
+      @select="onSelectIndex"
     />
     <div class="cont">
+      <!-- eslint-disable vue/require-v-for-key -->
       <ul
         v-for="(list,i) of all"
         v-show="currIndex===i"
         class="a-list"
       >
         <li
-          v-for="(item) in list" :key="item.id"
+          v-for="(item) in list"
+          :key="item.id"
           :class="['a-item', (selectedItems[i]||{}).id===item.id ? 'active':'']"
-          @click="onSelect(item)"
+          @click="onSelectItem(item)"
         >{{ item.name }}</li>
       </ul>
     </div>
@@ -23,6 +25,7 @@
 </template>
 
 <script>
+import OutsideClose from '@/utils/corejs/dom/outside-close.js'
 import RSHeader from './RSHeader'
 export default {
   components: { RSHeader },
@@ -34,16 +37,33 @@ export default {
     get: {
       type: Function,
       default: () => new Promise((resolve, reject) => resolve())
+    },
+    types: {
+      default: () => [],
+      type: Array
+    },
+    top: {
+      default: 0,
+      type: Number
+    },
+    left: {
+      default: 0,
+      type: Number
     }
+    // // 当前选中的id
+    // value: {
+    //   default: '',
+    //   type: String
+    // }
   },
   data () {
     return {
-      types: ['省', '市', '区'],
+      // types: ['省', '市', '区'],
       currIndex: 0, // 当前展示的列表
       all: [],
       selectedItems: [] // 当前选中的项
       // 当前选中id
-      // value: ''
+      // id: ''
     }
   },
   computed: {
@@ -58,33 +78,44 @@ export default {
     maxLevel () {
       return this.types.length
     },
-    isNoMax () {
+    isNoEnd () {
       return this.selectedItems.length < this.maxLevel
     }
   },
   watch: {
     selectedItems (items) {
-      let value = ''
+      let id = ''
       let names = ''
       let name = '' // 当前选中的最后一级name
       if (items.length) {
         const lastItem = items[items.length - 1]
-        value = lastItem.id
+        id = lastItem.id
         name = lastItem.name
         this.selectedItems.forEach(({ name }) => {
           names += '/' + name
         })
         names = names.substr(1)
       }
-      this.$emit('change', { value, name, names, max: !this.isNoMax })
+      this.$emit('change', { id, name, names, end: !this.isNoEnd })
     }
   },
+
   async created () {
     const list = await this.get()
     this.all.push(list)
   },
+  mounted () {
+    const $el = this.$el
+    document.body.appendChild($el)
+    // 点外面关闭
+    // 用最外层可能会有一块空白区域，所以用了独立的子元素区别里外
+    // 但由于 RSBase 用了 v-if，所以无法初始绑定，才增加了 rs-select
+    this.outsideClose = new OutsideClose($el, () => {
+      this.$emit('close')
+    })
+  },
   methods: {
-    async onSelect (item) {
+    async onSelectItem (item) {
       const { maxLevel, selectedItems } = this
       const index = this.currIndex + 1
       this.$set(selectedItems, index - 1, item)
@@ -96,12 +127,16 @@ export default {
       this.$set(this.all, index, list) // 显示列表
       this.currIndex = index
       if (list.length === 1) {
-        this.onSelect(list[0])
+        this.onSelectItem(list[0])
       }
     },
-    onHeaderSelect (i) {
+    onSelectIndex (i) {
       this.currIndex = i
       this.selectedItems.splice(i + 1)
+    },
+    clear () {
+      this.currIndex = 0
+      this.selectedItems = []
     }
   }
 }
@@ -113,6 +148,7 @@ export default {
   border: 1px solid #ddd;
   font-size: 14px;
   line-height: 34px;
+  border-radius: 4px;
 
   .a-list {
     list-style-type:none;padding:0;margin:0;
