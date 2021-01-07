@@ -70,10 +70,7 @@ export default {
   // async created () {
   //   this.getNamesById(this.value)
   //   // this.names = await this.getNamesById(this.value)
-  // },
-  destroyed () {
-    this.outsideClose.off()
-  },
+  // }
   methods: {
     hide () { this.show = false },
     click (e) {
@@ -127,7 +124,7 @@ export default {
 
 }
 .rs-list {
-  position:absolute;
+  position:fixed;
   top: -1px;
   z-index: 1;
   background-color: #fff;

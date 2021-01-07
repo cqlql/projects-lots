@@ -114,6 +114,9 @@ export default {
       this.$emit('close')
     })
   },
+  destroyed () {
+    this.outsideClose.off()
+  },
   methods: {
     async onSelectItem (item) {
       const { maxLevel, selectedItems } = this
