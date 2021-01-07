@@ -24,7 +24,9 @@ module.exports = {
     "selector-pseudo-class-no-unknown": [true, {
       ignorePseudoClasses: ["global"]
     }],
-    "selector-pseudo-element-no-unknown": true,
+    "selector-pseudo-element-no-unknown": [true, {
+      ignorePseudoElements: ["v-deep"]
+    }],
     "selector-type-no-unknown": true,
 
     "media-feature-name-no-unknown": true,
