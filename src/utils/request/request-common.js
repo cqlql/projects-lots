@@ -1,7 +1,6 @@
-import axios from 'axios'
-
-export class AjaxComm {
-  constructor (dataHandle) {
+export class RequestCommon {
+  constructor (dataHandle, axios) {
+    this.axios = axios
     if (dataHandle) {
       this.dataHandle = dataHandle
     } else {
@@ -26,7 +25,7 @@ export class AjaxComm {
     }
 
     config.timeout = 60000
-    return axios(config).then(({ data }) => {
+    return this.axios(config).then(({ data }) => {
       const result = this.dataHandle(data)
       // 失败情况
       if (result instanceof Error) {
@@ -61,7 +60,7 @@ export class AjaxComm {
 }
 
 // .net 接口通用
-export default new AjaxComm(function (data) {
+export default new RequestCommon(function (data) {
   if (data.code === 0) {
     return data.data
   }
