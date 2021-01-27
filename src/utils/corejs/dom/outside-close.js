@@ -1,4 +1,5 @@
 /**
+ * !弃用，使用 close-outside 或者 close-outside-scope
  * 点外面关闭
  * @example
   let outsideClose = new OutsideClose(els, () => {
