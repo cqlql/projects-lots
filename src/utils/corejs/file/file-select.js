@@ -13,7 +13,6 @@ function getInputFile (options) {
     // 目前解决方案：目前只要没有删，就利用起来，这样最多也只会添加一个 input file 了
     file.style.display = 'none'
     document.body.appendChild(file)
-    // setTimeout(() => file.remove(), 60000) // 固定1分钟后删除，好像不靠谱
   }
   fileElem = file
   return file
