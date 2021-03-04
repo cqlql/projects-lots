@@ -1,8 +1,11 @@
 
+// 快捷键，组合键，热键
+
 function keyCtrl (el, cb, cbUp = () => {}) {
   let ctrlDown = false
-  el.addEventListener('keydown', function (e) {
-    let {keyCode} = e
+
+  function keydown (e) {
+    const { keyCode } = e
     if (keyCode === 17) {
       ctrlDown = true
     } else if (ctrlDown) {
@@ -10,13 +13,20 @@ function keyCtrl (el, cb, cbUp = () => {}) {
         e.preventDefault()
       }
     }
-  })
-  el.addEventListener('keyup', function ({keyCode}) {
+  }
+  function keyup ({ keyCode }) {
     if (keyCode === 17) {
       ctrlDown = false
     }
     cbUp(keyCode)
-  })
+  }
+
+  el.addEventListener('keydown', keydown)
+  el.addEventListener('keyup', keyup)
+  return function () {
+    el.removeEventListener('keydown', keydown)
+    el.removeEventListener('keyup', keyup)
+  }
 }
 
 function keyCtrlShift (el, cb) {

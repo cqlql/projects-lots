@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { keyCtrl, keyCtrlShift } from './hot-key.js'
+import { keyCtrl, keyCtrlShift } from './hotkey.js'
 export default {
   data () {
     return {
